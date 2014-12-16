@@ -1,0 +1,39 @@
+﻿<Window x:Class="MilitaryPlanning.Views.MainWindow"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+        xmlns:views="clr-namespace:MilitaryPlanner.Views"
+        xmlns:vm="clr-namespace:MilitaryPlanner.ViewModels"
+        Title="MainWindow" Height="350" Width="525"
+        DataContext="{DynamicResource ViewModelMain}">
+    <Window.Resources>
+        <vm:MainWindowViewModel x:Key="ViewModelMain"/>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CancelCommand, Mode=TwoWay}" />
+        <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
+        <KeyBinding Modifiers="Control" Key="S" Command="{Binding SaveCommand}" />
+        <KeyBinding Modifiers="Control" Key="L" Command="{Binding OpenCommand}" />
+    </Window.InputBindings>
+    <Grid>
+        <Grid.Resources>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <UserControl Grid.RowSpan="2" Content="{Binding OOBView}" />
+
+        <Slider Grid.Column="1" Grid.Row="1" Minimum="{Binding SliderMinimum}" Maximum="{Binding SliderMaximum}" Value="{Binding SliderValue}" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" />
+
+        <UserControl Grid.Column="1" Content="{Binding MapView}" Visibility="Visible"/>
+    </Grid>
+</Window>
+
+
+
