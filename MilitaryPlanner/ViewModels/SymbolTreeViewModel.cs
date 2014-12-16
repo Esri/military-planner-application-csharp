@@ -27,7 +27,7 @@ namespace MilitaryPlanner.ViewModels
             _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525C);
 
             var swRoot = new SymbolViewModelWrapper();
-            swRoot = swRoot.Load("rootSymbolWrapper.xml");
+            swRoot = swRoot.Load(@".\data\oob\oobexample.xml");
 
             return swRoot;
         }
