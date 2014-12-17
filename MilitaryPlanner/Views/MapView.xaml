@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:viewModels="clr-namespace:MilitaryPlanner.ViewModels"
              xmlns:local="clr-namespace:MilitaryPlanner"
              xmlns:helper="clr-namespace:MilitaryPlanner.Helpers"
@@ -14,12 +14,11 @@
              d:DesignHeight="500" d:DesignWidth="500">
     <UserControl.Resources>
         <viewModels:MapViewModel x:Key="MyMapViewModel" />
-		<esri:SimpleFillSymbol x:Key="DefaultFillSymbol" Fill="#4400FF00" BorderBrush="Red" 
-                BorderThickness="1" />
+		<esri:SimpleFillSymbol x:Key="DefaultFillSymbol" Color="#4400FF00" />
     </UserControl.Resources>
 	<Grid DataContext="{StaticResource MyMapViewModel}"
 		helper:EventToCommand.Event="FrameworkElement.Loaded"
-		helper:EventToCommand.CommandParameter="{Binding ElementName=MyMap}"
+		helper:EventToCommand.CommandParameter="{Binding ElementName=MyMapView}"
 		helper:EventToCommand.Command="{Binding SetMapCommand}">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup x:Name="ShowHideTopPanel">
@@ -45,20 +44,16 @@
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
-		<esri:Map x:Name="MyMap" UseAcceleratedDisplay="True" AllowDrop="True">
-			<!--helper:EventToCommand.Event="Grid.Loaded"
-                helper:EventToCommand.CommandParameter="{Binding ElementName=_messageLayer}"
-                helper:EventToCommand.Command="{Binding SetMessageLayerCommand}"-->
-                  
-			<!--<esri:MessageLayer x:Name="_messageLayer" SymbolDictionaryType="Mil2525C" />-->
-			<i:Interaction.Behaviors>
-				<b:FrameworkElementDropBehavior/>
-			</i:Interaction.Behaviors>
-                  
-			<!-- ArcGIS Online Tiled Basemap Layer -->
-			<esri:ArcGISTiledMapServiceLayer ID="World Topo Map" Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
-		</esri:Map>
-		<Rectangle x:Name="HideObject" Fill="#00F4F4F5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="76" Margin="0,18.6,0,0" Stroke="Black" StrokeThickness="0" Width="2000">
+        <esri:MapView x:Name="MyMapView">
+            <i:Interaction.Behaviors>
+                <b:FrameworkElementDropBehavior/>
+            </i:Interaction.Behaviors>
+            <esri:Map x:Name="MyMap">
+                <!-- ArcGIS Online Tiled Basemap Layer -->
+                <esri:ArcGISTiledMapServiceLayer ID="World Topo Map" ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
+            </esri:Map>
+        </esri:MapView>
+        <Rectangle x:Name="HideObject" Fill="#00F4F4F5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="76" Margin="0,18.6,0,0" Stroke="Black" StrokeThickness="0" Width="2000">
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName="MouseEnter">
 					<ei:GoToStateAction StateName="HidePanel"/>
@@ -104,14 +99,14 @@
 							ToolTipService.ToolTip="Measure">
 							<i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <esri:MeasureAction                                  
+                                <!--<esri:MeasureAction                                  
                                     AreaUnit="SquareMiles"
                                     DisplayTotals="True"
                                     DistanceUnit="Miles"
                                     MapUnits="Meters"
                                     MeasureMode="Polygon"                                   
                                     FillSymbol="{StaticResource DefaultFillSymbol}"
-                                    TargetName="MyMap"/>
+                                    TargetName="MyMap"/>-->
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 

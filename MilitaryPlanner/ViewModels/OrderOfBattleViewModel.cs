@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using ESRI.ArcGIS.Client;
-using ESRI.ArcGIS.Client.AdvancedSymbology;
+//using ESRI.ArcGIS.Client;
+//using ESRI.ArcGIS.Client.AdvancedSymbology;
 using MilitaryPlanner.Helpers;
 using System.Windows.Controls;
 using System.Windows;
+using Esri.ArcGISRuntime.Symbology.Specialized;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -64,9 +65,9 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_SLIDER_BACK, OnSlideBack);
 
             // Check the ArcGIS Runtime is initialized
-            if (!ArcGISRuntime.IsInitialized)
+            if (!Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.IsInitialized)
             {
-                ArcGISRuntime.Initialize();
+                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
             }
 
             // hook the commands
@@ -74,7 +75,7 @@ namespace MilitaryPlanner.ViewModels
             SymbolChangedCommand = new RelayCommand(OnSymbolChanged);
 
             // Create a new SymbolDictionary instance 
-            _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525C);
+            _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             // Collection of view models for the displayed list of symbols
             Symbols = new ObservableCollection<SymbolViewModel>();

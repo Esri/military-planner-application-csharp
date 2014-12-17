@@ -1,4 +1,5 @@
-﻿using ESRI.ArcGIS.Client.AdvancedSymbology;
+﻿using Esri.ArcGISRuntime.Symbology.Specialized;
+//using ESRI.ArcGIS.Client.AdvancedSymbology;
 using MilitaryPlanner.DragDrop.UI.Behavior;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace MilitaryPlanner.ViewModels
         public static SymbolViewModelWrapper LoadSymbolWrapper()
         {
             // Create a new SymbolDictionary instance 
-            _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525C);
+            _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             var swRoot = new SymbolViewModelWrapper();
             swRoot = swRoot.Load(@".\data\oob\oobexample.xml");

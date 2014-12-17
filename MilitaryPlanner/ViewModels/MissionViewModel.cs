@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using MilitaryPlanner.Models;
 using System.Collections.ObjectModel;
-using ESRI.ArcGIS.Client.AdvancedSymbology;
+//using ESRI.ArcGIS.Client.AdvancedSymbology;
 using System.Windows.Data;
+using Esri.ArcGISRuntime.Symbology.Specialized;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -34,7 +35,7 @@ namespace MilitaryPlanner.ViewModels
             //_symbols = new ReadOnlyCollection<SymbolViewModel>(new List<SymbolViewModel>());
 
             // Create a new SymbolDictionary instance 
-            SymbolLoader._symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525C);
+            SymbolLoader._symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             CurrentMission =  Mission.Load(@".\data\missions\testMission.xml");
         }

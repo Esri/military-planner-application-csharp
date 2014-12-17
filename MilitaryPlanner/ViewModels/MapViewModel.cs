@@ -1,7 +1,7 @@
-﻿using ESRI.ArcGIS.Client;
-using ESRI.ArcGIS.Client.AdvancedSymbology;
-using ESRI.ArcGIS.Client.Geometry;
-using ESRI.ArcGIS.Client.Symbols;
+﻿//using ESRI.ArcGIS.Client;
+//using ESRI.ArcGIS.Client.AdvancedSymbology;
+//using ESRI.ArcGIS.Client.Geometry;
+//using ESRI.ArcGIS.Client.Symbols;
 using MilitaryPlanner.Helpers;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,10 @@ using System.Windows;
 using System.Windows.Media;
 using MilitaryPlanner.Models;
 using MilitaryPlanner.DragDrop.UI.Behavior;
+using Esri.ArcGISRuntime.Symbology.Specialized;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -25,6 +29,7 @@ namespace MilitaryPlanner.ViewModels
         };
 
         private Point _lastKnownPoint;
+        private MapView _mapView;
         private Map _map;
         private Message _currentMessage;
         private EditState _editState = EditState.None;
@@ -89,7 +94,8 @@ namespace MilitaryPlanner.ViewModels
 
                         if (ml != null)
                         {
-                            phase.VisibleTimeExtent = ml.VisibleTimeExtent;
+                            //TODO phase visible time Extent from message layer?
+                            //phase.VisibleTimeExtent = ml.VisibleTimeExtent;
 
                             var msg = ml.GetMessage(msgID);
 
@@ -149,7 +155,7 @@ namespace MilitaryPlanner.ViewModels
             {
                 _currentMessageLayer = _messageLayerList[index];
 
-                _map.TimeExtent = _currentMessageLayer.VisibleTimeExtent;
+                //_map.TimeExtent = _currentMessageLayer.VisibleTimeExtent;
 
                 //get phase and fire notifications for messages
                 var phaseMessageList = _phaseMessageDictionary[_currentMessageLayer.ID];
@@ -187,8 +193,8 @@ namespace MilitaryPlanner.ViewModels
             {
                 DisplayName = displayName,
                 ID = id,
-                VisibleTimeExtent = timeExtent,
-                Visible = visible,
+                //VisibleTimeExtent = timeExtent,
+                IsVisible = visible,
                 SymbolDictionaryType = symbolDictType
             };
 
@@ -202,8 +208,8 @@ namespace MilitaryPlanner.ViewModels
             if (makeCurrent)
             {
                 _currentMessageLayer = messageLayer;
-                _map.TimeExtent = messageLayer.VisibleTimeExtent;
-                _currentTimeExtent = messageLayer.VisibleTimeExtent;
+                //_map.TimeExtent = messageLayer.VisibleTimeExtent;
+                //_currentTimeExtent = messageLayer.VisibleTimeExtent;
             }
 
             OnSetMessageLayer(messageLayer);
@@ -218,14 +224,14 @@ namespace MilitaryPlanner.ViewModels
                                                       Guid.NewGuid().ToString("D"),
                                                       _currentTimeExtent,
                                                       true,
-                                                      SymbolDictionaryType.Mil2525C);
+                                                      SymbolDictionaryType.Mil2525c);
 
                 _messageLayerList.Add(messageLayer);
                 _currentMessageLayer = messageLayer;
 
                 OnSetMessageLayer(messageLayer);
 
-                _map.TimeExtent = _currentTimeExtent;
+                _mapView.TimeExtent = _currentTimeExtent;
 
                 Mediator.NotifyColleagues(Constants.ACTION_MSG_LAYER_ADDED, messageLayer);
             }
@@ -236,9 +242,9 @@ namespace MilitaryPlanner.ViewModels
                 {
                     DisplayName = String.Format("Message Layer {0}", _messageLayerCount++),
                     ID = Guid.NewGuid().ToString("D"),
-                    VisibleTimeExtent = GetNewMessageLayerTimeExtent(),
-                    Visible = true,
-                    SymbolDictionaryType = SymbolDictionaryType.Mil2525C
+                    //VisibleTimeExtent = GetNewMessageLayerTimeExtent(),
+                    IsVisible = true,
+                    SymbolDictionaryType = SymbolDictionaryType.Mil2525c
                 };
 
                 _messageLayerList.Add(messageLayer);
@@ -246,8 +252,9 @@ namespace MilitaryPlanner.ViewModels
 
                 OnSetMessageLayer(messageLayer);
                 
-                _map.TimeExtent = messageLayer.VisibleTimeExtent;
-                _currentTimeExtent = messageLayer.VisibleTimeExtent;
+                //TODO fix time extent
+                //_mapView.TimeExtent = messageLayer.VisibleTimeExtent;
+                //_currentTimeExtent = messageLayer.VisibleTimeExtent;
 
                 
 
@@ -305,23 +312,26 @@ namespace MilitaryPlanner.ViewModels
 
         private TimeExtent GetNewMessageLayerTimeExtent()
         {
-            return _messageLayerList.Last().VisibleTimeExtent.Offset(new TimeSpan(0, 0, 1));
+            //TODO fix time extent
+            //return _messageLayerList.Last().VisibleTimeExtent.Offset(new TimeSpan(0, 0, 1));
+            return new TimeExtent();
         }
 
         private void OnSetMap(object param)
         {
-            var map = param as ESRI.ArcGIS.Client.Map;
+            var mapView = param as MapView;
 
-            if (map == null)
+            if (mapView == null)
             {
                 return;
             }
-            _map = map;
-            _draw = new Draw(map);
+            _mapView = mapView;
+            _map = mapView.Map;
+            //_draw = new Draw(map);
 
-            map.MouseLeftButtonDown += map_MouseLeftButtonDown;
-            map.MouseLeftButtonUp += map_MouseLeftButtonUp;
-            map.MouseMove += map_MouseMove;
+            mapView.MouseLeftButtonDown += map_MouseLeftButtonDown;
+            mapView.MouseLeftButtonUp += map_MouseLeftButtonUp;
+            mapView.MouseMove += map_MouseMove;
 
             // add default message layer
             AddMessageLayer();
@@ -334,27 +344,27 @@ namespace MilitaryPlanner.ViewModels
                 return;
             }
 
-            _lastKnownPoint = e.GetPosition(_map);
+            _lastKnownPoint = e.GetPosition(_mapView);
 
             //if a selected symbol, move it
             if (_editState == EditState.Move)
             {
-                UpdateCurrentMessage(_map.ScreenToMap(_lastKnownPoint));
+                UpdateCurrentMessage(_mapView.ScreenToLocation(_lastKnownPoint));
             }
         }
 
         void map_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (_draw.IsEnabled)
-                return;
+            //if (_draw.IsEnabled)
+            //    return;
 
             _editState = EditState.None;
         }
 
         void map_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (_draw.IsEnabled)
-                return;
+            //if (_draw.IsEnabled)
+            //    return;
 
             if (_currentMessage != null)
             {
@@ -376,14 +386,15 @@ namespace MilitaryPlanner.ViewModels
 
                 if (ml != null)
                 {
-                    if (ml.VisibleTimeExtent.Intersects(_map.TimeExtent))
-                    {
-                        ml.Visible = true;
-                    }
-                    else
-                    {
-                        ml.Visible = false;
-                    }
+                    //TODO fix time extent
+                    //if (ml.VisibleTimeExtent.Intersects(_mapView.TimeExtent))
+                    //{
+                    //    ml.Visible = true;
+                    //}
+                    //else
+                    //{
+                    //    ml.Visible = false;
+                    //}
                 }
             }
         }
@@ -394,31 +405,32 @@ namespace MilitaryPlanner.ViewModels
 
             if (messageLayer != null)
             {
-                messageLayer.MouseEnter += messageLayer_MouseEnter;
-                messageLayer.MouseLeave += messageLayer_MouseLeave;
+                //TODO mouse enter and leave event handler on message layer?
+                //messageLayer.MouseEnter += messageLayer_MouseEnter;
+                //messageLayer.MouseLeave += messageLayer_MouseLeave;
 
                 _map.Layers.Add(messageLayer);
             }
         }
 
-        void messageLayer_MouseLeave(object sender, MessageEventArgs e)
-        {
-            if (_editState == EditState.Move)
-                return;
+        //void messageLayer_MouseLeave(object sender, MessageEventArgs e)
+        //{
+        //    if (_editState == EditState.Move)
+        //        return;
 
-            SelectMessage(selectedMessage, false);
-            selectedMessage = null;
-        }
+        //    SelectMessage(selectedMessage, false);
+        //    selectedMessage = null;
+        //}
 
-        void messageLayer_MouseEnter(object sender, MessageEventArgs e)
-        {
-            if (_editState == EditState.Move)
-                return;
+        //void messageLayer_MouseEnter(object sender, MessageEventArgs e)
+        //{
+        //    if (_editState == EditState.Move)
+        //        return;
 
-            selectedMessage = e.Message;
-            Console.WriteLine(e.Message.Id);
-            SelectMessage(e.Message, true);
-        }
+        //    selectedMessage = e.Message;
+        //    Console.WriteLine(e.Message.Id);
+        //    SelectMessage(e.Message, true);
+        //}
 
         private void SelectMessage(Message message, bool isSelected)
         {
@@ -434,23 +446,23 @@ namespace MilitaryPlanner.ViewModels
                 _currentMessage = null;
             }
 
-            var msg = MessageHelper.CreateMilitarySelectMessage(message.Id, Constants.MSG_TYPE_POSITION_REPORT, isSelected);
-            _currentMessageLayer.ProcessMessage(msg);
+            //var msg = MessageHelper.CreateMilitarySelectMessage(message.Id, Constants.MSG_TYPE_POSITION_REPORT, isSelected);
+            //_currentMessageLayer.ProcessMessage(msg);
         }
 
         private void UpdateCurrentMessage(MapPoint mapPoint)
         {
             if (_currentMessage != null && _currentMessageLayer != null)
             {
-                var msg = MessageHelper.CreateMilitaryUpdateMessage(_currentMessage.Id, Constants.MSG_TYPE_POSITION_REPORT, new List<MapPoint>(){mapPoint});
-                _currentMessageLayer.ProcessMessage(msg);
+                //var msg = MessageHelper.CreateMilitaryUpdateMessage(_currentMessage.Id, Constants.MSG_TYPE_POSITION_REPORT, new List<MapPoint>(){mapPoint});
+                //_currentMessageLayer.ProcessMessage(msg);
             }
         }
 
         private void RemoveMessage(Message message)
         {
-            var msg = MessageHelper.CreateMilitaryRemoveMessage(message.Id, Constants.MSG_TYPE_POSITION_REPORT);
-            _currentMessageLayer.ProcessMessage(msg);
+            //var msg = MessageHelper.CreateMilitaryRemoveMessage(message.Id, Constants.MSG_TYPE_POSITION_REPORT);
+            //_currentMessageLayer.ProcessMessage(msg);
 
             //if (_messageDictionary.ContainsKey(message.Id))
             //{
@@ -466,9 +478,10 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private Draw _draw;
+        //private Draw _draw;
         //private MessageLayer _messageLayer;
-        private SymbolViewModel _SelectedSymbol; 
+        private SymbolViewModel _SelectedSymbol;
+        private string _geometryControlType = String.Empty;
 
         // edit support
         //Graphic selectedPointGraphic;
@@ -490,7 +503,7 @@ namespace MilitaryPlanner.ViewModels
             {
                 var first = phase.Equals(mission.PhaseList.First());
                 // add message layer
-                var messageLayer = CreateMessageLayer(phase.Name, phase.ID, phase.VisibleTimeExtent, first, SymbolDictionaryType.Mil2525C);
+                var messageLayer = CreateMessageLayer(phase.Name, phase.ID, phase.VisibleTimeExtent, first, SymbolDictionaryType.Mil2525c);
 
                 AddMessageLayer(messageLayer, first);
 
@@ -576,10 +589,10 @@ namespace MilitaryPlanner.ViewModels
 
         private void DoActionCancel(object obj)
         {
-            if (_draw != null)
-            {
-                _draw.IsEnabled = false;
-            }
+            //if (_draw != null)
+            //{
+            //    _draw.IsEnabled = false;
+            //}
         }
 
         private void DoActionSymbolChanged(object param)
@@ -589,101 +602,111 @@ namespace MilitaryPlanner.ViewModels
             if (_SelectedSymbol != null)
             {
                 Dictionary<string, string> values = (Dictionary<string, string>)_SelectedSymbol.Model.Values;
-                string geometryControlType = values["GeometryConversionType"];
+                _geometryControlType = values["GeometryConversionType"];
 
                 
-                _draw.LineSymbol = new SimpleLineSymbol()
-                {
-                    Color = new SolidColorBrush(Colors.Yellow),
-                    Style = SimpleLineSymbol.LineStyle.Solid,
-                    Width = 2
-                };
-                _draw.FillSymbol = new SimpleFillSymbol()
-                {
-                    BorderBrush = new SolidColorBrush(Colors.Yellow),
-                    BorderThickness = 1,
-                    Fill = new SolidColorBrush(Colors.Green)
-                };
+                //_draw.LineSymbol = new SimpleLineSymbol()
+                //{
+                //    Color = new SolidColorBrush(Colors.Yellow),
+                //    Style = SimpleLineSymbol.LineStyle.Solid,
+                //    Width = 2
+                //};
+                //_draw.FillSymbol = new SimpleFillSymbol()
+                //{
+                //    BorderBrush = new SolidColorBrush(Colors.Yellow),
+                //    BorderThickness = 1,
+                //    Fill = new SolidColorBrush(Colors.Green)
+                //};
 
-                _draw.DrawComplete -= _draw_DrawComplete;
-                _draw.DrawComplete += _draw_DrawComplete;
+                //_draw.DrawComplete -= _draw_DrawComplete;
+                //_draw.DrawComplete += _draw_DrawComplete;
 
-                switch (geometryControlType)
-                {
-                    case "Point":
-                        _draw.DrawMode = DrawMode.Point;
-                        break;
-                    case "Polyline":
-                        _draw.DrawMode = DrawMode.Polyline;
-
-                        break;
-                    case "Polygon":
-                        _draw.DrawMode = DrawMode.Polygon;
-                        break;
-                    case "Circle":
-                        _draw.DrawMode = DrawMode.Circle;
-                        break;
-                    case "Rectangular":
-                        _draw.DrawMode = DrawMode.Rectangle;
-                        break;
-                }
-                _draw.IsEnabled = (_draw.DrawMode != DrawMode.None);
+                //switch (_geometryControlType)
+                //{
+                //    case "Point":
+                //        _draw.DrawMode = DrawMode.Point;
+                //        break;
+                //    case "Polyline":
+                //        _draw.DrawMode = DrawMode.Polyline;
+                //        break;
+                //    case "Polygon":
+                //        _draw.DrawMode = DrawMode.Polygon;
+                //        break;
+                //    case "Circle":
+                //        _draw.DrawMode = DrawMode.Circle;
+                //        break;
+                //    case "Rectangular":
+                //        _draw.DrawMode = DrawMode.Rectangle;
+                //        break;
+                //    case "ArrowWithOffset":
+                //        _draw.DrawMode = DrawMode.Polyline;
+                //        break;
+                //    default:
+                //        break;
+                //}
+                //_draw.IsEnabled = (_draw.DrawMode != DrawMode.None);
             }
         }
 
-        void _draw_DrawComplete(object sender, DrawEventArgs e)
-        {
-            _draw.IsEnabled = false;
+        //void _draw_DrawComplete(object sender, DrawEventArgs e)
+        //{
+        //    _draw.IsEnabled = false;
 
-            //create a new message
-            Message msg = new Message();
+        //    //create a new message
+        //    Message msg = new Message();
 
-            //set the ID and other parts of the message
-            msg.Id = Guid.NewGuid().ToString();
-            msg.Add("_type", Constants.MSG_TYPE_POSITION_REPORT);
-            msg.Add("_action", "update");
-            msg.Add("_wkid", "3857");
-            //msg.Add("_wkid", _draw.Map.SpatialReference.WKID.ToString());
-            msg.Add("sic", _SelectedSymbol.SymbolID);
-            msg.Add("uniquedesignation", "1");
+        //    //set the ID and other parts of the message
+        //    msg.Id = Guid.NewGuid().ToString();
+        //    msg.Add("_type", Constants.MSG_TYPE_POSITION_REPORT);
+        //    msg.Add("_action", "update");
+        //    msg.Add("_wkid", "3857");
+        //    //msg.Add("_wkid", _draw.Map.SpatialReference.WKID.ToString());
+        //    msg.Add("sic", _SelectedSymbol.SymbolID);
+        //    msg.Add("uniquedesignation", "1");
 
-            // Construct the Control Points based on the geometry type of the drawn geometry.
-            switch (_draw.DrawMode)
-            {
-                case DrawMode.Point:
-                    MapPoint point = e.Geometry as MapPoint;
-                    msg.Add("_control_points", point.X.ToString() + "," + point.Y.ToString());
-                    break;
-                case DrawMode.Polygon:
-                    Polygon polygon = e.Geometry as Polygon;
-                    string cpts = string.Empty;
-                    foreach (var pt in polygon.Rings[0])
-                    {
-                        cpts += ";" + pt.X.ToString() + "," + pt.Y.ToString();
-                    }
-                    msg.Add("_control_points", cpts);
-                    break;
-                case DrawMode.Polyline:
-                    Polyline polyline = e.Geometry as Polyline;
-                    cpts = string.Empty;
-                    foreach (var pt in polyline.Paths[0])
-                    {
-                        cpts += ";" + pt.X.ToString() + "," + pt.Y.ToString();
-                    }
-                    msg.Add("_control_points", cpts);
-                    break;
-            }
+        //    // Construct the Control Points based on the geometry type of the drawn geometry.
+        //    switch (_draw.DrawMode)
+        //    {
+        //        case DrawMode.Point:
+        //            MapPoint point = e.Geometry as MapPoint;
+        //            msg.Add("_control_points", point.X.ToString() + "," + point.Y.ToString());
+        //            break;
+        //        case DrawMode.Polygon:
+        //            Polygon polygon = e.Geometry as Polygon;
+        //            string cpts = string.Empty;
+        //            foreach (var pt in polygon.Rings[0])
+        //            {
+        //                cpts += ";" + pt.X.ToString() + "," + pt.Y.ToString();
+        //            }
+        //            msg.Add("_control_points", cpts);
+        //            break;
+        //        case DrawMode.Polyline:
+        //            Polyline polyline = e.Geometry as Polyline;
+        //            cpts = string.Empty;
+        //            foreach (var pt in polyline.Paths[0].Reverse())
+        //            {
+        //                cpts += ";" + pt.X.ToString() + "," + pt.Y.ToString();
+        //            }
 
-            //Process the message
-            if (ProcessMessage(_currentMessageLayer, msg))
-            {
-                _draw.IsEnabled = true;
-            }
-            else
-            {
-                MessageBox.Show("Failed to process message.");
-            }
-        }
+        //            if (_geometryControlType == "ArrowWithOffset")
+        //            {
+        //                cpts += ";" + cpts.Split(new char[] { ';' }).Last();
+        //            }
+
+        //            msg.Add("_control_points", cpts);
+        //            break;
+        //    }
+
+        //    //Process the message
+        //    if (ProcessMessage(_currentMessageLayer, msg))
+        //    {
+        //        _draw.IsEnabled = true;
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Failed to process message.");
+        //    }
+        //}
 
         /// <summary>
         /// IDragable.DataType
@@ -708,7 +731,7 @@ namespace MilitaryPlanner.ViewModels
 
             if (stvm != null)
             {
-                AddNewMessage(stvm.ItemSVM, e.GetPosition(_map), stvm.GUID);
+                AddNewMessage(stvm.ItemSVM, e.GetPosition(_mapView), stvm.GUID);
             }
         }
 
@@ -729,7 +752,7 @@ namespace MilitaryPlanner.ViewModels
 
             // Construct the Control Points based on the geometry type of the drawn geometry.
             //MapPoint point = e.Geometry as MapPoint;
-            var point = _map.ScreenToMap(p);
+            var point = _mapView.ScreenToLocation(p);
             msg.Add("_control_points", point.X.ToString() + "," + point.Y.ToString());
 
             //Process the message

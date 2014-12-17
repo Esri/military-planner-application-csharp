@@ -7,8 +7,10 @@ using MilitaryPlanner.Helpers;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
-using ESRI.ArcGIS.Client.AdvancedSymbology;
-using ESRI.ArcGIS.Client;
+using Esri.ArcGISRuntime.Symbology.Specialized;
+using Esri.ArcGISRuntime.Data;
+//using ESRI.ArcGIS.Client.AdvancedSymbology;
+//using ESRI.ArcGIS.Client;
 
 namespace MilitaryPlanner.Models
 {
@@ -73,11 +75,11 @@ namespace MilitaryPlanner.Models
             var xmlAttr = new XmlAttributes();
             xmlAttr.XmlIgnore = true;
 
-            xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "InitializationFailure", xmlAttr);
-            xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "FullExtent", xmlAttr);
-            xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "IsInitialized", xmlAttr);
-            xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "SpatialReference", xmlAttr);
-            xmlOver.Add(typeof(ESRI.ArcGIS.Client.AdvancedSymbology.MessageLayer), "SubLayers", xmlAttr);
+            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "InitializationFailure", xmlAttr);
+            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "FullExtent", xmlAttr);
+            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "IsInitialized", xmlAttr);
+            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "SpatialReference", xmlAttr);
+            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.AdvancedSymbology.MessageLayer), "SubLayers", xmlAttr);
 
             XmlSerializer x = new XmlSerializer(typeof(Mission), xmlOver);
 
