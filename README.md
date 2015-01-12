@@ -34,10 +34,11 @@ This is an Esri ArcGIS for .NET application that can be used for planning milita
 * [ArcGIS Runtime for .NET Resource Center](https://developers.arcgis.com/net/)
 * [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
 * ![Twitter](https://g.twimg.com/twitter-bird-16x16.png)[@EsriDefense](http://twitter.com/EsriDefense)
+* [ArcGIS Solutions Website](http://solutions.arcgis.com/military/)
 
 ## Issues
 
-Find a bug or want to request a new feature?  Please let us know by submitting an issue.
+Find a bug or want to request a new feature?  Please let us know by submitting an [issue](https://github.com/ArcGIS/military-planner-application-csharp/issues).
 
 ## Contributing
 
@@ -58,4 +59,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [license.txt](https://github.com/Esri/park-and-recreation-finder/blob/master/license.txt) file.[TODO]
+A copy of the license is available in the repository's [license.txt](https://github.com/ArcGIS/military-planner-application-csharp/blob/master/license.txt) file.
+
+[](Esri Tags: Military Defense ArcGIS Runtime .NET)
+[](Esri Language: C-Sharp) 
