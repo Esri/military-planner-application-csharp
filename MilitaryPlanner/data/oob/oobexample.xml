@@ -2,21 +2,30 @@
 <SymbolViewModelWrapper xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Children>
     <Children>
-      <SIC>SFAPWMAA-------</SIC>
+      <SIC>SFGPUCIM-------</SIC>
     </Children>
     <Children>
-      <SIC>SFAPWMAA-------</SIC>
+      <SIC>SFGPUCIL-------</SIC>
     </Children>
-    <SIC>SNAPWMAA-------</SIC>
+    <Children>
+      <SIC>SFGPUCIC-------</SIC>
+    </Children>
+    <Children>
+      <SIC>SFGPUCI--------</SIC>
+    </Children>
+    <Children>
+      <SIC>SFGPEVAI-------</SIC>
+    </Children>
+    <SIC>SFGPUCI--------</SIC>
   </Children>
   <Children>
     <Children>
-      <SIC>SHAPWMAA-------</SIC>
+      <SIC>SFGPUCI--------</SIC>
     </Children>
     <Children>
-      <SIC>SHAPWMAA-------</SIC>
+      <SIC>SFGPUCI--------</SIC>
     </Children>
-    <SIC>SNAPWMAA-------</SIC>
+    <SIC>SFGPUCI--------</SIC>
   </Children>
-  <SIC>SUAPWMAA-------</SIC>
+  <SIC>SFGPUCI--------</SIC>
 </SymbolViewModelWrapper>

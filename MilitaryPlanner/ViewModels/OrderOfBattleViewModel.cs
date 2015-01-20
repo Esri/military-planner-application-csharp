@@ -61,8 +61,8 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_CANCEL, DoActionCancel);
             Mediator.Register(Constants.ACTION_ITEM_WITH_GUID_REMOVED, DoActionItemWithGuidRemoved);
             Mediator.Register(Constants.ACTION_ITEM_WITH_GUID_ADDED, DoActionItemWithGuidAdded);
-            Mediator.Register(Constants.ACTION_SLIDER_NEXT, OnSlideNext);
-            Mediator.Register(Constants.ACTION_SLIDER_BACK, OnSlideBack);
+            Mediator.Register(Constants.ACTION_PHASE_NEXT, OnPhaseNext);
+            Mediator.Register(Constants.ACTION_PHASE_BACK, OnPhaseBack);
 
             // Check the ArcGIS Runtime is initialized
             if (!Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.IsInitialized)
@@ -98,18 +98,18 @@ namespace MilitaryPlanner.ViewModels
             ExpandGroupSymbol(_groupSymbol);
         }
 
-        private void OnSlideBack(object obj)
+        private void OnPhaseBack(object obj)
         {
             // set all tree children leaf nodes to hasbeendragged false
-            SetAllLeavesToDraggable();
+            SetAllNodesToDraggable();
         }
 
-        private void OnSlideNext(object obj)
+        private void OnPhaseNext(object obj)
         {
-            SetAllLeavesToDraggable();
+            SetAllNodesToDraggable();
         }
 
-        private void SetAllLeavesToDraggable()
+        private void SetAllNodesToDraggable()
         {
             foreach (var sym in _groupSymbol.FirstGeneration)
             {

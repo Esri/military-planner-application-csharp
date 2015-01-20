@@ -24,5 +24,11 @@ namespace MilitaryPlanner.Views
         {
             InitializeComponent();
         }
+
+        private void SymbolListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Reset the selected item so that every mouse click of the listbox generates a selectionchanged event
+            SymbolListBox.SelectedItem = null;
+        }
     }
 }

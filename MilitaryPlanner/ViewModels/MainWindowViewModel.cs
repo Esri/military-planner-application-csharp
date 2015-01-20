@@ -83,12 +83,12 @@ namespace MilitaryPlanner.ViewModels
                     if (value > _sliderValue)
                     {
                         // next
-                        Mediator.NotifyColleagues(Constants.ACTION_SLIDER_NEXT, value);
+                        Mediator.NotifyColleagues(Constants.ACTION_PHASE_NEXT, value);
                     }
                     else
                     {
                         // back
-                        Mediator.NotifyColleagues(Constants.ACTION_SLIDER_BACK, value);
+                        Mediator.NotifyColleagues(Constants.ACTION_PHASE_BACK, value);
                     }
 
                     _sliderValue = value;
@@ -153,6 +153,17 @@ namespace MilitaryPlanner.ViewModels
 
         public MainWindowViewModel()
         {
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ClientId = "sloy45Jis4XaPxFd";
+
+            try
+            {
+                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unable to initialize the ArcGIS Runtime with the client id provided: " + ex.Message);
+            }
+
             //Mediator.Register(Constants.ACTION_MSG_LAYER_ADDED, _mission.DoMessageLayerAdded);
             Mediator.Register(Constants.ACTION_MSG_LAYER_ADDED, DoMessageLayerAdded);
             //Mediator.Register(Constants.ACTION_MSG_PROCESSED, _mission.DoMessageProcessed);

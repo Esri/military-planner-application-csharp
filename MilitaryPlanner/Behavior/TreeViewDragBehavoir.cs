@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Documents;
 using System.Windows.Input;
+using MilitaryPlanner.Helpers;
 
 namespace MilitaryPlanner.DragDrop.UI.Behavior
 {
@@ -42,11 +43,12 @@ namespace MilitaryPlanner.DragDrop.UI.Behavior
             {
                 //set the item's DataContext as the data to be transferred
                 IDragable dragObject = this.AssociatedObject.DataContext as IDragable;
-                if (dragObject != null)
+                if (dragObject != null && dragObject.IsDragable)
                 {
                     DataObject data = new DataObject();
                     data.SetData(dragObject.DataType, this.AssociatedObject.DataContext);
                     System.Windows.DragDrop.DoDragDrop(this.AssociatedObject, data, DragDropEffects.Move);
+                    Mediator.NotifyColleagues(Constants.ACTION_DRAG_DROP_STARTED, data);
                 }
             }
             isMouseClicked = false;

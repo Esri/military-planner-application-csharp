@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 //using ESRI.ArcGIS.Client.AdvancedSymbology;
 using System.Windows.Data;
 using Esri.ArcGISRuntime.Symbology.Specialized;
+using MilitaryPlanner.Helpers;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -85,7 +86,7 @@ namespace MilitaryPlanner.ViewModels
         private void CreateUpdateSymbolWithPM(PersistentMessage pm, int currentStartPhase, int currentEndPhase)
         {
             // is this an update or a new symbol
-            var foundSymbol = _symbols.Where(sl => sl.ItemSVM.Model.Values.ContainsKey("_id") && sl.ItemSVM.Model.Values["_id"] == pm.ID);
+            var foundSymbol = _symbols.Where(sl => sl.ItemSVM.Model.Values.ContainsKey(Constants.MSG_ID_KEY_NAME) && sl.ItemSVM.Model.Values[Constants.MSG_ID_KEY_NAME] == pm.ID);
 
             if (foundSymbol != null && foundSymbol.Count() > 0)
             {
@@ -103,9 +104,9 @@ namespace MilitaryPlanner.ViewModels
 
                 // create SVM
                 psvm.ItemSVM = SymbolLoader.Search(pm.PropertyItems.Where(pi => pi.Key == "sic").ElementAt(0).Value);
-                if (!psvm.ItemSVM.Model.Values.ContainsKey("_id"))
+                if (!psvm.ItemSVM.Model.Values.ContainsKey(Constants.MSG_ID_KEY_NAME))
                 {
-                    psvm.ItemSVM.Model.Values.Add("_id", pm.ID);
+                    psvm.ItemSVM.Model.Values.Add(Constants.MSG_ID_KEY_NAME, pm.ID);
                 }
 
                 _symbols.Add(psvm);

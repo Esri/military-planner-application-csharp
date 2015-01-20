@@ -36,7 +36,7 @@ namespace MilitaryPlanner.DragDrop.UI.Behavior
             {
                 //set the item's DataContext as the data to be transferred
                 IDragable dragObject = this.AssociatedObject.DataContext as IDragable;
-                if (dragObject != null && dragObject.IsDragable)
+                if (dragObject != null && dragObject.IsDragable && !dragObject.HasBeenDragged)
                 {
                     DataObject data = new DataObject();
                     data.SetData(dragObject.DataType, this.AssociatedObject.DataContext);

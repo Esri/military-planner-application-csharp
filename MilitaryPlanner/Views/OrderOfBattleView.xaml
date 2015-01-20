@@ -31,7 +31,7 @@
 
         <TabControl Grid.Row="1" Grid.ColumnSpan="2" TabStripPlacement="Bottom">
             <TabItem Header="Palette">
-                <ListBox x:Name="SymbolListBox" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="10" ItemsSource="{Binding Symbols}"
+                <ListBox x:Name="SymbolListBox" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="10" ItemsSource="{Binding Symbols}" PreviewMouseDown="SymbolListBox_PreviewMouseDown"
                          helper:EventToCommand.Event ="ListBox.SelectionChanged"
                          helper:EventToCommand.CommandParameter="{Binding SelectedItem}"
                          helper:EventToCommand.Command="{Binding SymbolChangedCommand}">
@@ -64,8 +64,8 @@
                                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Category}"/>
                                         <TextBlock Grid.Row="1" Grid.Column="0">Symbol ID:</TextBlock>
                                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SymbolID}"/>
-                                        <TextBlock Grid.Row="2" Grid.Column="0">Stylefile:</TextBlock>
-                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StyleFile}"/>
+                                        <!--<TextBlock Grid.Row="2" Grid.Column="0">Stylefile:</TextBlock>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StyleFile}"/>-->
                                     </Grid>
                                 </Grid>
                             </StackPanel>

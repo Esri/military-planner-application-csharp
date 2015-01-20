@@ -21,10 +21,10 @@ namespace MilitaryPlanner.ViewModels
             get { return _model.Values["SymbolID"].ToString(); }
         }
 
-        public string StyleFile
-        {
-            get { return _model.Values["StyleFile"].ToString(); }
-        }
+        //public string StyleFile
+        //{
+        //    get { return _model.Values["StyleFile"].ToString(); }
+        //}
 
         public SymbolProperties Model
         {
