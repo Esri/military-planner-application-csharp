@@ -33,8 +33,6 @@ namespace MilitaryPlanner.ViewModels
         };
 
         private Point _lastKnownPoint;
-        //private double _offsetX = 0.0;
-        //private double _offsetY = 0.0;
         private Point _pointOffset = new Point();
         private MapView _mapView;
         private Map _map;
