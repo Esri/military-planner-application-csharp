@@ -1,5 +1,0 @@
-{
-  "title": "Shutdown the Server",
-  "action": "shutdown",
-  "enctype": "application/x-www-form-urlencoded"
-}
