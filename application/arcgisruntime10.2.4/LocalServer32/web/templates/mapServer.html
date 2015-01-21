@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <title>ArcGISRuntime Server</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/static/favicon.png" type="image/png" />
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/mars.css" rel="stylesheet" type="text/css"/>
+    <script src="/static/scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script src="/static/scripts/underscore-min.js" type="text/javascript"></script>
+    <script src="/static/scripts/jquery.tmpl.js" type="text/javascript"></script>
+    <script src="/static/scripts/mars.js" type="text/javascript"></script>
+  </head>
+  <body>
+  
+    <!-- script to generate dynamic content -->
+    <script type="text/javascript">
+      var pageData = <<!!!JSON_PAYLOAD!!!>>;
+      
+      Templates = {};
+      Templates.test = "this is a test";
+
+      $(document).ready(function () {
+        BuildPage("${Mars.serviceName} (MapServer)", pageData);
+      });
+    </script>
+    
+    <!-- service template -->
+    <script id="tcontent" type="text/x-jquery-tmpl">
+      <h2>${Mars.pageTitle}</h2>
+      <div class="rbody">
+        <b>View In:</b>
+        &nbsp;&nbsp;<a href="${Mars.pageUrlWithoutTrailingForwardSlash}?f=jsapi" target="_blank">ArcGIS JavaScript</a>
+        <br/>
+        <br/>
+        <b>Service Description: </b>
+        <br/>
+        <br/>
+        <b>Map Name: </b>${name}
+        <br/>
+        <br/>
+        <a href="${Mars.pageUrlWithTrailingForwardSlash}legend">Legend</a>
+        <br/>
+        <br/>
+        <a href="${Mars.pageUrlWithTrailingForwardSlash}layers">All Layers and Tables</a>
+        <br/>
+        <br/>
+        <b>Layers: </b>
+      <ul>
+        {{each(idx, l) layers}}
+          <li>
+            <a href="${Mars.pageUrlWithTrailingForwardSlash}${l.id}">${l.name}</a> (${l.id})
+          </li>
+        {{/each}}
+      </ul>
+	  
+	  <b>Tables: </b>
+      <ul>
+        {{each(idx, l) tables}}
+          <li>
+            <a href="${Mars.pageUrlWithTrailingForwardSlash}${l.id}">${l.name}</a> (${l.id})
+          </li>
+        {{/each}}
+      </ul>
+	  
+      <b>Description: </b>${serviceDescription}
+      <br/>
+      <br/>
+      <b>Copyright Text: </b>${copyrightText}
+      <br/>
+      <br/>
+      <b>Spatial Reference: </b>
+      ${spatialReference.wkid}
+      <br/><br/>
+      <b>Single Fused Map Cache: </b>${singleFusedMapCache}
+      <br/>
+      <br/>
+      <b>Initial Extent: </b>
+      <ul>
+      <li>XMin: ${initialExtent.xmin}</li>
+      <li>YMin: ${initialExtent.ymin}</li>
+      <li>XMax: ${initialExtent.xmax}</li>
+      <li>YMax: ${initialExtent.ymax}</li>
+      </ul>
+      <b>Full Extent: </b>
+      <ul>
+      <li>XMin: ${fullExtent.xmin}</li>
+      <li>YMin: ${fullExtent.ymin}</li>
+      <li>XMax: ${fullExtent.xmax}</li>
+      <li>YMax: ${fullExtent.ymax}</li>
+      </ul>
+      <b>Units: </b>${units}
+      <br/>
+      <br/>
+      <b>Supported Image Format Types: </b>${supportedImageFormatTypes}
+      <br/>
+      <br/>
+      <b>Supports Dynamic Layers: </b>${supportsDynamicLayers}
+      </div>
+      <br/>
+      <br/>
+    </script>
+
+    <div id="header"></div>
+    <div id="content"></div>
+</body>
+</html>

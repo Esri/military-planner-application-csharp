@@ -1,0 +1,1350 @@
+﻿<Messages STARTID='60000'>
+<Message><ID>60001</ID><Description>Incorrect function.</Description></Message>
+<Message><ID>60002</ID><Description>The system cannot find the file specified.</Description></Message>
+<Message><ID>60003</ID><Description>The system cannot find the path specified.</Description></Message>
+<Message><ID>60004</ID><Description>The system cannot open the file.</Description></Message>
+<Message><ID>60005</ID><Description>Access is denied.</Description></Message>
+<Message><ID>60006</ID><Description>The handle is invalid.</Description></Message>
+<Message><ID>60007</ID><Description>The storage control blocks were destroyed.</Description></Message>
+<Message><ID>60008</ID><Description>Not enough storage is available to process this command.</Description></Message>
+<Message><ID>60009</ID><Description>The storage control block address is invalid.</Description></Message>
+<Message><ID>60010</ID><Description>The environment is incorrect.</Description></Message>
+<Message><ID>60011</ID><Description>An attempt was made to load a program with an incorrect format.</Description></Message>
+<Message><ID>60012</ID><Description>The access code is invalid.</Description></Message>
+<Message><ID>60013</ID><Description>The data is invalid.</Description></Message>
+<Message><ID>60014</ID><Description>Not enough storage is available to complete this operation.</Description></Message>
+<Message><ID>60015</ID><Description>The system cannot find the drive specified.</Description></Message>
+<Message><ID>60016</ID><Description>The directory cannot be removed.</Description></Message>
+<Message><ID>60017</ID><Description>The system cannot move the file to a different disk drive.</Description></Message>
+<Message><ID>60018</ID><Description>There are no more files.</Description></Message>
+<Message><ID>60019</ID><Description>The media is write protected.</Description></Message>
+<Message><ID>60020</ID><Description>The system cannot find the device specified.</Description></Message>
+<Message><ID>60021</ID><Description>The device is not ready.</Description></Message>
+<Message><ID>60022</ID><Description>The device does not recognize the command.</Description></Message>
+<Message><ID>60023</ID><Description>Data error (cyclic redundancy check).</Description></Message>
+<Message><ID>60024</ID><Description>The program issued a command but the command length is incorrect.</Description></Message>
+<Message><ID>60025</ID><Description>The drive cannot locate a specific area or track on the disk.</Description></Message>
+<Message><ID>60026</ID><Description>The specified disk or diskette cannot be accessed.</Description></Message>
+<Message><ID>60027</ID><Description>The drive cannot find the sector requested.</Description></Message>
+<Message><ID>60028</ID><Description>The printer is out of paper.</Description></Message>
+<Message><ID>60029</ID><Description>The system cannot write to the specified device.</Description></Message>
+<Message><ID>60030</ID><Description>The system cannot read from the specified device.</Description></Message>
+<Message><ID>60031</ID><Description>A device attached to the system is not functioning.</Description></Message>
+<Message><ID>60032</ID><Description>The process cannot access the file because it is being used by another process.</Description></Message>
+<Message><ID>60033</ID><Description>The process cannot access the file because another process has locked a portion of the file.</Description></Message>
+<Message><ID>60034</ID><Description>The wrong diskette is in the drive.</Description></Message>
+<Message><ID>60035</ID><Description>Too many files opened for sharing.</Description></Message>
+<Message><ID>60036</ID><Description>Reached the end of the file.</Description></Message>
+<Message><ID>60037</ID><Description>The disk is full.</Description></Message>
+<Message><ID>60038</ID><Description>The network request is not supported.</Description></Message>
+<Message><ID>60039</ID><Description>The remote computer is not available.</Description></Message>
+<Message><ID>60040</ID><Description>A duplicate name exists on the network.</Description></Message>
+<Message><ID>60041</ID><Description>The network path was not found.</Description></Message>
+<Message><ID>60042</ID><Description>The network is busy.</Description></Message>
+<Message><ID>60043</ID><Description>The specified network resource or device is no longer available.</Description></Message>
+<Message><ID>60044</ID><Description>The network BIOS command limit has been reached.</Description></Message>
+<Message><ID>60045</ID><Description>A network adapter hardware error occurred.</Description></Message>
+<Message><ID>60046</ID><Description>The specified server cannot perform the requested operation.</Description></Message>
+<Message><ID>60047</ID><Description>An unexpected network error occurred.</Description></Message>
+<Message><ID>60048</ID><Description>The remote adapter is not compatible.</Description></Message>
+<Message><ID>60049</ID><Description>The printer queue is full.</Description></Message>
+<Message><ID>60050</ID><Description>Space to store the file waiting to be printed is not available on the server.</Description></Message>
+<Message><ID>60051</ID><Description>Your file waiting to be printed was deleted.</Description></Message>
+<Message><ID>60052</ID><Description>The specified network name is no longer available.</Description></Message>
+<Message><ID>60053</ID><Description>Network access is denied.</Description></Message>
+<Message><ID>60054</ID><Description>The network resource type is not correct.</Description></Message>
+<Message><ID>60055</ID><Description>The network name cannot be found.</Description></Message>
+<Message><ID>60056</ID><Description>The name limit for the local computer network adapter card was exceeded.</Description></Message>
+<Message><ID>60057</ID><Description>The network BIOS session limit was exceeded.</Description></Message>
+<Message><ID>60058</ID><Description>The remote server has been paused or is in the process of being started.</Description></Message>
+<Message><ID>60059</ID><Description>No more connections can be made to this remote computer at this time because there are already as many connections as the computer can accept.</Description></Message>
+<Message><ID>60060</ID><Description>The specified printer or disk device has been paused.</Description></Message>
+<Message><ID>60061</ID><Description>The file exists.</Description></Message>
+<Message><ID>60062</ID><Description>The directory or file cannot be created.</Description></Message>
+<Message><ID>60063</ID><Description>Fail on INT 24.</Description></Message>
+<Message><ID>60064</ID><Description>Storage to process this request is not available.</Description></Message>
+<Message><ID>60065</ID><Description>The local device name is already in use.</Description></Message>
+<Message><ID>60066</ID><Description>The specified network password is not correct.</Description></Message>
+<Message><ID>60067</ID><Description>The parameter is incorrect.</Description></Message>
+<Message><ID>60068</ID><Description>A write fault occurred on the network.</Description></Message>
+<Message><ID>60069</ID><Description>The system cannot start another process at this time.</Description></Message>
+<Message><ID>60070</ID><Description>Cannot create another system semaphore.</Description></Message>
+<Message><ID>60071</ID><Description>The exclusive semaphore is owned by another process.</Description></Message>
+<Message><ID>60072</ID><Description>The semaphore is set and cannot be closed.</Description></Message>
+<Message><ID>60073</ID><Description>The semaphore cannot be set again.</Description></Message>
+<Message><ID>60074</ID><Description>Cannot request exclusive semaphores at interrupt time.</Description></Message>
+<Message><ID>60075</ID><Description>The previous ownership of this semaphore has ended.</Description></Message>
+<Message><ID>60076</ID><Description>Insert the diskette for drive %1.</Description></Message>
+<Message><ID>60077</ID><Description>The program stopped because an alternate diskette was not inserted.</Description></Message>
+<Message><ID>60078</ID><Description>The disk is in use or locked by another process.</Description></Message>
+<Message><ID>60079</ID><Description>The pipe has been ended.</Description></Message>
+<Message><ID>60080</ID><Description>The system cannot open the device or file specified.</Description></Message>
+<Message><ID>60081</ID><Description>The file name is too long.</Description></Message>
+<Message><ID>60082</ID><Description>There is not enough space on the disk.</Description></Message>
+<Message><ID>60083</ID><Description>No more internal file identifiers available.</Description></Message>
+<Message><ID>60084</ID><Description>The target internal file identifier is incorrect.</Description></Message>
+<Message><ID>60085</ID><Description>The IOCTL call made by the application program is not correct.</Description></Message>
+<Message><ID>60086</ID><Description>The verify-on-write switch parameter value is not correct.</Description></Message>
+<Message><ID>60087</ID><Description>The system does not support the command requested.</Description></Message>
+<Message><ID>60088</ID><Description>This function is only valid in Win32 mode.</Description></Message>
+<Message><ID>60089</ID><Description>The semaphore timeout period has expired.</Description></Message>
+<Message><ID>60090</ID><Description>The data area passed to a system call is too small.</Description></Message>
+<Message><ID>60091</ID><Description>The filename, directory name, or volume label syntax is incorrect.</Description></Message>
+<Message><ID>60092</ID><Description>The system call level is not correct.</Description></Message>
+<Message><ID>60093</ID><Description>The disk has no volume label.</Description></Message>
+<Message><ID>60094</ID><Description>The specified module could not be found.</Description></Message>
+<Message><ID>60095</ID><Description>The specified procedure could not be found.</Description></Message>
+<Message><ID>60096</ID><Description>There are no child processes to wait for.</Description></Message>
+<Message><ID>60097</ID><Description>The %1 application cannot be run in Win32 mode.</Description></Message>
+<Message><ID>60098</ID><Description>Attempt to use a file handle to an open disk partition for an operation other than raw disk I/O.</Description></Message>
+<Message><ID>60099</ID><Description>An attempt was made to move the file pointer before the beginning of the file.</Description></Message>
+<Message><ID>60100</ID><Description>The file pointer cannot be set on the specified device or file.</Description></Message>
+<Message><ID>60101</ID><Description>A JOIN or SUBST command cannot be used for a drive that contains previously joined drives.</Description></Message>
+<Message><ID>60102</ID><Description>An attempt was made to use a JOIN or SUBST command on a drive that has already been joined.</Description></Message>
+<Message><ID>60103</ID><Description>An attempt was made to use a JOIN or SUBST command on a drive that has already been substituted.</Description></Message>
+<Message><ID>60104</ID><Description>The system tried to delete the JOIN of a drive that is not joined.</Description></Message>
+<Message><ID>60105</ID><Description>The system tried to delete the substitution of a drive that is not substituted.</Description></Message>
+<Message><ID>60106</ID><Description>The system tried to join a drive to a directory on a joined drive.</Description></Message>
+<Message><ID>60107</ID><Description>The system tried to substitute a drive to a directory on a substituted drive.</Description></Message>
+<Message><ID>60108</ID><Description>The system tried to join a drive to a directory on a substituted drive.</Description></Message>
+<Message><ID>60109</ID><Description>The system tried to SUBST a drive to a directory on a joined drive.</Description></Message>
+<Message><ID>60110</ID><Description>The system cannot perform a JOIN or SUBST at this time.</Description></Message>
+<Message><ID>60111</ID><Description>The system cannot join or substitute a drive to or for a directory on the same drive.</Description></Message>
+<Message><ID>60112</ID><Description>The directory is not a subdirectory of the root directory.</Description></Message>
+<Message><ID>60113</ID><Description>The directory is not empty.</Description></Message>
+<Message><ID>60114</ID><Description>The path specified is being used in a substitute.</Description></Message>
+<Message><ID>60115</ID><Description>Not enough resources are available to process this command.</Description></Message>
+<Message><ID>60116</ID><Description>The path specified cannot be used at this time.</Description></Message>
+<Message><ID>60117</ID><Description>An attempt was made to join or substitute a drive for which a directory on the drive is the target of a previous substitute.</Description></Message>
+<Message><ID>60118</ID><Description>System trace information was not specified in your CONFIG.SYS file, or tracing is disallowed.</Description></Message>
+<Message><ID>60119</ID><Description>The number of specified semaphore events for DosMuxSemWait is not correct.</Description></Message>
+<Message><ID>60120</ID><Description>DosMuxSemWait did not execute; too many semaphores are already set.</Description></Message>
+<Message><ID>60121</ID><Description>The DosMuxSemWait list is not correct.</Description></Message>
+<Message><ID>60122</ID><Description>The volume label you entered exceeds the label character limit of the target file system.</Description></Message>
+<Message><ID>60123</ID><Description>Cannot create another thread.</Description></Message>
+<Message><ID>60124</ID><Description>The recipient process has refused the signal.</Description></Message>
+<Message><ID>60125</ID><Description>The segment is already discarded and cannot be locked.</Description></Message>
+<Message><ID>60126</ID><Description>The segment is already unlocked.</Description></Message>
+<Message><ID>60127</ID><Description>The address for the thread ID is not correct.</Description></Message>
+<Message><ID>60128</ID><Description>The argument string passed to DosExecPgm is not correct.</Description></Message>
+<Message><ID>60129</ID><Description>The specified path is invalid.</Description></Message>
+<Message><ID>60130</ID><Description>A signal is already pending.</Description></Message>
+<Message><ID>60131</ID><Description>No more threads can be created in the system.</Description></Message>
+<Message><ID>60132</ID><Description>Unable to lock a region of a file.</Description></Message>
+<Message><ID>60133</ID><Description>The requested resource is in use.</Description></Message>
+<Message><ID>60134</ID><Description>A lock request was not outstanding for the supplied cancel region.</Description></Message>
+<Message><ID>60135</ID><Description>The file system does not support atomic changes to the lock type.</Description></Message>
+<Message><ID>60136</ID><Description>The system detected a segment number that was not correct.</Description></Message>
+<Message><ID>60137</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60138</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60139</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60140</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60141</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60142</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60143</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60144</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60145</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60146</ID><Description>The operating system cannot run.</Description></Message>
+<Message><ID>60147</ID><Description>Cannot create a file when that file already exists.</Description></Message>
+<Message><ID>60148</ID><Description>The flag passed is not correct.</Description></Message>
+<Message><ID>60149</ID><Description>The specified system semaphore name was not found.</Description></Message>
+<Message><ID>60150</ID><Description>Cannot run %1 in Win32 mode.</Description></Message>
+<Message><ID>60151</ID><Description>%1 is not a valid Win32 application.</Description></Message>
+<Message><ID>60152</ID><Description>The operating system cannot run this application program.</Description></Message>
+<Message><ID>60153</ID><Description>The operating system cannot run this application program.</Description></Message>
+<Message><ID>60154</ID><Description>The operating system is not presently configured to run this application.</Description></Message>
+<Message><ID>60155</ID><Description>The code segment cannot be greater than or equal to 64K.</Description></Message>
+<Message><ID>60156</ID><Description>The system could not find the environment option that was entered.</Description></Message>
+<Message><ID>60157</ID><Description>No process in the command subtree has a signal handler.</Description></Message>
+<Message><ID>60158</ID><Description>The filename or extension is too long.</Description></Message>
+<Message><ID>60159</ID><Description>The ring 2 stack is in use.</Description></Message>
+<Message><ID>60160</ID><Description>The global filename characters, * or ?, are entered incorrectly or too many global filename characters are specified.</Description></Message>
+<Message><ID>60161</ID><Description>The signal being posted is not correct.</Description></Message>
+<Message><ID>60162</ID><Description>The signal handler cannot be set.</Description></Message>
+<Message><ID>60163</ID><Description>The segment is locked and cannot be reallocated.</Description></Message>
+<Message><ID>60164</ID><Description>Too many dynamic-link modules are attached to this program or dynamic-link module.</Description></Message>
+<Message><ID>60165</ID><Description>Can&apos;t nest calls to LoadModule.</Description></Message>
+<Message><ID>60166</ID><Description>The image file is valid, but is for a machine type other than the current machine.</Description></Message>
+<Message><ID>60167</ID><Description>The pipe state is invalid.</Description></Message>
+<Message><ID>60168</ID><Description>All pipe instances are busy.</Description></Message>
+<Message><ID>60169</ID><Description>The pipe is being closed.</Description></Message>
+<Message><ID>60170</ID><Description>No process is on the other end of the pipe.</Description></Message>
+<Message><ID>60171</ID><Description>More data is available.</Description></Message>
+<Message><ID>60172</ID><Description>The session was canceled.</Description></Message>
+<Message><ID>60173</ID><Description>The specified extended attribute name was invalid.</Description></Message>
+<Message><ID>60174</ID><Description>The extended attributes are inconsistent.</Description></Message>
+<Message><ID>60175</ID><Description>No more data is available.</Description></Message>
+<Message><ID>60176</ID><Description>The copy functions cannot be used.</Description></Message>
+<Message><ID>60177</ID><Description>The directory name is invalid.</Description></Message>
+<Message><ID>60178</ID><Description>The extended attributes did not fit in the buffer.</Description></Message>
+<Message><ID>60179</ID><Description>The extended attribute file on the mounted file system is corrupt.</Description></Message>
+<Message><ID>60180</ID><Description>The extended attribute table file is full.</Description></Message>
+<Message><ID>60181</ID><Description>The specified extended attribute handle is invalid.</Description></Message>
+<Message><ID>60182</ID><Description>The mounted file system does not support extended attributes.</Description></Message>
+<Message><ID>60183</ID><Description>Attempt to release mutex not owned by caller.</Description></Message>
+<Message><ID>60184</ID><Description>Too many posts were made to a semaphore.</Description></Message>
+<Message><ID>60185</ID><Description>Only part of a Read/WriteProcessMemory request was completed.</Description></Message>
+<Message><ID>60186</ID><Description>Oplock request is denied.</Description></Message>
+<Message><ID>60187</ID><Description>An invalid oplock acknowledgment was received by the system.</Description></Message>
+<Message><ID>60188</ID><Description>The system cannot find message text for message number.</Description></Message>
+<Message><ID>60189</ID><Description>Attempt to access invalid address.</Description></Message>
+<Message><ID>60190</ID><Description>Arithmetic result exceeded 32 bits.</Description></Message>
+<Message><ID>60191</ID><Description>There is a process on other end of the pipe.</Description></Message>
+<Message><ID>60192</ID><Description>Waiting for a process to open the other end of the pipe.</Description></Message>
+<Message><ID>60193</ID><Description>Access to the extended attribute was denied.</Description></Message>
+<Message><ID>60194</ID><Description>The I/O operation has been aborted because of either a thread exit or an application request.</Description></Message>
+<Message><ID>60195</ID><Description>Overlapped I/O event is not in a signaled state.</Description></Message>
+<Message><ID>60196</ID><Description>Overlapped I/O operation is in progress.</Description></Message>
+<Message><ID>60197</ID><Description>Invalid access to memory location.</Description></Message>
+<Message><ID>60198</ID><Description>Error performing inpage operation.</Description></Message>
+<Message><ID>60199</ID><Description>Recursion too deep; the stack overflowed.</Description></Message>
+<Message><ID>60200</ID><Description>The window cannot act on the sent message.</Description></Message>
+<Message><ID>60201</ID><Description>Cannot complete this function.</Description></Message>
+<Message><ID>60202</ID><Description>Invalid flags.</Description></Message>
+<Message><ID>60203</ID><Description>The volume does not contain a recognized file system.</Description></Message>
+<Message><ID>60204</ID><Description>The volume for a file has been externally altered so that the opened file is no longer valid.</Description></Message>
+<Message><ID>60205</ID><Description>The requested operation cannot be performed in full-screen mode.</Description></Message>
+<Message><ID>60206</ID><Description>An attempt was made to reference a token that does not exist.</Description></Message>
+<Message><ID>60207</ID><Description>The configuration registry database is corrupt.</Description></Message>
+<Message><ID>60208</ID><Description>The configuration registry key is invalid.</Description></Message>
+<Message><ID>60209</ID><Description>The configuration registry key could not be opened.</Description></Message>
+<Message><ID>60210</ID><Description>The configuration registry key could not be read.</Description></Message>
+<Message><ID>60211</ID><Description>The configuration registry key could not be written.</Description></Message>
+<Message><ID>60212</ID><Description>One of the files in the registry database had to be recovered by use of a log or alternate copy.  The recovery was successful.</Description></Message>
+<Message><ID>60213</ID><Description>The registry is corrupted. The structure of one of the files that contains registry data is corrupted, or the system&apos;s image of the file in memory is corrupted, or the file could not be recovered because the alternate copy or log was absent or corrupted.</Description></Message>
+<Message><ID>60214</ID><Description>An I/O operation initiated by the registry failed unrecoverably.</Description></Message>
+<Message><ID>60215</ID><Description>The system has attempted to load or restore a file into the registry, but the specified file is not in a registry file format.</Description></Message>
+<Message><ID>60216</ID><Description>Illegal operation attempted on a registry key that has been marked for deletion.</Description></Message>
+<Message><ID>60217</ID><Description>System could not allocate the required space in a registry log.</Description></Message>
+<Message><ID>60218</ID><Description>Cannot create a symbolic link in a registry key that already has subkeys or values.</Description></Message>
+<Message><ID>60219</ID><Description>Cannot create a stable subkey under a volatile parent key.</Description></Message>
+<Message><ID>60220</ID><Description>A notify change request is being completed and the information is not being returned in the caller&apos;s buffer. The caller now needs to enumerate the files to find the changes.</Description></Message>
+<Message><ID>60221</ID><Description>A stop control has been sent to a service that other running services are dependent on.</Description></Message>
+<Message><ID>60222</ID><Description>The requested control is not valid for this service.</Description></Message>
+<Message><ID>60223</ID><Description>The service did not respond to the start or control request in a timely fashion.</Description></Message>
+<Message><ID>60224</ID><Description>A thread could not be created for the service.</Description></Message>
+<Message><ID>60225</ID><Description>The service database is locked.</Description></Message>
+<Message><ID>60226</ID><Description>An instance of the service is already running.</Description></Message>
+<Message><ID>60227</ID><Description>The account name is invalid or does not exist.</Description></Message>
+<Message><ID>60228</ID><Description>The service cannot be started, either because it is disabled or because it has no enabled devices associated with it.</Description></Message>
+<Message><ID>60229</ID><Description>Circular service dependency was specified.</Description></Message>
+<Message><ID>60230</ID><Description>The specified service does not exist as an installed service.</Description></Message>
+<Message><ID>60231</ID><Description>The service cannot accept control messages at this time.</Description></Message>
+<Message><ID>60232</ID><Description>The service has not been started.</Description></Message>
+<Message><ID>60233</ID><Description>The service process could not connect to the service controller.</Description></Message>
+<Message><ID>60234</ID><Description>An exception occurred in the service when handling the control request.</Description></Message>
+<Message><ID>60235</ID><Description>The database specified does not exist.</Description></Message>
+<Message><ID>60236</ID><Description>The service has returned a service-specific error code.</Description></Message>
+<Message><ID>60237</ID><Description>The process terminated unexpectedly.</Description></Message>
+<Message><ID>60238</ID><Description>The dependency service or group failed to start.</Description></Message>
+<Message><ID>60239</ID><Description>The service did not start due to a logon failure.</Description></Message>
+<Message><ID>60240</ID><Description>After starting, the service hung in a start-pending state.</Description></Message>
+<Message><ID>60241</ID><Description>The specified service database lock is invalid.</Description></Message>
+<Message><ID>60242</ID><Description>The specified service has been marked for deletion.</Description></Message>
+<Message><ID>60243</ID><Description>The specified service already exists.</Description></Message>
+<Message><ID>60244</ID><Description>The system is currently running with the last-known-good configuration.</Description></Message>
+<Message><ID>60245</ID><Description>The dependency service does not exist or has been marked for deletion.</Description></Message>
+<Message><ID>60246</ID><Description>The current boot has already been accepted for use as the last-known-good control set.</Description></Message>
+<Message><ID>60247</ID><Description>No attempts to start the service have been made since the last boot.</Description></Message>
+<Message><ID>60248</ID><Description>The name is already in use as either a service name or a service display name.</Description></Message>
+<Message><ID>60249</ID><Description>The account specified for this service is different from the account specified for other services running in the same process.</Description></Message>
+<Message><ID>60250</ID><Description>Failure actions can only be set for Win32 services, not for drivers.</Description></Message>
+<Message><ID>60251</ID><Description>This service runs in the same process as the service control manager.</Description></Message>
+<Message><ID>60252</ID><Description>No recovery program has been configured for this service.</Description></Message>
+<Message><ID>60253</ID><Description>The physical end of the tape has been reached.</Description></Message>
+<Message><ID>60254</ID><Description>A tape access reached a filemark.</Description></Message>
+<Message><ID>60255</ID><Description>The beginning of the tape or a partition was encountered.</Description></Message>
+<Message><ID>60256</ID><Description>A tape access reached the end of a set of files.</Description></Message>
+<Message><ID>60257</ID><Description>No more data is on the tape.</Description></Message>
+<Message><ID>60258</ID><Description>Tape could not be partitioned.</Description></Message>
+<Message><ID>60259</ID><Description>When accessing a new tape of a multivolume partition, the current blocksize is incorrect.</Description></Message>
+<Message><ID>60260</ID><Description>Tape partition information could not be found when loading a tape.</Description></Message>
+<Message><ID>60261</ID><Description>Unable to lock the media eject mechanism.</Description></Message>
+<Message><ID>60262</ID><Description>Unable to unload the media.</Description></Message>
+<Message><ID>60263</ID><Description>The media in the drive may have changed.</Description></Message>
+<Message><ID>60264</ID><Description>The I/O bus was reset.</Description></Message>
+<Message><ID>60265</ID><Description>No media in drive.</Description></Message>
+<Message><ID>60266</ID><Description>No mapping for the Unicode character exists in the target multi-byte code page.</Description></Message>
+<Message><ID>60267</ID><Description>A dynamic link library (DLL) initialization routine failed.</Description></Message>
+<Message><ID>60268</ID><Description>A system shutdown is in progress.</Description></Message>
+<Message><ID>60269</ID><Description>Unable to abort the system shutdown because no shutdown was in progress.</Description></Message>
+<Message><ID>60270</ID><Description>The request could not be performed because of an I/O device error.</Description></Message>
+<Message><ID>60271</ID><Description>No serial device was successfully initialized.  The serial driver will unload.</Description></Message>
+<Message><ID>60272</ID><Description>Unable to open a device that was sharing an interrupt request (IRQ) with other devices. At least one other device that uses that IRQ was already opened.</Description></Message>
+<Message><ID>60273</ID><Description>A serial I/O operation was completed by another write to the serial port.</Description></Message>
+<Message><ID>60274</ID><Description>A serial I/O operation completed because the time-out period expired.</Description></Message>
+<Message><ID>60275</ID><Description>No ID address mark was found on the floppy disk.</Description></Message>
+<Message><ID>60276</ID><Description>Mismatch between the floppy disk sector ID field and the floppy disk controller track address.</Description></Message>
+<Message><ID>60277</ID><Description>The floppy disk controller reported an error that is not recognized by the floppy disk driver.</Description></Message>
+<Message><ID>60278</ID><Description>The floppy disk controller returned inconsistent results in its registers.</Description></Message>
+<Message><ID>60279</ID><Description>While accessing the hard disk, a recalibrate operation failed, even after retries.</Description></Message>
+<Message><ID>60280</ID><Description>While accessing the hard disk, a disk operation failed even after retries.</Description></Message>
+<Message><ID>60281</ID><Description>While accessing the hard disk, a disk controller reset was needed, but even that failed.</Description></Message>
+<Message><ID>60282</ID><Description>Physical end of tape encountered.</Description></Message>
+<Message><ID>60283</ID><Description>Not enough server storage is available to process this command.</Description></Message>
+<Message><ID>60284</ID><Description>A potential deadlock condition has been detected.</Description></Message>
+<Message><ID>60285</ID><Description>The base address or the file offset specified does not have the proper alignment.</Description></Message>
+<Message><ID>60286</ID><Description>An attempt to change the system power state was vetoed by another application or driver.</Description></Message>
+<Message><ID>60287</ID><Description>The system BIOS failed an attempt to change the system power state.</Description></Message>
+<Message><ID>60288</ID><Description>An attempt was made to create more links on a file than the file system supports.</Description></Message>
+<Message><ID>60289</ID><Description>The specified program requires a newer version of Windows.</Description></Message>
+<Message><ID>60290</ID><Description>The specified program is not a Windows or MS-DOS program.</Description></Message>
+<Message><ID>60291</ID><Description>Cannot start more than one instance of the specified program.</Description></Message>
+<Message><ID>60292</ID><Description>The specified program was written for an earlier version of Windows.</Description></Message>
+<Message><ID>60293</ID><Description>One of the library files needed to run this application is damaged.</Description></Message>
+<Message><ID>60294</ID><Description>No application is associated with the specified file for this operation.</Description></Message>
+<Message><ID>60295</ID><Description>An error occurred in sending the command to the application.</Description></Message>
+<Message><ID>60296</ID><Description>One of the library files needed to run this application cannot be found.</Description></Message>
+<Message><ID>60297</ID><Description>The current process has used all of its system allowance of handles for Window Manager objects.</Description></Message>
+<Message><ID>60298</ID><Description>The message can only be used with synchronous operations only.</Description></Message>
+<Message><ID>60299</ID><Description>The indicated source element has no media.</Description></Message>
+<Message><ID>60300</ID><Description>The indicated destination element already contains media.</Description></Message>
+<Message><ID>60301</ID><Description>The indicated element does not exist.</Description></Message>
+<Message><ID>60302</ID><Description>The indicated element is part of a magazine that is not present.</Description></Message>
+<Message><ID>60303</ID><Description>The indicated device requires reinitialization due to hardware errors.</Description></Message>
+<Message><ID>60304</ID><Description>The device has indicated that cleaning is required before further operations are attempted.</Description></Message>
+<Message><ID>60305</ID><Description>The device has indicated that it&apos;s door is open.</Description></Message>
+<Message><ID>60306</ID><Description>The device is not connected.</Description></Message>
+<Message><ID>60307</ID><Description>Element not found.</Description></Message>
+<Message><ID>60308</ID><Description>There was no match for the specified key in the index.</Description></Message>
+<Message><ID>60309</ID><Description>The property set specified does not exist on the object.</Description></Message>
+<Message><ID>60310</ID><Description>The point passed to GetMouseMovePoints is not in the buffer.</Description></Message>
+<Message><ID>60311</ID><Description>The tracking (workstation) service is not running.</Description></Message>
+<Message><ID>60312</ID><Description>The network connection was made successfully but the user had to be prompted for a password other than the one originally specified.</Description></Message>
+<Message><ID>60313</ID><Description>The specified username is invalid.</Description></Message>
+<Message><ID>60314</ID><Description>This network connection does not exist.</Description></Message>
+<Message><ID>60315</ID><Description>This network connection has files open or requests pending.</Description></Message>
+<Message><ID>60316</ID><Description>Active connections still exist.</Description></Message>
+<Message><ID>60317</ID><Description>The device is in use by an active process and cannot be disconnected.</Description></Message>
+<Message><ID>60318</ID><Description>The specified device name is invalid.</Description></Message>
+<Message><ID>60319</ID><Description>The device is not currently connected but it is a remembered connection.</Description></Message>
+<Message><ID>60320</ID><Description>An attempt was made to remember a device that had previously been remembered.</Description></Message>
+<Message><ID>60321</ID><Description>No network provider accepted the given network path.</Description></Message>
+<Message><ID>60322</ID><Description>The specified network provider name is invalid.</Description></Message>
+<Message><ID>60323</ID><Description>Unable to open the network connection profile.</Description></Message>
+<Message><ID>60324</ID><Description>The network connection profile is corrupted.</Description></Message>
+<Message><ID>60325</ID><Description>Cannot enumerate a noncontainer.</Description></Message>
+<Message><ID>60326</ID><Description>An extended error has occurred.</Description></Message>
+<Message><ID>60327</ID><Description>The format of the specified group name is invalid.</Description></Message>
+<Message><ID>60328</ID><Description>The format of the specified computer name is invalid.</Description></Message>
+<Message><ID>60329</ID><Description>The format of the specified event name is invalid.</Description></Message>
+<Message><ID>60330</ID><Description>The format of the specified domain name is invalid.</Description></Message>
+<Message><ID>60331</ID><Description>The format of the specified service name is invalid.</Description></Message>
+<Message><ID>60332</ID><Description>The format of the specified network name is invalid.</Description></Message>
+<Message><ID>60333</ID><Description>The format of the specified share name is invalid.</Description></Message>
+<Message><ID>60334</ID><Description>The format of the specified password is invalid.</Description></Message>
+<Message><ID>60335</ID><Description>The format of the specified message name is invalid.</Description></Message>
+<Message><ID>60336</ID><Description>The format of the specified message destination is invalid.</Description></Message>
+<Message><ID>60337</ID><Description>The credentials supplied conflict with an existing set of credentials.</Description></Message>
+<Message><ID>60338</ID><Description>An attempt was made to establish a session to a network server, but there are already too many sessions established to that server.</Description></Message>
+<Message><ID>60339</ID><Description>The workgroup or domain name is already in use by another computer on the network.</Description></Message>
+<Message><ID>60340</ID><Description>The network is not present or not started.</Description></Message>
+<Message><ID>60341</ID><Description>The operation was canceled by the user.</Description></Message>
+<Message><ID>60342</ID><Description>The requested operation cannot be performed on a file with a user-mapped section open.</Description></Message>
+<Message><ID>60343</ID><Description>The remote system refused the network connection.</Description></Message>
+<Message><ID>60344</ID><Description>The network connection was gracefully closed.</Description></Message>
+<Message><ID>60345</ID><Description>The network transport endpoint already has an address associated with it.</Description></Message>
+<Message><ID>60346</ID><Description>An address has not yet been associated with the network endpoint.</Description></Message>
+<Message><ID>60347</ID><Description>An operation was attempted on a nonexistent network connection.</Description></Message>
+<Message><ID>60348</ID><Description>An invalid operation was attempted on an active network connection.</Description></Message>
+<Message><ID>60349</ID><Description>The remote network is not reachable by the transport.</Description></Message>
+<Message><ID>60350</ID><Description>The remote system is not reachable by the transport.</Description></Message>
+<Message><ID>60351</ID><Description>The remote system does not support the transport protocol.</Description></Message>
+<Message><ID>60352</ID><Description>No service is operating at the destination network endpoint on the remote system.</Description></Message>
+<Message><ID>60353</ID><Description>The request was aborted.</Description></Message>
+<Message><ID>60354</ID><Description>The network connection was aborted by the local system.</Description></Message>
+<Message><ID>60355</ID><Description>The operation could not be completed.  A retry should be performed.</Description></Message>
+<Message><ID>60356</ID><Description>A connection to the server could not be made because the limit on the number of concurrent connections for this account has been reached.</Description></Message>
+<Message><ID>60357</ID><Description>Attempting to log in during an unauthorized time of day for this account.</Description></Message>
+<Message><ID>60358</ID><Description>The account is not authorized to log in from this station.</Description></Message>
+<Message><ID>60359</ID><Description>The network address could not be used for the operation requested.</Description></Message>
+<Message><ID>60360</ID><Description>The service is already registered.</Description></Message>
+<Message><ID>60361</ID><Description>The specified service does not exist.</Description></Message>
+<Message><ID>60362</ID><Description>The operation being requested was not performed because the user has not been authenticated.</Description></Message>
+<Message><ID>60363</ID><Description>The operation being requested was not performed because the user has not logged on to the network.</Description></Message>
+<Message><ID>60364</ID><Description>Continue with work in progress.</Description></Message>
+<Message><ID>60365</ID><Description>An attempt was made to perform an initialization operation when initialization has already been completed.</Description></Message>
+<Message><ID>60366</ID><Description>No more local devices.</Description></Message>
+<Message><ID>60367</ID><Description>The specified site does not exist.</Description></Message>
+<Message><ID>60368</ID><Description>A domain controller with the specified name already exists.</Description></Message>
+<Message><ID>60369</ID><Description>An error occurred while installing the NT directory service. Please view the event log for more information.</Description></Message>
+<Message><ID>60370</ID><Description>Not all privileges referenced are assigned to the caller.</Description></Message>
+<Message><ID>60371</ID><Description>Some mapping between account names and security IDs was not done.</Description></Message>
+<Message><ID>60372</ID><Description>No system quota limits are specifically set for this account.</Description></Message>
+<Message><ID>60373</ID><Description>No encryption key is available.  A well-known encryption key was returned.</Description></Message>
+<Message><ID>60374</ID><Description>The NT password is too complex to be converted to a LAN Manager password.  The LAN Manager password returned is a NULL string.</Description></Message>
+<Message><ID>60375</ID><Description>The revision level is unknown.</Description></Message>
+<Message><ID>60376</ID><Description>Indicates two revision levels are incompatible.</Description></Message>
+<Message><ID>60377</ID><Description>This security ID may not be assigned as the owner of this object.</Description></Message>
+<Message><ID>60378</ID><Description>This security ID may not be assigned as the primary group of an object.</Description></Message>
+<Message><ID>60379</ID><Description>An attempt has been made to operate on an impersonation token by a thread that is not currently impersonating a client.</Description></Message>
+<Message><ID>60380</ID><Description>The group may not be disabled.</Description></Message>
+<Message><ID>60381</ID><Description>There are currently no logon servers available to service the logon request.</Description></Message>
+<Message><ID>60382</ID><Description> A specified logon session does not exist.  It may already have been terminated.</Description></Message>
+<Message><ID>60383</ID><Description> A specified privilege does not exist.</Description></Message>
+<Message><ID>60384</ID><Description> A required privilege is not held by the client.</Description></Message>
+<Message><ID>60385</ID><Description>The name provided is not a properly formed account name.</Description></Message>
+<Message><ID>60386</ID><Description>The specified user already exists.</Description></Message>
+<Message><ID>60387</ID><Description>The specified user does not exist.</Description></Message>
+<Message><ID>60388</ID><Description>The specified group already exists.</Description></Message>
+<Message><ID>60389</ID><Description>The specified group does not exist.</Description></Message>
+<Message><ID>60390</ID><Description>Either the specified user account is already a member of the specified group, or the specified group cannot be deleted because it contains a member.</Description></Message>
+<Message><ID>60391</ID><Description>The specified user account is not a member of the specified group account.</Description></Message>
+<Message><ID>60392</ID><Description>The last remaining administration account cannot be disabled or deleted.</Description></Message>
+<Message><ID>60393</ID><Description>Unable to update the password.  The value provided as the current password is incorrect.</Description></Message>
+<Message><ID>60394</ID><Description>Unable to update the password.  The value provided for the new password contains values that are not allowed in passwords.</Description></Message>
+<Message><ID>60395</ID><Description>Unable to update the password because a password update rule has been violated.</Description></Message>
+<Message><ID>60396</ID><Description>Logon failure: unknown user name or bad password.</Description></Message>
+<Message><ID>60397</ID><Description>Logon failure: user account restriction.</Description></Message>
+<Message><ID>60398</ID><Description>Logon failure: account logon time restriction violation.</Description></Message>
+<Message><ID>60399</ID><Description>Logon failure: user not allowed to log on to this computer.</Description></Message>
+<Message><ID>60400</ID><Description>Logon failure: the specified account password has expired.</Description></Message>
+<Message><ID>60401</ID><Description>Logon failure: account currently disabled.</Description></Message>
+<Message><ID>60402</ID><Description>No mapping between account names and security IDs was done.</Description></Message>
+<Message><ID>60403</ID><Description>Too many local user identifiers (LUIDs) were requested at one time.</Description></Message>
+<Message><ID>60404</ID><Description>No more local user identifiers (LUIDs) are available.</Description></Message>
+<Message><ID>60405</ID><Description>The subauthority part of a security ID is invalid for this particular use.</Description></Message>
+<Message><ID>60406</ID><Description>The access control list (ACL) structure is invalid.</Description></Message>
+<Message><ID>60407</ID><Description>The security ID structure is invalid.</Description></Message>
+<Message><ID>60408</ID><Description>The security descriptor structure is invalid.</Description></Message>
+<Message><ID>60409</ID><Description>The inherited access control list (ACL) or access control entry (ACE) could not be built.</Description></Message>
+<Message><ID>60410</ID><Description>The server is currently disabled.</Description></Message>
+<Message><ID>60411</ID><Description>The server is currently enabled.</Description></Message>
+<Message><ID>60412</ID><Description>The value provided was an invalid value for an identifier authority.</Description></Message>
+<Message><ID>60413</ID><Description>No more memory is available for security information updates.</Description></Message>
+<Message><ID>60414</ID><Description>The specified attributes are invalid, or incompatible with the attributes for the group as a whole.</Description></Message>
+<Message><ID>60415</ID><Description>Either a required impersonation level was not provided, or the provided impersonation level is invalid.</Description></Message>
+<Message><ID>60416</ID><Description>Cannot open an anonymous level security token.</Description></Message>
+<Message><ID>60417</ID><Description>The validation information class requested was invalid.</Description></Message>
+<Message><ID>60418</ID><Description>The type of the token is inappropriate for its attempted use.</Description></Message>
+<Message><ID>60419</ID><Description>Unable to perform a security operation on an object that has no associated security.</Description></Message>
+<Message><ID>60420</ID><Description>Indicates a Windows NT Server could not be contacted or that objects within the domain are protected such that necessary information could not be retrieved.</Description></Message>
+<Message><ID>60421</ID><Description>The security account manager (SAM) or local security authority (LSA) server was in the wrong state to perform the security operation.</Description></Message>
+<Message><ID>60422</ID><Description>The domain was in the wrong state to perform the security operation.</Description></Message>
+<Message><ID>60423</ID><Description>This operation is only allowed for the Primary Domain Controller of the domain.</Description></Message>
+<Message><ID>60424</ID><Description>The specified domain did not exist.</Description></Message>
+<Message><ID>60425</ID><Description>The specified domain already exists.</Description></Message>
+<Message><ID>60426</ID><Description>An attempt was made to exceed the limit on the number of domains per server.</Description></Message>
+<Message><ID>60427</ID><Description>Unable to complete the requested operation because of either a catastrophic media failure or a data structure corruption on the disk.</Description></Message>
+<Message><ID>60428</ID><Description>The security account database contains an internal inconsistency.</Description></Message>
+<Message><ID>60429</ID><Description>Generic access types were contained in an access mask which should already be mapped to nongeneric types.</Description></Message>
+<Message><ID>60430</ID><Description>A security descriptor is not in the right format (absolute or self-relative).</Description></Message>
+<Message><ID>60431</ID><Description>The requested action is restricted for use by logon processes only.  The calling process has not registered as a logon process.</Description></Message>
+<Message><ID>60432</ID><Description>Cannot start a new logon session with an ID that is already in use.</Description></Message>
+<Message><ID>60433</ID><Description>A specified authentication package is unknown.</Description></Message>
+<Message><ID>60434</ID><Description>The logon session is not in a state that is consistent with the requested operation.</Description></Message>
+<Message><ID>60435</ID><Description>The logon session ID is already in use.</Description></Message>
+<Message><ID>60436</ID><Description>A logon request contained an invalid logon type value.</Description></Message>
+<Message><ID>60437</ID><Description>Unable to impersonate using a named pipe until data has been read from that pipe.</Description></Message>
+<Message><ID>60438</ID><Description>The transaction state of a registry subtree is incompatible with the requested operation.</Description></Message>
+<Message><ID>60439</ID><Description>An internal security database corruption has been encountered.</Description></Message>
+<Message><ID>60440</ID><Description>Cannot perform this operation on built-in accounts.</Description></Message>
+<Message><ID>60441</ID><Description>Cannot perform this operation on this built-in special group.</Description></Message>
+<Message><ID>60442</ID><Description>Cannot perform this operation on this built-in special user.</Description></Message>
+<Message><ID>60443</ID><Description>The user cannot be removed from a group because the group is currently the user&apos;s primary group.</Description></Message>
+<Message><ID>60444</ID><Description>The token is already in use as a primary token.</Description></Message>
+<Message><ID>60445</ID><Description>The specified local group does not exist.</Description></Message>
+<Message><ID>60446</ID><Description>The specified account name is not a member of the local group.</Description></Message>
+<Message><ID>60447</ID><Description>The specified account name is already a member of the local group.</Description></Message>
+<Message><ID>60448</ID><Description>The specified local group already exists.</Description></Message>
+<Message><ID>60449</ID><Description>Logon failure: the user has not been granted the requested logon type at this computer.</Description></Message>
+<Message><ID>60450</ID><Description>The maximum number of secrets that may be stored in a single system has been exceeded.</Description></Message>
+<Message><ID>60451</ID><Description>The length of a secret exceeds the maximum length allowed.</Description></Message>
+<Message><ID>60452</ID><Description>The local security authority database contains an internal inconsistency.</Description></Message>
+<Message><ID>60453</ID><Description>During a logon attempt, the user&apos;s security context accumulated too many security IDs.</Description></Message>
+<Message><ID>60454</ID><Description>Logon failure: the user has not been granted the requested logon type at this computer.</Description></Message>
+<Message><ID>60455</ID><Description>A cross-encrypted password is necessary to change a user password.</Description></Message>
+<Message><ID>60456</ID><Description>A new member could not be added to a local group because the member does not exist.</Description></Message>
+<Message><ID>60457</ID><Description>A new member could not be added to a local group because the member has the wrong account type.</Description></Message>
+<Message><ID>60458</ID><Description>Too many security IDs have been specified.</Description></Message>
+<Message><ID>60459</ID><Description>A cross-encrypted password is necessary to change this user password.</Description></Message>
+<Message><ID>60460</ID><Description>Indicates an ACL contains no inheritable components.</Description></Message>
+<Message><ID>60461</ID><Description>The file or directory is corrupted and nonreadable.</Description></Message>
+<Message><ID>60462</ID><Description>The disk structure is corrupted and nonreadable.</Description></Message>
+<Message><ID>60463</ID><Description>There is no user session key for the specified logon session.</Description></Message>
+<Message><ID>60464</ID><Description>The service being accessed is licensed for a particular number of connections.</Description></Message>
+<Message><ID>60465</ID><Description>Invalid window handle.</Description></Message>
+<Message><ID>60466</ID><Description>Invalid menu handle.</Description></Message>
+<Message><ID>60467</ID><Description>Invalid cursor handle.</Description></Message>
+<Message><ID>60468</ID><Description>Invalid accelerator table handle.</Description></Message>
+<Message><ID>60469</ID><Description>Invalid hook handle.</Description></Message>
+<Message><ID>60470</ID><Description>Invalid handle to a multiple-window position structure.</Description></Message>
+<Message><ID>60471</ID><Description>Cannot create a top-level child window.</Description></Message>
+<Message><ID>60472</ID><Description>Cannot find window class.</Description></Message>
+<Message><ID>60473</ID><Description>Invalid window; it belongs to other thread.</Description></Message>
+<Message><ID>60474</ID><Description>Hot key is already registered.</Description></Message>
+<Message><ID>60475</ID><Description>Class already exists.</Description></Message>
+<Message><ID>60476</ID><Description>Class does not exist.</Description></Message>
+<Message><ID>60477</ID><Description>Class still has open windows.</Description></Message>
+<Message><ID>60478</ID><Description>Invalid index.</Description></Message>
+<Message><ID>60479</ID><Description>Invalid icon handle.</Description></Message>
+<Message><ID>60480</ID><Description>Using private DIALOG window words.</Description></Message>
+<Message><ID>60481</ID><Description>The list box identifier was not found.</Description></Message>
+<Message><ID>60482</ID><Description>No wildcards were found.</Description></Message>
+<Message><ID>60483</ID><Description>Thread does not have a clipboard open.</Description></Message>
+<Message><ID>60484</ID><Description>Hot key is not registered.</Description></Message>
+<Message><ID>60485</ID><Description>The window is not a valid dialog window.</Description></Message>
+<Message><ID>60486</ID><Description>Control ID not found.</Description></Message>
+<Message><ID>60487</ID><Description>Invalid message for a combo box because it does not have an edit control.</Description></Message>
+<Message><ID>60488</ID><Description>The window is not a combo box.</Description></Message>
+<Message><ID>60489</ID><Description>Height must be less than 256.</Description></Message>
+<Message><ID>60490</ID><Description>Invalid device context (DC) handle.</Description></Message>
+<Message><ID>60491</ID><Description>Invalid hook procedure type.</Description></Message>
+<Message><ID>60492</ID><Description>Invalid hook procedure.</Description></Message>
+<Message><ID>60493</ID><Description>Cannot set nonlocal hook without a module handle.</Description></Message>
+<Message><ID>60494</ID><Description>This hook procedure can only be set globally.</Description></Message>
+<Message><ID>60495</ID><Description>The journal hook procedure is already installed.</Description></Message>
+<Message><ID>60496</ID><Description>The hook procedure is not installed.</Description></Message>
+<Message><ID>60497</ID><Description>Invalid message for single-selection list box.</Description></Message>
+<Message><ID>60498</ID><Description>LB_SETCOUNT sent to non-lazy list box.</Description></Message>
+<Message><ID>60499</ID><Description>This list box does not support tab stops.</Description></Message>
+<Message><ID>60500</ID><Description>Cannot destroy object created by another thread.</Description></Message>
+<Message><ID>60501</ID><Description>Child windows cannot have menus.</Description></Message>
+<Message><ID>60502</ID><Description>The window does not have a system menu.</Description></Message>
+<Message><ID>60503</ID><Description>Invalid message box style.</Description></Message>
+<Message><ID>60504</ID><Description>Invalid system-wide (SPI_*) parameter.</Description></Message>
+<Message><ID>60505</ID><Description>Screen already locked.</Description></Message>
+<Message><ID>60506</ID><Description>All handles to windows in a multiple-window position structure must have the same parent.</Description></Message>
+<Message><ID>60507</ID><Description>The window is not a child window.</Description></Message>
+<Message><ID>60508</ID><Description>Invalid GW_* command.</Description></Message>
+<Message><ID>60509</ID><Description>Invalid thread identifier.</Description></Message>
+<Message><ID>60510</ID><Description>Cannot process a message from a window that is not a multiple document interface (MDI) window.</Description></Message>
+<Message><ID>60511</ID><Description>Popup menu already active.</Description></Message>
+<Message><ID>60512</ID><Description>The window does not have scroll bars.</Description></Message>
+<Message><ID>60513</ID><Description>Scroll bar range cannot be greater than 0x7FFF.</Description></Message>
+<Message><ID>60514</ID><Description>Cannot show or remove the window in the way specified.</Description></Message>
+<Message><ID>60515</ID><Description>Insufficient system resources exist to complete the requested service.</Description></Message>
+<Message><ID>60516</ID><Description>Insufficient system resources exist to complete the requested service.</Description></Message>
+<Message><ID>60517</ID><Description>Insufficient system resources exist to complete the requested service.</Description></Message>
+<Message><ID>60518</ID><Description>Insufficient quota to complete the requested service.</Description></Message>
+<Message><ID>60519</ID><Description>Insufficient quota to complete the requested service.</Description></Message>
+<Message><ID>60520</ID><Description>The paging file is too small for this operation to complete.</Description></Message>
+<Message><ID>60521</ID><Description>A menu item was not found.</Description></Message>
+<Message><ID>60522</ID><Description>Invalid keyboard layout handle.</Description></Message>
+<Message><ID>60523</ID><Description>Hook type not allowed.</Description></Message>
+<Message><ID>60524</ID><Description>This operation requires an interactive window station.</Description></Message>
+<Message><ID>60525</ID><Description>This operation returned because the timeout period expired.</Description></Message>
+<Message><ID>60526</ID><Description>Invalid monitor handle.</Description></Message>
+<Message><ID>60527</ID><Description>The event log file is corrupted.</Description></Message>
+<Message><ID>60528</ID><Description>No event log file could be opened, so the event logging service did not start.</Description></Message>
+<Message><ID>60529</ID><Description>The event log file is full.</Description></Message>
+<Message><ID>60530</ID><Description>The event log file has changed between read operations.</Description></Message>
+<Message><ID>60531</ID><Description>User cancel installation.</Description></Message>
+<Message><ID>60532</ID><Description>Fatal error during installation.</Description></Message>
+<Message><ID>60533</ID><Description>Installation suspended, incomplete.</Description></Message>
+<Message><ID>60534</ID><Description>Product code not registered.</Description></Message>
+<Message><ID>60535</ID><Description>Feature ID not registered.</Description></Message>
+<Message><ID>60536</ID><Description>Component ID not registered.</Description></Message>
+<Message><ID>60537</ID><Description>Unknown property.</Description></Message>
+<Message><ID>60538</ID><Description>Handle is in an invalid state.</Description></Message>
+<Message><ID>60539</ID><Description>Configuration data corrupt.</Description></Message>
+<Message><ID>60540</ID><Description>Language not available.</Description></Message>
+<Message><ID>60541</ID><Description>Install source unavailable.</Description></Message>
+<Message><ID>60542</ID><Description>Product is uninstalled.</Description></Message>
+<Message><ID>60543</ID><Description>SQL query syntax invalid or unsupported.</Description></Message>
+<Message><ID>60544</ID><Description>Record field does not exist.</Description></Message>
+<Message><ID>60545</ID><Description>The string binding is invalid.</Description></Message>
+<Message><ID>60546</ID><Description>The binding handle is not the correct type.</Description></Message>
+<Message><ID>60547</ID><Description>The binding handle is invalid.</Description></Message>
+<Message><ID>60548</ID><Description>The RPC protocol sequence is not supported.</Description></Message>
+<Message><ID>60549</ID><Description>The RPC protocol sequence is invalid.</Description></Message>
+<Message><ID>60550</ID><Description>The string universal unique identifier (UUID) is invalid.</Description></Message>
+<Message><ID>60551</ID><Description>The endpoint format is invalid.</Description></Message>
+<Message><ID>60552</ID><Description>The network address is invalid.</Description></Message>
+<Message><ID>60553</ID><Description>No endpoint was found.</Description></Message>
+<Message><ID>60554</ID><Description>The timeout value is invalid.</Description></Message>
+<Message><ID>60555</ID><Description>The object universal unique identifier (UUID) was not found.</Description></Message>
+<Message><ID>60556</ID><Description>The object universal unique identifier (UUID) has already been registered.</Description></Message>
+<Message><ID>60557</ID><Description>The type universal unique identifier (UUID) has already been registered.</Description></Message>
+<Message><ID>60558</ID><Description>The RPC server is already listening.</Description></Message>
+<Message><ID>60559</ID><Description>No protocol sequences have been registered.</Description></Message>
+<Message><ID>60560</ID><Description>The RPC server is not listening.</Description></Message>
+<Message><ID>60561</ID><Description>The manager type is unknown.</Description></Message>
+<Message><ID>60562</ID><Description>The interface is unknown.</Description></Message>
+<Message><ID>60563</ID><Description>There are no bindings.</Description></Message>
+<Message><ID>60564</ID><Description>There are no protocol sequences.</Description></Message>
+<Message><ID>60565</ID><Description>The endpoint cannot be created.</Description></Message>
+<Message><ID>60566</ID><Description>Not enough resources are available to complete this operation.</Description></Message>
+<Message><ID>60567</ID><Description>The RPC server is unavailable.</Description></Message>
+<Message><ID>60568</ID><Description>The RPC server is too busy to complete this operation.</Description></Message>
+<Message><ID>60569</ID><Description>The network options are invalid.</Description></Message>
+<Message><ID>60570</ID><Description>There are no remote procedure calls active on this thread.</Description></Message>
+<Message><ID>60571</ID><Description>The remote procedure call failed.</Description></Message>
+<Message><ID>60572</ID><Description>The remote procedure call failed and did not execute.</Description></Message>
+<Message><ID>60573</ID><Description>A remote procedure call (RPC) protocol error occurred.</Description></Message>
+<Message><ID>60574</ID><Description>The transfer syntax is not supported by the RPC server.</Description></Message>
+<Message><ID>60575</ID><Description>The universal unique identifier (UUID) type is not supported.</Description></Message>
+<Message><ID>60576</ID><Description>The tag is invalid.</Description></Message>
+<Message><ID>60577</ID><Description>The array bounds are invalid.</Description></Message>
+<Message><ID>60578</ID><Description>The binding does not contain an entry name.</Description></Message>
+<Message><ID>60579</ID><Description>The name syntax is invalid.</Description></Message>
+<Message><ID>60580</ID><Description>The name syntax is not supported.</Description></Message>
+<Message><ID>60581</ID><Description>No network address is available to use to construct a universal unique identifier (UUID).</Description></Message>
+<Message><ID>60582</ID><Description>The endpoint is a duplicate.</Description></Message>
+<Message><ID>60583</ID><Description>The authentication type is unknown.</Description></Message>
+<Message><ID>60584</ID><Description>The maximum number of calls is too small.</Description></Message>
+<Message><ID>60585</ID><Description>The string is too long.</Description></Message>
+<Message><ID>60586</ID><Description>The RPC protocol sequence was not found.</Description></Message>
+<Message><ID>60587</ID><Description>The procedure number is out of range.</Description></Message>
+<Message><ID>60588</ID><Description>The binding does not contain any authentication information.</Description></Message>
+<Message><ID>60589</ID><Description>The authentication service is unknown.</Description></Message>
+<Message><ID>60590</ID><Description>The authentication level is unknown.</Description></Message>
+<Message><ID>60591</ID><Description>The security context is invalid.</Description></Message>
+<Message><ID>60592</ID><Description>The authorization service is unknown.</Description></Message>
+<Message><ID>60593</ID><Description>The entry is invalid.</Description></Message>
+<Message><ID>60594</ID><Description>The server endpoint cannot perform the operation.</Description></Message>
+<Message><ID>60595</ID><Description>There are no more endpoints available from the endpoint mapper.</Description></Message>
+<Message><ID>60596</ID><Description>No interfaces have been exported.</Description></Message>
+<Message><ID>60597</ID><Description>The entry name is incomplete.</Description></Message>
+<Message><ID>60598</ID><Description>The version option is invalid.</Description></Message>
+<Message><ID>60599</ID><Description>There are no more members.</Description></Message>
+<Message><ID>60600</ID><Description>There is nothing to unexport.</Description></Message>
+<Message><ID>60601</ID><Description>The interface was not found.</Description></Message>
+<Message><ID>60602</ID><Description>The entry already exists.</Description></Message>
+<Message><ID>60603</ID><Description>The entry is not found.</Description></Message>
+<Message><ID>60604</ID><Description>The name service is unavailable.</Description></Message>
+<Message><ID>60605</ID><Description>The network address family is invalid.</Description></Message>
+<Message><ID>60606</ID><Description>The requested operation is not supported.</Description></Message>
+<Message><ID>60607</ID><Description>No security context is available to allow impersonation.</Description></Message>
+<Message><ID>60608</ID><Description>An internal error occurred in a remote procedure call (RPC).</Description></Message>
+<Message><ID>60609</ID><Description>The RPC server attempted an integer division by zero.</Description></Message>
+<Message><ID>60610</ID><Description>An addressing error occurred in the RPC server.</Description></Message>
+<Message><ID>60611</ID><Description>A floating-point operation at the RPC server caused a division by zero.</Description></Message>
+<Message><ID>60612</ID><Description>A floating-point underflow occurred at the RPC server.</Description></Message>
+<Message><ID>60613</ID><Description>A floating-point overflow occurred at the RPC server.</Description></Message>
+<Message><ID>60614</ID><Description>The list of RPC servers available for the binding of auto handles has been exhausted.</Description></Message>
+<Message><ID>60615</ID><Description>Unable to open the character translation table file.</Description></Message>
+<Message><ID>60616</ID><Description>The file containing the character translation table has fewer than 512 bytes.</Description></Message>
+<Message><ID>60617</ID><Description>A null context handle was passed from the client to the host during a remote procedure call.</Description></Message>
+<Message><ID>60618</ID><Description>The context handle changed during a remote procedure call.</Description></Message>
+<Message><ID>60619</ID><Description>The binding handles passed to a remote procedure call do not match.</Description></Message>
+<Message><ID>60620</ID><Description>The stub is unable to get the remote procedure call handle.</Description></Message>
+<Message><ID>60621</ID><Description>A null reference pointer was passed to the stub.</Description></Message>
+<Message><ID>60622</ID><Description>The enumeration value is out of range.</Description></Message>
+<Message><ID>60623</ID><Description>The byte count is too small.</Description></Message>
+<Message><ID>60624</ID><Description>The stub received bad data.</Description></Message>
+<Message><ID>60625</ID><Description>The supplied user buffer is not valid for the requested operation.</Description></Message>
+<Message><ID>60626</ID><Description>The disk media is not recognized.  It may not be formatted.</Description></Message>
+<Message><ID>60627</ID><Description>The workstation does not have a trust secret.</Description></Message>
+<Message><ID>60628</ID><Description>The SAM database on the Windows NT Server does not have a computer account for this workstation trust relationship.</Description></Message>
+<Message><ID>60629</ID><Description>The trust relationship between the primary domain and the trusted domain failed.</Description></Message>
+<Message><ID>60630</ID><Description>The trust relationship between this workstation and the primary domain failed.</Description></Message>
+<Message><ID>60631</ID><Description>The network logon failed.</Description></Message>
+<Message><ID>60632</ID><Description>A remote procedure call is already in progress for this thread.</Description></Message>
+<Message><ID>60633</ID><Description>An attempt was made to logon, but the network logon service was not started.</Description></Message>
+<Message><ID>60634</ID><Description>The user&apos;s account has expired.</Description></Message>
+<Message><ID>60635</ID><Description>The redirector is in use and cannot be unloaded.</Description></Message>
+<Message><ID>60636</ID><Description>The specified printer driver is already installed.</Description></Message>
+<Message><ID>60637</ID><Description>The specified port is unknown.</Description></Message>
+<Message><ID>60638</ID><Description>The printer driver is unknown.</Description></Message>
+<Message><ID>60639</ID><Description>The print processor is unknown.</Description></Message>
+<Message><ID>60640</ID><Description>The specified separator file is invalid.</Description></Message>
+<Message><ID>60641</ID><Description>The specified priority is invalid.</Description></Message>
+<Message><ID>60642</ID><Description>The printer name is invalid.</Description></Message>
+<Message><ID>60643</ID><Description>The printer already exists.</Description></Message>
+<Message><ID>60644</ID><Description>The printer command is invalid.</Description></Message>
+<Message><ID>60645</ID><Description>The specified datatype is invalid.</Description></Message>
+<Message><ID>60646</ID><Description>The Environment specified is invalid.</Description></Message>
+<Message><ID>60647</ID><Description>There are no more bindings.</Description></Message>
+<Message><ID>60648</ID><Description>The account used is an interdomain trust account.  Use your global user account or local user account to access this server.</Description></Message>
+<Message><ID>60649</ID><Description>The account used is a Computer Account.  Use your global user account or local user account to access this server.</Description></Message>
+<Message><ID>60650</ID><Description>The account used is a server trust account. Use your global user account or local user account to access this server.</Description></Message>
+<Message><ID>60651</ID><Description>The name or security ID (SID) of the domain specified is inconsistent with the trust information for that domain.&quot;)</Description></Message>
+<Message><ID>60652</ID><Description>The server is in use and cannot be unloaded.</Description></Message>
+<Message><ID>60653</ID><Description>The specified image file did not contain a resource section.</Description></Message>
+<Message><ID>60654</ID><Description>The specified resource type cannot be found in the image file.</Description></Message>
+<Message><ID>60655</ID><Description>The specified resource name cannot be found in the image file.</Description></Message>
+<Message><ID>60656</ID><Description>The specified resource language ID cannot be found in the image file.</Description></Message>
+<Message><ID>60657</ID><Description>Not enough quota is available to process this command.</Description></Message>
+<Message><ID>60658</ID><Description>No interfaces have been registered.</Description></Message>
+<Message><ID>60659</ID><Description>The remote procedure call was cancelled.</Description></Message>
+<Message><ID>60660</ID><Description>The binding handle does not contain all required information.</Description></Message>
+<Message><ID>60661</ID><Description>A communications failure occurred during a remote procedure call.</Description></Message>
+<Message><ID>60662</ID><Description>The requested authentication level is not supported.</Description></Message>
+<Message><ID>60663</ID><Description>No principal name registered.</Description></Message>
+<Message><ID>60664</ID><Description>The error specified is not a valid Windows RPC error code.</Description></Message>
+<Message><ID>60665</ID><Description>A UUID that is valid only on this computer has been allocated.</Description></Message>
+<Message><ID>60666</ID><Description>A security package specific error occurred.</Description></Message>
+<Message><ID>60667</ID><Description>Thread is not canceled.</Description></Message>
+<Message><ID>60668</ID><Description>Invalid operation on the encoding/decoding handle.</Description></Message>
+<Message><ID>60669</ID><Description>Incompatible version of the serializing package.</Description></Message>
+<Message><ID>60670</ID><Description>Incompatible version of the RPC stub.</Description></Message>
+<Message><ID>60671</ID><Description>The RPC pipe object is invalid or corrupted.</Description></Message>
+<Message><ID>60672</ID><Description>An invalid operation was attempted on an RPC pipe object.</Description></Message>
+<Message><ID>60673</ID><Description>Unsupported RPC pipe version.</Description></Message>
+<Message><ID>60674</ID><Description>The group member was not found.</Description></Message>
+<Message><ID>60675</ID><Description>The endpoint mapper database entry could not be created.</Description></Message>
+<Message><ID>60676</ID><Description>The object universal unique identifier (UUID) is the nil UUID.</Description></Message>
+<Message><ID>60677</ID><Description>The specified time is invalid.</Description></Message>
+<Message><ID>60678</ID><Description>The specified Form name is invalid.</Description></Message>
+<Message><ID>60679</ID><Description>The specified Form size is invalid.</Description></Message>
+<Message><ID>60680</ID><Description>The specified Printer handle is already being waited on.</Description></Message>
+<Message><ID>60681</ID><Description>The specified Printer has been deleted.</Description></Message>
+<Message><ID>60682</ID><Description>The state of the Printer is invalid.</Description></Message>
+<Message><ID>60683</ID><Description>The user must change his password before he logs on the first time.</Description></Message>
+<Message><ID>60684</ID><Description>Could not find the domain controller for this domain.</Description></Message>
+<Message><ID>60685</ID><Description>The referenced account is currently locked out and may not be logged on to.</Description></Message>
+<Message><ID>60686</ID><Description>The object exporter specified was not found.</Description></Message>
+<Message><ID>60687</ID><Description>The object specified was not found.</Description></Message>
+<Message><ID>60688</ID><Description>The object resolver set specified was not found.</Description></Message>
+<Message><ID>60689</ID><Description>Some data remains to be sent in the request buffer.</Description></Message>
+<Message><ID>60690</ID><Description>Invalid asynchronous remote procedure call handle.</Description></Message>
+<Message><ID>60691</ID><Description>Invalid asynchronous RPC call handle for this operation.</Description></Message>
+<Message><ID>60692</ID><Description>The RPC pipe object has already been closed.</Description></Message>
+<Message><ID>60693</ID><Description>The RPC call completed before all pipes were processed.</Description></Message>
+<Message><ID>60694</ID><Description>No more data is available from the RPC pipe.</Description></Message>
+<Message><ID>60695</ID><Description>No site name is available for this machine.</Description></Message>
+<Message><ID>60696</ID><Description>The file can not be accessed by the system.</Description></Message>
+<Message><ID>60697</ID><Description>The name of the file cannot be resolved by the system.</Description></Message>
+<Message><ID>60698</ID><Description>The directory service evaluated group memberships locally.</Description></Message>
+<Message><ID>60699</ID><Description>The specified directory service attribute or value does not exist.</Description></Message>
+<Message><ID>60700</ID><Description>The attribute syntax specified to the directory service is invalid.</Description></Message>
+<Message><ID>60701</ID><Description>The attribute type specified to the directory service is not defined.</Description></Message>
+<Message><ID>60702</ID><Description>The specified directory service attribute or value already exists.</Description></Message>
+<Message><ID>60703</ID><Description>The directory service is busy.</Description></Message>
+<Message><ID>60704</ID><Description>The directory service is unavailable.</Description></Message>
+<Message><ID>60705</ID><Description>The directory service was unable to allocate a relative identifier.</Description></Message>
+<Message><ID>60706</ID><Description>The directory service has exhausted the pool of relative identifiers.</Description></Message>
+<Message><ID>60707</ID><Description>The requested operation could not be performed because the directory service is not the master for that type of operation.</Description></Message>
+<Message><ID>60708</ID><Description>The directory service was unable to initialize the subsystem that allocates relative identifiers.</Description></Message>
+<Message><ID>60709</ID><Description>The requested operation did not satisfy one or more constraints associated with the class of the obect.</Description></Message>
+<Message><ID>60710</ID><Description>The directory service can perform the requested operation only on a leaf object.</Description></Message>
+<Message><ID>60711</ID><Description>The directory service cannot perform the requested operation on the RDN attribute of an object.</Description></Message>
+<Message><ID>60712</ID><Description>The directory service detected an attempt to modify the object class of an object.</Description></Message>
+<Message><ID>60713</ID><Description>The requested cross domain move operation could not be performed.</Description></Message>
+<Message><ID>60714</ID><Description>Unable to contact the global catalog server.</Description></Message>
+<Message><ID>60715</ID><Description>The list of servers for this workgroup is not currently available.</Description></Message>
+<Message><ID>60716</ID><Description>The pixel format is invalid.</Description></Message>
+<Message><ID>60717</ID><Description>The specified driver is invalid.</Description></Message>
+<Message><ID>60718</ID><Description>The window style or class attribute is invalid for this operation.</Description></Message>
+<Message><ID>60719</ID><Description>The requested metafile operation is not supported.</Description></Message>
+<Message><ID>60720</ID><Description>The requested transformation operation is not supported.</Description></Message>
+<Message><ID>60721</ID><Description>The requested clipping operation is not supported.</Description></Message>
+<Message><ID>60722</ID><Description>The specified color management module is invalid.</Description></Message>
+<Message><ID>60723</ID><Description>The specified color profile is invalid.</Description></Message>
+<Message><ID>60724</ID><Description>The specified tag was not found.</Description></Message>
+<Message><ID>60725</ID><Description>A required tag is not present.</Description></Message>
+<Message><ID>60726</ID><Description>The specified tag is already present.</Description></Message>
+<Message><ID>60727</ID><Description>The specified color profile is not associated with any device.</Description></Message>
+<Message><ID>60728</ID><Description>The specified color profile was not found.</Description></Message>
+<Message><ID>60729</ID><Description>The specified color space is invalid.</Description></Message>
+<Message><ID>60730</ID><Description>Image Color Management is not enabled.</Description></Message>
+<Message><ID>60731</ID><Description>There was an error while deleting the color transform.</Description></Message>
+<Message><ID>60732</ID><Description>The specified color transform is invalid.</Description></Message>
+<Message><ID>60733</ID><Description>The specified print monitor is unknown.</Description></Message>
+<Message><ID>60734</ID><Description>The specified printer driver is currently in use.</Description></Message>
+<Message><ID>60735</ID><Description>The spool file was not found.</Description></Message>
+<Message><ID>60736</ID><Description>A StartDocPrinter call was not issued.</Description></Message>
+<Message><ID>60737</ID><Description>An AddJob call was not issued.</Description></Message>
+<Message><ID>60738</ID><Description>The specified print processor has already been installed.</Description></Message>
+<Message><ID>60739</ID><Description>The specified print monitor has already been installed.</Description></Message>
+<Message><ID>60740</ID><Description>The specified print monitor does not have the required functions.</Description></Message>
+<Message><ID>60741</ID><Description>The specified print monitor is currently in use.</Description></Message>
+<Message><ID>60742</ID><Description>The requested operation is not allowed when there are jobs queued to the printer.</Description></Message>
+<Message><ID>60743</ID><Description>The requested operation is successful.  Changes will not be effective until the system is rebooted.</Description></Message>
+<Message><ID>60744</ID><Description>The requested operation is successful.  Changes will not be effective until the service is restarted.</Description></Message>
+<Message><ID>60745</ID><Description>WINS encountered an error while processing the command.</Description></Message>
+<Message><ID>60746</ID><Description>The local WINS can not be deleted.</Description></Message>
+<Message><ID>60747</ID><Description>The importation from the file failed.</Description></Message>
+<Message><ID>60748</ID><Description>The backup failed. Was a full backup done before?.</Description></Message>
+<Message><ID>60749</ID><Description>The backup failed. Check the directory to which you are backing the database.</Description></Message>
+<Message><ID>60750</ID><Description>The name does not exist in the WINS database.</Description></Message>
+<Message><ID>60751</ID><Description>Replication with a nonconfigured partner is not allowed.</Description></Message>
+<Message><ID>60752</ID><Description>The DHCP client has obtained an IP address that is already in use on the network.  The local interface will be disabled until the DHCP client can obtain a new address.</Description></Message>
+<Message><ID>60753</ID><Description>The guid passed was not recognized as valid by a WMI data provider.</Description></Message>
+<Message><ID>60754</ID><Description>The instance name passed was not recognized as valid by a WMI data provider.</Description></Message>
+<Message><ID>60755</ID><Description>The data item id passed was not recognized as valid by a WMI data provider.</Description></Message>
+<Message><ID>60756</ID><Description>The WMI request could not be completed and should be retried.</Description></Message>
+<Message><ID>60757</ID><Description>The WMI data provider could not be located.</Description></Message>
+<Message><ID>60758</ID><Description>The WMI data provider references an instance set that has not been registered.</Description></Message>
+<Message><ID>60759</ID><Description>The WMI data block or event notification has already been enabled.</Description></Message>
+<Message><ID>60760</ID><Description>The WMI data block is no longer available.</Description></Message>
+<Message><ID>60761</ID><Description>The WMI data service is not available.</Description></Message>
+<Message><ID>60762</ID><Description>The WMI data provider failed to carry out the request.</Description></Message>
+<Message><ID>60763</ID><Description>The WMI MOF information is not valid.</Description></Message>
+<Message><ID>60764</ID><Description>The WMI registration information is not valid.</Description></Message>
+<Message><ID>60765</ID><Description>The media identifier does not represent a valid medium.</Description></Message>
+<Message><ID>60766</ID><Description>The library identifier does not represent a valid library.</Description></Message>
+<Message><ID>60767</ID><Description>The media pool identifier does not represent a valid media pool.</Description></Message>
+<Message><ID>60768</ID><Description>The drive and medium are not compatible or exist in different libraries.</Description></Message>
+<Message><ID>60769</ID><Description>The medium currently exists in an offline library and must be online to perform this operation.</Description></Message>
+<Message><ID>60770</ID><Description>The operation cannot be performed on an offline library.</Description></Message>
+<Message><ID>60771</ID><Description>The library, drive or media pool is empty.</Description></Message>
+<Message><ID>60772</ID><Description>The library,drive or media pool must be empty to perform this operation.</Description></Message>
+<Message><ID>60773</ID><Description>No media is current available in this media pool or library.</Description></Message>
+<Message><ID>60774</ID><Description>A resource required for this operation is disabled.</Description></Message>
+<Message><ID>60775</ID><Description>The media identifier does not represent a valid cleaner.</Description></Message>
+<Message><ID>60776</ID><Description>The drive cannot be cleaned or does not support cleaning.</Description></Message>
+<Message><ID>60777</ID><Description>The object identifier does not represent a valid object.</Description></Message>
+<Message><ID>60778</ID><Description>Unable to read or write to the database.</Description></Message>
+<Message><ID>60779</ID><Description>The database is full.</Description></Message>
+<Message><ID>60780</ID><Description>The medium is not compatible with the device or media pool.</Description></Message>
+<Message><ID>60781</ID><Description>The resource required for this operation does not exist.</Description></Message>
+<Message><ID>60782</ID><Description>The operation identifier is not valid.</Description></Message>
+<Message><ID>60783</ID><Description>The media is not mounted or ready for use.</Description></Message>
+<Message><ID>60784</ID><Description>The device is not ready for use.</Description></Message>
+<Message><ID>60785</ID><Description>The operator or administrator has refused the request.</Description></Message>
+<Message><ID>60786</ID><Description>The remote storage service was not able to recall the file.</Description></Message>
+<Message><ID>60787</ID><Description>The remote storage service is not operational at this time.</Description></Message>
+<Message><ID>60788</ID><Description>The remote storage service encountered a media error.</Description></Message>
+<Message><ID>60789</ID><Description>The file or directory is not a reparse point.</Description></Message>
+<Message><ID>60790</ID><Description>The reparse point attribute cannot be set because it conflicts with an existing attribute.</Description></Message>
+<Message><ID>60791</ID><Description>The cluster resource cannot be moved to another group because other resources are dependent on it.</Description></Message>
+<Message><ID>60792</ID><Description>The cluster resource dependency cannot be found.</Description></Message>
+<Message><ID>60793</ID><Description>The cluster resource cannot be made dependent on the specified resource because it is already dependent.</Description></Message>
+<Message><ID>60794</ID><Description>The cluster resource is not online.</Description></Message>
+<Message><ID>60795</ID><Description>A cluster node is not available for this operation.</Description></Message>
+<Message><ID>60796</ID><Description>The cluster resource is not available.</Description></Message>
+<Message><ID>60797</ID><Description>The cluster resource could not be found.</Description></Message>
+<Message><ID>60798</ID><Description>The cluster is being shut down.</Description></Message>
+<Message><ID>60799</ID><Description>A cluster node cannot be evicted from the cluster while it is online.</Description></Message>
+<Message><ID>60800</ID><Description>The object already exists.</Description></Message>
+<Message><ID>60801</ID><Description>The object is already in the list.</Description></Message>
+<Message><ID>60802</ID><Description>The cluster group is not available for any new requests.</Description></Message>
+<Message><ID>60803</ID><Description>The cluster group could not be found.</Description></Message>
+<Message><ID>60804</ID><Description>The operation could not be completed because the cluster group is not online.</Description></Message>
+<Message><ID>60805</ID><Description>The cluster node is not the owner of the resource.</Description></Message>
+<Message><ID>60806</ID><Description>The cluster node is not the owner of the group.</Description></Message>
+<Message><ID>60807</ID><Description>The cluster resource could not be created in the specified resource monitor.</Description></Message>
+<Message><ID>60808</ID><Description>The cluster resource could not be brought online by the resource monitor.</Description></Message>
+<Message><ID>60809</ID><Description>The operation could not be completed because the cluster resource is online.</Description></Message>
+<Message><ID>60810</ID><Description>The cluster resource could not be deleted or brought offline because it is the quorum resource.</Description></Message>
+<Message><ID>60811</ID><Description>The cluster could not make the specified resource a quorum resource because it is not capable of being a quorum resource.</Description></Message>
+<Message><ID>60812</ID><Description>The cluster software is shutting down.</Description></Message>
+<Message><ID>60813</ID><Description>The group or resource is not in the correct state to perform the requested operation.</Description></Message>
+<Message><ID>60814</ID><Description>The properties were stored but not all changes will take effect until the next time the resource is brought online.</Description></Message>
+<Message><ID>60815</ID><Description>The cluster could not make the specified resource a quorum resource because it does not belong to a shared storage class.</Description></Message>
+<Message><ID>60816</ID><Description>The cluster resource could not be deleted since it is a core resource.</Description></Message>
+<Message><ID>60817</ID><Description>The quorum resource failed to come online.</Description></Message>
+<Message><ID>60818</ID><Description>The quorum log could not be created or mounted successfully.</Description></Message>
+<Message><ID>60819</ID><Description>The cluster log is corrupt.</Description></Message>
+<Message><ID>60820</ID><Description>The record could not be written to the cluster log since it exceeds the maximum size.</Description></Message>
+<Message><ID>60821</ID><Description>The cluster log exceeds its maximum size.</Description></Message>
+<Message><ID>60822</ID><Description>No checkpoint record was found in the cluster log.</Description></Message>
+<Message><ID>60823</ID><Description>The minimum required disk space needed for logging is not available.</Description></Message>
+<Message><ID>60824</ID><Description>The specified file could not be encrypted.</Description></Message>
+<Message><ID>60825</ID><Description>The specified file could not be decrypted.</Description></Message>
+<Message><ID>60826</ID><Description>The specified file is encrypted and the user does not have the ability to decrypt it.</Description></Message>
+<Message><ID>60827</ID><Description>There is no encryption recovery policy configured for this system.</Description></Message>
+<Message><ID>60828</ID><Description>The required encryption driver is not loaded for this system.</Description></Message>
+<Message><ID>60829</ID><Description>The file was encrypted with a different encryption driver than is currently loaded.</Description></Message>
+<Message><ID>60830</ID><Description>There are no EFS keys defined for the user.</Description></Message>
+<Message><ID>60831</ID><Description>The specified file is not encrypted.</Description></Message>
+<Message><ID>60832</ID><Description>The specified file is not in the defined EFS export format.</Description></Message>
+<Message><ID>60833</ID><Description>Catastrophic failure.</Description></Message>
+<Message><ID>60834</ID><Description>Not implemented.</Description></Message>
+<Message><ID>60835</ID><Description>Ran out of memory.</Description></Message>
+<Message><ID>60836</ID><Description>One or more arguments are invalid.</Description></Message>
+<Message><ID>60837</ID><Description>No such interface supported.</Description></Message>
+<Message><ID>60838</ID><Description>Invalid pointer.</Description></Message>
+<Message><ID>60839</ID><Description>Invalid handle.</Description></Message>
+<Message><ID>60840</ID><Description>Operation aborted.</Description></Message>
+<Message><ID>60841</ID><Description>Unspecified error.</Description></Message>
+<Message><ID>60842</ID><Description>General access denied error.</Description></Message>
+<Message><ID>60843</ID><Description>The data necessary to complete this operation is not yet available.</Description></Message>
+<Message><ID>60844</ID><Description>Thread local storage failure.</Description></Message>
+<Message><ID>60845</ID><Description>Get shared memory allocator failure.</Description></Message>
+<Message><ID>60846</ID><Description>Get memory allocator failure.</Description></Message>
+<Message><ID>60847</ID><Description>Unable to initialize class cache.</Description></Message>
+<Message><ID>60848</ID><Description>Unable to initialize RPC services.</Description></Message>
+<Message><ID>60849</ID><Description>Cannot set thread local storage channel control.</Description></Message>
+<Message><ID>60850</ID><Description>Could not allocate thread local storage channel control.</Description></Message>
+<Message><ID>60851</ID><Description>The user supplied memory allocator is unacceptable.</Description></Message>
+<Message><ID>60852</ID><Description>The OLE service mutex already exists.</Description></Message>
+<Message><ID>60853</ID><Description>The OLE service file mapping already exists.</Description></Message>
+<Message><ID>60854</ID><Description>Unable to map view of file for OLE service.</Description></Message>
+<Message><ID>60855</ID><Description>Failure attempting to launch OLE service.</Description></Message>
+<Message><ID>60856</ID><Description>There was an attempt to call CoInitialize a second time while single threaded.</Description></Message>
+<Message><ID>60857</ID><Description>A Remote activation was necessary but was not allowed.</Description></Message>
+<Message><ID>60858</ID><Description>A Remote activation was necessary but the server name provided was invalid.</Description></Message>
+<Message><ID>60859</ID><Description>The class is configured to run as a security id different from the caller.</Description></Message>
+<Message><ID>60860</ID><Description>Use of Ole1 services requiring DDE windows is disabled.</Description></Message>
+<Message><ID>60861</ID><Description>A RunAs specification must be &lt;domain name&gt;\\&lt;user name&gt; or simply &lt;user name&gt;.</Description></Message>
+<Message><ID>60862</ID><Description>The server process could not be started.  The pathname may be incorrect.</Description></Message>
+<Message><ID>60863</ID><Description>The server process could not be started as the configured identity.  The pathname may be incorrect or unavailable.</Description></Message>
+<Message><ID>60864</ID><Description>The server process could not be started because the configured identity is incorrect.  Check the username and password.</Description></Message>
+<Message><ID>60865</ID><Description>The client is not allowed to launch this server.</Description></Message>
+<Message><ID>60866</ID><Description>The service providing this server could not be started.</Description></Message>
+<Message><ID>60867</ID><Description>This computer was unable to communicate with the computer providing the server.</Description></Message>
+<Message><ID>60868</ID><Description>The server did not respond after being launched.</Description></Message>
+<Message><ID>60869</ID><Description>The registration information for this server is inconsistent or incomplete.</Description></Message>
+<Message><ID>60870</ID><Description>The registration information for this interface is inconsistent or incomplete.</Description></Message>
+<Message><ID>60871</ID><Description>The operation attempted is not supported.</Description></Message>
+<Message><ID>60872</ID><Description>A dll must be loaded.</Description></Message>
+<Message><ID>60873</ID><Description>A Microsoft Software Installer error was encountered.</Description></Message>
+<Message><ID>60874</ID><Description>Invalid OLEVERB structure.</Description></Message>
+<Message><ID>60875</ID><Description>Invalid advise flags.</Description></Message>
+<Message><ID>60876</ID><Description>Can&apos;t enumerate any more, because the associated data is missing.</Description></Message>
+<Message><ID>60877</ID><Description>This implementation doesn&apos;t take advises.</Description></Message>
+<Message><ID>60878</ID><Description>There is no connection for this connection ID.</Description></Message>
+<Message><ID>60879</ID><Description>Need to run the object to perform this operation.</Description></Message>
+<Message><ID>60880</ID><Description>There is no cache to operate on.</Description></Message>
+<Message><ID>60881</ID><Description>Uninitialized object.</Description></Message>
+<Message><ID>60882</ID><Description>Linked object&apos;s source class has changed.</Description></Message>
+<Message><ID>60883</ID><Description>Not able to get the moniker of the object.</Description></Message>
+<Message><ID>60884</ID><Description>Not able to bind to the source.</Description></Message>
+<Message><ID>60885</ID><Description>Object is static; operation not allowed.</Description></Message>
+<Message><ID>60886</ID><Description>User canceled out of save dialog.</Description></Message>
+<Message><ID>60887</ID><Description>Invalid rectangle.</Description></Message>
+<Message><ID>60888</ID><Description>compobj.dll is too old for the ole2.dll initialized.</Description></Message>
+<Message><ID>60889</ID><Description>Invalid window handle.</Description></Message>
+<Message><ID>60890</ID><Description>Object is not in any of the inplace active states.</Description></Message>
+<Message><ID>60891</ID><Description>Not able to convert object.</Description></Message>
+<Message><ID>60892</ID><Description>Not able to perform the operation because object is not given storage yet.</Description></Message>
+<Message><ID>60893</ID><Description>Invalid FORMATETC structure.</Description></Message>
+<Message><ID>60894</ID><Description>Invalid DVTARGETDEVICE structure.</Description></Message>
+<Message><ID>60895</ID><Description>Invalid STDGMEDIUM structure.</Description></Message>
+<Message><ID>60896</ID><Description>Invalid STATDATA structure.</Description></Message>
+<Message><ID>60897</ID><Description>Invalid lindex.</Description></Message>
+<Message><ID>60898</ID><Description>Invalid tymed.</Description></Message>
+<Message><ID>60899</ID><Description>Invalid clipboard format.</Description></Message>
+<Message><ID>60900</ID><Description>Invalid aspect(s).</Description></Message>
+<Message><ID>60901</ID><Description>tdSize parameter of the DVTARGETDEVICE structure is invalid.</Description></Message>
+<Message><ID>60902</ID><Description>Object doesn&apos;t support IViewObject interface.</Description></Message>
+<Message><ID>60903</ID><Description>Trying to revoke a drop target that has not been registered.</Description></Message>
+<Message><ID>60904</ID><Description>This window has already been registered as a drop target.</Description></Message>
+<Message><ID>60905</ID><Description>Invalid window handle.</Description></Message>
+<Message><ID>60906</ID><Description>Class does not support aggregation (or class object is remote).</Description></Message>
+<Message><ID>60907</ID><Description>ClassFactory cannot supply requested class.</Description></Message>
+<Message><ID>60908</ID><Description>Class is not licensed for use.</Description></Message>
+<Message><ID>60909</ID><Description>Error drawing view.</Description></Message>
+<Message><ID>60910</ID><Description>Could not read key from registry.</Description></Message>
+<Message><ID>60911</ID><Description>Could not write key to registry.</Description></Message>
+<Message><ID>60912</ID><Description>Could not find the key in the registry.</Description></Message>
+<Message><ID>60913</ID><Description>Invalid value for registry.</Description></Message>
+<Message><ID>60914</ID><Description>Class not registered.</Description></Message>
+<Message><ID>60915</ID><Description>Interface not registered.</Description></Message>
+<Message><ID>60916</ID><Description>CATID does not exist.</Description></Message>
+<Message><ID>60917</ID><Description>Description not found.</Description></Message>
+<Message><ID>60918</ID><Description>No package in Class Store meets this criteria.</Description></Message>
+<Message><ID>60919</ID><Description>Deleting this will break referential integrity.</Description></Message>
+<Message><ID>60920</ID><Description>No such CLSID in Class Store.</Description></Message>
+<Message><ID>60921</ID><Description>The Class Store is corrupted or has a version that is no more supported.</Description></Message>
+<Message><ID>60922</ID><Description>No such Class Store.</Description></Message>
+<Message><ID>60923</ID><Description>Cache not updated.</Description></Message>
+<Message><ID>60924</ID><Description>No verbs for OLE object.</Description></Message>
+<Message><ID>60925</ID><Description>Invalid verb for OLE object.</Description></Message>
+<Message><ID>60926</ID><Description>Undo is not available.</Description></Message>
+<Message><ID>60927</ID><Description>Space for tools is not available.</Description></Message>
+<Message><ID>60928</ID><Description>OLESTREAM Get method failed.</Description></Message>
+<Message><ID>60929</ID><Description>OLESTREAM Put method failed.</Description></Message>
+<Message><ID>60930</ID><Description>Contents of the OLESTREAM not in correct format.</Description></Message>
+<Message><ID>60931</ID><Description>There was an error in a Windows GDI call while converting the bitmap to a DIB.</Description></Message>
+<Message><ID>60932</ID><Description>Contents of the IStorage not in correct format.</Description></Message>
+<Message><ID>60933</ID><Description>Contents of IStorage is missing one of the standard streams.</Description></Message>
+<Message><ID>60934</ID><Description>There was an error in a Windows GDI call while converting the DIB to a bitmap.</Description></Message>
+<Message><ID>60935</ID><Description>OpenClipboard Failed.</Description></Message>
+<Message><ID>60936</ID><Description>EmptyClipboard Failed.</Description></Message>
+<Message><ID>60937</ID><Description>SetClipboard Failed.</Description></Message>
+<Message><ID>60938</ID><Description>Data on clipboard is invalid.</Description></Message>
+<Message><ID>60939</ID><Description>CloseClipboard Failed.</Description></Message>
+<Message><ID>60940</ID><Description>Moniker needs to be connected manually.</Description></Message>
+<Message><ID>60941</ID><Description>Operation exceeded deadline.</Description></Message>
+<Message><ID>60942</ID><Description>Moniker needs to be generic.</Description></Message>
+<Message><ID>60943</ID><Description>Operation unavailable.</Description></Message>
+<Message><ID>60944</ID><Description>Invalid syntax.</Description></Message>
+<Message><ID>60945</ID><Description>No object for moniker.</Description></Message>
+<Message><ID>60946</ID><Description>Bad extension for file.</Description></Message>
+<Message><ID>60947</ID><Description>Intermediate operation failed.</Description></Message>
+<Message><ID>60948</ID><Description>Moniker is not bindable.</Description></Message>
+<Message><ID>60949</ID><Description>Moniker is not bound.</Description></Message>
+<Message><ID>60950</ID><Description>Moniker cannot open file.</Description></Message>
+<Message><ID>60951</ID><Description>User input required for operation to succeed.</Description></Message>
+<Message><ID>60952</ID><Description>Moniker class has no inverse.</Description></Message>
+<Message><ID>60953</ID><Description>Moniker does not refer to storage.</Description></Message>
+<Message><ID>60954</ID><Description>No common prefix.</Description></Message>
+<Message><ID>60955</ID><Description>Moniker could not be enumerated.</Description></Message>
+<Message><ID>60956</ID><Description>CoInitialize has not been called.</Description></Message>
+<Message><ID>60957</ID><Description>CoInitialize has already been called.</Description></Message>
+<Message><ID>60958</ID><Description>Class of object cannot be determined.</Description></Message>
+<Message><ID>60959</ID><Description>Invalid class string.</Description></Message>
+<Message><ID>60960</ID><Description>Invalid interface string.</Description></Message>
+<Message><ID>60961</ID><Description>Application not found.</Description></Message>
+<Message><ID>60962</ID><Description>Application cannot be run more than once.</Description></Message>
+<Message><ID>60963</ID><Description>Some error in application program.</Description></Message>
+<Message><ID>60964</ID><Description>DLL for class not found.</Description></Message>
+<Message><ID>60965</ID><Description>Error in the DLL.</Description></Message>
+<Message><ID>60966</ID><Description>Wrong OS or OS version for application.</Description></Message>
+<Message><ID>60967</ID><Description>Object is not registered.</Description></Message>
+<Message><ID>60968</ID><Description>Object is already registered.</Description></Message>
+<Message><ID>60969</ID><Description>Object is not connected to server.</Description></Message>
+<Message><ID>60970</ID><Description>Application was launched but it didn&apos;t register a class factory.</Description></Message>
+<Message><ID>60971</ID><Description>Object has been released.</Description></Message>
+<Message><ID>60972</ID><Description>Unable to impersonate DCOM client.</Description></Message>
+<Message><ID>60973</ID><Description>Unable to obtain server&apos;s security context.</Description></Message>
+<Message><ID>60974</ID><Description>Unable to open the access token of the current thread.</Description></Message>
+<Message><ID>60975</ID><Description>Unable to obtain user info from an access token.</Description></Message>
+<Message><ID>60976</ID><Description>The client who called IAccessControl::IsAccessPermitted was the trustee provided tot he method.</Description></Message>
+<Message><ID>60977</ID><Description>Unable to obtain the client&apos;s security blanket.</Description></Message>
+<Message><ID>60978</ID><Description>Unable to set a discretionary ACL into a security descriptor.</Description></Message>
+<Message><ID>60979</ID><Description>The system function, AccessCheck, returned false.</Description></Message>
+<Message><ID>60980</ID><Description>Either NetAccessDel or NetAccessAdd returned an error code.</Description></Message>
+<Message><ID>60981</ID><Description>One of the trustee strings provided by the user did not conform to the &lt;Domain&gt;\\&lt;Name&gt; syntax and it was not the \&quot;*\&quot; string.</Description></Message>
+<Message><ID>60982</ID><Description>One of the security identifiers provided by the user was invalid.</Description></Message>
+<Message><ID>60983</ID><Description>Unable to convert a wide character trustee string to a multibyte trustee string.</Description></Message>
+<Message><ID>60984</ID><Description>Unable to find a security identifier that corresponds to a trustee string provided by the user.</Description></Message>
+<Message><ID>60985</ID><Description>The system function, LookupAccountSID, failed.</Description></Message>
+<Message><ID>60986</ID><Description>Unable to find a trustee name that corresponds to a security identifier provided by the user.</Description></Message>
+<Message><ID>60987</ID><Description>The system function, LookupAccountName, failed.</Description></Message>
+<Message><ID>60988</ID><Description>Unable to set or reset a serialization handle.</Description></Message>
+<Message><ID>60989</ID><Description>Unable to obtain the Windows directory.</Description></Message>
+<Message><ID>60990</ID><Description>Path too long.</Description></Message>
+<Message><ID>60991</ID><Description>Unable to generate a uuid.</Description></Message>
+<Message><ID>60992</ID><Description>Unable to create file.</Description></Message>
+<Message><ID>60993</ID><Description>Unable to close a serialization handle or a file handle.</Description></Message>
+<Message><ID>60994</ID><Description>The number of ACEs in an ACL exceeds the system limit.</Description></Message>
+<Message><ID>60995</ID><Description>Not all the DENY_ACCESS ACEs are arranged in front of the GRANT_ACCESS ACEs in the stream.</Description></Message>
+<Message><ID>60996</ID><Description>The version of ACL format in the stream is not supported by this implementation of IAccessControl.</Description></Message>
+<Message><ID>60997</ID><Description>Unable to open the access token of the server process.</Description></Message>
+<Message><ID>60998</ID><Description>Unable to decode the ACL in the stream provided by the user.</Description></Message>
+<Message><ID>60999</ID><Description>The COM IAccessControl object is not initialized.</Description></Message>
+<Message><ID>61000</ID><Description>Use the registry database to provide the requested information.</Description></Message>
+<Message><ID>61001</ID><Description>Success, but static.</Description></Message>
+<Message><ID>61002</ID><Description>Macintosh clipboard format.</Description></Message>
+<Message><ID>61003</ID><Description>Successful drop took place.</Description></Message>
+<Message><ID>61004</ID><Description>Drag-drop operation canceled.</Description></Message>
+<Message><ID>61005</ID><Description>Use the default cursor.</Description></Message>
+<Message><ID>61006</ID><Description>Data has same FORMATETC.</Description></Message>
+<Message><ID>61007</ID><Description>View is already frozen.</Description></Message>
+<Message><ID>61008</ID><Description>FORMATETC not supported.</Description></Message>
+<Message><ID>61009</ID><Description>Same cache.</Description></Message>
+<Message><ID>61010</ID><Description>Some cache(s) not updated.</Description></Message>
+<Message><ID>61011</ID><Description>Invalid verb for OLE object.</Description></Message>
+<Message><ID>61012</ID><Description>Verb number is valid but verb cannot be done now.</Description></Message>
+<Message><ID>61013</ID><Description>Invalid window handle passed.</Description></Message>
+<Message><ID>61014</ID><Description>Message is too long; some of it had to be truncated before displaying.</Description></Message>
+<Message><ID>61015</ID><Description>Unable to convert OLESTREAM to IStorage.</Description></Message>
+<Message><ID>61016</ID><Description>Moniker reduced to itself.</Description></Message>
+<Message><ID>61017</ID><Description>Common prefix is this moniker.</Description></Message>
+<Message><ID>61018</ID><Description>Common prefix is input moniker.</Description></Message>
+<Message><ID>61019</ID><Description>Common prefix is both monikers.</Description></Message>
+<Message><ID>61020</ID><Description>Moniker is already registered in running object table.</Description></Message>
+<Message><ID>61021</ID><Description>Attempt to create a class object failed.</Description></Message>
+<Message><ID>61022</ID><Description>OLE service could not bind object.</Description></Message>
+<Message><ID>61023</ID><Description>RPC communication failed with OLE service.</Description></Message>
+<Message><ID>61024</ID><Description>Bad path to object.</Description></Message>
+<Message><ID>61025</ID><Description>Server execution failed.</Description></Message>
+<Message><ID>61026</ID><Description>OLE service could not communicate with the object server.</Description></Message>
+<Message><ID>61027</ID><Description>Moniker path could not be normalized.</Description></Message>
+<Message><ID>61028</ID><Description>Object server is stopping when OLE service contacts it.</Description></Message>
+<Message><ID>61029</ID><Description>An invalid root block pointer was specified.</Description></Message>
+<Message><ID>61030</ID><Description>An allocation chain contained an invalid link pointer.</Description></Message>
+<Message><ID>61031</ID><Description>The requested allocation size was too large.</Description></Message>
+<Message><ID>61032</ID><Description>Not all the requested interfaces were available.</Description></Message>
+<Message><ID>61033</ID><Description>Unknown interface.</Description></Message>
+<Message><ID>61034</ID><Description>Member not found.</Description></Message>
+<Message><ID>61035</ID><Description>Parameter not found.</Description></Message>
+<Message><ID>61036</ID><Description>Type mismatch.</Description></Message>
+<Message><ID>61037</ID><Description>Unknown name.</Description></Message>
+<Message><ID>61038</ID><Description>No named arguments.</Description></Message>
+<Message><ID>61039</ID><Description>Bad variable type.</Description></Message>
+<Message><ID>61040</ID><Description>Exception occurred.</Description></Message>
+<Message><ID>61041</ID><Description>Out of present range.</Description></Message>
+<Message><ID>61042</ID><Description>Invalid index.</Description></Message>
+<Message><ID>61043</ID><Description>Unknown language.</Description></Message>
+<Message><ID>61044</ID><Description>Memory is locked.</Description></Message>
+<Message><ID>61045</ID><Description>Invalid number of parameters.</Description></Message>
+<Message><ID>61046</ID><Description>Parameter not optional.</Description></Message>
+<Message><ID>61047</ID><Description>Invalid callee.</Description></Message>
+<Message><ID>61048</ID><Description>Does not support a collection.</Description></Message>
+<Message><ID>61049</ID><Description>Division by zero.</Description></Message>
+<Message><ID>61050</ID><Description>Buffer too small.</Description></Message>
+<Message><ID>61051</ID><Description>Field name not defined in the record.</Description></Message>
+<Message><ID>61052</ID><Description>Old format or invalid type library.</Description></Message>
+<Message><ID>61053</ID><Description>Old format or invalid type library.</Description></Message>
+<Message><ID>61054</ID><Description>Error accessing the OLE registry.</Description></Message>
+<Message><ID>61055</ID><Description>Library not registered.</Description></Message>
+<Message><ID>61056</ID><Description>Bound to unknown type.</Description></Message>
+<Message><ID>61057</ID><Description>Qualified name disallowed.</Description></Message>
+<Message><ID>61058</ID><Description>Invalid forward reference, or reference to uncompiled type.</Description></Message>
+<Message><ID>61059</ID><Description>Type mismatch.</Description></Message>
+<Message><ID>61060</ID><Description>Element not found.</Description></Message>
+<Message><ID>61061</ID><Description>Ambiguous name.</Description></Message>
+<Message><ID>61062</ID><Description>Name already exists in the library.</Description></Message>
+<Message><ID>61063</ID><Description>Unknown LCID.</Description></Message>
+<Message><ID>61064</ID><Description>Function not defined in specified DLL.</Description></Message>
+<Message><ID>61065</ID><Description>Wrong module kind for the operation.</Description></Message>
+<Message><ID>61066</ID><Description>Size may not exceed 64K.</Description></Message>
+<Message><ID>61067</ID><Description>Duplicate ID in inheritance hierarchy.</Description></Message>
+<Message><ID>61068</ID><Description>Incorrect inheritance depth in standard OLE hmember.</Description></Message>
+<Message><ID>61069</ID><Description>Type mismatch.</Description></Message>
+<Message><ID>61070</ID><Description>Invalid number of arguments.</Description></Message>
+<Message><ID>61071</ID><Description>I/O Error.</Description></Message>
+<Message><ID>61072</ID><Description>Error creating unique tmp file.</Description></Message>
+<Message><ID>61073</ID><Description>Error loading type library/DLL.</Description></Message>
+<Message><ID>61074</ID><Description>Inconsistent property functions.</Description></Message>
+<Message><ID>61075</ID><Description>Circular dependency between types/modules.</Description></Message>
+<Message><ID>61076</ID><Description>Unable to perform requested operation.</Description></Message>
+<Message><ID>61077</ID><Description>%1 could not be found.</Description></Message>
+<Message><ID>61078</ID><Description>The path %1 could not be found.</Description></Message>
+<Message><ID>61079</ID><Description>There are insufficient resources to open another file.</Description></Message>
+<Message><ID>61080</ID><Description>Access Denied.</Description></Message>
+<Message><ID>61081</ID><Description>Attempted an operation on an invalid object.</Description></Message>
+<Message><ID>61082</ID><Description>There is insufficient memory available to complete operation.</Description></Message>
+<Message><ID>61083</ID><Description>Invalid pointer error.</Description></Message>
+<Message><ID>61084</ID><Description>There are no more entries to return.</Description></Message>
+<Message><ID>61085</ID><Description>Disk is write-protected.</Description></Message>
+<Message><ID>61086</ID><Description>An error occurred during a seek operation.</Description></Message>
+<Message><ID>61087</ID><Description>A disk error occurred during a write operation.</Description></Message>
+<Message><ID>61088</ID><Description>A disk error occurred during a read operation.</Description></Message>
+<Message><ID>61089</ID><Description>A share violation has occurred.</Description></Message>
+<Message><ID>61090</ID><Description>A lock violation has occurred.</Description></Message>
+<Message><ID>61091</ID><Description>%1 already exists.</Description></Message>
+<Message><ID>61092</ID><Description>Invalid parameter error.</Description></Message>
+<Message><ID>61093</ID><Description>There is insufficient disk space to complete operation.</Description></Message>
+<Message><ID>61094</ID><Description>Illegal write of non-simple property to simple property set.</Description></Message>
+<Message><ID>61095</ID><Description>An API call exited abnormally.</Description></Message>
+<Message><ID>61096</ID><Description>The file %1 is not a valid compound file.</Description></Message>
+<Message><ID>61097</ID><Description>The name %1 is not valid.</Description></Message>
+<Message><ID>61098</ID><Description>An unexpected error occurred.</Description></Message>
+<Message><ID>61099</ID><Description>That function is not implemented.</Description></Message>
+<Message><ID>61100</ID><Description>Invalid flag error.</Description></Message>
+<Message><ID>61101</ID><Description>Attempted to use an object that is busy.</Description></Message>
+<Message><ID>61102</ID><Description>The storage has been changed since the last commit.</Description></Message>
+<Message><ID>61103</ID><Description>Attempted to use an object that has ceased to exist.</Description></Message>
+<Message><ID>61104</ID><Description>Can&apos;t save.</Description></Message>
+<Message><ID>61105</ID><Description>The compound file %1 was produced with an incompatible version of storage.</Description></Message>
+<Message><ID>61106</ID><Description>The compound file %1 was produced with a newer version of storage.</Description></Message>
+<Message><ID>61107</ID><Description>Share.exe or equivalent is required for operation.</Description></Message>
+<Message><ID>61108</ID><Description>Illegal operation called on non-file based storage.</Description></Message>
+<Message><ID>61109</ID><Description>Illegal operation called on object with extant marshallings.</Description></Message>
+<Message><ID>61110</ID><Description>The docfile has been corrupted.</Description></Message>
+<Message><ID>61111</ID><Description>OLE32.DLL has been loaded at the wrong address.</Description></Message>
+<Message><ID>61112</ID><Description>The file download was aborted abnormally.  The file is incomplete.</Description></Message>
+<Message><ID>61113</ID><Description>The file download has been terminated.</Description></Message>
+<Message><ID>61114</ID><Description>The underlying file was converted to compound file format.</Description></Message>
+<Message><ID>61115</ID><Description>The storage operation should block until more data is available.</Description></Message>
+<Message><ID>61116</ID><Description>The storage operation should retry immediately.</Description></Message>
+<Message><ID>61117</ID><Description>The notified event sink will not influence the storage operation.</Description></Message>
+<Message><ID>61118</ID><Description>Multiple opens prevent consolidated. (commit succeeded).</Description></Message>
+<Message><ID>61119</ID><Description>Consolidation of the storage file failed. (commit succeeded).</Description></Message>
+<Message><ID>61120</ID><Description>Consolidation of the storage file is inappropriate. (commit succeeded).</Description></Message>
+<Message><ID>61121</ID><Description>Call was rejected by callee.</Description></Message>
+<Message><ID>61122</ID><Description>Call was canceled by the message filter.</Description></Message>
+<Message><ID>61123</ID><Description>The caller is dispatching an intertask SendMessage call and cannot call out via PostMessage.</Description></Message>
+<Message><ID>61124</ID><Description>The caller is dispatching an asynchronous call and cannot make an outgoing call on behalf of this call.</Description></Message>
+<Message><ID>61125</ID><Description>It is illegal to call out while inside message filter.</Description></Message>
+<Message><ID>61126</ID><Description>The connection terminated or is in a bogus state and cannot be used any more. Other connections are still valid.</Description></Message>
+<Message><ID>61127</ID><Description>The callee (server [not server application]) is not available and disappeared; all connections are invalid.  The call may have executed.</Description></Message>
+<Message><ID>61128</ID><Description>The caller (client) disappeared while the callee (server) was processing a call.</Description></Message>
+<Message><ID>61129</ID><Description>The data packet with the marshalled parameter data is incorrect.</Description></Message>
+<Message><ID>61130</ID><Description>The call was not transmitted properly; the message queue was full and was not emptied after yielding.</Description></Message>
+<Message><ID>61131</ID><Description>The client (caller) cannot marshall the parameter data - low memory, etc.</Description></Message>
+<Message><ID>61132</ID><Description>The client (caller) cannot unmarshall the return data - low memory, etc.</Description></Message>
+<Message><ID>61133</ID><Description>The server (callee) cannot marshall the return data - low memory, etc.</Description></Message>
+<Message><ID>61134</ID><Description>The server (callee) cannot unmarshall the parameter data - low memory, etc.</Description></Message>
+<Message><ID>61135</ID><Description>Received data is invalid; could be server or client data.</Description></Message>
+<Message><ID>61136</ID><Description>A particular parameter is invalid and cannot be (un)marshalled.</Description></Message>
+<Message><ID>61137</ID><Description>There is no second outgoing call on same channel in DDE conversation.</Description></Message>
+<Message><ID>61138</ID><Description>The callee (server [not server application]) is not available and disappeared; all connections are invalid.  The call did not execute.</Description></Message>
+<Message><ID>61139</ID><Description>System call failed.</Description></Message>
+<Message><ID>61140</ID><Description>Could not allocate some required resource (memory, events, ...).</Description></Message>
+<Message><ID>61141</ID><Description>Attempted to make calls on more than one thread in single threaded mode.</Description></Message>
+<Message><ID>61142</ID><Description>The requested interface is not registered on the server object.</Description></Message>
+<Message><ID>61143</ID><Description>RPC could not call the server or could not return the results of calling the server.</Description></Message>
+<Message><ID>61144</ID><Description>The server threw an exception.</Description></Message>
+<Message><ID>61145</ID><Description>Cannot change thread mode after it is set.</Description></Message>
+<Message><ID>61146</ID><Description>The method called does not exist on the server.</Description></Message>
+<Message><ID>61147</ID><Description>The object invoked has disconnected from its clients.</Description></Message>
+<Message><ID>61148</ID><Description>The object invoked chose not to process the call now.  Try again later.</Description></Message>
+<Message><ID>61149</ID><Description>The message filter indicated that the application is busy.</Description></Message>
+<Message><ID>61150</ID><Description>The message filter rejected the call.</Description></Message>
+<Message><ID>61151</ID><Description>A call control interfaces was called with invalid data.</Description></Message>
+<Message><ID>61152</ID><Description>An outgoing call cannot be made since the application is dispatching an input-synchronous call.</Description></Message>
+<Message><ID>61153</ID><Description>The application called an interface that was marshalled for a different thread.</Description></Message>
+<Message><ID>61154</ID><Description>CoInitialize has not been called on the current thread.</Description></Message>
+<Message><ID>61155</ID><Description>The version of OLE on the client and server machines does not match.</Description></Message>
+<Message><ID>61156</ID><Description>OLE received a packet with an invalid header.</Description></Message>
+<Message><ID>61157</ID><Description>OLE received a packet with an invalid extension.</Description></Message>
+<Message><ID>61158</ID><Description>The requested object or interface does not exist.</Description></Message>
+<Message><ID>61159</ID><Description>The requested object does not exist.</Description></Message>
+<Message><ID>61160</ID><Description>OLE has sent a request and is waiting for a reply.</Description></Message>
+<Message><ID>61161</ID><Description>OLE is waiting before retrying a request.</Description></Message>
+<Message><ID>61162</ID><Description>Call context cannot be accessed after call completed.</Description></Message>
+<Message><ID>61163</ID><Description>Impersonate on unsecure calls is not supported.</Description></Message>
+<Message><ID>61164</ID><Description>Security must be initialized before any interfaces are marshalled or unmarshalled.  It cannot be changed once initialized.</Description></Message>
+<Message><ID>61165</ID><Description>No security packages are installed on this machine or the user is not logged on or there are no compatible security packages between the client and server.</Description></Message>
+<Message><ID>61166</ID><Description>Access is denied.</Description></Message>
+<Message><ID>61167</ID><Description>Remote calls are not allowed for this process.</Description></Message>
+<Message><ID>61168</ID><Description>The marshaled interface data packet (OBJREF) has an invalid or unknown format.</Description></Message>
+<Message><ID>61169</ID><Description>No context is associated with this call.  This happens for some custom marshalled calls and on the client side of the call.</Description></Message>
+<Message><ID>61170</ID><Description>This operation returned because the timeout period expired.</Description></Message>
+<Message><ID>61171</ID><Description>There are no synchronize objects to wait on.</Description></Message>
+<Message><ID>61172</ID><Description>An internal error occurred.</Description></Message>
+<Message><ID>61173</ID><Description>Bad UID.</Description></Message>
+<Message><ID>61174</ID><Description>Bad Hash.</Description></Message>
+<Message><ID>61175</ID><Description>Bad Key.</Description></Message>
+<Message><ID>61176</ID><Description>Bad Length.</Description></Message>
+<Message><ID>61177</ID><Description>Bad Data.</Description></Message>
+<Message><ID>61178</ID><Description>Invalid Signature.</Description></Message>
+<Message><ID>61179</ID><Description>Bad Version of provider.</Description></Message>
+<Message><ID>61180</ID><Description>Invalid algorithm specified.</Description></Message>
+<Message><ID>61181</ID><Description>Invalid flags specified.</Description></Message>
+<Message><ID>61182</ID><Description>Invalid type specified.</Description></Message>
+<Message><ID>61183</ID><Description>Key not valid for use in specified state.</Description></Message>
+<Message><ID>61184</ID><Description>Hash not valid for use in specified state.</Description></Message>
+<Message><ID>61185</ID><Description>Key does not exist.</Description></Message>
+<Message><ID>61186</ID><Description>Insufficient memory available for the operation.</Description></Message>
+<Message><ID>61187</ID><Description>Object already exists.</Description></Message>
+<Message><ID>61188</ID><Description>Access denied.</Description></Message>
+<Message><ID>61189</ID><Description>Object was not found.</Description></Message>
+<Message><ID>61190</ID><Description>Data already encrypted.</Description></Message>
+<Message><ID>61191</ID><Description>Invalid provider specified.</Description></Message>
+<Message><ID>61192</ID><Description>Invalid provider type specified.</Description></Message>
+<Message><ID>61193</ID><Description>Provider&apos;s public key is invalid.</Description></Message>
+<Message><ID>61194</ID><Description>Keyset does not exist.</Description></Message>
+<Message><ID>61195</ID><Description>Provider type not defined.</Description></Message>
+<Message><ID>61196</ID><Description>Provider type as registered is invalid.</Description></Message>
+<Message><ID>61197</ID><Description>The keyset is not defined.</Description></Message>
+<Message><ID>61198</ID><Description>Keyset as registered is invalid.</Description></Message>
+<Message><ID>61199</ID><Description>Provider type does not match registered value.</Description></Message>
+<Message><ID>61200</ID><Description>The digital signature file is corrupt.</Description></Message>
+<Message><ID>61201</ID><Description>Provider DLL failed to initialize correctly.</Description></Message>
+<Message><ID>61202</ID><Description>Provider DLL could not be found.</Description></Message>
+<Message><ID>61203</ID><Description>The Keyset parameter is invalid.</Description></Message>
+<Message><ID>61204</ID><Description>An internal error occurred.</Description></Message>
+<Message><ID>61205</ID><Description>A base error occurred.</Description></Message>
+<Message><ID>61206</ID><Description>An error was encountered doing a cryptographic message operation.</Description></Message>
+<Message><ID>61207</ID><Description>The cryptographic algorithm is unknown.</Description></Message>
+<Message><ID>61208</ID><Description>The object identifier is badly formatted.</Description></Message>
+<Message><ID>61209</ID><Description>The message type is invalid.</Description></Message>
+<Message><ID>61210</ID><Description>The message is not encoded as expected.</Description></Message>
+<Message><ID>61211</ID><Description>The message does not contain an expected authenticated attribute.</Description></Message>
+<Message><ID>61212</ID><Description>The hash value is not correct.</Description></Message>
+<Message><ID>61213</ID><Description>The index value is not valid.</Description></Message>
+<Message><ID>61214</ID><Description>The message content has already been decrypted.</Description></Message>
+<Message><ID>61215</ID><Description>The message content has not been decrypted yet.</Description></Message>
+<Message><ID>61216</ID><Description>The enveloped-data message does not contain the specified recipient.</Description></Message>
+<Message><ID>61217</ID><Description>The control type is not valid.</Description></Message>
+<Message><ID>61218</ID><Description>The issuer and/or serial number are/is not valid.</Description></Message>
+<Message><ID>61219</ID><Description>The original signer is not found.</Description></Message>
+<Message><ID>61220</ID><Description>The message does not contain the requested attributes.</Description></Message>
+<Message><ID>61221</ID><Description>The steamed message is note yet able to return the requested data.</Description></Message>
+<Message><ID>61222</ID><Description>The streamed message needs more data before the decode can complete.</Description></Message>
+<Message><ID>61223</ID><Description>The length specified for the output data was insufficient.</Description></Message>
+<Message><ID>61224</ID><Description>An error was encountered while encoding or decoding.</Description></Message>
+<Message><ID>61225</ID><Description>An error occurred while reading or writing to the file.</Description></Message>
+<Message><ID>61226</ID><Description>The object or property wasn&apos;t found.</Description></Message>
+<Message><ID>61227</ID><Description>The object or property already exists.</Description></Message>
+<Message><ID>61228</ID><Description>No provider was specified for the store or object.</Description></Message>
+<Message><ID>61229</ID><Description>The specified certificate is self signed.</Description></Message>
+<Message><ID>61230</ID><Description>The previous certificate or CRL context was deleted.</Description></Message>
+<Message><ID>61231</ID><Description>No match when trying to find the object.</Description></Message>
+<Message><ID>61232</ID><Description>The type of the cryptographic message being decoded is different than what was expected.</Description></Message>
+<Message><ID>61233</ID><Description>The certificate doesn&apos;t have a private key property.</Description></Message>
+<Message><ID>61234</ID><Description>No certificate was found having a private key property to use for decrypting.</Description></Message>
+<Message><ID>61235</ID><Description>Either, not a cryptographic message or incorrectly formatted.</Description></Message>
+<Message><ID>61236</ID><Description>The signed message doesn&apos;t have a signer for the specified signer index.</Description></Message>
+<Message><ID>61237</ID><Description>Final closure is pending until additional frees or closes.</Description></Message>
+<Message><ID>61238</ID><Description>The certificate or signature has been revoked.</Description></Message>
+<Message><ID>61239</ID><Description>No Dll or exported function was found to verify revocation.</Description></Message>
+<Message><ID>61240</ID><Description>The called function wasn&apos;t able to do a revocation check on the certificate or signature.</Description></Message>
+<Message><ID>61241</ID><Description>Since the revocation server was offline, the called function wasn&apos;t able to complete the revocation check.</Description></Message>
+<Message><ID>61242</ID><Description>The certificate or signature to be checked was not found in the revocation servers database.</Description></Message>
+<Message><ID>61243</ID><Description>The string contains a non-numeric character.</Description></Message>
+<Message><ID>61244</ID><Description>The string contains a non-printable character.</Description></Message>
+<Message><ID>61245</ID><Description>The string contains a character not in the 7 bit ASCII character set.</Description></Message>
+<Message><ID>61246</ID><Description>The string contains an invalid X500 name attribute key, oid, value or delimiter.</Description></Message>
+<Message><ID>61247</ID><Description>The dwValueType for the CERT_NAME_VALUE is not one of the character strings.  Most likely it is either a CERT_RDN_ENCODED_BLOB or CERT_TDN_OCTED_STRING.</Description></Message>
+<Message><ID>61248</ID><Description>The Put operation can not continue.  The file needs to be resized.  However, there is already a signature present.  A complete signing operation must be done.</Description></Message>
+<Message><ID>61249</ID><Description>The cryptography operation has failed due to a local security option setting.</Description></Message>
+<Message><ID>61250</ID><Description>No DLL or exported function was found to verify subject usage.</Description></Message>
+<Message><ID>61251</ID><Description>The called function wasn&apos;t able to do a usage check on the subject.</Description></Message>
+<Message><ID>61252</ID><Description>Since the server was offline, the called function wasn&apos;t able to complete the usage check.</Description></Message>
+<Message><ID>61253</ID><Description>The subject was not found in a Certificate Trust List (CTL).</Description></Message>
+<Message><ID>61254</ID><Description>No trusted signer was found to verify the signature of the message or trust list.</Description></Message>
+<Message><ID>61255</ID><Description>OSS Certificate encode/decode error code base.</Description></Message>
+<Message><ID>61256</ID><Description>The request subject name is invalid or too long.</Description></Message>
+<Message><ID>61257</ID><Description>The request does not exist.</Description></Message>
+<Message><ID>61258</ID><Description>The request&apos;s current status does not allow this operation.</Description></Message>
+<Message><ID>61259</ID><Description>A system-level error occured while verifying trust.</Description></Message>
+<Message><ID>61260</ID><Description>The certificate for the signer of the message is invalid or not found.</Description></Message>
+<Message><ID>61261</ID><Description>One of the counter signers was invalid.</Description></Message>
+<Message><ID>61262</ID><Description>The signature of the certificate can not be verified.</Description></Message>
+<Message><ID>61263</ID><Description>The time stamp signer and or certificate could not be verified or is malformed.</Description></Message>
+<Message><ID>61264</ID><Description>The objects digest did not verify.</Description></Message>
+<Message><ID>61265</ID><Description>The cerficates basic constraints are invalid or missing.</Description></Message>
+<Message><ID>61266</ID><Description>The certificate does not meet or contain the Authenticode financial extensions.</Description></Message>
+<Message><ID>61267</ID><Description>The specified trust provider is not known on this system.</Description></Message>
+<Message><ID>61268</ID><Description>The trust verification action specified is not supported by the specified trust provider.</Description></Message>
+<Message><ID>61269</ID><Description>The form specified for the subject is not one supported or known by the specified trust provider.</Description></Message>
+<Message><ID>61270</ID><Description>The subject is not trusted for the specified action.</Description></Message>
+<Message><ID>61271</ID><Description>Error due to problem in ASN.1 encoding process.</Description></Message>
+<Message><ID>61272</ID><Description>Error due to problem in ASN.1 decoding process.</Description></Message>
+<Message><ID>61273</ID><Description>Reading / writing Extensions where Attributes are appropriate, and visa versa.</Description></Message>
+<Message><ID>61274</ID><Description>Unspecified cryptographic failure.</Description></Message>
+<Message><ID>61275</ID><Description>The size of the data could not be determined.</Description></Message>
+<Message><ID>61276</ID><Description>The size of the indefinite-sized data could not be determined.</Description></Message>
+<Message><ID>61277</ID><Description>This object does not read and write self-sizing data.</Description></Message>
+<Message><ID>61278</ID><Description>No signature was present in the subject.</Description></Message>
+<Message><ID>61279</ID><Description>A required certificate is not within its validity period.</Description></Message>
+<Message><ID>61280</ID><Description>The validity periods of the certification chain do not nest correctly.</Description></Message>
+<Message><ID>61281</ID><Description>A certificate that can only be used as an end-entity is being used as a CA or visa versa.</Description></Message>
+<Message><ID>61282</ID><Description>A path length constraint in the certification chain has been violated.</Description></Message>
+<Message><ID>61283</ID><Description>An extension of unknown type that is labeled &apos;critical&apos; is present in a certificate.</Description></Message>
+<Message><ID>61284</ID><Description>A certificate is being used for a purpose other than that for which it is permitted.</Description></Message>
+<Message><ID>61285</ID><Description>A parent of a given certificate in fact did not issue that child certificate.</Description></Message>
+<Message><ID>61286</ID><Description>A certificate is missing or has an empty value for an important field, such as a subject or issuer name.</Description></Message>
+<Message><ID>61287</ID><Description>A certification chain processed correctly, but terminated in a root certificate which isn&apos;t trusted by the trust provider.</Description></Message>
+<Message><ID>61288</ID><Description>A chain of certs didn&apos;t chain as they should in a certain application of chaining.</Description></Message>
+<Message><ID>61289</ID><Description>Generic Trust Failure.</Description></Message>
+<Message><ID>61290</ID><Description>A certificate was explicitly revoked by its issuer.</Description></Message>
+<Message><ID>61291</ID><Description>The root certificate is a testing certificate and the policy settings disallow test certificates.</Description></Message>
+<Message><ID>61292</ID><Description>The revocation process could not continue - the certificate(s) could not be checked.</Description></Message>
+<Message><ID>61293</ID><Description>The certificate&apos;s CN name does not match the passed value.</Description></Message>
+<Message><ID>61294</ID><Description>The certificate is not valid for the requested usage.</Description></Message>
+<Message><ID>61295</ID><Description>A non-empty line was encountered in the INF before the start of a section.</Description></Message>
+<Message><ID>61296</ID><Description>A section name marker in the INF is not complete, or does not exist on a line by itself.</Description></Message>
+<Message><ID>61297</ID><Description>An INF section was encountered whose name exceeds the maximum section name length.</Description></Message>
+<Message><ID>61298</ID><Description>The syntax of the INF is invalid.</Description></Message>
+<Message><ID>61299</ID><Description>The style of the INF is different than what was requested.</Description></Message>
+<Message><ID>61300</ID><Description>The required section was not found in the INF.</Description></Message>
+<Message><ID>61301</ID><Description>The required line was not found in the INF.</Description></Message>
+<Message><ID>61302</ID><Description>The INF or the device information set or element does not have an associated install class.</Description></Message>
+<Message><ID>61303</ID><Description>The INF or the device information set or element does not match the specified install class.</Description></Message>
+<Message><ID>61304</ID><Description>An existing device was found that is a duplicate of the device being manually installed.</Description></Message>
+<Message><ID>61305</ID><Description>There is no driver selected for the device information set or element.</Description></Message>
+<Message><ID>61306</ID><Description>The requested device registry key does not exist.</Description></Message>
+<Message><ID>61307</ID><Description>The device instance name is invalid.</Description></Message>
+<Message><ID>61308</ID><Description>The install class is not present or is invalid.</Description></Message>
+<Message><ID>61309</ID><Description>The device instance cannot be created because it already exists.</Description></Message>
+<Message><ID>61310</ID><Description>The operation cannot be performed on a device information element that has not been registered.</Description></Message>
+<Message><ID>61311</ID><Description>The device property code is invalid.</Description></Message>
+<Message><ID>61312</ID><Description>The INF from which a driver list is to be built does not exist.</Description></Message>
+<Message><ID>61313</ID><Description>The device instance does not exist in the hardware tree.</Description></Message>
+<Message><ID>61314</ID><Description>The icon representing this install class cannot be loaded.</Description></Message>
+<Message><ID>61315</ID><Description>The class installer registry entry is invalid.</Description></Message>
+<Message><ID>61316</ID><Description>The class installer has indicated that the default action should be performed for this installation request.</Description></Message>
+<Message><ID>61317</ID><Description>The operation does not require any files to be copied.</Description></Message>
+<Message><ID>61318</ID><Description>The specified hardware profile does not exist.</Description></Message>
+<Message><ID>61319</ID><Description>There is no device information element currently selected for this device information set.</Description></Message>
+<Message><ID>61320</ID><Description>The operation cannot be performed because the device information set is locked.</Description></Message>
+<Message><ID>61321</ID><Description>The operation cannot be performed because the device information element is locked.</Description></Message>
+<Message><ID>61322</ID><Description>The specified path does not contain any applicable device INFs.</Description></Message>
+<Message><ID>61323</ID><Description>No class installer parameters have been set for the device information set or element.</Description></Message>
+<Message><ID>61324</ID><Description>The operation cannot be performed because the file queue is locked.</Description></Message>
+<Message><ID>61325</ID><Description>A service installation section in this INF is invalid.</Description></Message>
+<Message><ID>61326</ID><Description>There is no class driver list for the device information element.</Description></Message>
+<Message><ID>61327</ID><Description>The installation failed because a function driver was not specified for this device instance.</Description></Message>
+<Message><ID>61328</ID><Description>There is presently no default device interface designated for this interface class.</Description></Message>
+<Message><ID>61329</ID><Description>The operation cannot be performed because the device interface is currently active.</Description></Message>
+<Message><ID>61330</ID><Description>The operation cannot be performed because the device interface has been removed from the system.</Description></Message>
+<Message><ID>61331</ID><Description>An interface installation section in this INF is invalid.</Description></Message>
+<Message><ID>61332</ID><Description>This interface class does not exist in the system.</Description></Message>
+<Message><ID>61333</ID><Description>The reference string supplied for this interface device is invalid.</Description></Message>
+<Message><ID>61334</ID><Description>The specified machine name does not conform to UNC naming conventions.</Description></Message>
+<Message><ID>61335</ID><Description>A general remote communication error occurred.</Description></Message>
+<Message><ID>61336</ID><Description>The machine selected for remote communication is not available at this time.</Description></Message>
+<Message><ID>61337</ID><Description>The Plug and Play service is not available on the remote machine.</Description></Message>
+<Message><ID>61338</ID><Description>The property page provider registry entry is invalid.</Description></Message>
+<Message><ID>61339</ID><Description>The requested device interface is not present in the system.</Description></Message>
+<Message><ID>61340</ID><Description>The device&apos;s co-installer has additional work to perform after installation is complete.</Description></Message>
+<Message><ID>61341</ID><Description>The device&apos;s co-installer is invalid.</Description></Message>
+<Message><ID>61342</ID><Description>There are no compatible drivers for this device.</Description></Message>
+<Message><ID>61343</ID><Description>There is no icon that represents this device or device type.</Description></Message>
+<Message><ID>61344</ID><Description>A logical configuration specified in this INF is invalid.</Description></Message>
+<Message><ID>61345</ID><Description>The class installer has denied the request to install or upgrade this device.</Description></Message>
+<Message><ID>61346</ID><Description>One of the filter drivers installed for this device is invalid.</Description></Message>
+<Message><ID>61347</ID><Description>No installed components were detected.</Description></Message>
+<Message><ID>61348</ID><Description>Unexpected Error.</Description></Message>
+</Messages>

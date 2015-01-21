@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"> 
+ 
+ 	<!-- 
+	Output log messages to system console.
+ 	-->
+ 	<appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender"> 
+ 		<param name="Target" value="System.out"/> 
+ 		<layout class="org.apache.log4j.PatternLayout"> 
+ 			<param name="ConversionPattern" value="%d: %-5p rid=%-3X{httpRequestId} '%X{process}'  %c{1} - %m%n"/> 
+ 		</layout> 
+ 	</appender> 
+ 
+ 	<!-- 
+	Output log messages to ::OutputDebugString.
+ 	-->
+ 	<appender name="OutputDebugStringAppender" class="org.apache.log4j.OutputDebugStringAppender"> 
+ 		<layout class="org.apache.log4j.PatternLayout"> 
+ 			<param name="ConversionPattern" value="%-5p rid=%X{httpRequestId} '%X{process}' %c{1} - %m%n"/> 
+ 		</layout> 
+ 	</appender> 
+  
+ 	<!-- 
+	Output log messages to a log file
+ 	-->
+ 	<appender name="FileAppender" class="org.apache.log4j.FileAppender">
+ 		<param name="file" value="${AGR_LOGFILEPATH}" />
+ 		<param name="append" value="true" />
+ 		<layout class="org.apache.log4j.PatternLayout"> 
+ 			<param name="ConversionPattern" value="%d %5p rid=%-3X{httpRequestId} '%X{process}' %c{1} - %m%n" /> 
+ 		</layout>
+ 	</appender>
+
+  	<root>
+ 		<priority value="info" />
+ 		<appender-ref ref="ConsoleAppender"/>
+ 		<appender-ref ref="OutputDebugStringAppender"/>
+		<appender-ref ref="FileAppender"/>
+ 	</root> 
+	
+	<!-- 
+	Disable static content web service logging 
+	-->
+	<logger name="staticcontent">
+	  <level value="error"/> 
+	</logger>
+  
+ </log4j:configuration>

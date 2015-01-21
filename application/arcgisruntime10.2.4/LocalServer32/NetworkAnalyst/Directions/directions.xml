@@ -1,0 +1,3257 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Directions>
+ <Settings>
+  <Style id="NA Desktop" default="yes">
+
+   <!-- This section describes facts which can be used in recognition or formatting-->
+   <Facts>
+
+    <!-- System facts-->
+    <Fact id="Intersection" />
+
+    <!-- User facts-->
+    <Fact id="NameChanged">changed(NAME)</Fact>
+    <Fact id="AzimuthChange">Not checkValue(TURNANGLE, 0)</Fact>
+    <Fact id="ClassChange">changed(ROADGROUP)</Fact>
+    <Fact id="BorderCrossing">changed(CROSSADMINBORDER)</Fact>
+    <Fact id="ExitFerry">changedFrom(ROADGROUP, esriRCFerry)</Fact>
+    <Fact id="EnterFerry">changedTo(ROADGROUP, esriRCFerry)</Fact>
+    <Fact id="TurnAzimuth">checkRange(TURNANGLE, 45, 315)</Fact>
+   </Facts>
+
+   <!-- This section describes recognizers which are used to recognize maneuvers along the route-->
+   <Recognition>
+
+    <!-- Depart/Arrive/Stop recognizers -->
+    <Recognizer id="Stop" type="eRTStop"/>
+
+    <!-- Recognizes the first maneuver after route part changing -->
+    <Recognizer id="Department" type="eRTDepart">
+     <Param name="FactConnectionRoad" value="Intersection"/>
+     <Param name="DepartTowardThreshold" value="1.0"/>
+    </Recognizer>
+
+    <!-- Simple turn recognizer -->
+    <Recognizer id="SimpleTurn" type="eRTSimple">
+     <Rule>@Intersection Or @NameChanged Or (@AzimuthChange And @TurnAzimuth)</Rule>
+    </Recognizer>
+
+    <!-- Ferry recognizer -->
+    <Recognizer id="Ferry" type="eRTSimple">
+     <Rule>@EnterFerry Or @ExitFerry Or (checkValue(ROADGROUP, esriRCFerry) And @NameChanged)</Rule>
+    </Recognizer>
+
+    <!-- Ramp turn recognizer -->
+    <Recognizer id="RampOn" type="eRTSequence">
+     <Param name="FactClassChange" value="ClassChange"/>
+     <Param name="ClassValue" value="esriRCRamp"/>
+    </Recognizer>
+
+    <!-- Roundabout recognizer -->
+    <Recognizer id="Roundabout" type="eRTSequence">
+     <Param name="FactClassChange" value="ClassChange"/>
+     <Param name="ClassValue" value="esriRCRoundabout"/>
+    </Recognizer>
+
+    <!-- U-Turn recognizer-->
+    <Recognizer id="UTurn" type="eRTUTurn">
+     <Param name="ConnectionThreshold" value="0.031"/>
+     <Param name="RoundaboutThreshold" value="0.25"/>
+     <Param name="FactClassChange" value="ClassChange"/>
+    </Recognizer>
+
+    <!-- Fork recognizer-->
+    <Recognizer id="Fork" type="eRTFork">
+     <Param name="FactIntersection" value="Intersection"/>
+     <Param name="FactClassChange" value="ClassChange"/>
+    </Recognizer>
+
+    <!-- Complex turn recognizer-->
+    <Recognizer id="ComplexTurn" type="eRTComplex" >
+     <Rule>@Intersection And @TurnAzimuth</Rule>
+     <Param name="DistanceThreshold" value="0.04"/>
+     <Param name="Origin" value="SecondSimpleTurn"/>
+    </Recognizer>
+
+    <!-- Events recognizer -->
+    <Recognizer id="Events" type="eRTEvent">
+     <Rule>@BorderCrossing</Rule>
+    </Recognizer>
+
+    <!-- Restrictions violation recognizer -->
+    <Recognizer id="ViolatedRestriction" type="eRTRestrictionViolation" />
+
+    <!-- Time zone changed recognizer -->
+    <Recognizer id="TZChanged" type="eRTTimeZone" />
+
+    <!-- Uncomment this to recognize intersection events. 
+         It is also required to uncomment related conflicts in <ConflictResolver> section,
+         event's instruction evaluator in <Instructions> section
+         and instruction string in resources.xml.
+
+    <Recognizer id="Intersection" type="eRTEvent">
+     <Rule>checkIntersection(esriRCMajorRoad, esriRCHighway)</Rule>
+    </Recognizer> -->
+
+   </Recognition>
+
+   <!-- This section describes conflict reslover which is used to solve maneuver conflicts-->
+   <ConflictResolver>
+    
+    <!-- Restrict u-turns at stop-->
+    <Conflict primary="Stop" secondary="UTurn" action="eCATRestrictBeginning" priority="1"/>
+
+    <!-- Restrict fork at stop-->
+    <Conflict primary="Stop" secondary="Fork" action="eCATRestrictBeginning" priority="1"/>
+
+    <!-- Restrict simple turns at department-->
+    <Conflict primary="Department" secondary="SimpleTurn" action="eCATRestrictBeginning" priority="1"/>
+    
+    <!-- Restrict u-turns at department-->
+    <Conflict primary="Department" secondary="UTurn" action="eCATRestrictBeginning" priority="1"/>
+
+    <!-- Restrict fork at department-->
+    <Conflict primary="Department" secondary="Fork" action="eCATRestrictBeginning" priority="1"/>
+    
+    <!-- Restrict intersections at stop-->
+    <!-- <Conflict primary="Stop" secondary="Intersection" action="eCATRestrictBeginning" priority="1"/> -->
+
+    <!-- Restrict complex turns overlap-->
+    <Conflict primary="ComplexTurn" secondary="ComplexTurn" action="eCATRestrict" priority="1"/>
+    
+    <!-- Restrict simple turns at ferries-->
+    <Conflict primary="Ferry" secondary="SimpleTurn" action="eCATRestrict" priority="1"/>
+
+    <!-- Restrict intersections on ferries-->
+    <!-- <Conflict primary="Ferry" secondary="Intersection" action="eCATRestrictBeginning" priority="1"/> -->
+
+    <!-- Restrict simple turns on ramps that lead to highways-->
+    <Conflict primary="RampOn" secondary="SimpleTurn" action="eCATRestrictContinuation" priority="1"/>
+
+    <!-- Restrict complex turns on ramps that lead to highways-->
+    <Conflict primary="RampOn" secondary="ComplexTurn" action="eCATRestrictContinuation" priority="1"/>
+
+    <!-- Restrict simple turns on roundabout-->
+    <Conflict primary="Roundabout" secondary="SimpleTurn" action="eCATRestrict" priority="1"/>
+
+    <!-- Restrict complex turns on roundabout-->
+    <Conflict primary="Roundabout" secondary="ComplexTurn" action="eCATRestrict" priority="1"/>
+    
+    <!-- Restrict simple turns on u-turns-->
+    <Conflict primary="UTurn" secondary="SimpleTurn" action="eCATRestrict" priority="1"/>
+
+    <!-- Restrict complex turns on u-turns-->
+    <Conflict primary="UTurn" secondary="ComplexTurn" action="eCATRestrict" priority="1"/>
+
+    <!-- Restrict fork when u-turn-->
+    <Conflict primary="UTurn" secondary="Fork" action="eCATRestrict" priority="1"/>
+
+    <!-- Restrict intersection at the beginning of u-turn-->
+    <!-- <Conflict primary="UTurn" secondary="Intersection" action="eCATRestrictBeginning" priority="1"/> -->
+
+    <!-- Restrict simple turns at fork-->
+    <Conflict primary="Fork" secondary="SimpleTurn" action="eCATRestrictBeginning" priority="1"/>
+
+    <!-- Restrict complex turns at fork-->
+    <Conflict primary="Fork" secondary="ComplexTurn" action="eCATRestrictBeginning" priority="1"/>
+
+    <!-- Restrict ntersection at the beginning of fork-->
+    <!-- <Conflict primary="Fork" secondary="Intersection" action="eCATRestrictBeginning" priority="1"/> -->
+
+    <!-- Restrict fork on the beginning of the ramp-->
+    <Conflict primary="RampOn" secondary="Fork" action="eCATRestrictBeginning" priority="1"
+              result="RampTo"/>
+
+    <!-- Use ramp "on" as extension to stop-->
+    <Conflict primary="Stop" secondary="RampOn" action="eCATMerge" priority="2"/>
+
+    <!-- Restrict maneuvers on complex turns-->
+    <Conflict primary="ComplexTurn" secondary="UTurn" action="eCATReplacePrimary" priority="2"/>
+    <Conflict primary="ComplexTurn" secondary="Roundabout" action="eCATReplacePrimary" priority="2"/>
+    <Conflict primary="ComplexTurn" secondary="RampOn" action="eCATReplacePrimary" priority="2"/>
+    <Conflict primary="ComplexTurn" secondary="RampTo" action="eCATReplacePrimary" priority="2"/>
+    <Conflict primary="ComplexTurn" secondary="Fork" action="eCATReplacePrimary" priority="2"/>
+    <Conflict primary="ComplexTurn" secondary="Ferry" action="eCATReplacePrimary" priority="2"/>
+    
+    <!-- Use roundabout as extension of ramp "on"-->
+    <Conflict primary="RampOn" secondary="Roundabout" action="eCATExtend" priority="2"
+              result="RampTo" origin="RoundaboutEnd"/>
+
+    <!-- Use ramp "on" as extension of roundabout-->
+    <Conflict primary="Roundabout" secondary="RampOn" action="eCATMerge" priority="2"
+              result="RoundaboutRamp" origin="RoundaboutEnd"/>
+
+    <!-- Absorb "ramp on" when u-turns-->
+    <Conflict primary="UTurn" secondary="RampOn" action="eCATAbsorb" priority="2"
+              result="UTurnViaRamp"/>
+
+    <!-- Absorb u-turns when roundabout-->
+    <Conflict primary="Roundabout" secondary="UTurn" action="eCATAbsorb" priority="2"
+        result="UTurnViaRoundabout"/>
+
+    <!-- Merge u-turn at the end of roundabout-->
+    <Conflict primary="Roundabout" secondary="UTurn" action="eCATMergeEnding" priority="3"/>
+
+    <!-- Use roundabout as extension of ramp "to"-->
+    <Conflict primary="RampTo" secondary="Roundabout" action="eCATExtend" priority="3"
+              result="RampTo" origin="RoundaboutEnd"/>
+
+    <!-- Use ramp "on" as extension of ramp "to"-->
+    <Conflict primary="RampTo" secondary="RampOn" action="eCATMerge" priority="3"
+              result="RampTo"/>
+
+    <!-- Extend ramp "to" with connected roundabout-->
+    <Conflict primary="RampTo" secondary="RoundaboutRamp" action="eCATExtend" priority="3"
+              result="RampTo"/>
+
+    <!-- Restrict simple turns at complex turns-->
+    <Conflict primary="ComplexTurn" secondary="SimpleTurn" action="eCATRestrict" priority="3"/>
+
+    <!-- Restrict intersection at the beginning of complex turns-->
+    <!-- <Conflict primary="ComplexTurn" secondary="Intersection" action="eCATRestrictBeginning" priority="3"/> -->
+
+    <!-- Replace simple turn after stop-->
+    <Conflict primary="Stop" secondary="SimpleTurn" action="eCATReplaceSecondary" priority="3"
+              result="TurnAfterStop"/>
+
+   </ConflictResolver>
+
+   <!-- This section describes instructions set for recognized maneuvers-->
+   <Instructions>
+
+    <!-- Depart/Arrive/Stop instructions -->
+    <Evaluator recognizerId="Stop" type="eETSingle">
+     <!-- Header -->
+     <Instruction type="eITHeader">
+      <Rule>checkKey(keyStopInfo, Header) And checkKey(keyStopInfo, Depart)</Rule>
+      <Resource stringId="ManeuverHeader"/>
+     </Instruction>
+     
+     <!-- Footer-->
+     <Instruction type="eITFooter">
+      <Rule>checkKey(keyStopInfo, Footer) And checkKey(keyStopInfo, Arrive)</Rule>
+      <Resource stringId="ManeuverFooter"/>
+     </Instruction>
+
+     <!-- Depart -->
+     <Instruction type="eITDepart">
+      <Rule>checkKey(keyStopInfo, Depart) And Not checkKey(keyStopInfo, Header)</Rule>
+      <Resource stringId="ManeuverDepart"/>
+     </Instruction>
+
+     <!-- Arrive -->
+     <Instruction type="eITArrive">
+      <Rule>checkKey(keyStopInfo, Arrive) And Not checkKey(keyStopInfo, Footer)</Rule>
+      <Resource stringId="ManeuverArrive"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Department instructions -->
+    <Evaluator recognizerId="Department" type="eETSingle">
+
+     <!-- First Road - Ferry -->
+     <Instruction type="eITFerry">
+      <Rule>checkKey(keyDepartment, Start) And checkValue(ROADGROUP, esriRCFerry)</Rule>
+      <Resource stringId="ManeuverFerry"/>
+      <Resource key="Drive" stringId="ManeuverFerryBypass"/>
+     </Instruction>
+     
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDepartment, Start) And Not checkValue(ROADGROUP, esriRCRoundabout)</Rule>
+      <Resource stringId="ManeuverAnyRoad"/>
+     </Instruction>
+
+     <!-- Other roads following after stop -->
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDepartment, Continue) And Not checkValue(ROADGROUP, esriRCRoundabout)</Rule>
+      <Resource stringId="ManeuverStopArrive"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Simple Turn instructions -->
+    <Evaluator recognizerId="SimpleTurn" type="eETSingle">
+     <!-- Simple turn onto highways -->
+     <Instruction type="eITTurn">
+      <Rule>Not changedFrom(ROADGROUP, esriRCRamp) And checkValue(ROADGROUP, esriRCHighway) And @NameChanged</Rule>
+      <Resource stringId="ManeuverOntoHighway"/>
+     </Instruction>
+
+     <!-- Path curves on street intersection -->
+     <Instruction type="eITTurn">
+      <Rule>@Intersection And @TurnAzimuth And Not @NameChanged</Rule>
+      <Resource stringId="ManeuverPathCurves"/>
+     </Instruction>
+
+     <!-- Simple turn onto local road -->
+     <Instruction type="eITTurn">
+      <Rule>@NameChanged And Not checkValue(ROADGROUP, esriRCHighway) And (@AzimuthChange Or Not checkValue(NAME, eNull))</Rule>
+      <Resource stringId="ManeuverTurnOntoLocalRoad"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Double simple turn -->
+    <Evaluator recognizerId="ComplexTurn" type="eETSingle">
+     <Instruction type="eITComplex">
+      <Resource stringId="ManeuverDoubleTurn"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Turn onto highway after stop -->
+    <Evaluator recognizerId="TurnAfterStop" type="eETSingle">
+     <!-- Simple turn onto highways -->
+     <Instruction type="eITTurn">
+      <Rule>checkValue(ROADGROUP, esriRCHighway)</Rule>
+      <Resource stringId="ManeuverOntoHighway"/>
+     </Instruction>
+
+     <!-- Path curves on street intersection -->
+     <Instruction type="eITTurn">
+      <Rule>@Intersection And @TurnAzimuth And Not @NameChanged</Rule>
+      <Resource stringId="ManeuverPathCurves"/>
+     </Instruction>
+
+     <!-- Simple turn onto local road -->
+     <Instruction type="eITTurn">
+      <Rule>@NameChanged And Not checkValue(ROADGROUP, esriRCHighway)</Rule>
+      <Resource stringId="ManeuverTurnOntoLocalRoad"/>
+     </Instruction>
+    </Evaluator>
+    
+    <!-- U-turn instructions-->
+    <Evaluator recognizerId="UTurnViaRamp" type="eETSingle">
+     <Instruction type="eITUTurn">
+      <Resource stringId="ManeuverUTurnViaRamp"/>
+     </Instruction >
+    </Evaluator>
+
+    <Evaluator recognizerId="UTurnViaRoundabout" type="eETSingle">
+     <Instruction type="eITUTurn">
+      <Resource stringId="ManeuverUTurnViaRoundabout"/>
+     </Instruction >
+    </Evaluator>
+
+    <Evaluator recognizerId="UTurn" type="eETSingle">
+     <Instruction type="eITUTurn">
+      <Resource stringId="ManeuverUTurn"/>
+     </Instruction >
+    </Evaluator>
+
+    <!-- Ferry instructions-->
+    <Evaluator recognizerId="Ferry" type="eETSingle">
+     <Instruction type="eITFerry">
+      <Rule>@EnterFerry Or (checkValue(ROADGROUP, esriRCFerry) And @NameChanged)</Rule>
+      <Resource stringId="ManeuverFerry"/>
+      <Resource key="Drive" stringId="ManeuverFerryBypass"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>@ExitFerry</Rule>
+      <Resource stringId="ManeuverEndOfFerry"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Fork instructions-->
+    <Evaluator recognizerId="Fork" type="eETSingle">
+     <Instruction type="eITFork">
+      <Resource stringId="ManeuverFork"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Roundabout instructions-->
+    <Evaluator recognizerId="Roundabout" type="eETSingle">
+     <Instruction type="eITEvent">
+      <Rule>Not (changed(NAME) Or checkValue(NAME, eNull) Or changed(ROADGROUP) Or checkTurnAngle(90, 270)) And (checkValue(ROADGROUP, esriRCHighway) Or checkValue(ROADGROUP, esriRCMajorRoad))</Rule>
+      <Resource stringId="EventTakeRoundaboutToStay"/>
+     </Instruction>
+     <Instruction type="eITRoundabout">
+      <Rule>checkValue(ROADGROUP, esriRCRoundabout) And Not @NameChanged</Rule>
+      <Resource stringId="ManeuverStopOnRoundabout"/>
+     </Instruction>
+     <Instruction type="eITRoundabout">
+      <Resource stringId="ManeuverSkipRoundabout"/>
+     </Instruction>
+    </Evaluator>
+
+    <Evaluator recognizerId="RoundaboutRamp" type="eETSingle">
+     <Instruction type="eITRoundabout">
+      <Resource stringId="ManeuverSkipRoundaboutRamp"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Ramp instructions-->
+    <Evaluator recognizerId="RampOn" type="eETSingle">
+     <Instruction type="eITRamp">
+      <Rule>checkValue(ROADGROUP, esriRCHighway) And (checkFact(Intersection) Or changed(NAME))</Rule>
+      <Resource stringId="ManeuverSkipHighwayRamps"/>
+     </Instruction>
+     <Instruction type="eITRamp">
+      <Rule>checkFact(Intersection) Or changed(NAME)</Rule>
+      <Resource stringId="ManeuverSkipSignpostRamps"/>
+     </Instruction>
+    </Evaluator>
+
+    <Evaluator recognizerId="RampTo" type="eETSingle">
+     <Instruction type="eITRamp">
+      <Resource stringId="ManeuverSkipSignpostRamps"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Time changed -->
+    <Evaluator recognizerId="TZChanged" type="eETSingle">
+     <Instruction type="eITEvent">
+      <Resource stringId="EventTimeChanged"/>
+     </Instruction >
+    </Evaluator>
+	
+    <!-- Event instructions -->
+    <Evaluator recognizerId="Events" type="eETMultiple">
+     <!-- Crossing the border -->
+     <Instruction type="eITEvent">
+      <Rule>@BorderCrossing</Rule>
+      <Resource stringId="EventCrossingBorder"/>
+     </Instruction >
+    </Evaluator>
+
+    <!-- Violated restriction -->
+    <Evaluator recognizerId="ViolatedRestriction" type="eETSingle">
+     <Instruction type="eITEvent">
+      <Resource stringId="EventRestrictionViolation"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Intersection instructions -->
+    <!-- <Evaluator recognizerId="Intersection" type="eETSingle">     
+     <Instruction type="eITEvent">
+      <Resource stringId="EventIntersection"/>
+     </Instruction>
+    </Evaluator> -->
+
+   </Instructions>
+
+   <Tokens>
+    <Token id="Azimuth" type="eTTSector" feedType="eTFTAzimuth">
+     <Sector spanType="eSSTRange" from="0" to="22.5">
+      <Resource stringId="AzimuthN"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="22.5" to="67.5">
+      <Resource stringId="AzimuthNE"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="67.5" to="112.5">
+      <Resource stringId="AzimuthE"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="112.5" to="157.5">
+      <Resource stringId="AzimuthSE"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="157.5" to="202.5">
+      <Resource stringId="AzimuthS"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="202.5" to="247.5">
+      <Resource stringId="AzimuthSW"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="247.5" to="292.5">
+      <Resource stringId="AzimuthW"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="292.5" to="337.5">
+      <Resource stringId="AzimuthNW"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="337.5" to="360">
+      <Resource stringId="AzimuthN"/>
+     </Sector>
+    </Token>
+
+    <Token id="LocalRoadAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="LocalRoadActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="LocalRoadActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="LocalRoadActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="LocalRoadActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="LocalRoadActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="LocalRoadActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="LocalRoadActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="LocalRoadActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="LocalRoadActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="LocalRoadActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="PathCurveAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="PathCurveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="PathCurveActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="PathCurveActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="PathCurveActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="PathCurveActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="PathCurveActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="PathCurveActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="PathCurveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="PathCurveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="PathCurveActionContinue"/>
+     </Sector>
+    </Token>
+
+    <Token id="FirstActionBearing" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="FirstActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="FirstActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="FirstActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="FirstActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="FirstActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="360" maneuverType="esriDMTBearLeft">
+      <Resource stringId="FirstActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="FirstActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="FirstActionContinue"/>
+     </Sector>
+    </Token>
+
+    <Token id="SecondActionBearing" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="SecondActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="SecondActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="SecondActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="SecondActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="SecondActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="360" maneuverType="esriDMTBearLeft">
+      <Resource stringId="SecondActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="SecondActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="SecondActionContinue"/>
+     </Sector>
+    </Token>
+
+    <Token id="SkipHighwayRampAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="SkipHighwayRampActionAtFork"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTRampRight">
+      <Resource stringId="SkipHighwayRampActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="SkipHighwayRampActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="SkipHighwayRampActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="SkipHighwayRampActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="SkipHighwayRampActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTRampLeft">
+      <Resource stringId="SkipHighwayRampActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="SkipHighwayRampActionAtFork"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="SkipHighwayRampActionTakeRamp"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="SkipHighwayRampActionTakeRamp"/>
+     </Sector>
+    </Token>
+
+    <Token id="SkipHighwayRampActionAtFork" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft" maneuverType="esriDMTRampLeft">
+      <Resource stringId="SkipHighwayRampActionAtForkLeft" />
+     </Case>
+     <Case value="eCVTForkSideRight" maneuverType="esriDMTRampRight">
+      <Resource stringId="SkipHighwayRampActionAtForkRight" />
+     </Case>
+    </Token>
+
+    <Token id="SkipSignpostRampAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="SkipSignpostRampActionAtFork"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTRampRight">
+      <Resource stringId="SkipSignpostRampActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="SkipSignpostRampActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="SkipSignpostRampActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="SkipSignpostRampActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="SkipSignpostRampActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTRampLeft">
+      <Resource stringId="SkipSignpostRampActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="SkipSignpostRampActionAtFork"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="SkipSignpostRampActionTakeRamp"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="SkipSignpostRampActionTakeRamp"/>
+     </Sector>
+    </Token>
+
+    <Token id="SkipSignpostRampActionAtFork" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft" maneuverType="esriDMTRampLeft">
+      <Resource stringId="SkipSignpostRampActionAtForkLeft" />
+     </Case>
+     <Case value="eCVTForkSideRight" maneuverType="esriDMTRampRight">
+      <Resource stringId="SkipSignpostRampActionAtForkRight" />
+     </Case>
+    </Token>
+
+    <Token id="UTurnRampAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="UTurnRampActionFork"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTRampRight">
+      <Resource stringId="UTurnRampActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="UTurnRampActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="UTurnRampActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="UTurnRampActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="UTurnRampActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTRampLeft">
+      <Resource stringId="UTurnRampActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="UTurnRampActionFork"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="UTurnRampActionTakeRamp"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="UTurnRampActionTakeRamp"/>
+     </Sector>
+    </Token>
+
+    <Token id="UTurnRampActionAtFork" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft" maneuverType="esriDMTRampLeft">
+      <Resource stringId="UTurnRampActionAtForkLeft" />
+     </Case>
+     <Case value="eCVTForkSideRight" maneuverType="esriDMTRampRight">
+      <Resource stringId="UTurnRampActionAtForkRight" />
+     </Case>
+    </Token>
+
+    <Token id="HighwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="HighwayActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="HighwayActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="HighwayActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="HighwayActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="HighwayActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="HighwayActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="HighwayActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="HighwayActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="HighwayActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="HighwayActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="EndOfFerryAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="EndOfFerryActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="EndOfFerryActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="EndOfFerryActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="EndOfFerryActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="EndOfFerryActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="EndOfFerryActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="EndOfFerryActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="EndOfFerryActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="EndOfFerryActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="EndOfFerryActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="StopArriveAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5">
+      <Resource stringId="StopArriveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="175">
+      <Resource stringId="StopArriveActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="175" to="185">
+      <Resource stringId="StopArriveActionBack"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="185" to="355">
+      <Resource stringId="StopArriveActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360">
+      <Resource stringId="StopArriveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="StopArriveActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="StopArriveActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="ForkAction" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft" maneuverType="esriDMTForkLeft">
+      <Resource stringId="ForkActionLeft"/>
+     </Case>
+     <Case value="eCVTForkSideRight" maneuverType="esriDMTForkRight">
+      <Resource stringId="ForkActionRight"/>
+     </Case>
+     <Case value="eCVTForkSideCenter" maneuverType="esriDMTForkCenter">
+      <Resource stringId="ForkActionStraight"/>
+     </Case>
+    </Token>
+
+    <Token id="ForkSide" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft">
+      <Resource stringId="ForkSideLeft"/>
+     </Case>
+     <Case value="eCVTForkSideRight">
+      <Resource stringId="ForkSideRight"/>
+     </Case>
+     <Case value="eCVTForkSideCenter">
+      <Resource stringId="ForkSideStraight"/>
+     </Case>
+    </Token>
+
+    <Token id="TotalLength" type="eTTSystem">
+     <Param name="Threshold" value="0.1" />
+     <Resource key="BelowThreshold" stringId="DistanceShort"/>
+     <Resource key="Standard" stringId="DistanceLong"/>
+    </Token>
+
+    <Token id="ItemLength" type="eTTSystem">
+     <Param name="Threshold" value="0.1" />
+     <Resource key="BelowThreshold" stringId="DistanceShort"/>
+     <Resource key="Standard" stringId="DistanceLong"/>
+    </Token>
+
+    <Token id="CumulativeDistance" type="eTTSystem">
+     <Resource key="Standard" stringId="CumulativeDistanceLong"/>
+    </Token>
+
+    <Token id="StopLength" type="eTTSystem">
+     <Param name="Threshold" value="0.1" />
+     <Resource key="BelowThreshold" stringId="DistanceShort"/>
+     <Resource key="Standard" stringId="DistanceLong"/>
+    </Token>
+
+    <Token id="TotalTimeSpan" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="TimeShort"/>
+     <Resource key="Standard" stringId="TimeLong"/>
+    </Token>
+
+    <Token id="ItemTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="TimeShort"/>
+     <Resource key="Standard" stringId="TimeLong"/>
+    </Token>
+
+    <Token id="TravelTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="TravelTimeShort"/>
+     <Resource key="Standard" stringId="TravelTimeLong"/>
+    </Token>
+
+    <Token id="StopStayTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="StopWaitTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="StopViolationTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="StopFullTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="TotalStopWaitTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="TotalStopViolationTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="TZChange" type="eTTSystem">
+     <Resource key="Standard" stringId="TimeZoneChange"/>
+    </Token>
+
+    <Token id="Destination" type="eTTSystem">
+     <Param name="SignIDAttribute" value="SIGN_ID"/>
+     <Resource stringId="SignpostDestination"/>
+    </Token>
+
+    <Token id="Branch" type="eTTSystem">
+     <Param name="SignIDAttribute" value="SIGN_ID"/>
+     <Resource stringId="SignpostDestination"/>
+    </Token>
+
+    <Token id="SignpostExit" type="eTTSystem">
+     <Param name="SignIDAttribute" value="SIGN_ID"/>
+    </Token>
+
+    <Token id="StopSide" type="eTTSystem">
+     <Resource key="SideLeft" stringId="StopSideLeft"/>
+     <Resource key="SideRight" stringId="StopSideRight"/>
+    </Token>
+
+    <Token id="CrossNames" type="eTTSystem">
+     <Resource stringId="CrossNames"/>
+    </Token>
+    
+   <!-- setup precisely which road position should be used to access street names -->
+   <Token id="FirstTurn" type="eTTPosition">
+     <Param name="Origin" value="eOTBegin"/>
+     <Param name="Position" value="ePTCurrent"/>
+    </Token>
+    
+    <Token id="SecondTurn" type="eTTPosition">
+     <Param name="Origin" value="SecondSimpleTurn"/>
+     <Param name="Position" value="ePTCurrent"/>
+    </Token>
+
+    <!-- Access the recognized landmark name-->
+    <Token id="LandmarkName" type="eTTSystem" />
+
+    <!-- Access the recognized landmark postion on the road/intersection-->
+    <Token id="LandmarkPosition" type="eTTSelect" feedType="eTFTLandmarkPosition">
+      <Case value="eCVTLandmarkSideLeft">
+        <Resource stringId="LandmarkOnTheLeft"/>
+      </Case>
+      <Case value="eCVTLandmarkSideRight">
+        <Resource stringId="LandmarkOnTheRight"/>
+      </Case>
+      <Case value="eCVTLandmarkFarCornerLeft">
+        <Resource stringId="LandmarkOnTheFarLeft"/>
+      </Case>
+      <Case value="eCVTLandmarkFarCornerRight">
+        <Resource stringId="LandmarkOnTheFarRight"/>
+      </Case>
+      <Case value="eCVTLandmarkNearCornerLeft">
+        <Resource stringId="LandmarkOnTheNearLeft"/>
+      </Case>
+      <Case value="eCVTLandmarkNearCornerRight">
+        <Resource stringId="LandmarkOnTheNearRight"/>
+      </Case>
+    </Token>
+
+    
+   </Tokens>
+
+   <Formatting>
+    <Units>
+     <Unit id="Mile" baseUnit="Mile" ratio="1">
+      <Resource key="Singular" stringId="UnitMileSingular"/>
+      <Resource key="Plural" stringId="UnitMilePlural"/>
+      <Resource key="Neutral" stringId="UnitMileNeutral"/>
+     </Unit>
+
+     <Unit id="Kilometer" baseUnit="Mile" ratio="1.60934">
+      <Resource key="Singular" stringId="UnitKilometerSingular"/>
+      <Resource key="Plural" stringId="UnitKilometerPlural"/>
+      <Resource key="Neutral" stringId="UnitKilometerNeutral"/>
+     </Unit>
+
+     <Unit id="Meter" baseUnit="Mile" ratio="1609.34">
+      <Resource key="Singular" stringId="UnitMeterSingular"/>
+      <Resource key="Plural" stringId="UnitMeterPlural"/>
+      <Resource key="Neutral" stringId="UnitMeterNeutral"/>
+     </Unit>
+
+     <Unit id="Foot" baseUnit="Mile" ratio="5280.0">
+      <Resource key="Singular" stringId="UnitFootSingular"/>
+      <Resource key="Plural" stringId="UnitFootPlural"/>
+      <Resource key="Neutral" stringId="UnitFootNeutral"/>
+     </Unit>
+
+     <Unit id="Yard" baseUnit="Mile" ratio="1760.0">
+      <Resource key="Singular" stringId="UnitYardSingular"/>
+      <Resource key="Plural" stringId="UnitYardPlural"/>
+      <Resource key="Neutral" stringId="UnitYardNeutral"/>
+     </Unit>
+
+     <Unit id="NauticalMile" baseUnit="Mile" ratio="0.868976">
+      <Resource key="Singular" stringId="UnitNauticalSingular"/>
+      <Resource key="Plural" stringId="UnitNauticalPlural"/>
+      <Resource key="Neutral" stringId="UnitNauticalNeutral"/>
+     </Unit>
+
+     <Unit id="Second" baseUnit="Second" ratio="1">
+      <Resource key="Singular" stringId="UnitSecondSingular"/>
+      <Resource key="Plural" stringId="UnitSecondPlural"/>
+      <Resource key="Neutral" stringId="UnitSecondNeutral"/>
+     </Unit>
+    </Units>
+
+    <Groups>
+     <Group id="Summary">
+      <Resource key="Drive" stringId="SummaryDrive"/>
+      <Resource key="Length" stringId="SummaryLength"/>
+      <Resource key="Time" stringId="SummaryTravelTime"/>
+      <Resource key="ETA" stringId="SummaryETA"/>
+      <Resource key="CumulLength" stringId="SummaryCumulativeLength"/>
+      <Resource key="General" stringId="SummaryTripPlan"/>
+     </Group>
+
+     <Group id="Stop">
+      <Resource key="General" stringId="StopSummary"/>
+      <Resource key="Time" stringId="StopTimeWindow"/>
+      <Resource key="StayTime" stringId="StopStayTime"/>
+      <Resource key="FullTime" stringId="StopFullTime"/>
+      <Resource key="WaitTime" stringId="StopWaitTime"/>
+      <Resource key="ViolationTime" stringId="StopViolationTime"/>
+      <Resource key="Length" stringId="StopLength"/>
+     </Group>
+
+     <Group id="Maneuver">
+      <Resource key="Drive" stringId="DirectionDrive"/>
+      <Resource key="Length" stringId="DirectionLength"/>
+      <Resource key="Time" stringId="DirectionTime"/>
+      <Resource key="ETA" stringId="DirectionETA"/>
+      <Resource key="CumulLength" stringId="DirectionCumulativeLength"/>
+      <Resource key="Branch" stringId="DirectionBranch"/>
+      <Resource key="Toward" stringId="DirectionToward"/>
+      <Resource key="CrossStreet" stringId="DirectionCrossStreet"/>
+      <Resource key="Exit" stringId="DirectionExitName"/>
+      <Resource key="Street" stringId="DirectionStreet"/>
+      <Resource key="AltNames" stringId="DirectionAltNames"/>
+      <Resource key="DayEnd" stringId="DirectionDayEnd"/>
+      <Resource key="RestBreak" stringId="DirectionRestBreak"/>
+      <Resource key="AfterBreak" stringId="DirectionAfterBreak"/>
+     </Group>
+    </Groups>
+   </Formatting>
+
+   <Network>
+    <Attributes>
+     <Attribute name="ROADGROUP" default="-1" />
+     <Attribute name="NAME" />
+     <Attribute name="ALT_NAME" />
+     <Attribute name="ALT_NAME2" />
+     <Attribute name="ALT_NAME3" />
+     <Attribute name="ALT_NAME4" />
+     <Attribute name="SHAPE" />
+     <Attribute name="LENGTH" />
+     <Attribute name="TIME" />
+     <Attribute name="SIGN_ID" default="-1" />
+     <Attribute name="FROMAZIMUTH" />
+     <Attribute name="TOAZIMUTH" />
+     <Attribute name="TURNANGLE" default="0" />
+     <Attribute name="FROMVALENCY" />
+     <Attribute name="TOVALENCY" />
+     <Attribute name="CROSSADMINBORDER" />
+     <Attribute name="UTC_SHIFT" />
+     <Attribute name="ONE_WAY" />
+     <Attribute name="CURVE_ANGLE" default="0"/>
+    </Attributes>
+
+    <Plugins>
+     <Plugin id="FixUnnamed" sensitivity="0.5"/>
+    </Plugins>
+   </Network>
+
+   <!--Landmarks that need to be reported in driving directions-->
+   <Landmarks>
+     <LandmarkRecognizer type="eLRTGuidance">
+      <Param name="DistanceThreshold" value="0.031"/>
+      <Resource stringId="EventLandmarkManeuverGuidance"/>
+     </LandmarkRecognizer>
+
+   <LandmarkRecognizer type="eLRTPassage">
+      <Param name="DistanceThreshold" value="0.031"/>
+      <Resource stringId="EventLandmarkPassageVerification"/>
+     </LandmarkRecognizer>
+   </Landmarks>
+
+
+  </Style>
+
+  <Style id="NA Navigation">
+
+   <!-- This section describes facts which can be used in recognition or formatting-->
+   <Facts>
+
+    <!-- System facts-->
+    <Fact id="Intersection" />
+
+    <!-- User facts-->
+    <Fact id="NameChanged">changed(NAME)</Fact>
+    <Fact id="AzimuthChange">Not checkValue(TURNANGLE, 0)</Fact>
+    <Fact id="ClassChange">changed(ROADGROUP)</Fact>
+    <Fact id="BorderCrossing">changed(CROSSADMINBORDER)</Fact>
+    <Fact id="TimeChanged">changed(UTC_SHIFT)</Fact>
+    <Fact id="ExitFerry">changedFrom(ROADGROUP, esriRCFerry)</Fact>
+    <Fact id="EnterFerry">changedTo(ROADGROUP, esriRCFerry)</Fact>
+    <Fact id="TurnAzimuth">checkRange(TURNANGLE, 45, 315)</Fact>
+   </Facts>
+
+   <!-- This section describes recognizers which are used to recognize maneuvers along the route-->
+   <Recognition>
+    <!-- Depart/Arrive/Stop recognizers -->
+    <Recognizer id="Stop" type="eRTStop"/>
+
+    <!-- Recognizes the first maneuver after route part changing -->
+    <Recognizer id="Department" type="eRTDepart">
+     <Param name="FactConnectionRoad" value="Intersection"/>
+     <Param name="DepartTowardThreshold" value="1.0"/>
+    </Recognizer>
+
+    <!-- Simple turn recognizer -->
+    <Recognizer id="SimpleTurn" type="eRTSimple">
+     <Rule>@Intersection Or @NameChanged Or (@AzimuthChange And checkRange(TURNANGLE, 30, 330))</Rule>
+    </Recognizer>
+
+    <Recognizer id="CrossingBorder" type="eRTSimple">
+     <Rule>@BorderCrossing</Rule>
+    </Recognizer>
+
+    <!-- Ferry recognizer -->
+    <Recognizer id="Ferry" type="eRTSimple">
+     <Rule>@EnterFerry Or @ExitFerry Or (checkValue(ROADGROUP, esriRCFerry) And @NameChanged)</Rule>
+    </Recognizer>
+
+    <!-- Ramp turn recognizer -->
+    <Recognizer id="RampOn" type="eRTSequence">
+     <Param name="FactClassChange" value="ClassChange"/>
+     <Param name="ClassValue" value="esriRCRamp"/>
+    </Recognizer>
+
+    <!-- Roundabout recognizer -->
+    <Recognizer id="Roundabout" type="eRTSequence">
+     <Param name="FactClassChange" value="ClassChange"/>
+     <Param name="ClassValue" value="esriRCRoundabout"/>
+    </Recognizer>
+
+    <!-- U-Turn recognizer-->
+    <Recognizer id="UTurn" type="eRTUTurn">
+     <Param name="ConnectionThreshold" value="0.031"/>
+     <Param name="RoundaboutThreshold" value="0.25"/>
+     <Param name="FactClassChange" value="ClassChange"/>
+    </Recognizer>
+
+    <!-- Fork recognizer-->
+    <Recognizer id="Fork" type="eRTFork">
+     <Param name="FactIntersection" value="Intersection"/>
+     <Param name="FactClassChange" value="ClassChange"/>
+    </Recognizer>
+
+   </Recognition>
+
+   <!-- This section describes conflict reslover which is used to solve maneuver conflicts-->
+   <ConflictResolver>
+
+    <!-- Restrict simple turns at stop-->
+    <Conflict primary="Stop" secondary="SimpleTurn" action="eCATRestrictBeginning" priority="1"/>
+    
+    <!-- Restrict u-turns at stop-->
+    <Conflict primary="Stop" secondary="UTurn" action="eCATRestrictBeginning" priority="1"/>
+
+    <!-- Restrict fork at stop-->
+    <Conflict primary="Stop" secondary="Fork" action="eCATRestrictBeginning" priority="1"/>
+
+    <!-- Restrict simple turns at department-->
+    <Conflict primary="Department" secondary="SimpleTurn" action="eCATRestrictBeginning" priority="1"/>
+    
+    <!-- Restrict u-turns at department-->
+    <Conflict primary="Department" secondary="UTurn" action="eCATRestrictBeginning" priority="1"/>
+
+    <!-- Restrict fork at department-->
+    <Conflict primary="Department" secondary="Fork" action="eCATRestrictBeginning" priority="1"/>
+    
+    <!-- Restrict simple turns at ferries-->
+    <Conflict primary="Ferry" secondary="SimpleTurn" action="eCATRestrict" priority="1"/>
+
+    <!-- Restrict simple turns on ramps that lead to highways-->
+    <Conflict primary="RampOn" secondary="SimpleTurn" action="eCATRestrictContinuation" priority="1"/>
+
+    <!-- Restrict simple turns on roundabout-->
+    <Conflict primary="Roundabout" secondary="SimpleTurn" action="eCATRestrict" priority="1"/>
+
+    <!-- Restrict simple turns on u-turns-->
+    <Conflict primary="UTurn" secondary="SimpleTurn" action="eCATRestrict" priority="1"/>
+
+    <!-- Restrict fork when u-turn-->
+    <Conflict primary="UTurn" secondary="Fork" action="eCATRestrict" priority="1"/>
+
+    <!-- Restrict simple turns at fork-->
+    <Conflict primary="Fork" secondary="SimpleTurn" action="eCATRestrictBeginning" priority="1"/>
+
+    <!-- Restrict fork on the beginning of the ramp-->
+    <Conflict primary="RampOn" secondary="Fork" action="eCATRestrictBeginning" priority="1"
+              result="RampTo"/>
+
+    <!-- Merge the border and ferry-->
+    <Conflict primary="CrossingBorder" secondary="Ferry" action="eCATMerge" priority="1"/>
+
+    <!-- Merge the border and ramp "on"-->
+    <Conflict primary="CrossingBorder" secondary="RampOn" action="eCATMerge" priority="1"/>
+
+    <!-- Use ramp "on" as extension to stop-->
+    <Conflict primary="Stop" secondary="RampOn" action="eCATMerge" priority="2"/>
+
+    <!-- Use roundabout as extension of ramp "on"-->
+    <Conflict primary="RampOn" secondary="Roundabout" action="eCATExtend" priority="2"
+              result="RampTo" origin="RoundaboutEnd"/>
+
+    <!-- Use ramp "on" as extension of roundabout-->
+    <Conflict primary="Roundabout" secondary="RampOn" action="eCATMerge" priority="2"
+              result="RoundaboutRamp" origin="RoundaboutEnd"/>
+
+    <!-- Absorb "ramp on" when u-turns-->
+    <Conflict primary="UTurn" secondary="RampOn" action="eCATAbsorb" priority="2"
+              result="UTurnViaRamp"/>
+
+    <!-- Absorb roundabouts when u-turns-->
+    <Conflict primary="Roundabout" secondary="UTurn" action="eCATAbsorb" priority="2"
+        result="UTurnViaRoundabout"/>
+
+    <!-- Merge u-turn at the end of roundabout-->
+    <Conflict primary="Roundabout" secondary="UTurn" action="eCATMergeEnding" priority="3"/>
+
+    <!-- Use roundabout as extension of ramp "to"-->
+    <Conflict primary="RampTo" secondary="Roundabout" action="eCATExtend" priority="3"
+              result="RampTo" origin="RoundaboutEnd"/>
+
+    <!-- Use ramp "on" as extension of ramp "to"-->
+    <Conflict primary="RampTo" secondary="RampOn" action="eCATMerge" priority="3"
+              result="RampTo"/>
+
+    <!-- Extend ramp "to" with connected roundabout-->
+    <Conflict primary="RampTo" secondary="RoundaboutRamp" action="eCATExtend" priority="3"
+              result="RampTo"/>
+
+    <!-- Merge the border and simple turn-->
+    <Conflict primary="CrossingBorder" secondary="SimpleTurn" action="eCATMerge" priority="2"
+              result="CrossingBorderAndTurn"/>
+
+    <!-- Merge the border and ferry-->
+    <Conflict primary="CrossingBorderAndTurn" secondary="Ferry" action="eCATMerge" priority="3"/>
+
+    <!-- Merge the border and ramp "on"-->
+    <Conflict primary="CrossingBorderAndTurn" secondary="RampOn" action="eCATMerge" priority="3"/>
+
+    <!-- Restrict intersection at the beginning of double turns-->
+    <Conflict primary="Stop" secondary="SimpleTurn" action="eCATReplaceSecondary" priority="3"
+              result="TurnAfterStop"/>
+
+   </ConflictResolver>
+
+   <!-- This section describes instructions set for recognized maneuvers-->
+   <Instructions>
+
+    <!-- Depart/Arrive/Stop instructions -->
+    <Evaluator recognizerId="Stop" type="eETSingle">
+     <!-- Header -->
+     <Instruction type="eITHeader">
+      <Rule>checkKey(keyStopInfo, Header) And checkKey(keyStopInfo, Depart)</Rule>
+      <Resource stringId="mobManeuverHeader"/>
+     </Instruction>
+
+     <!-- Footer-->
+     <Instruction type="eITFooter">
+      <Rule>checkKey(keyStopInfo, Footer) And checkKey(keyStopInfo, Arrive)</Rule>
+      <Resource stringId="mobManeuverFooter"/>
+     </Instruction>
+
+     <!-- Depart -->
+     <Instruction type="eITDepart">
+      <Rule>checkKey(keyStopInfo, Depart) And Not checkKey(keyStopInfo, Header)</Rule>
+      <Resource stringId="mobManeuverDepart"/>
+     </Instruction>
+
+     <!-- Arrive -->
+     <Instruction type="eITArrive">
+      <Rule>checkKey(keyStopInfo, Arrive) And Not checkKey(keyStopInfo, Footer)</Rule>
+      <Resource stringId="mobManeuverArrive"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Department instructions -->
+    <Evaluator recognizerId="Department" type="eETSingle">
+
+     <!-- First Road - Ferry -->
+     <Instruction type="eITFerry">
+      <Rule>checkKey(keyDepartment, Start) And checkValue(ROADGROUP, esriRCFerry)</Rule>
+      <Resource stringId="ManeuverFerry"/>
+      <Resource key="Drive" stringId="mobManeuverFerryBypass"/>
+     </Instruction>
+     
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDepartment, Start) And Not checkValue(ROADGROUP, esriRCRoundabout)</Rule>
+      <Resource stringId="mobManeuverAnyRoad"/>
+     </Instruction>
+
+     <!-- Other roads following after stop -->
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDepartment, Continue) And Not checkValue(ROADGROUP, esriRCRoundabout)</Rule>
+      <Resource stringId="mobManeuverStopArrive"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Simple Turn instructions -->
+    <Evaluator recognizerId="SimpleTurn" type="eETSingle">
+     <!-- Simple turn onto highways -->
+     <Instruction type="eITTurn">
+      <Rule>checkValue(ROADGROUP, esriRCHighway) And Not changedFrom(ROADGROUP, esriRCRamp) And checkRange(TURNANGLE, 55, 330)</Rule>
+      <Resource stringId="mobManeuverOntoHighway"/>
+     </Instruction>
+
+     <!-- Highway change -->
+     <Instruction type="eITTurn">
+      <Rule>Not changed(ROADGROUP) And checkValue(ROADGROUP, esriRCHighway) And @NameChanged And (@AzimuthChange Or Not checkValue(NAME, eNull))</Rule>
+      <Resource stringId="mobHighwayChanges"/>
+     </Instruction>
+
+     <!-- Path curves on street intersection -->
+     <Instruction type="eITTurn">
+      <Rule>@Intersection And @TurnAzimuth And Not @NameChanged</Rule>
+      <Resource stringId="mobManeuverPathCurves"/>
+     </Instruction>
+
+     <!-- Simple turn onto local road -->
+     <Instruction type="eITTurn">
+      <Rule>@NameChanged And Not checkValue(ROADGROUP, esriRCHighway) And checkRange(TURNANGLE, 20, 340)</Rule>
+      <Resource stringId="mobManeuverTurnOntoLocalRoad"/>
+     </Instruction>
+    </Evaluator>
+    
+    <!-- Turn onto highway after stop -->
+    <Evaluator recognizerId="TurnAfterStop" type="eETSingle">
+     <!-- Simple turn onto highways -->
+     <Instruction type="eITTurn">
+      <Rule>checkValue(ROADGROUP, esriRCHighway)</Rule>
+      <Resource stringId="mobManeuverOntoHighway"/>
+     </Instruction>
+
+     <!-- Path curves on street intersection -->
+     <Instruction type="eITTurn">
+      <Rule>@Intersection And @TurnAzimuth And Not @NameChanged</Rule>
+      <Resource stringId="mobManeuverPathCurves"/>
+     </Instruction>
+
+     <!-- Simple turn onto local road -->
+     <Instruction type="eITTurn">
+      <Rule>@NameChanged And Not checkValue(ROADGROUP, esriRCHighway) And checkRange(TURNANGLE, 20, 340)</Rule>
+      <Resource stringId="mobManeuverTurnOntoLocalRoad"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Crossing the border -->
+    <Evaluator recognizerId="CrossingBorder" type="eETSingle">
+     <Instruction type="eITTurn">
+      <Rule>checkValue(ROADGROUP, esriRCFerry)</Rule>
+      <Resource stringId="mobManeuverCrossingBorderFerry"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Resource stringId="mobManeuverCrossingBorder"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Crossing the border and simple turn -->
+    <Evaluator recognizerId="CrossingBorderAndTurn" type="eETSingle">
+     <Instruction type="eITTurn">
+      <Rule>checkValue(ROADGROUP, esriRCFerry)</Rule>
+      <Resource stringId="mobManeuverCrossingBorderFerry"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Resource stringId="mobManeuverCrossingBorderTurn"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- U-turn instructions-->
+    <Evaluator recognizerId="UTurnViaRamp" type="eETSingle">
+     <Instruction type="eITUTurn">
+      <Resource stringId="mobManeuverUTurnViaRamp"/>
+     </Instruction >
+    </Evaluator>
+
+    <Evaluator recognizerId="UTurnViaRoundabout" type="eETSingle">
+     <Instruction type="eITUTurn">
+      <Resource stringId="mobManeuverUTurnViaRoundabout"/>
+     </Instruction >
+    </Evaluator>
+
+     <!-- U-turn instructions-->
+    <Evaluator recognizerId="UTurn" type="eETSingle">
+     <Instruction type="eITUTurn">
+      <Resource stringId="mobManeuverUTurn"/>
+     </Instruction >
+    </Evaluator>
+
+    <!-- Ferry instructions-->
+    <Evaluator recognizerId="Ferry" type="eETSingle">
+     <Instruction type="eITFerry">
+      <Rule>@EnterFerry Or (checkValue(ROADGROUP, esriRCFerry) And @NameChanged)</Rule>
+      <Resource stringId="mobManeuverFerry"/>
+      <Resource key="Drive" stringId="mobManeuverFerryBypass"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>@ExitFerry</Rule>
+      <Resource stringId="mobManeuverEndOfFerry"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Fork instructions-->
+    <Evaluator recognizerId="Fork" type="eETSingle">
+     <Instruction type="eITFork">
+      <Resource stringId="mobManeuverFork"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Roundabout instructions-->
+    <Evaluator recognizerId="Roundabout" type="eETSingle">
+     <Instruction type="eITRoundabout">
+      <Rule>checkValue(ROADGROUP, esriRCRoundabout) And Not @NameChanged</Rule>
+      <Resource stringId="mobManeuverStopOnRoundabout"/>
+     </Instruction>
+     <Instruction type="eITRoundabout">
+      <Resource stringId="mobManeuverSkipRoundabout"/>
+     </Instruction>
+    </Evaluator>
+
+    <Evaluator recognizerId="RoundaboutRamp" type="eETSingle">
+     <Instruction type="eITRoundabout">
+      <Resource stringId="mobManeuverSkipRoundaboutRamp"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Ramp instructions-->
+    <Evaluator recognizerId="RampOn" type="eETSingle">
+     <Instruction type="eITRamp">
+      <Rule>checkValue(ROADGROUP, esriRCHighway) And Not checkRange(TURNANGLE, 60, 330)</Rule>
+      <Resource stringId="mobManeuverSkipHighwayRamps"/>
+     </Instruction>
+     <Instruction type="eITRamp">
+      <Resource stringId="mobManeuverSkipSignpostRamps"/>
+     </Instruction>
+    </Evaluator>
+
+    <Evaluator recognizerId="RampTo" type="eETSingle">
+     <Instruction type="eITRamp">
+      <Resource stringId="mobManeuverSkipSignpostRamps"/>
+     </Instruction>
+    </Evaluator>
+
+   </Instructions>
+
+   <Tokens>
+    <Token id="Azimuth" type="eTTSector" feedType="eTFTAzimuth">
+     <Sector spanType="eSSTRange" from="0" to="22.5">
+      <Resource stringId="mobAzimuthN"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="22.5" to="67.5">
+      <Resource stringId="mobAzimuthNE"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="67.5" to="112.5">
+      <Resource stringId="mobAzimuthE"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="112.5" to="157.5">
+      <Resource stringId="mobAzimuthSE"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="157.5" to="202.5">
+      <Resource stringId="mobAzimuthS"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="202.5" to="247.5">
+      <Resource stringId="mobAzimuthSW"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="247.5" to="292.5">
+      <Resource stringId="mobAzimuthW"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="292.5" to="337.5">
+      <Resource stringId="mobAzimuthNW"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="337.5" to="360">
+      <Resource stringId="mobAzimuthN"/>
+     </Sector>
+    </Token>
+
+    <Token id="LocalRoadAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="mobLocalRoadActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="mobLocalRoadActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="mobLocalRoadActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="mobLocalRoadActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="mobLocalRoadActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="mobLocalRoadActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="mobLocalRoadActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="mobLocalRoadActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobLocalRoadActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobLocalRoadActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="PathCurveAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="mobPathCurveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="mobPathCurveActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="mobPathCurveActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="mobPathCurveActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="mobPathCurveActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="mobPathCurveActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="mobPathCurveActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="mobPathCurveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobPathCurveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobPathCurveActionContinue"/>
+     </Sector>
+    </Token>
+
+    <Token id="SkipHighwayRampAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15">
+      <Resource stringId="mobSkipHighwayRampActionAtFork"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTRampRight">
+      <Resource stringId="mobSkipHighwayRampActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="mobSkipHighwayRampActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="mobSkipHighwayRampActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="mobSkipHighwayRampActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="mobSkipHighwayRampActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTRampLeft">
+      <Resource stringId="mobSkipHighwayRampActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360">
+      <Resource stringId="mobSkipHighwayRampActionAtFork"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobSkipHighwayRampActionTakeRamp"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobSkipHighwayRampActionTakeRamp"/>
+     </Sector>
+    </Token>
+
+    <Token id="SkipHighwayRampActionAtFork" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft" maneuverType="esriDMTRampLeft">
+      <Resource stringId="mobSkipHighwayRampActionAtForkLeft" />
+     </Case>
+     <Case value="eCVTForkSideRight" maneuverType="esriDMTRampRight">
+      <Resource stringId="mobSkipHighwayRampActionAtForkRight" />
+     </Case>
+    </Token>
+
+    <Token id="SkipSignpostRampAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15">
+      <Resource stringId="mobSkipSignpostRampActionAtFork"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTRampRight">
+      <Resource stringId="mobSkipSignpostRampActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="mobSkipSignpostRampActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="mobSkipSignpostRampActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="mobSkipSignpostRampActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="mobSkipSignpostRampActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTRampLeft">
+      <Resource stringId="mobSkipSignpostRampActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360">
+      <Resource stringId="mobSkipSignpostRampActionAtFork"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobSkipSignpostRampActionTakeRamp"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobSkipSignpostRampActionTakeRamp"/>
+     </Sector>
+    </Token>
+
+    <Token id="SkipSignpostRampActionAtFork" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft" maneuverType="esriDMTRampLeft">
+      <Resource stringId="mobSkipSignpostRampActionAtForkLeft" />
+     </Case>
+     <Case value="eCVTForkSideRight" maneuverType="esriDMTRampRight">
+      <Resource stringId="mobSkipSignpostRampActionAtForkRight" />
+     </Case>
+    </Token>
+
+    <Token id="UTurnRampAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="mobUTurnRampActionFork"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTRampRight">
+      <Resource stringId="mobUTurnRampActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="mobUTurnRampActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="mobUTurnRampActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="mobUTurnRampActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="mobUTurnRampActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTRampLeft">
+      <Resource stringId="mobUTurnRampActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="mobUTurnRampActionFork"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobUTurnRampActionTakeRamp"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobUTurnRampActionTakeRamp"/>
+     </Sector>
+    </Token>
+
+    <Token id="UTurnRampActionAtFork" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft" maneuverType="esriDMTRampLeft">
+      <Resource stringId="mobUTurnRampActionAtForkLeft" />
+     </Case>
+     <Case value="eCVTForkSideRight" maneuverType="esriDMTRampRight">
+      <Resource stringId="mobUTurnRampActionAtForkRight" />
+     </Case>
+    </Token>
+
+    <Token id="HighwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="mobHighwayActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="mobHighwayActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="mobHighwayActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="mobHighwayActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="mobHighwayActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="mobHighwayActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="mobHighwayActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="mobHighwayActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobHighwayActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobHighwayActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="EndOfFerryAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15">
+      <Resource stringId="mobEndOfFerryActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45">
+      <Resource stringId="mobEndOfFerryActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110">
+      <Resource stringId="mobEndOfFerryActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180">
+      <Resource stringId="mobEndOfFerryActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250">
+      <Resource stringId="mobEndOfFerryActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315">
+      <Resource stringId="mobEndOfFerryActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345">
+      <Resource stringId="mobEndOfFerryActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360">
+      <Resource stringId="mobEndOfFerryActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobEndOfFerryActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobEndOfFerryActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="StopArriveAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5">
+      <Resource stringId="mobStopArriveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="175">
+      <Resource stringId="mobStopArriveActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="175" to="185">
+      <Resource stringId="mobStopArriveActionBack"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="185" to="355">
+      <Resource stringId="mobStopArriveActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360">
+      <Resource stringId="mobStopArriveActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobStopArriveActionGo"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobStopArriveActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="ForkAction" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft" maneuverType="esriDMTForkLeft">
+      <Resource stringId="mobForkActionLeft"/>
+     </Case>
+     <Case value="eCVTForkSideRight" maneuverType="esriDMTForkRight">
+      <Resource stringId="mobForkActionRight"/>
+     </Case>
+     <Case value="eCVTForkSideCenter" maneuverType="esriDMTForkCenter">
+      <Resource stringId="mobForkActionStraight"/>
+     </Case>
+    </Token>
+
+    <Token id="ForkSide" type="eTTSelect" feedType="eTFTForkSide">
+     <Case value="eCVTForkSideLeft">
+      <Resource stringId="mobForkSideLeft"/>
+     </Case>
+     <Case value="eCVTForkSideRight">
+      <Resource stringId="mobForkSideRight"/>
+     </Case>
+     <Case value="eCVTForkSideCenter">
+      <Resource stringId="mobForkSideStraight"/>
+     </Case>
+    </Token>
+
+    <Token id="CrossingBorderTurnAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="mobCrossingBorderTurnActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="mobCrossingBorderTurnActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="mobCrossingBorderTurnActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="mobCrossingBorderTurnActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="mobCrossingBorderTurnActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="mobCrossingBorderTurnActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="mobCrossingBorderTurnActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="mobCrossingBorderTurnActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobCrossingBorderTurnActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobCrossingBorderTurnActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="CrossingBorderFerryAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="mobCrossingBorderFerryActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="mobCrossingBorderFerryActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="mobCrossingBorderFerryActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="mobCrossingBorderFerryActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="mobCrossingBorderFerryActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="mobCrossingBorderFerryActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="mobCrossingBorderFerryActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="mobCrossingBorderFerryActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="mobCrossingBorderFerryActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="mobCrossingBorderFerryActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="TotalLength" type="eTTSystem">
+     <Param name="Threshold" value="0.1" />
+     <Resource key="BelowThreshold" stringId="mobDistanceShort"/>
+     <Resource key="Standard" stringId="mobDistanceLong"/>
+    </Token>
+
+    <Token id="ItemLength" type="eTTSystem">
+     <Param name="Threshold" value="0.1" />
+     <Resource key="BelowThreshold" stringId="mobDistanceShort"/>
+     <Resource key="Standard" stringId="mobDistanceLong"/>
+    </Token>
+
+    <Token id="CumulativeDistance" type="eTTSystem">
+     <Resource key="Standard" stringId="mobCumulativeDistanceLong"/>
+    </Token>
+
+    <Token id="StopLength" type="eTTSystem">
+     <Param name="Threshold" value="0.1" />
+     <Resource key="BelowThreshold" stringId="mobDistanceShort"/>
+     <Resource key="Standard" stringId="mobDistanceLong"/>
+    </Token>
+
+    <Token id="TotalTimeSpan" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="mobTimeShort"/>
+     <Resource key="Standard" stringId="mobTimeLong"/>
+    </Token>
+
+    <Token id="ItemTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="mobTimeShort"/>
+     <Resource key="Standard" stringId="mobTimeLong"/>
+    </Token>
+
+    <Token id="TravelTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="mobTravelTimeShort"/>
+     <Resource key="Standard" stringId="mobTravelTimeLong"/>
+    </Token>
+
+    <Token id="StopStayTime" type="eTTSystem">
+     <Resource key="Standard" stringId="mobStopTimeLong"/>
+    </Token>
+
+    <Token id="StopWaitTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="mobStopTimeShort"/>
+     <Resource key="Standard" stringId="mobStopTimeLong"/>
+    </Token>
+
+    <Token id="StopViolationTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="mobStopTimeShort"/>
+     <Resource key="Standard" stringId="mobStopTimeLong"/>
+    </Token>
+
+    <Token id="StopFullTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="mobStopTimeShort"/>
+     <Resource key="Standard" stringId="mobStopTimeLong"/>
+    </Token>
+
+    <Token id="Destination" type="eTTSystem">
+     <Param name="SignIDAttribute" value="SIGN_ID"/>
+     <Resource stringId="mobSignpostDestination"/>
+    </Token>
+
+    <Token id="Branch" type="eTTSystem">
+     <Param name="SignIDAttribute" value="SIGN_ID"/>
+     <Resource stringId="mobSignpostDestination"/>
+    </Token>
+
+    <Token id="SignpostExit" type="eTTSystem">
+     <Param name="SignIDAttribute" value="SIGN_ID"/>
+    </Token>
+
+    <Token id="StopSide" type="eTTSystem">
+     <Resource key="SideLeft" stringId="mobStopSideLeft"/>
+     <Resource key="SideRight" stringId="mobStopSideRight"/>
+    </Token>
+
+    <Token id="CrossNames" type="eTTSystem">
+     <Resource stringId="mobCrossNames"/>
+    </Token>
+
+    <Token id="ExitNumber" type="eTTSystem">
+     <Resource key="1" stringId="Token1st"/>
+     <Resource key="2" stringId="Token2nd"/>
+     <Resource key="3" stringId="Token3rd"/>
+     <Resource key="4" stringId="Token4th"/>
+     <Resource key="5" stringId="Token5th"/>
+     <Resource key="6" stringId="Token6th"/>
+     <Resource key="7" stringId="Token7th"/>
+     <Resource key="8" stringId="Token8th"/>
+     <Resource key="9" stringId="Token9th"/>
+     <Resource key="10" stringId="Token10th"/>
+    </Token>
+   </Tokens>
+
+   <Formatting>
+    <Units>
+     <Unit id="Mile" baseUnit="Mile" ratio="1">
+      <Resource key="Singular" stringId="mobUnitMileSingular"/>
+      <Resource key="Plural" stringId="mobUnitMilePlural"/>
+      <Resource key="Neutral" stringId="mobUnitMileNeutral"/>
+     </Unit>
+
+     <Unit id="Kilometer" baseUnit="Mile" ratio="1.60934">
+      <Resource key="Singular" stringId="mobUnitKilometerSingular"/>
+      <Resource key="Plural" stringId="mobUnitKilometerPlural"/>
+      <Resource key="Neutral" stringId="mobUnitKilometerNeutral"/>
+     </Unit>
+
+     <Unit id="Meter" baseUnit="Mile" ratio="1609.34">
+      <Resource key="Singular" stringId="mobUnitMeterSingular"/>
+      <Resource key="Plural" stringId="mobUnitMeterPlural"/>
+      <Resource key="Neutral" stringId="mobUnitMeterNeutral"/>
+     </Unit>
+
+     <Unit id="Foot" baseUnit="Mile" ratio="5280.0">
+      <Resource key="Singular" stringId="mobUnitFootSingular"/>
+      <Resource key="Plural" stringId="mobUnitFootPlural"/>
+      <Resource key="Neutral" stringId="mobUnitFootNeutral"/>
+     </Unit>
+
+     <Unit id="Yard" baseUnit="Mile" ratio="1760.0">
+      <Resource key="Singular" stringId="mobUnitYardSingular"/>
+      <Resource key="Plural" stringId="mobUnitYardPlural"/>
+      <Resource key="Neutral" stringId="mobUnitYardNeutral"/>
+     </Unit>
+
+     <Unit id="NauticalMile" baseUnit="Mile" ratio="0.868976">
+      <Resource key="Singular" stringId="mobUnitNauticalSingular"/>
+      <Resource key="Plural" stringId="mobUnitNauticalPlural"/>
+      <Resource key="Neutral" stringId="mobUnitNauticalNeutral"/>
+     </Unit>
+
+     <Unit id="Second" baseUnit="Second" ratio="1">
+      <Resource key="Singular" stringId="mobUnitSecondSingular"/>
+      <Resource key="Plural" stringId="mobUnitSecondPlural"/>
+      <Resource key="Neutral" stringId="mobUnitSecondNeutral"/>
+     </Unit>
+    </Units>
+
+    <Groups>
+     <Group id="Summary">
+      <Resource key="Drive" stringId="SummaryDrive"/>
+      <Resource key="Length" stringId="SummaryLength"/>
+      <Resource key="Time" stringId="SummaryTravelTime"/>
+      <Resource key="ETA" stringId="SummaryETA"/>
+      <Resource key="CumulLength" stringId="SummaryCumulativeLength"/>
+      <Resource key="General" stringId="mobSummaryTripPlan"/>
+     </Group>
+
+     <Group id="Stop">
+      <Resource key="General" stringId="StopSummary"/>
+      <Resource key="Time" stringId="StopTimeWindow"/>
+      <Resource key="StayTime" stringId="StopStayTime"/>
+      <Resource key="FullTime" stringId="StopFullTime"/>
+      <Resource key="WaitTime" stringId="StopWaitTime"/>
+      <Resource key="ViolationTime" stringId="StopViolationTime"/>
+      <Resource key="Length" stringId="StopLength"/>
+     </Group>
+
+     <Group id="Maneuver">
+      <Resource key="Drive" stringId="mobDirectionDrive"/>
+      <Resource key="Length" stringId="DirectionLength"/>
+      <Resource key="Time" stringId="DirectionTime"/>
+      <Resource key="ETA" stringId="DirectionETA"/>
+      <Resource key="CumulLength" stringId="DirectionCumulativeLength"/>
+      <Resource key="Branch" stringId="DirectionBranch"/>
+      <Resource key="Toward" stringId="DirectionToward"/>
+      <Resource key="CrossStreet" stringId="DirectionCrossStreet"/>
+      <Resource key="Exit" stringId="DirectionExitName"/>
+      <Resource key="Street" stringId="DirectionStreet"/>
+      <Resource key="AltNames" stringId="mobDirectionAltNames"/>
+      <Resource key="DayEnd" stringId="mobDirectionDayEnd"/>
+      <Resource key="RestBreak" stringId="mobDirectionRestBreak"/>
+      <Resource key="AfterBreak" stringId="mobDirectionAfterBreak"/>
+     </Group>
+    </Groups>
+   </Formatting>
+
+   <Network>
+    <Attributes>
+     <Attribute name="ROADGROUP" default="-1" />
+     <Attribute name="NAME" />
+     <Attribute name="ALT_NAME" />
+     <Attribute name="ALT_NAME2" />
+     <Attribute name="ALT_NAME3" />
+     <Attribute name="ALT_NAME4" />
+     <Attribute name="SHAPE" />
+     <Attribute name="LENGTH" />
+     <Attribute name="TIME" />
+     <Attribute name="SIGN_ID" default="-1" />
+     <Attribute name="FROMAZIMUTH" />
+     <Attribute name="TOAZIMUTH" />
+     <Attribute name="TURNANGLE" default="0" />
+     <Attribute name="FROMVALENCY" />
+     <Attribute name="TOVALENCY" />
+     <Attribute name="CROSSADMINBORDER" />
+     <Attribute name="ONE_WAY" />
+     <Attribute name="CURVE_ANGLE" default="0"/>
+    </Attributes>
+
+    <Plugins>
+     <Plugin id="FixUnnamed" sensitivity="0.5"/>
+    </Plugins>
+   </Network>
+
+  </Style>
+
+  <Style id="NA Campus">
+
+   <!-- This section describes facts which can be used in recognition or formatting-->
+   <Facts>
+   
+    <!-- User facts-->
+    <Fact id="Intersection">Not checkValue(FROMVALENCY, 1)</Fact>
+    <Fact id="NameChanged">changed(NAME)</Fact>
+    <Fact id="AzimuthChange">Not checkValue(TURNANGLE, 0)</Fact>
+    <Fact id="BorderCrossing">changed(CROSSADMINBORDER)</Fact>
+    <Fact id="TurningArc">checkValue(ROADGROUP, esriRCTurningArc)</Fact>
+   </Facts>
+
+   <!-- This section describes recognizers which are used to recognize maneuvers along the route-->
+   <Recognition>
+
+    <!-- Depart/Arrive/Stop recognizers -->
+    <Recognizer id="Stop" type="eRTStop"/>
+
+    <!-- Recognizes the first maneuver after route part changing -->
+    <Recognizer id="Department" type="eRTDepart">
+     <Param name="FactConnectionRoad" value="Intersection"/>
+     <Param name="DepartTowardThreshold" value="1.0"/>
+     <Param name="ClosePointsThreshold" value="0.00006"/>
+    </Recognizer>
+
+    <!-- Recognize different situations connected with different elevations-->
+    <!-- Writes a set of recognition data which is used by tokens and outputs -->
+    <Recognizer id="Elevation" type="eRTElevation"/>
+
+    <Recognizer id="DoorPassage" type="eRTAreaPassage">
+     <Param name="BuildingNameAttribute" value="CROSSADMINBORDER"/>
+    </Recognizer>
+
+    <!-- Recognizes different situations on turning arcs-->
+    <!-- Writes a set of particular recongition data which is used by tokens and outputs -->
+    <Recognizer id="TurningArc" type="eRTTurningArc"/>
+
+    <Recognizer id="SimpleTurn" type="eRTSimple">
+     <Rule>@NameChanged And Not checkSource(eSTElevations)</Rule>
+     <Param name="ClosePointsThreshold" value="0.00006"/>
+    </Recognizer>
+
+    <!-- Reports an information about entering or leaving buildings -->
+    <Recognizer id="EnterBuilding" type="eRTEvent">
+     <Rule>@BorderCrossing</Rule>
+    </Recognizer>
+
+    <!-- Restrictions violation recognizer -->
+    <Recognizer id="ViolatedRestriction" type="eRTRestrictionViolation" />
+
+   </Recognition>
+
+   <!-- This section describes conflict reslover which is used to solve maneuver conflicts-->
+   <ConflictResolver>
+
+    <!-- Restrict simple turns where elevation enterance is recognized -->
+    <Conflict primary="Elevation" secondary="SimpleTurn" action="eCATRestrict" priority="1"/>
+    <Conflict primary="Elevation" secondary="TurningArc" action="eCATRestrict" priority="1"/>
+
+    <Conflict primary="TurningArc" secondary="SimpleTurn" action="eCATRestrict" priority="1"/>
+    
+    <Conflict primary="TurningArc" secondary="Department" action="eCATMerge" priority="1" />
+    <Conflict primary="Elevation" secondary="Department" action="eCATMerge" priority="1"/>
+    <Conflict primary="Department" secondary="SimpleTurn" action="eCATMerge" priority="1"/>
+    
+    <Conflict primary="TurningArc" secondary="TurningArc" action="eCATMerge" priority="2"
+              result="DoubleTurn" origin="SecondTurningArc"/>
+
+    <Conflict primary="DoorPassage" secondary="SimpleTurn" action="eCATMerge" priority="1"
+              result="DoorPassageAndTurn"/>
+              
+    <Conflict primary="DoorPassage" secondary="TurningArc" action="eCATReplacePrimary" priority="1"
+              result="DoorPassageBeforeTurningArc"/>
+              
+    <Conflict primary="DoorPassage" secondary="Department" action="eCATReplacePrimary" priority="1"
+              result="DoorPassageBeforeDepartment"/>
+
+    <Conflict primary="TurningArc" secondary="DoorPassage" action="eCATMergeEnding" priority="1"
+              result="TurningArcAndDoorPassage"/>
+
+    <Conflict primary="TurningArcAndDoorPassage" secondary="SimpleTurn" action="eCATRestrict" priority="2"/>
+
+   </ConflictResolver>
+
+   <!-- This section describes instructions set for recognized maneuvers-->
+   <Instructions>
+
+    <!-- Header/Footer/Depart/Arrive instructions -->
+    <Evaluator recognizerId="Stop" type="eETSingle">
+     
+     <Instruction type="eITHeader">
+      <Rule>checkKey(keyStopInfo, Header) And checkKey(keyStopInfo, Depart)</Rule>
+      <Resource stringId="campusManeuverHeader"/>
+     </Instruction>
+     
+     <Instruction type="eITFooter">
+      <Rule>checkKey(keyStopInfo, Footer) And checkKey(keyStopInfo, Arrive)</Rule>
+      <Resource stringId="campusManeuverFooter"/>
+     </Instruction>
+
+     <Instruction type="eITDepart">
+      <Rule>checkKey(keyStopInfo, Depart) And Not checkKey(keyStopInfo, Header)</Rule>
+      <Resource stringId="campusManeuverDepart"/>
+     </Instruction>
+     
+     <Instruction type="eITArrive">
+      <Rule>checkKey(keyStopInfo, Arrive) And Not checkKey(keyStopInfo, Footer)</Rule>
+      <Resource stringId="campusManeuverArrive"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Simple Turn instructions -->
+    <Evaluator recognizerId="Department" type="eETSingle">
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDepartment, Start) And Not checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverDepartHallway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDepartment, Start)</Rule>
+      <Resource stringId="campusManeuverDepartWalkway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDepartment, Continue) And Not checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverContinueHallway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDepartment, Continue)</Rule>
+      <Resource stringId="campusManeuverContinueWalkway"/>
+     </Instruction>
+    </Evaluator>
+    
+    <Evaluator recognizerId="TurningArc" type="eETSingle">
+     <Instruction type="eITTurn">
+      <Rule>Not checkKey(keyDestination)</Rule>
+      <Resource stringId="campusManeuverArcTo"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>Not checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverArcToHallway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverArcToWalkway"/>
+     </Instruction>
+   </Evaluator>
+
+    <Evaluator recognizerId="SimpleTurn" type="eETSingle">
+     <Instruction type="eITTurn">
+      <Rule>@AzimuthChange And Not changedFrom(ROADGROUP, esriRCElevator) And Not @BorderCrossing And Not checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverTurnToHallway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>@AzimuthChange And Not changedFrom(ROADGROUP, esriRCElevator) And Not @BorderCrossing</Rule>
+      <Resource stringId="campusManeuverTurnToWalkway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>Not @AzimuthChange And @BorderCrossing And checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverExit"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>Not @AzimuthChange And @BorderCrossing And changedFrom(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverEnter"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>changedFrom(ROADGROUP, esriRCElevator) And Not checkValue(CROSSADMINBORDER, eNull) </Rule>
+      <Resource stringId="campusManeuverTurnHallway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>changedFrom(ROADGROUP, esriRCElevator)</Rule>
+      <Resource stringId="campusManeuverTurnWalkway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>Not @AzimuthChange And Not checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverContinueHallway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>Not @AzimuthChange And checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverContinueWalkway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>Not checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverTurnToHallway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Resource stringId="campusManeuverTurnToWalkway"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Double simple turn -->
+    <Evaluator recognizerId="DoubleTurn" type="eETSingle">
+     <Instruction type="eITComplex">
+      <Resource stringId="campusManeuverDoubleTurn"/>
+     </Instruction>
+    </Evaluator>
+    
+    <!-- Elevation instructions-->
+    <Evaluator recognizerId="Elevation" type="eETSingle">
+     <Instruction type="eITElevation">
+      <Resource stringId="campusManeuverElevation"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Building passage -->
+    <Evaluator recognizerId="EnterBuilding" type="eETSingle">
+     <Instruction type="eITEvent">
+      <Rule>@BorderCrossing And Not checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusEventEnterBuilding"/>
+     </Instruction>
+     <Instruction type="eITEvent">
+      <Rule>@BorderCrossing</Rule>
+      <Resource stringId="campusEventLeaveBuilding"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Door passage -->
+    <Evaluator recognizerId="DoorPassage" type="eETSingle">
+     <Instruction type="eITPassage">
+      <Rule>checkKey(keyLastRoad)</Rule>
+      <Resource stringId="campusManeuverDoor"/>
+     </Instruction>
+     <Instruction type="eITPassage">
+      <Resource stringId="campusManeuverDoorTo"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Turn after door passage passage -->
+    <Evaluator recognizerId="DoorPassageAndTurn" type="eETSingle">
+     <Instruction type="eITTurn">
+      <Rule>Not checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverDoorToHallway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Resource stringId="campusManeuverDoorToWalkway"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Door passage before turning arc -->
+    <Evaluator recognizerId="DoorPassageBeforeTurningArc" type="eETSingle">
+     <Instruction type="eITPassage">
+      <Resource stringId="campusManeuverDoor"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Door passage before turning arc -->
+    <Evaluator recognizerId="DoorPassageBeforeDepartment" type="eETSingle">
+     <Instruction type="eITPassage">
+      <Resource stringId="campusManeuverDoor"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Turn before door passage passage -->
+    <Evaluator recognizerId="TurningArcAndDoorPassage" type="eETSingle">
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDestination) And checkValue(CROSSADMINBORDER, eNull)</Rule>
+      <Resource stringId="campusManeuverTakeDoorToWalkway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Rule>checkKey(keyDestination)</Rule>
+      <Resource stringId="campusManeuverTakeDoorToHallway"/>
+     </Instruction>
+     <Instruction type="eITTurn">
+      <Resource stringId="campusManeuverTakeDoor"/>
+     </Instruction>
+    </Evaluator>
+
+    <!-- Violated restriction -->
+    <Evaluator recognizerId="ViolatedRestriction" type="eETSingle">
+     <Instruction type="eITEvent">
+      <Resource stringId="campusEventRestrictionViolation"/>
+     </Instruction>
+    </Evaluator>
+
+   </Instructions>
+
+   <Tokens>
+    <Token id="TurnHallwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnHallwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnHallwayActionKeepRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="campusTurnHallwayActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="campusTurnHallwayActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="campusTurnHallwayActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="campusTurnHallwayActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="campusTurnHallwayActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="campusTurnHallwayActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="355" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnHallwayActionKeepLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnHallwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusTurnHallwayActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusTurnHallwayActionGo"/>
+     </Sector>
+    </Token>
+
+    <Token id="TurnWalkwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnWalkwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnWalkwayActionKeepRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="campusTurnWalkwayActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="campusTurnWalkwayActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="campusTurnWalkwayActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="campusTurnWalkwayActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="campusTurnWalkwayActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="campusTurnWalkwayActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="355" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnWalkwayActionKeepLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnWalkwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusTurnWalkwayActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusTurnWalkwayActionGo"/>
+     </Sector>
+    </Token>
+    
+    <Token id="TurnToHallwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnToHallwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnToHallwayActionKeepRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="campusTurnToHallwayActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="campusTurnToHallwayActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="campusTurnToHallwayActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="campusTurnToHallwayActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="campusTurnToHallwayActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="campusTurnToHallwayActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="355" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnToHallwayActionKeepLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnToHallwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusTurnToHallwayActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusTurnToHallwayActionGo"/>
+     </Sector>
+    </Token>
+    
+    <Token id="TurnToWalkwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnToWalkwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnToWalkwayActionKeepRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="campusTurnToWalkwayActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="campusTurnToWalkwayActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="campusTurnToWalkwayActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="campusTurnToWalkwayActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="campusTurnToWalkwayActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="campusTurnToWalkwayActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="355" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnToWalkwayActionKeepLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="campusTurnToWalkwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusTurnToWalkwayActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusTurnToWalkwayActionGo"/>
+     </Sector>
+    </Token>
+    
+    <Token id="ArcToHallwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="5" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="campusArcToHallwayActionKeepRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="campusArcToHallwayActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="campusArcToHallwayActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="campusArcToHallwayActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="campusArcToHallwayActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="campusArcToHallwayActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="campusArcToHallwayActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="355" maneuverType="esriDMTStraight">
+      <Resource stringId="campusArcToHallwayActionKeepLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="campusArcToHallwayActionContinueForward"/>
+     </Sector>
+    </Token>
+    
+    <Token id="ArcToWalkwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="5" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="campusArcToWalkwayActionKeepRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="campusArcToWalkwayActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="campusArcToWalkwayActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="campusArcToWalkwayActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="campusArcToWalkwayActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="campusArcToWalkwayActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="campusArcToWalkwayActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="355" maneuverType="esriDMTStraight">
+      <Resource stringId="campusArcToWalkwayActionKeepLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="campusArcToWalkwayActionContinueForward"/>
+     </Sector>
+    </Token>
+    
+    <Token id="ArcToAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="5" to="15" maneuverType="esriDMTStraight">
+      <Resource stringId="campusArcToActionKeepRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="15" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="campusArcToActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="campusArcToActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="campusArcToActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="campusArcToActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="campusArcToActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345" maneuverType="esriDMTBearLeft">
+      <Resource stringId="campusArcToActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="345" to="355" maneuverType="esriDMTStraight">
+      <Resource stringId="campusArcToActionKeepLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360" maneuverType="esriDMTStraight">
+      <Resource stringId="campusArcToActionContinueForward"/>
+     </Sector>
+    </Token>
+
+    <!-- Reports turn action near elevations -->
+    <!-- Stays empty for straight maneuvers -->
+    <Token id="TurnActionBeforeElevation" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="15" to="45">
+      <Resource stringId="campusBeforeElevationActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110">
+      <Resource stringId="campusBeforeElevationActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180">
+      <Resource stringId="campusBeforeElevationActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250">
+      <Resource stringId="campusBeforeElevationActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315">
+      <Resource stringId="campusBeforeElevationActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="345">
+      <Resource stringId="campusBeforeElevationActionBearLeft"/>
+     </Sector>
+    </Token>
+
+    <!-- Reports door side for door passage -->
+    <Token id="DoorSide" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="180">
+      <Resource stringId="campusRightSide"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="360">
+      <Resource stringId="campusLeftSide"/>
+     </Sector>
+    </Token>
+
+    <Token id="FirstActionBearing" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="campusFirstActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="campusFirstActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="campusFirstActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="campusFirstActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="campusFirstActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="360" maneuverType="esriDMTBearLeft">
+      <Resource stringId="campusFirstActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusFirstActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusFirstActionContinue"/>
+     </Sector>
+    </Token>
+
+    <Token id="SecondActionBearing" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="45" maneuverType="esriDMTBearRight">
+      <Resource stringId="campusSecondActionBearRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="45" to="110" maneuverType="esriDMTTurnRight">
+      <Resource stringId="campusSecondActionTurnRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="110" to="180" maneuverType="esriDMTSharpRight">
+      <Resource stringId="campusSecondActionMakeSharpRight"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="180" to="250" maneuverType="esriDMTSharpLeft">
+      <Resource stringId="campusSecondActionMakeSharpLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="250" to="315" maneuverType="esriDMTTurnLeft">
+      <Resource stringId="campusSecondActionTurnLeft"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="315" to="360" maneuverType="esriDMTBearLeft">
+      <Resource stringId="campusSecondActionBearLeft"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusSecondActionContinue"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusSecondActionContinue"/>
+     </Sector>
+    </Token>
+
+    <Token id="ContinueHallwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5">
+      <Resource stringId="campusContinueHallwayActionForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="175">
+      <Resource stringId="campusContinueHallwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="175" to="185">
+      <Resource stringId="campusContinueHallwayActionGoBack"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="185" to="355">
+      <Resource stringId="campusContinueHallwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360">
+      <Resource stringId="campusContinueHallwayActionForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusContinueHallwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusContinueHallwayActionGoForward"/>
+     </Sector>
+    </Token>
+    
+    <Token id="ContinueWalkwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5">
+      <Resource stringId="campusContinueWalkwayActionForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="175">
+      <Resource stringId="campusContinueWalkwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="175" to="185">
+      <Resource stringId="campusContinueWalkwayActionGoBack"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="185" to="355">
+      <Resource stringId="campusContinueWalkwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360">
+      <Resource stringId="campusContinueWalkwayActionForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusContinueWalkwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusContinueWalkwayActionGoForward"/>
+     </Sector>
+    </Token>
+
+    <Token id="GoToHallwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5">
+      <Resource stringId="campusGoToHallwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="175">
+      <Resource stringId="campusGoToHallwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="175" to="185">
+      <Resource stringId="campusGoToHallwayActionGoBack"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="185" to="355">
+      <Resource stringId="campusGoToHallwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360">
+      <Resource stringId="campusGoToHallwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusGoToHallwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusGoToHallwayActionGoForward"/>
+     </Sector>
+    </Token>
+
+    <Token id="GoToWalkwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5">
+      <Resource stringId="campusGoToWalkwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="175">
+      <Resource stringId="campusGoToWalkwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="175" to="185">
+      <Resource stringId="campusGoToWalkwayActionGoBack"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="185" to="355">
+      <Resource stringId="campusGoToWalkwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360">
+      <Resource stringId="campusGoToWalkwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusGoToWalkwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusGoToWalkwayActionGoForward"/>
+     </Sector>
+    </Token>
+
+    <Token id="ToAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5">
+      <Resource stringId="campusToActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="175">
+      <Resource stringId="campusToActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="175" to="185">
+      <Resource stringId="campusToActionGoBack"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="185" to="355">
+      <Resource stringId="campusToActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360">
+      <Resource stringId="campusToActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusToActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusToActionGoForward"/>
+     </Sector>
+    </Token>
+
+    <Token id="ToHallwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5">
+      <Resource stringId="campusToHallwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="175">
+      <Resource stringId="campusToHallwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="175" to="185">
+      <Resource stringId="campusToHallwayActionGoBack"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="185" to="355">
+      <Resource stringId="campusToHallwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360">
+      <Resource stringId="campusToHallwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusToHallwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusToHallwayActionGoForward"/>
+     </Sector>
+    </Token>
+
+    <Token id="ToWalkwayAction" type="eTTSector" feedType="eTFTTurnAngle">
+     <Sector spanType="eSSTRange" from="0" to="5">
+      <Resource stringId="campusToWalkwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="5" to="175">
+      <Resource stringId="campusToWalkwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="175" to="185">
+      <Resource stringId="campusToWalkwayActionGoBack"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="185" to="355">
+      <Resource stringId="campusToWalkwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTRange" from="355" to="360">
+      <Resource stringId="campusToWalkwayActionContinueForward"/>
+     </Sector>
+     <Sector spanType="eSSTNone">
+      <Resource stringId="campusToWalkwayActionGoForward"/>
+     </Sector>
+     <Sector spanType="eSSTOther">
+      <Resource stringId="campusToWalkwayActionGoForward"/>
+     </Sector>
+    </Token>
+
+    <!-- Depending on current road class value reports different localizable elevation names -->
+    <!-- Uses specific recognition data which is passed by recognizers-->
+    <Token id="ElevationName" type="eTTSelect" feedType="eTFTClassValue">
+     <Case value="esriRCEscalator" maneuverType="esriDMTEscalator">
+      <Resource stringId="campusElevationEscalator" />
+     </Case>
+     <Case value="esriRCElevator" maneuverType="esriDMTElevator">
+      <Resource stringId="campusElevationElevator" />
+     </Case>
+     <Case value="esriRCStairs" maneuverType="esriDMTStairs">
+      <Resource stringId="campusElevationStairs" />
+     </Case>
+     <Case value="esriRCPedestrianRamp" maneuverType="esriDMTPedestrianRamp">
+      <Resource stringId="campusElevationRamp" />
+     </Case>
+    </Token>
+
+    <!-- Reports elevations courses such as: Up, down-->
+    <!-- Uses specific recognition data which is passed by recognizers-->
+    <Token id="ElevationCourse" type="eTTSelect" feedType="eTFTElevationCourse">
+     <Case value="eECUp">
+      <Resource stringId="campusElevationUp" />
+     </Case>
+     <Case value="eECDown">
+      <Resource stringId="campusElevationDown" />
+     </Case>
+    </Token>
+
+    <!-- Reports door actions such as: exit door, enter door-->
+    <!-- Uses specific recognition data which is passed by recognizers-->
+    <Token id="TakeDoorAction" type="eTTSelect" feedType="eTFTDoorTransition">
+     <Case value="eDTTEnter">
+      <Resource stringId="campusTakeDoorActionGoInside" />
+     </Case>
+     <Case value="eDTTExit">
+      <Resource stringId="campusTakeDoorActionGoOutside" />
+     </Case>
+     <Case value="eDTTPass">
+      <Resource stringId="campusTakeDoorActionGo" />
+     </Case>
+    </Token>
+
+    <!-- Reports door actions such as: exit door, enter door-->
+    <!-- Uses specific recognition data which is passed by recognizers-->
+    <Token id="TakeDoorToHallwayAction" type="eTTSelect" feedType="eTFTDoorTransition">
+     <Case value="eDTTEnter">
+      <Resource stringId="campusTakeDoorToHallwayActionGoInside" />
+     </Case>
+     <Case value="eDTTExit">
+      <Resource stringId="campusTakeDoorToHallwayActionGoOutside" />
+     </Case>
+     <Case value="eDTTPass">
+      <Resource stringId="campusTakeDoorToHallwayActionGo" />
+     </Case>
+    </Token>
+
+    <!-- Reports door actions such as: exit door, enter door-->
+    <!-- Uses specific recognition data which is passed by recognizers-->
+    <Token id="TakeDoorToWalkwayAction" type="eTTSelect" feedType="eTFTDoorTransition">
+     <Case value="eDTTEnter">
+      <Resource stringId="campusTakeDoorToWalkwayActionGoInside" />
+     </Case>
+     <Case value="eDTTExit">
+      <Resource stringId="campusTakeDoorToWalkwayActionGoOutside" />
+     </Case>
+     <Case value="eDTTPass">
+      <Resource stringId="campusTakeDoorToWalkwayActionGo" />
+     </Case>
+    </Token>
+
+    <!-- Reports door actions such as: exit door, enter door-->
+    <!-- Uses specific recognition data which is passed by recognizers-->
+    <Token id="DoorAction" type="eTTSelect" feedType="eTFTDoorTransition">
+     <Case value="eDTTEnter">
+      <Resource stringId="campusDoorActionGoInside" />
+     </Case>
+     <Case value="eDTTExit">
+      <Resource stringId="campusDoorActionGoOutside" />
+     </Case>
+     <Case value="eDTTPass">
+      <Resource stringId="campusDoorActionGo" />
+     </Case>
+    </Token>
+
+    <!-- Reports door actions such as: exit door, enter door-->
+    <!-- Uses specific recognition data which is passed by recognizers-->
+    <Token id="DoorToAction" type="eTTSelect" feedType="eTFTDoorTransition">
+     <Case value="eDTTEnter">
+      <Resource stringId="campusDoorToActionGoInside" />
+     </Case>
+     <Case value="eDTTExit">
+      <Resource stringId="campusDoorToActionGoOutside" />
+     </Case>
+     <Case value="eDTTPass">
+      <Resource stringId="campusDoorToActionGo" />
+     </Case>
+    </Token>
+
+    <!-- Reports door actions such as: exit door, enter door-->
+    <!-- Uses specific recognition data which is passed by recognizers-->
+    <Token id="DoorToHallwayAction" type="eTTSelect" feedType="eTFTDoorTransition">
+     <Case value="eDTTEnter">
+      <Resource stringId="campusDoorToHallwayActionGoInside" />
+     </Case>
+     <Case value="eDTTExit">
+      <Resource stringId="campusDoorToHallwayActionGoOutside" />
+     </Case>
+     <Case value="eDTTPass">
+      <Resource stringId="campusDoorToHallwayActionGo" />
+     </Case>
+    </Token>
+
+    <!-- Reports door actions such as: exit door, enter door-->
+    <!-- Uses specific recognition data which is passed by recognizers-->
+    <Token id="DoorToWalkwayAction" type="eTTSelect" feedType="eTFTDoorTransition">
+     <Case value="eDTTEnter">
+      <Resource stringId="campusDoorToWalkwayActionGoInside" />
+     </Case>
+     <Case value="eDTTExit">
+      <Resource stringId="campusDoorToWalkwayActionGoOutside" />
+     </Case>
+     <Case value="eDTTPass">
+      <Resource stringId="campusDoorToWalkwayActionGo" />
+     </Case>
+    </Token>
+
+    <Token id="TotalLength" type="eTTSystem">
+     <Param name="Threshold" value="0.1" />
+     <Resource key="BelowThreshold" stringId="DistanceShort"/>
+     <Resource key="Standard" stringId="DistanceLong"/>
+    </Token>
+
+    <Token id="ItemLength" type="eTTSystem">
+     <Param name="Threshold" value="0.1" />
+     <Resource key="BelowThreshold" stringId="DistanceShort"/>
+     <Resource key="Standard" stringId="DistanceLong"/>
+    </Token>
+
+    <Token id="CumulativeDistance" type="eTTSystem">
+     <Resource key="Standard" stringId="CumulativeDistanceLong"/>
+    </Token>
+
+    <Token id="StopLength" type="eTTSystem">
+     <Param name="Threshold" value="0.1" />
+     <Resource key="BelowThreshold" stringId="DistanceShort"/>
+     <Resource key="Standard" stringId="DistanceLong"/>
+    </Token>
+
+    <Token id="TotalTimeSpan" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="TimeShort"/>
+     <Resource key="Standard" stringId="TimeLong"/>
+    </Token>
+
+    <Token id="ItemTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="TimeShort"/>
+     <Resource key="Standard" stringId="TimeLong"/>
+    </Token>
+
+    <Token id="TravelTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="TravelTimeShort"/>
+     <Resource key="Standard" stringId="TravelTimeLong"/>
+    </Token>
+
+    <Token id="StopStayTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="StopWaitTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="StopViolationTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="StopFullTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="TotalStopWaitTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="TotalStopViolationTime" type="eTTSystem">
+     <Param name="Threshold" value="60" />
+     <Resource key="BelowThreshold" stringId="StopTimeShort"/>
+     <Resource key="Standard" stringId="StopTimeLong"/>
+    </Token>
+
+    <Token id="TZChange" type="eTTSystem">
+     <Resource key="Standard" stringId="TimeZoneChange"/>
+    </Token>
+
+    <Token id="Destination" type="eTTSystem">
+     <Param name="SignIDAttribute" value="SIGN_ID"/>
+     <Resource stringId="SignpostDestination"/>
+    </Token>
+
+    <Token id="Branch" type="eTTSystem">
+     <Param name="SignIDAttribute" value="SIGN_ID"/>
+     <Resource stringId="SignpostDestination"/>
+    </Token>
+
+    <Token id="SignpostExit" type="eTTSystem">
+     <Param name="SignIDAttribute" value="SIGN_ID"/>
+    </Token>
+
+    <Token id="StopSide" type="eTTSystem">
+     <Resource key="SideLeft" stringId="campusStopSideLeft"/>
+     <Resource key="SideRight" stringId="campusStopSideRight"/>
+    </Token>
+
+    <Token id="CrossNames" type="eTTSystem">
+     <Resource stringId="CrossNames"/>
+    </Token>
+
+    <Token id="FirstTurn" type="eTTPosition"> 
+     <Param name="Origin" value="eOTBegin" />
+     <Param name="Position" value="ePTCurrent"/>
+    </Token>
+
+    <Token id="SecondTurn" type="eTTPosition"> 
+     <Param name="Origin" value="SecondTurningArc" />
+     <Param name="Position" value="ePTCurrent"/>
+    </Token>
+
+    <Token id="From" type="eTTPosition">
+     <Param name="Origin" value="eOTBegin"/>
+     <Param name="Position" value="ePTPrevious"/>
+    </Token>
+   
+    <Token id="To" type="eTTPosition">
+     <Param name="SystemKey" value="eSKTDestination"/>
+    </Token>
+
+    <!-- Access the recognized landmark name-->
+    <Token id="LandmarkName" type="eTTSystem" />
+
+    <!-- Access the recognized landmark postion on the road/intersection-->
+    <Token id="LandmarkPosition" type="eTTSelect" feedType="eTFTLandmarkPosition">
+      <Case value="eCVTLandmarkSideLeft">
+        <Resource stringId="campusLandmarkOnTheLeft"/>
+      </Case>
+      <Case value="eCVTLandmarkSideRight">
+        <Resource stringId="campusLandmarkOnTheRight"/>
+      </Case>
+      <Case value="eCVTLandmarkFarCornerLeft">
+        <Resource stringId="campusLandmarkOnTheFarLeft"/>
+      </Case>
+      <Case value="eCVTLandmarkFarCornerRight">
+        <Resource stringId="campusLandmarkOnTheFarRight"/>
+      </Case>
+      <Case value="eCVTLandmarkNearCornerLeft">
+        <Resource stringId="campusLandmarkOnTheNearLeft"/>
+      </Case>
+      <Case value="eCVTLandmarkNearCornerRight">
+        <Resource stringId="campusLandmarkOnTheNearRight"/>
+      </Case>
+    </Token>
+
+   </Tokens>
+
+   <Formatting>
+    <Units>
+     <Unit id="Mile" baseUnit="Mile" ratio="1">
+      <Resource key="Singular" stringId="UnitMileSingular"/>
+      <Resource key="Plural" stringId="UnitMilePlural"/>
+      <Resource key="Neutral" stringId="UnitMileNeutral"/>
+     </Unit>
+
+     <Unit id="Kilometer" baseUnit="Mile" ratio="1.60934">
+      <Resource key="Singular" stringId="UnitKilometerSingular"/>
+      <Resource key="Plural" stringId="UnitKilometerPlural"/>
+      <Resource key="Neutral" stringId="UnitKilometerNeutral"/>
+     </Unit>
+
+     <Unit id="Meter" baseUnit="Mile" ratio="1609.34">
+      <Resource key="Singular" stringId="UnitMeterSingular"/>
+      <Resource key="Plural" stringId="UnitMeterPlural"/>
+      <Resource key="Neutral" stringId="UnitMeterNeutral"/>
+     </Unit>
+
+     <Unit id="Foot" baseUnit="Mile" ratio="5280.0">
+      <Resource key="Singular" stringId="UnitFootSingular"/>
+      <Resource key="Plural" stringId="UnitFootPlural"/>
+      <Resource key="Neutral" stringId="UnitFootNeutral"/>
+     </Unit>
+
+     <Unit id="Yard" baseUnit="Mile" ratio="1760.0">
+      <Resource key="Singular" stringId="UnitYardSingular"/>
+      <Resource key="Plural" stringId="UnitYardPlural"/>
+      <Resource key="Neutral" stringId="UnitYardNeutral"/>
+     </Unit>
+
+     <Unit id="NauticalMile" baseUnit="Mile" ratio="0.868976">
+      <Resource key="Singular" stringId="UnitNauticalSingular"/>
+      <Resource key="Plural" stringId="UnitNauticalPlural"/>
+      <Resource key="Neutral" stringId="UnitNauticalNeutral"/>
+     </Unit>
+
+     <Unit id="Second" baseUnit="Second" ratio="1">
+      <Resource key="Singular" stringId="UnitSecondSingular"/>
+      <Resource key="Plural" stringId="UnitSecondPlural"/>
+      <Resource key="Neutral" stringId="UnitSecondNeutral"/>
+     </Unit>
+    </Units>
+
+    <Groups>
+     <Group id="Summary">
+      <Resource key="Drive" stringId="campusSummaryDrive"/>
+      <Resource key="Length" stringId="SummaryLength"/>
+      <Resource key="Time" stringId="SummaryTravelTime"/>
+      <Resource key="ETA" stringId="SummaryETA"/>
+      <Resource key="CumulLength" stringId="SummaryCumulativeLength"/>
+      <Resource key="General" stringId="SummaryTripPlan"/>
+     </Group>
+
+     <Group id="Stop">
+      <Resource key="General" stringId="StopSummary"/>
+      <Resource key="Time" stringId="StopTimeWindow"/>
+      <Resource key="StayTime" stringId="StopStayTime"/>
+      <Resource key="FullTime" stringId="StopFullTime"/>
+      <Resource key="WaitTime" stringId="StopWaitTime"/>
+      <Resource key="ViolationTime" stringId="StopViolationTime"/>
+      <Resource key="Length" stringId="StopLength"/>
+     </Group>
+
+     <Group id="Maneuver">
+      <Resource key="Drive" stringId="campusDirectionWalk"/>
+      <Resource key="Length" stringId="DirectionLength"/>
+      <Resource key="Time" stringId="DirectionTime"/>
+      <Resource key="ETA" stringId="DirectionETA"/>
+      <Resource key="CumulLength" stringId="DirectionCumulativeLength"/>
+      <Resource key="Branch" stringId="DirectionBranch"/>
+      <Resource key="Toward" stringId="DirectionToward"/>
+      <Resource key="CrossStreet" stringId="DirectionCrossStreet"/>
+      <Resource key="Exit" stringId="DirectionExitName"/>
+      <Resource key="Street" stringId="DirectionStreet"/>
+      <Resource key="AltNames" stringId="DirectionAltNames"/>
+      <Resource key="DayEnd" stringId="DirectionDayEnd"/>
+      <Resource key="RestBreak" stringId="DirectionRestBreak"/>
+      <Resource key="AfterBreak" stringId="DirectionAfterBreak"/>
+     </Group>
+    </Groups>
+   </Formatting>
+
+   <Network>
+    <Attributes>
+     <Attribute name="ROADGROUP" default="-1" />
+     <Attribute name="NAME" />
+     <Attribute name="ALT_NAME" />
+     <Attribute name="ALT_NAME2" />
+     <Attribute name="ALT_NAME3" />
+     <Attribute name="ALT_NAME4" />
+     <Attribute name="SHAPE" />
+     <Attribute name="LENGTH" />
+     <Attribute name="TIME" />
+     <Attribute name="SIGN_ID" default="-1" />
+     <Attribute name="FROMAZIMUTH" />
+     <Attribute name="TOAZIMUTH" />
+     <Attribute name="TURNANGLE" default="0" />
+     <Attribute name="FROMVALENCY" />
+     <Attribute name="TOVALENCY" />
+     <Attribute name="CROSSADMINBORDER" />
+     <Attribute name="CURVE_ANGLE" default="0"/>
+
+     <!-- this attribute is used to find landmarks at the particular levels in multilevel building-->
+     <Attribute name="LEVEL" origin="source.Level" default="-1" />
+
+     <!-- the following fields are used to report user-fiendly level names-->
+     <Attribute name="FROM_FLOOR_NAME" origin="source.FromFloorName" />
+     <Attribute name="TO_FLOOR_NAME" origin="source.ToFloorName" />
+
+    </Attributes>
+
+   </Network>
+      
+   <!--Landmarks that need to be reported in driving directions-->
+   <Landmarks>
+     <LandmarkRecognizer type="eLRTGuidance">
+      <Param name="DistanceThreshold" value="0.0019"/>
+      <Resource stringId="campusEventLandmarkManeuverGuidance"/>
+     </LandmarkRecognizer>
+
+   <LandmarkRecognizer type="eLRTPassage">
+      <Param name="DistanceThreshold" value="0.0012"/>
+      <Resource stringId="campusEventLandmarkPassageVerification"/>
+     </LandmarkRecognizer>
+   </Landmarks>
+
+  </Style>
+
+ </Settings>
+</Directions>

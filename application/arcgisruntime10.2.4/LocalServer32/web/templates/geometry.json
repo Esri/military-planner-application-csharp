@@ -1,0 +1,13 @@
+{
+  "title": "TODO - geometry op forms",
+  "action": "todo",
+  "enctype": "application/x-www-form-urlencoded",
+  "fields": 
+  [
+    { 
+      "name": "todo",
+      "label": "TODO",
+      "type": "text"
+    }
+  ]
+}
