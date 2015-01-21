@@ -38,8 +38,8 @@ namespace MilitaryPlanner.ViewModels
         private Map _map;
         private Message _currentMessage;
         private EditState _editState = EditState.None;
-        private List<MessageLayer> _messageLayerList = new List<MessageLayer>();
-        private MessageLayer _currentMessageLayer;
+        private List<TimeAwareMessageLayer> _messageLayerList = new List<TimeAwareMessageLayer>();
+        private TimeAwareMessageLayer _currentMessageLayer;
         private TimeExtent _currentTimeExtent = new TimeExtent(DateTime.Now);
         private int _messageLayerCount = 1;
         //private List<string> _messageIDList = new List<string>();
@@ -108,8 +108,7 @@ namespace MilitaryPlanner.ViewModels
 
                         if (ml != null)
                         {
-                            //TODO phase visible time Extent from message layer?
-                            //phase.VisibleTimeExtent = ml.VisibleTimeExtent;
+                            phase.VisibleTimeExtent = _messageLayerList.Where(s => s.MessageLayer.ID == phase.ID).First().VisibleTimeExtent;
 
                             var msg = ml.GetMessage(msgID);
 
@@ -170,9 +169,10 @@ namespace MilitaryPlanner.ViewModels
                 _currentMessageLayer = _messageLayerList[index];
 
                 //_map.TimeExtent = _currentMessageLayer.VisibleTimeExtent;
+                _mapView.TimeExtent = _currentMessageLayer.VisibleTimeExtent;
 
                 //get phase and fire notifications for messages
-                var phaseMessageList = _phaseMessageDictionary[_currentMessageLayer.ID];
+                var phaseMessageList = _phaseMessageDictionary[_currentMessageLayer.MessageLayer.ID];
 
                 foreach (var msgID in phaseMessageList)
                 {
@@ -381,7 +381,7 @@ namespace MilitaryPlanner.ViewModels
             MessageBox.Show(sb.ToString(), caption);
         }
 
-        private MessageLayer CreateMessageLayer(string displayName, string id, TimeExtent timeExtent, bool visible, SymbolDictionaryType symbolDictType)
+        private TimeAwareMessageLayer CreateMessageLayer(string displayName, string id, TimeExtent timeExtent, bool visible, SymbolDictionaryType symbolDictType)
         {
             var messageLayer = new MessageLayer()
             {
@@ -392,18 +392,24 @@ namespace MilitaryPlanner.ViewModels
                 SymbolDictionaryType = symbolDictType
             };
 
-            return messageLayer;
+            var tamLayer = new TimeAwareMessageLayer()
+            {
+                MessageLayer = messageLayer,
+                VisibleTimeExtent = timeExtent
+            };
+
+            return tamLayer;
         }
 
-        private void AddMessageLayer(MessageLayer messageLayer, bool makeCurrent)
+        private void AddMessageLayer(TimeAwareMessageLayer messageLayer, bool makeCurrent)
         {
             _messageLayerList.Add(messageLayer);
 
             if (makeCurrent)
             {
                 _currentMessageLayer = messageLayer;
-                //_map.TimeExtent = messageLayer.VisibleTimeExtent;
-                //_currentTimeExtent = messageLayer.VisibleTimeExtent;
+                _mapView.TimeExtent = messageLayer.VisibleTimeExtent;
+                _currentTimeExtent = messageLayer.VisibleTimeExtent;
             }
 
             OnSetMessageLayer(messageLayer);
@@ -446,14 +452,19 @@ namespace MilitaryPlanner.ViewModels
                     SymbolDictionaryType = SymbolDictionaryType.Mil2525c
                 };
 
-                _messageLayerList.Add(messageLayer);
-                _currentMessageLayer = messageLayer;
+                var tamLayer = new TimeAwareMessageLayer()
+                {
+                    MessageLayer = messageLayer,
+                    VisibleTimeExtent = GetNewMessageLayerTimeExtent()
+                };
 
-                OnSetMessageLayer(messageLayer);
+                _messageLayerList.Add(tamLayer);
+                _currentMessageLayer = tamLayer;
+
+                OnSetMessageLayer(tamLayer);
                 
-                //TODO fix time extent
-                //_mapView.TimeExtent = messageLayer.VisibleTimeExtent;
-                //_currentTimeExtent = messageLayer.VisibleTimeExtent;
+                _mapView.TimeExtent = tamLayer.VisibleTimeExtent;
+                _currentTimeExtent = tamLayer.VisibleTimeExtent;
 
                 Mediator.NotifyColleagues(Constants.ACTION_MSG_LAYER_ADDED, messageLayer);
 
@@ -470,13 +481,13 @@ namespace MilitaryPlanner.ViewModels
                 //foreach (var msgKVP in _messageDictionary.Where(kvp => kvp.Value == previousMessageLayer.ID))
                 //foreach(var phaseKVP in _phaseMessageDictionary.Where(kvp => kvp.Key == previousMessageLayer.ID))
 
-                var phaseMessageList = _phaseMessageDictionary[previousMessageLayer.ID];
+                var phaseMessageList = _phaseMessageDictionary[previousMessageLayer.MessageLayer.ID];
 
                 if (phaseMessageList != null && phaseMessageList.Count > 0)
                 {
                     foreach (var phaseMessageID in phaseMessageList)
                     {
-                        var oldMsg = previousMessageLayer.GetMessage(phaseMessageID);
+                        var oldMsg = previousMessageLayer.MessageLayer.GetMessage(phaseMessageID);
 
                         //TODO test guid
                         //oldMsg.Id = Guid.NewGuid().ToString();
@@ -486,7 +497,7 @@ namespace MilitaryPlanner.ViewModels
                             oldMsg[Constants.MSG_ACTION_KEY_NAME] = "update";
                         }
 
-                        if (ProcessMessage(_currentMessageLayer, oldMsg))
+                        if (ProcessMessage(_currentMessageLayer.MessageLayer, oldMsg))
                         {
                             Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_ADDED, oldMsg.Id);
                         }
@@ -497,9 +508,8 @@ namespace MilitaryPlanner.ViewModels
 
         private TimeExtent GetNewMessageLayerTimeExtent()
         {
-            //TODO fix time extent
-            //return _messageLayerList.Last().VisibleTimeExtent.Offset(new TimeSpan(0, 0, 1));
-            return new TimeExtent();
+            // we are doing a 1 hour time span for now
+            return _messageLayerList.Last().VisibleTimeExtent.Offset(new TimeSpan(0, 1, 0));
         }
 
         private void OnSetMap(object param)
@@ -610,7 +620,7 @@ namespace MilitaryPlanner.ViewModels
 
             if (graphic.Attributes.ContainsKey(Constants.MSG_ID_KEY_NAME))
             {
-                var selectMessage = _currentMessageLayer.GetMessage(graphic.Attributes[Constants.MSG_ID_KEY_NAME].ToString());
+                var selectMessage = _currentMessageLayer.MessageLayer.GetMessage(graphic.Attributes[Constants.MSG_ID_KEY_NAME].ToString());
                 SelectMessage(selectMessage, true);
             }
 
@@ -646,7 +656,7 @@ namespace MilitaryPlanner.ViewModels
         {
             if (_mapView != null && _currentMessageLayer != null)
             {
-                foreach (var subLayer in _currentMessageLayer.ChildLayers)
+                foreach (var subLayer in _currentMessageLayer.MessageLayer.ChildLayers)
                 {
                     var messageSubLayer = subLayer as MessageSubLayer;
 
@@ -678,26 +688,25 @@ namespace MilitaryPlanner.ViewModels
 
                 if (ml != null)
                 {
-                    //TODO fix time extent
-                    //if (ml.VisibleTimeExtent.Intersects(_mapView.TimeExtent))
-                    //{
-                    //    ml.Visible = true;
-                    //}
-                    //else
-                    //{
-                    //    ml.Visible = false;
-                    //}
+                    if (_messageLayerList.Where(s => s.MessageLayer.ID == ml.ID).First().VisibleTimeExtent.Intersects(_mapView.TimeExtent))
+                    {
+                        ml.IsVisible = true;
+                    }
+                    else
+                    {
+                        ml.IsVisible = false;
+                    }
                 }
             }
         }
 
         private void OnSetMessageLayer(object param)
         {
-            var messageLayer = param as MessageLayer;
+            var messageLayer = param as TimeAwareMessageLayer;
 
             if (messageLayer != null)
             {
-                _mapView.Map.Layers.Add(messageLayer);
+                _mapView.Map.Layers.Add(messageLayer.MessageLayer);
                 //_map.Layers.Add(messageLayer);
             }
         }
@@ -718,7 +727,7 @@ namespace MilitaryPlanner.ViewModels
 
             var msg = new MilitaryMessage(message.Id, MilitaryMessageType.PositionReport, isSelected ? MilitaryMessageAction.Select : MilitaryMessageAction.UnSelect);
 
-            _currentMessageLayer.ProcessMessage(msg);
+            _currentMessageLayer.MessageLayer.ProcessMessage(msg);
         }
 
         private void UpdateCurrentMessage(MapPoint mapPoint)
@@ -727,14 +736,14 @@ namespace MilitaryPlanner.ViewModels
             {
                 var msg = new MilitaryMessage(_currentMessage.Id, MilitaryMessageType.PositionReport, MilitaryMessageAction.Update, new List<MapPoint>() { mapPoint });
 
-                _currentMessageLayer.ProcessMessage(msg);
+                _currentMessageLayer.MessageLayer.ProcessMessage(msg);
             }
         }
 
         private void RemoveMessage(Message message)
         {
             var msg = new MilitaryMessage(message.Id, MilitaryMessageType.PositionReport, MilitaryMessageAction.Remove);
-            _currentMessageLayer.ProcessMessage(msg);
+            _currentMessageLayer.MessageLayer.ProcessMessage(msg);
 
             //if (_messageDictionary.ContainsKey(message.Id))
             //{
@@ -743,9 +752,9 @@ namespace MilitaryPlanner.ViewModels
             //    Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_REMOVED, message.Id);
             //}
 
-            if (_phaseMessageDictionary[_currentMessageLayer.ID].Contains(message.Id))
+            if (_phaseMessageDictionary[_currentMessageLayer.MessageLayer.ID].Contains(message.Id))
             {
-                _phaseMessageDictionary[_currentMessageLayer.ID].Remove(message.Id);
+                _phaseMessageDictionary[_currentMessageLayer.MessageLayer.ID].Remove(message.Id);
                 Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_REMOVED, message.Id);
             }
         }
@@ -798,7 +807,7 @@ namespace MilitaryPlanner.ViewModels
                     }
 
                     //messageLayer.ProcessMessage(message);
-                    ProcessMessage(messageLayer, message);
+                    ProcessMessage(messageLayer.MessageLayer, message);
                 }
             }
         }
@@ -1008,7 +1017,7 @@ namespace MilitaryPlanner.ViewModels
             }
 
             //Process the message
-            if (ProcessMessage(_currentMessageLayer, msg))
+            if (ProcessMessage(_currentMessageLayer.MessageLayer, msg))
             {
                 //_draw.IsEnabled = true;
             }
@@ -1184,7 +1193,7 @@ namespace MilitaryPlanner.ViewModels
             msg.Add("_control_points", point.X.ToString() + "," + point.Y.ToString());
 
             //Process the message
-            if (ProcessMessage(_currentMessageLayer, msg))
+            if (ProcessMessage(_currentMessageLayer.MessageLayer, msg))
             {
                 //_draw.IsEnabled = true;
             }
