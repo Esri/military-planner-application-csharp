@@ -1,0 +1,45 @@
+{
+  "title": "Create Service",
+  "action": "createService",
+  "enctype": "application/x-www-form-urlencoded",
+  "fields": 
+  [
+    { "name": "f", "type": "hidden", "value": "html" },
+    { 
+      "name": "type",
+      "label": "Type",
+      "type": "select",
+      "values": ["MapServer", "GeocodeServer", "GeometryServer", "GPServer"]
+    },
+    { 
+      "name": "name",
+      "label": "Name",
+      "type": "text"
+    },
+    { 
+      "name": "filePath",
+      "label": "File Path",
+      "type": "text"
+    },
+    { 
+      "name": "locator",
+      "label": "Locator (GeocodeServer)",
+      "type": "text"
+    },
+    { 
+      "name": "editable",
+      "label": "Editable (MapServer)",
+      "type": "checkbox"
+    },
+    { 
+      "name": "mapserver",
+      "label": "Support MapServer results (GPServer)",
+      "type": "checkbox"
+    },
+    { 
+      "name": "asynchronous",
+      "label": "Asynchronous (GPServer)",
+      "type": "checkbox"
+    }
+  ]
+}

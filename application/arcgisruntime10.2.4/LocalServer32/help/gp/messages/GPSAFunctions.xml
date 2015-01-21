@@ -1,0 +1,449 @@
+<Messages STARTID='10001'>
+<Message><ID>10002</ID><Description>Could not add a field to a table.</Description></Message>
+<Message><ID>10003</ID><Description>The time range is at night when sun light is not available.</Description></Message>
+<Message><ID>10004</ID><Description>All cells in Raster %1 have the NODATA value. Stop execution.</Description></Message>
+<Message><ID>10005</ID><Description>Unable to allocate memory.</Description></Message>
+<Message><ID>10006</ID><Description>Insufficient arguments.</Description></Message>
+<Message><ID>10007</ID><Description>Too many arguments.</Description></Message>
+<Message><ID>10008</ID><Description>Annuli are not correct. The number of zenith divisions is out of range [1, skysize/2].</Description></Message>
+<Message><ID>10009</ID><Description>Diffuse proportion is out of range [0-1].</Description></Message>
+<Message><ID>10010</ID><Description>Field not found. Invalid field index obtained.</Description></Message>
+<Message><ID>10011</ID><Description>Latitude is out of range [-90, 90].</Description></Message>
+<Message><ID>10012</ID><Description>Sky transmittivity is out of range [0-1].</Description></Message>
+<Message><ID>10013</ID><Description>Zenith sectors are not correct. The number of azimuth divisions is out of range [8, 160].</Description></Message>
+<Message><ID>10014</ID><Description>Binary operation %1 failed.</Description></Message>
+<Message><ID>10015</ID><Description>Could not match or find previously bound symbol.</Description></Message>
+<Message><ID>10016</ID><Description>Error in calculating horizon and radiation.</Description></Message>
+<Message><ID>10017</ID><Description>Operation has been cancelled.</Description></Message>
+<Message><ID>10018</ID><Description>Cell size value %1 is invalid.</Description></Message>
+<Message><ID>10019</ID><Description>Grid closing error.</Description></Message>
+<Message><ID>10020</ID><Description>COMBINE: The number of input raster bands exceeds the current limit (%1%).</Description></Message>
+<Message><ID>10021</ID><Description>Acceptable values are MSBFIRST, LSBFIRST or VMS_FFLOAT.</Description></Message>
+<Message><ID>10022</ID><Description>Keyvalue %1 misses its value.</Description></Message>
+<Message><ID>10023</ID><Description>Keyvalue %1 has incorrect value.</Description></Message>
+<Message><ID>10024</ID><Description>Error during conversion.</Description></Message>
+<Message><ID>10025</ID><Description>Failed to copy a dataset.</Description></Message>
+<Message><ID>10026</ID><Description>Unable to copy dataset %1 to %2.</Description></Message>
+<Message><ID>10027</ID><Description>Unable to copy file %1 to %2.</Description></Message>
+<Message><ID>10028</ID><Description>Unable to create file %1.</Description></Message>
+<Message><ID>10029</ID><Description>Unable to create the raster %1.</Description></Message>
+<Message><ID>10030</ID><Description>Unable to create %1 of %2.</Description></Message>
+<Message><ID>10031</ID><Description>Unable to create the projection file of %1.</Description></Message>
+<Message><ID>10032</ID><Description>Unable to create the scratch grid %1.</Description></Message>
+<Message><ID>10033</ID><Description>Error in creating the sky map.</Description></Message>
+<Message><ID>10034</ID><Description>Unable to create the raster dataset %1.</Description></Message>
+<Message><ID>10035</ID><Description>Unable to create layers in stack %1.</Description></Message>
+<Message><ID>10036</ID><Description>Error in creating the sun map.</Description></Message>
+<Message><ID>10037</ID><Description>Output table %1 could not be created.</Description></Message>
+<Message><ID>10038</ID><Description>Could not create WorkspaceName object.</Description></Message>
+<Message><ID>10039</ID><Description>Unable to delete file %1.</Description></Message>
+<Message><ID>10040</ID><Description>Unable to delete raster %1.</Description></Message>
+<Message><ID>10041</ID><Description>Unable to delete %1 of %2.</Description></Message>
+<Message><ID>10042</ID><Description>Unable to delete raster dataset %1.</Description></Message>
+<Message><ID>10043</ID><Description>All selected cells are at absolute barrier.</Description></Message>
+<Message><ID>10044</ID><Description>The value range in backlink must be between %1 and %2.</Description></Message>
+<Message><ID>10045</ID><Description>COSTPATH: The number of FROM cells is 0.</Description></Message>
+<Message><ID>10046</ID><Description>Argument %1 is neither a string, nor a default.</Description></Message>
+<Message><ID>10047</ID><Description>The required input name is empty.</Description></Message>
+<Message><ID>10048</ID><Description>Empty Raster - No RasterBand in it.</Description></Message>
+<Message><ID>10049</ID><Description>The end hour is smaller than the start hour.</Description></Message>
+<Message><ID>10050</ID><Description>Cell size is not set.</Description></Message>
+<Message><ID>10051</ID><Description>Coverage inputs are not supported.</Description></Message>
+<Message><ID>10052</ID><Description>Reserved field %1 already exists in input attributes.</Description></Message>
+<Message><ID>10053</ID><Description>Could not extract elements from variant array list.</Description></Message>
+<Message><ID>10054</ID><Description>Could not obtain a search cursor on selected features.</Description></Message>
+<Message><ID>10055</ID><Description>Feature Data Converter failed to convert dataset.</Description></Message>
+<Message><ID>10056</ID><Description>Feature Data Converter failed to convert dataset %1 to %2.</Description></Message>
+<Message><ID>10057</ID><Description>Field %1 already exists.</Description></Message>
+<Message><ID>10058</ID><Description>Could not add specified field %1 to table %2.</Description></Message>
+<Message><ID>10059</ID><Description>%1 is an invalid field type.</Description></Message>
+<Message><ID>10060</ID><Description>Could not open and write to %1.</Description></Message>
+<Message><ID>10061</ID><Description>File %1 does not exist.</Description></Message>
+<Message><ID>10062</ID><Description>File %1 cannot be found.</Description></Message>
+<Message><ID>10063</ID><Description>Raster %1 must have float type.</Description></Message>
+<Message><ID>10064</ID><Description>The specified aggregation box is larger than the input raster.</Description></Message>
+<Message><ID>10065</ID><Description>Invalid aggregation type.</Description></Message>
+<Message><ID>10066</ID><Description>RegionGroup: Unable to allocate required memory of %1 bytes.</Description></Message>
+<Message><ID>10067</ID><Description>Error in executing grid expression.</Description></Message>
+<Message><ID>10068</ID><Description>Raster %1 does not exist.</Description></Message>
+<Message><ID>10069</ID><Description>Unable to open input raster(s).</Description></Message>
+<Message><ID>10070</ID><Description>Raster read error.</Description></Message>
+<Message><ID>10071</ID><Description>Raster write error.</Description></Message>
+<Message><ID>10072</ID><Description>Unable to create a hash table.</Description></Message>
+<Message><ID>10073</ID><Description>Could not compute the histogram frequencies.</Description></Message>
+<Message><ID>10074</ID><Description>Error in getting values from a table.</Description></Message>
+<Message><ID>10075</ID><Description>Error in setting values in a table.</Description></Message>
+<Message><ID>10076</ID><Description>Could not create INFO directory %1.</Description></Message>
+<Message><ID>10077</ID><Description>Raster %1 must be of integer type.</Description></Message>
+<Message><ID>10078</ID><Description>Argument %1 is not a feature class or link file name.</Description></Message>
+<Message><ID>10079</ID><Description>Unable to estimate semivariogram.</Description></Message>
+<Message><ID>10080</ID><Description>Could not initialize the sample point structure.</Description></Message>
+<Message><ID>10081</ID><Description>No GRAPH option for universal kriging.</Description></Message>
+<Message><ID>10082</ID><Description>Error in writing semi-variogram table.</Description></Message>
+<Message><ID>10083</ID><Description>The band count is not valid. Number of bands must lie between 1 and 30 (both inclusive).</Description></Message>
+<Message><ID>10084</ID><Description>Invalid command or expression.</Description></Message>
+<Message><ID>10085</ID><Description>%1 is an invalid field name.</Description></Message>
+<Message><ID>10086</ID><Description>Field used for Logistic Trend must contain values 0 or 1 only.</Description></Message>
+<Message><ID>10087</ID><Description>Invalid filter type specified.</Description></Message>
+<Message><ID>10088</ID><Description>Invalid input geodataset (Layer, Tin, etc.).</Description></Message>
+<Message><ID>10089</ID><Description>%1 is not a supported feature type.</Description></Message>
+<Message><ID>10090</ID><Description>An invalid or null filename was obtained from the path specification.</Description></Message>
+<Message><ID>10091</ID><Description>Numeric field lengths must be less than or equal to 19.</Description></Message>
+<Message><ID>10092</ID><Description>Invalid output extent.</Description></Message>
+<Message><ID>10093</ID><Description>Output raster format %1 is unsupported.</Description></Message>
+<Message><ID>10094</ID><Description>Projections are incompatible for earth curvature corrections.</Description></Message>
+<Message><ID>10095</ID><Description>An invalid type of semi-variogram was used.</Description></Message>
+<Message><ID>10096</ID><Description>There is no Spatial Analyst license currently available or enabled.</Description></Message>
+<Message><ID>10097</ID><Description>The number of cells in the output exceeds function's limit: %1.</Description></Message>
+<Message><ID>10098</ID><Description>Insufficient number of points.</Description></Message>
+<Message><ID>10099</ID><Description>The number of classes must be 2 or more.</Description></Message>
+<Message><ID>10100</ID><Description>The number of principal components cannot be larger than the number of bands to be used.</Description></Message>
+<Message><ID>10101</ID><Description>Class %1 in the a-priori probability file is not in the signature file.</Description></Message>
+<Message><ID>10102</ID><Description>a-priori probability must be between 0 and 1.</Description></Message>
+<Message><ID>10103</ID><Description>Error in reading a-priori probability file.</Description></Message>
+<Message><ID>10104</ID><Description>The sum of a-priori probabilities is not 1.</Description></Message>
+<Message><ID>10105</ID><Description>Invalid rejection input. As a percentage it must be between 0.0 and 0.999999. Discrete recognized values are: 0.0, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 0.995.</Description></Message>
+<Message><ID>10106</ID><Description>No value column(s) in the sample file %1.</Description></Message>
+<Message><ID>10107</ID><Description>The covariance matrix of input class %1 is singular.</Description></Message>
+<Message><ID>10108</ID><Description>The number of bands in the signature file (%1) is less than the number of bands in the raster dataset (%2).</Description></Message>
+<Message><ID>10109</ID><Description>The number of parametric bands in the signature file (%1) is less than the number of bands in the raster dataset (%2).</Description></Message>
+<Message><ID>10110</ID><Description>The number of bands (%1) is less than 1.</Description></Message>
+<Message><ID>10111</ID><Description>The number of cells (%1) in class (%2) is less than %3.</Description></Message>
+<Message><ID>10112</ID><Description>The number of classes (%1) is less than 1.</Description></Message>
+<Message><ID>10113</ID><Description>The signature file %1 has no covariance matrices.</Description></Message>
+<Message><ID>10114</ID><Description>No selected layers in index/grid-name list.</Description></Message>
+<Message><ID>10115</ID><Description>Time interval can not be negative.</Description></Message>
+<Message><ID>10116</ID><Description>Unable to handle negative values in %1.</Description></Message>
+<Message><ID>10117</ID><Description>Input %1 does not have an attribute table.</Description></Message>
+<Message><ID>10118</ID><Description>Could not get base table of the input field.</Description></Message>
+<Message><ID>10119</ID><Description>Unable to convert to coverage.</Description></Message>
+<Message><ID>10120</ID><Description>Coverage inputs/outputs are not supported.</Description></Message>
+<Message><ID>10121</ID><Description>Could not get the Dataset.</Description></Message>
+<Message><ID>10122</ID><Description>Could not get a valid evaluation expression.</Description></Message>
+<Message><ID>10123</ID><Description>Could not get field name.</Description></Message>
+<Message><ID>10124</ID><Description>File name not provided.</Description></Message>
+<Message><ID>10125</ID><Description>No points available for selection.</Description></Message>
+<Message><ID>10126</ID><Description>The end day cannot equal the start day for multi-days.</Description></Message>
+<Message><ID>10127</ID><Description>No string field object(s) found.</Description></Message>
+<Message><ID>10128</ID><Description>Conversion is supported only for Point and Multipoint 3D feature classes.</Description></Message>
+<Message><ID>10129</ID><Description>Input raster %1 is invalid. Possibly contains only NODATA cells.</Description></Message>
+<Message><ID>10130</ID><Description>Argument %1 is not a feature class.</Description></Message>
+<Message><ID>10131</ID><Description>Argument %1 is not a feature class, nor a default.</Description></Message>
+<Message><ID>10132</ID><Description>Argument %1 is not a feature class or point file name.</Description></Message>
+<Message><ID>10133</ID><Description>Error while forcing evaluation.</Description></Message>
+<Message><ID>10134</ID><Description>Input does not contain a feature class.</Description></Message>
+<Message><ID>10135</ID><Description>Argument %1 is not a file name.</Description></Message>
+<Message><ID>10136</ID><Description>Argument %1 is neither a file name, nor a default.</Description></Message>
+<Message><ID>10137</ID><Description>%1 is not a raster.</Description></Message>
+<Message><ID>10138</ID><Description>Argument %1 is not a raster nor a default.</Description></Message>
+<Message><ID>10139</ID><Description>Input raster %1 is not integer type.</Description></Message>
+<Message><ID>10140</ID><Description>Argument %1 is not a field, nor a default.</Description></Message>
+<Message><ID>10141</ID><Description>Argument %1 is not a keyword.</Description></Message>
+<Message><ID>10142</ID><Description>Argument %1 is not a keyword nor a default.</Description></Message>
+<Message><ID>10143</ID><Description>Non-negative value is requested.</Description></Message>
+<Message><ID>10144</ID><Description>Argument %1 is not a number.</Description></Message>
+<Message><ID>10145</ID><Description>Argument %1 is not a number, nor a default.</Description></Message>
+<Message><ID>10146</ID><Description>Positive value is requested.</Description></Message>
+<Message><ID>10147</ID><Description>Argument %1 is not a raster.</Description></Message>
+<Message><ID>10148</ID><Description>Argument %1 is neither a table name, nor a default.</Description></Message>
+<Message><ID>10149</ID><Description>Argument %1 is not a table or file name.</Description></Message>
+<Message><ID>10150</ID><Description>Number remap cannot be used with a string field.</Description></Message>
+<Message><ID>10151</ID><Description>No features found in %1. Possible empty feature class.</Description></Message>
+<Message><ID>10152</ID><Description>Object %1 is null.</Description></Message>
+<Message><ID>10153</ID><Description>Argument %1 must be greater than or equal to 0.</Description></Message>
+<Message><ID>10154</ID><Description>Argument %1 must be greater than 0.</Description></Message>
+<Message><ID>10155</ID><Description>Too many points. Maximum number allowed is 16.</Description></Message>
+<Message><ID>10156</ID><Description>The input feature class %1 is not the correct type.</Description></Message>
+<Message><ID>10157</ID><Description>Unable to open feature class %1.</Description></Message>
+<Message><ID>10158</ID><Description>Unable to open file %1.</Description></Message>
+<Message><ID>10159</ID><Description>Unable to open %1 file of %2.</Description></Message>
+<Message><ID>10160</ID><Description>Unable to open raster %1.</Description></Message>
+<Message><ID>10161</ID><Description>Unable to open the mask raster %1.</Description></Message>
+<Message><ID>10162</ID><Description>Unable to open raster dataset %1.</Description></Message>
+<Message><ID>10163</ID><Description>Unable to open stack %1.</Description></Message>
+<Message><ID>10164</ID><Description>Unable to open layer(s) in the stack %1.</Description></Message>
+<Message><ID>10165</ID><Description>Unable to open table %1.</Description></Message>
+<Message><ID>10166</ID><Description>Unable to open %1 file %2.</Description></Message>
+<Message><ID>10167</ID><Description>Could not open workspace %1.</Description></Message>
+<Message><ID>10168</ID><Description>Output %1 already exists.</Description></Message>
+<Message><ID>10169</ID><Description>Row and column do not make pairs or are out of dem boundary.</Description></Message>
+<Message><ID>10170</ID><Description>Unable to add a field.</Description></Message>
+<Message><ID>10171</ID><Description>Argument list is too long.</Description></Message>
+<Message><ID>10172</ID><Description>Incorrect # of arguments.</Description></Message>
+<Message><ID>10173</ID><Description>In IF, the number of outputs exceeds limit %1.</Description></Message>
+<Message><ID>10174</ID><Description>IF recursion exceeds maximum level %1.</Description></Message>
+<Message><ID>10175</ID><Description>Input(s) does not intersect with the current window.</Description></Message>
+<Message><ID>10176</ID><Description>Invalid neighborhood mask.</Description></Message>
+<Message><ID>10177</ID><Description>Neighborhood size exceeds raster size.</Description></Message>
+<Message><ID>10178</ID><Description>Unable to open $$DISPLAY.</Description></Message>
+<Message><ID>10179</ID><Description>Unable to initialize reclass table.</Description></Message>
+<Message><ID>10180</ID><Description>The input expression script exceeds limit %1.</Description></Message>
+<Message><ID>10181</ID><Description>Something is left.</Description></Message>
+<Message><ID>10182</ID><Description>Stack underflow (POP).</Description></Message>
+<Message><ID>10183</ID><Description>Unable to update a field.</Description></Message>
+<Message><ID>10184</ID><Description>Cellsize or analysis window are not set.</Description></Message>
+<Message><ID>10185</ID><Description>PATHDISTANCE: Ambiguous horizontal factor parameters.</Description></Message>
+<Message><ID>10186</ID><Description>PATHDISTANCE: An input angle is larger than 180 degrees in the horizontal factor parameter file.</Description></Message>
+<Message><ID>10187</ID><Description>PATHDISTANCE: An input angle is less than 0 degrees in the horizontal factor parameter file.</Description></Message>
+<Message><ID>10188</ID><Description>PATHDISTANCE: Angles must be sorted in increasing order in the horizontal factor parameter file.</Description></Message>
+<Message><ID>10189</ID><Description>PATHDISTANCE: There is no data in the horizontal factor parameter file.</Description></Message>
+<Message><ID>10190</ID><Description>PATHDISTANCE: Error in horizontal factor modifiers.</Description></Message>
+<Message><ID>10191</ID><Description>PATHDISTANCE: Format error in the horizontal factor parameter file.</Description></Message>
+<Message><ID>10192</ID><Description>PATHDISTANCE: The maximum value in the horizontal factor raster is larger than 360.</Description></Message>
+<Message><ID>10193</ID><Description>PATHDISTANCE: Illegal horizontal factor modifier.</Description></Message>
+<Message><ID>10194</ID><Description>PATHDISTANCE: Undefined horizontal factor parameters.</Description></Message>
+<Message><ID>10195</ID><Description>PATHDISTANCE: Wrong horizontal factor type keyword.</Description></Message>
+<Message><ID>10196</ID><Description>PATHDISTANCE: Ambiguous vertical factor parameters.</Description></Message>
+<Message><ID>10197</ID><Description>PATHDISTANCE: An input angle is larger than 90 degrees in the vertical factor parameter file.</Description></Message>
+<Message><ID>10198</ID><Description>PATHDISTANCE: An input angle is less than -90 degrees in the vertical factor parameter file.</Description></Message>
+<Message><ID>10199</ID><Description>PATHDISTANCE: Angles must be in non-decreasing order in the vertical factor parameter file.</Description></Message>
+<Message><ID>10200</ID><Description>PATHDISTANCE: No data in the vertical factor parameter file.</Description></Message>
+<Message><ID>10201</ID><Description>PATHDISTANCE: Error in vertical factor modifiers.</Description></Message>
+<Message><ID>10202</ID><Description>PATHDISTANCE: Format error in the vertical factor parameter file.</Description></Message>
+<Message><ID>10203</ID><Description>PATHDISTANCE: High cut angle is not between 0 to 90.</Description></Message>
+<Message><ID>10204</ID><Description>PATHDISTANCE: Illegal horizontal factor modifier.</Description></Message>
+<Message><ID>10205</ID><Description>PATHDISTANCE: Low cut angle is not between -90 to 0.</Description></Message>
+<Message><ID>10206</ID><Description>PATHDISTANCE: Undefined vertical factor parameters.</Description></Message>
+<Message><ID>10207</ID><Description>PATHDISTANCE: Wrong vertical factor type keyword.</Description></Message>
+<Message><ID>10208</ID><Description>The PRJ of raster %1 does not match.</Description></Message>
+<Message><ID>10209</ID><Description>%1 and %2 have incompatible projections.</Description></Message>
+<Message><ID>10210</ID><Description>Source location is out of the working window.</Description></Message>
+<Message><ID>10211</ID><Description>Could not open the specified point file %1.</Description></Message>
+<Message><ID>10212</ID><Description>Unable to read %1 from %2.</Description></Message>
+<Message><ID>10213</ID><Description>Error in reading raster %1.</Description></Message>
+<Message><ID>10214</ID><Description>Unable to read %1 of %2.</Description></Message>
+<Message><ID>10215</ID><Description>Unable to read record %1 of file %2.</Description></Message>
+<Message><ID>10216</ID><Description>Error in opening or reading the raster attribute table for %1.</Description></Message>
+<Message><ID>10217</ID><Description>Unable to reclass on the selection set.</Description></Message>
+<Message><ID>10218</ID><Description>Could not reference the raster dataset.</Description></Message>
+<Message><ID>10219</ID><Description>Bad single value remap record. Must have the lowest-output keyword defined.</Description></Message>
+<Message><ID>10220</ID><Description>Duplicate remap record encountered.</Description></Message>
+<Message><ID>10221</ID><Description>Could not fill the string remap records table.</Description></Message>
+<Message><ID>10222</ID><Description>Error occurred while freeing remap object records.</Description></Message>
+<Message><ID>10223</ID><Description>Could not find remap record by specified index.</Description></Message>
+<Message><ID>10224</ID><Description>Encountered multiple (single value, range, etc.) types of remap records in the same file.</Description></Message>
+<Message><ID>10225</ID><Description>A number remap object type is required.</Description></Message>
+<Message><ID>10226</ID><Description>A string remap object type is required.</Description></Message>
+<Message><ID>10227</ID><Description>Encountered an overlap conflict when adding remap records.</Description></Message>
+<Message><ID>10228</ID><Description>Could not find remap record.</Description></Message>
+<Message><ID>10229</ID><Description>Failed to build remap for selected values.</Description></Message>
+<Message><ID>10230</ID><Description>Encountered a simple conflict when adding remap records.</Description></Message>
+<Message><ID>10231</ID><Description>The remap is invalid - possibly unsorted.</Description></Message>
+<Message><ID>10232</ID><Description>Unable to rename a dataset to %1.</Description></Message>
+<Message><ID>10233</ID><Description>Unable to rename dataset %1 to %2.</Description></Message>
+<Message><ID>10234</ID><Description>Reserved field name found in attribute table.</Description></Message>
+<Message><ID>10235</ID><Description>Returned error from %1.</Description></Message>
+<Message><ID>10236</ID><Description>Error in building VAT.</Description></Message>
+<Message><ID>10237</ID><Description>Error in building STA while build VAT.</Description></Message>
+<Message><ID>10238</ID><Description>Unknown input link type: %1.</Description></Message>
+<Message><ID>10239</ID><Description>Unknown input point type: %1.</Description></Message>
+<Message><ID>10240</ID><Description>Could not save raster dataset to %1 with output format %2.</Description></Message>
+<Message><ID>10241</ID><Description>Unable to initialize polygon structure.</Description></Message>
+<Message><ID>10242</ID><Description>Missing intersection points.</Description></Message>
+<Message><ID>10243</ID><Description>Unable to set mask.</Description></Message>
+<Message><ID>10244</ID><Description>Could not set the analysis window.</Description></Message>
+<Message><ID>10245</ID><Description>No feature is selected in %1.</Description></Message>
+<Message><ID>10246</ID><Description>All input points are identical. A valid window must be specified.</Description></Message>
+<Message><ID>10247</ID><Description>The size of the output shapefile exceeds the 2 GB limit.</Description></Message>
+<Message><ID>10248</ID><Description>There are no Spatial Analyst or 3D Analyst licenses currently available or enabled.</Description></Message>
+<Message><ID>10249</ID><Description>Only a single-part polygon (one connected component without holes) is supported.</Description></Message>
+<Message><ID>10250</ID><Description>SLICE: The number of output classes is 0.</Description></Message>
+<Message><ID>10251</ID><Description>SLICE: The number of zones must be larger than 0.</Description></Message>
+<Message><ID>10252</ID><Description>SLICE: The standard deviation interval (%1) is not between 0.25 and 1.0.</Description></Message>
+<Message><ID>10253</ID><Description>The sky size cannot be less than %1.</Description></Message>
+<Message><ID>10254</ID><Description>Error in solar radiation.</Description></Message>
+<Message><ID>10255</ID><Description>String remap must be used with a string field.</Description></Message>
+<Message><ID>10256</ID><Description>Stack %1 and grid %2 are not in the same workspace.</Description></Message>
+<Message><ID>10257</ID><Description>Raster %1 does not exist.</Description></Message>
+<Message><ID>10258</ID><Description>Argument %1 is neither a raster name, nor a default.</Description></Message>
+<Message><ID>10259</ID><Description>Unable to select layers for stack %1.</Description></Message>
+<Message><ID>10260</ID><Description>Unsupported statistics type.</Description></Message>
+<Message><ID>10261</ID><Description>Unsupported statistics type for a float-type weight raster.</Description></Message>
+<Message><ID>10262</ID><Description>A string field is not allowed for this operation.</Description></Message>
+<Message><ID>10263</ID><Description>An un-supported shape type.</Description></Message>
+<Message><ID>10264</ID><Description>Altitude must be in the 0-90 range.</Description></Message>
+<Message><ID>10265</ID><Description>Azimuth must be in the 0-360 range.</Description></Message>
+<Message><ID>10266</ID><Description>OBSERVERS option not available for LINE features.</Description></Message>
+<Message><ID>10267</ID><Description>Syntax error in parsing grid expression.</Description></Message>
+<Message><ID>10268</ID><Description>Fail to add field %1 into table %2.</Description></Message>
+<Message><ID>10269</ID><Description>Field %1 does not exist.</Description></Message>
+<Message><ID>10270</ID><Description>The field type %1 is invalid.</Description></Message>
+<Message><ID>10271</ID><Description>Raster %1 does not have an attribute table).</Description></Message>
+<Message><ID>10272</ID><Description>Unable to open file %1 with field %2.</Description></Message>
+<Message><ID>10273</ID><Description>Error in reading table.</Description></Message>
+<Message><ID>10274</ID><Description>Error in writing to table.</Description></Message>
+<Message><ID>10275</ID><Description>The Contour Option %1 in the TopoToRaster parameter file is invalid.</Description></Message>
+<Message><ID>10276</ID><Description>Too many points in the boundary polygon %1.</Description></Message>
+<Message><ID>10277</ID><Description>Too many points in the contour polyline %1.</Description></Message>
+<Message><ID>10278</ID><Description>Too many points in the lake polygon %1.</Description></Message>
+<Message><ID>10279</ID><Description>Unable to allocate %1 megabytes of memory.</Description></Message>
+<Message><ID>10280</ID><Description>No point nor contour elevation input data in TopoToRaster.</Description></Message>
+<Message><ID>10281</ID><Description>Unable to read the value for keyword %1 in the parameter file.</Description></Message>
+<Message><ID>10282</ID><Description>Too many points in the stream polyline %1.</Description></Message>
+<Message><ID>10283</ID><Description>Invalid Z range. The Z range of inputs is zmin=%1 and zmax=%2.</Description></Message>
+<Message><ID>10284</ID><Description>Shape error %1.</Description></Message>
+<Message><ID>10285</ID><Description>Invalid Links : Negative Scale Factor.</Description></Message>
+<Message><ID>10286</ID><Description>Incorrect polynomial transformation.</Description></Message>
+<Message><ID>10287</ID><Description>Unable to resample raster %1.</Description></Message>
+<Message><ID>10288</ID><Description>Invalid rotation angle %1.</Description></Message>
+<Message><ID>10289</ID><Description>Unable to set the input window.</Description></Message>
+<Message><ID>10290</ID><Description>Unable to set the output window.</Description></Message>
+<Message><ID>10291</ID><Description>Unary operation %1 failed.</Description></Message>
+<Message><ID>10292</ID><Description>Could not unbind raster with specified symbol.</Description></Message>
+<Message><ID>10293</ID><Description>Unknown keyword %1 in the parameter file.</Description></Message>
+<Message><ID>10294</ID><Description>Feature inputs are currently not supported for this function/method.</Description></Message>
+<Message><ID>10295</ID><Description>Error in writing file %1.</Description></Message>
+<Message><ID>10296</ID><Description>Error in writing raster %1.</Description></Message>
+<Message><ID>10297</ID><Description>The maximum thickness must larger than 1.</Description></Message>
+<Message><ID>10298</ID><Description>Unable to allocate memory.</Description></Message>
+<Message><ID>10299</ID><Description>Incorrect # of arguments.</Description></Message>
+<Message><ID>10300</ID><Description>Assignment to a predefined constant.</Description></Message>
+<Message><ID>10301</ID><Description>Combinatorial operator overflow.</Description></Message>
+<Message><ID>10302</ID><Description>Unable to create the output raster</Description></Message>
+<Message><ID>10303</ID><Description>Incorrect data types.</Description></Message>
+<Message><ID>10304</ID><Description>Unable to run FOCAL functions in DOCELL block.</Description></Message>
+<Message><ID>10305</ID><Description>Unable to erase</Description></Message>
+<Message><ID>10306</ID><Description>YACC stack overflow at or near symbol %1.</Description></Message>
+<Message><ID>10307</ID><Description>Unable to initialize point set.</Description></Message>
+<Message><ID>10308</ID><Description>Invalid Irregular neighborhood mask:</Description></Message>
+<Message><ID>10309</ID><Description>Unable to construct a LOOKUP expression.</Description></Message>
+<Message><ID>10310</ID><Description>Lookup table overflow.</Description></Message>
+<Message><ID>10311</ID><Description>Missing \\&apos;=\\&apos; at or near symbol %1.</Description></Message>
+<Message><ID>10312</ID><Description>Missing \\&apos;(\\&apos; at or near symbol %1.</Description></Message>
+<Message><ID>10313</ID><Description>Missing \\&apos;)\\&apos; at or near symbol %1.</Description></Message>
+<Message><ID>10314</ID><Description>Multiple assignment at or near symbol %1.</Description></Message>
+<Message><ID>10315</ID><Description>Unable to open file</Description></Message>
+<Message><ID>10316</ID><Description>Unable to open the input raster</Description></Message>
+<Message><ID>10317</ID><Description>Unable to open the mask raster</Description></Message>
+<Message><ID>10318</ID><Description>Unable to open script file</Description></Message>
+<Message><ID>10319</ID><Description>Overwrite input raster</Description></Message>
+<Message><ID>10320</ID><Description>No room for another point set.</Description></Message>
+<Message><ID>10321</ID><Description>No room for another polygon.</Description></Message>
+<Message><ID>10322</ID><Description>Unable to read BND from grid or invalid extent from a raster</Description></Message>
+<Message><ID>10323</ID><Description>Error in reading color map</Description></Message>
+<Message><ID>10324</ID><Description>Error in reading file</Description></Message>
+<Message><ID>10325</ID><Description>Run-time error - ***.</Description></Message>
+<Message><ID>10326</ID><Description>Unable to construct a SELECT expression.</Description></Message>
+<Message><ID>10327</ID><Description>Unable to set analysis window.</Description></Message>
+<Message><ID>10328</ID><Description>Syntax error at or near symbol %1.</Description></Message>
+<Message><ID>10329</ID><Description>near line</Description></Message>
+<Message><ID>10330</ID><Description>at or near symbol</Description></Message>
+<Message><ID>10331</ID><Description>Unable to construct a TEST expression.</Description></Message>
+<Message><ID>10332</ID><Description>Unknown keyword</Description></Message>
+<Message><ID>10333</ID><Description>Invalid Weight neighborhood mask:</Description></Message>
+<Message><ID>10334</ID><Description>Cellsize or analysis window are not set.</Description></Message>
+<Message><ID>10335</ID><Description>Collinear points are dropped.</Description></Message>
+<Message><ID>10336</ID><Description>Unable to copy projection file for %1.</Description></Message>
+<Message><ID>10337</ID><Description>Bad line: %1.</Description></Message>
+<Message><ID>10338</ID><Description>Name too long: %1.</Description></Message>
+<Message><ID>10339</ID><Description>Missing name quote(s).</Description></Message>
+<Message><ID>10340</ID><Description>Snap raster %1 does not exist; No snapping.</Description></Message>
+<Message><ID>10341</ID><Description>Assuming BND is correct....</Description></Message>
+<Message><ID>10342</ID><Description>Discrepancy in header BND (%1) and number of profiles information (%2).</Description></Message>
+<Message><ID>10343</ID><Description>Profile %1 violates the BND. Extra points are ignored.</Description></Message>
+<Message><ID>10344</ID><Description>Resampling DEM with a sampling distance of %1.</Description></Message>
+<Message><ID>10345</ID><Description>Truncating resulting lattice.</Description></Message>
+<Message><ID>10346</ID><Description>ZMax of DEM not accurate (%1); reset to (%2).</Description></Message>
+<Message><ID>10347</ID><Description>ZMin of DEM not accurate (%1); reset to (%2).</Description></Message>
+<Message><ID>10348</ID><Description>%1 FROM cells are at absolute barriers.</Description></Message>
+<Message><ID>10349</ID><Description>%1 zones are completely on absolute barriers.</Description></Message>
+<Message><ID>10350</ID><Description>Found %1 coord in accuracy sub region %2, expect 3 to 14.</Description></Message>
+<Message><ID>10351</ID><Description>Found %1 accuracy sub region(s), expect 0 or 2 to 9.</Description></Message>
+<Message><ID>10352</ID><Description>The programs may not run well with max_thickness greater than 40 cells.</Description></Message>
+<Message><ID>10353</ID><Description>The environmental cell size is ignored.</Description></Message>
+<Message><ID>10354</ID><Description>The environmental mask is ignored.</Description></Message>
+<Message><ID>10355</ID><Description>The environmental window is ignored.</Description></Message>
+<Message><ID>10356</ID><Description>Incomplete index/grid-name list.</Description></Message>
+<Message><ID>10357</ID><Description>The number of layers in the index/grid-name list does not match the number of the layers in the signature file.</Description></Message>
+<Message><ID>10358</ID><Description>No field has been merged.</Description></Message>
+<Message><ID>10359</ID><Description>Odd # of intersecting points (%1).</Description></Message>
+<Message><ID>10360</ID><Description>Particle track has migrated into a depression.</Description></Message>
+<Message><ID>10361</ID><Description>Particle track has migrated into a cell of zero magnitude.</Description></Message>
+<Message><ID>10362</ID><Description>Particle track has migrated out of the working window.</Description></Message>
+<Message><ID>10363</ID><Description>Time of migration out of bounds (infinity).</Description></Message>
+<Message><ID>10364</ID><Description>Time of migration out of bounds ( %1 ).</Description></Message>
+<Message><ID>10365</ID><Description>A value has a count of more than 2 billion in the multi-tiled grid. Unable to build VAT.</Description></Message>
+<Message><ID>10366</ID><Description>All cells in a raster have NODATA value. VAT will not be built.</Description></Message>
+<Message><ID>10367</ID><Description>Both the value range and the number of unique values exceed limits. Please use BUILDVAT if a VAT is required.</Description></Message>
+<Message><ID>10368</ID><Description>Duplicated point (%1 %2 %3) is deleted.</Description></Message>
+<Message><ID>10369</ID><Description>Point (%1 %2 %3) is outside window.</Description></Message>
+<Message><ID>10370</ID><Description>The number of points per region exceeds the limit of %1.</Description></Message>
+<Message><ID>10371</ID><Description>Observer at %1, %2, %3 is below surface (%4).</Description></Message>
+<Message><ID>10372</ID><Description>The centroid of zone %1 is covered by that of zone %2.</Description></Message>
+<Message><ID>10373</ID><Description>PATHDISTANCE: Horizontal cut angle must be larger than 0 and smaller than 181.</Description></Message>
+<Message><ID>10374</ID><Description>Error loading remap table.</Description></Message>
+<Message><ID>10375</ID><Description>REMAP: Improper remap format.</Description></Message>
+<Message><ID>10376</ID><Description>REMAP: A value is not numeric.</Description></Message>
+<Message><ID>10377</ID><Description>REMAP: An output value is not an integer.</Description></Message>
+<Message><ID>10378</ID><Description>Range, Sill and Nugget must be specified together.</Description></Message>
+<Message><ID>10379</ID><Description>The value is not a remap.</Description></Message>
+<Message><ID>10380</ID><Description>Invalid remap type.</Description></Message>
+<Message><ID>10381</ID><Description>The value is not a name string.</Description></Message>
+<Message><ID>10382</ID><Description>The name is too long.</Description></Message>
+<Message><ID>10383</ID><Description>The name is not alphanumeric.</Description></Message>
+<Message><ID>10384</ID><Description>The value is not a neighborhood.</Description></Message>
+<Message><ID>10385</ID><Description>Invalid neighborhood type.</Description></Message>
+<Message><ID>10386</ID><Description>The value is not a DETable.</Description></Message>
+<Message><ID>10387</ID><Description>Invalid extension.</Description></Message>
+<Message><ID>10388</ID><Description>The value is not a weighted overlay table.</Description></Message>
+<Message><ID>10389</ID><Description>The value is not a time configuration.</Description></Message>
+<Message><ID>10390</ID><Description>Invalid time configuration.</Description></Message>
+<Message><ID>10391</ID><Description>Kernel file is not provided or does not exist.</Description></Message>
+<Message><ID>10392</ID><Description>%1!s!: %2!s! is not valid a function or operator.</Description></Message>
+<Message><ID>10393</ID><Description>%1!s!: Syntax error at the end location %2!d! of expression %3!s!.</Description></Message>
+<Message><ID>10394</ID><Description>%1!s!: Syntax error at location %2!d! (around %3!s!) of expression %4!s!.</Description></Message>
+<Message><ID>10395</ID><Description>%1!s!: Syntax error between locations %2!d! and %3!d! (%4!s!) of expression %5!s!.</Description></Message>
+<Message><ID>10396</ID><Description>Field %1!s! does not exist in %2!s!.</Description></Message>
+<Message><ID>10397</ID><Description>Unable to get a proper raster renderer.</Description></Message>
+<Message><ID>10398</ID><Description>Unable to match values of the original and the converted ZONE inputs in Zonal Histogram.</Description></Message>
+<Message><ID>10399</ID><Description>Unable to match values of the original and the converted VALUE inputs in Zonal Histogram.</Description></Message>
+<Message><ID>10400</ID><Description>No zone is found in the ZONE input in Zonal Histogram.</Description></Message>
+<Message><ID>10401</ID><Description>No value is found in the VALUE input in Zonal Histogram.</Description></Message>
+<Message><ID>10402</ID><Description>The values of %1 are outisde the 32 bit integer range.</Description></Message>
+<Message><ID>10403</ID><Description>The values of the input raster are outside the 32 bit integer range.</Description></Message>
+<Message><ID>10404</ID><Description>%1 is not supported on non-Windows platforms.</Description></Message>
+<Message><ID>10405</ID><Description>Unable to create stack from expression %1.</Description></Message>
+<Message><ID>10406</ID><Description>Failed to add an input symbol to the symbol table.</Description></Message>
+<Message><ID>10407</ID><Description>Failed to add an output symbol to the symbol table.</Description></Message>
+<Message><ID>10408</ID><Description>Unable to get data of symbol %1 in the symbol table.</Description></Message>
+<Message><ID>10409</ID><Description>Unable to create data for symbol %1 in the symbol table.</Description></Message>
+<Message><ID>10410</ID><Description>Invalid symbol %1 for the symbol table.</Description></Message>
+<Message><ID>10411</ID><Description>Error in accessing symbol %1 in the symbol table.</Description></Message>
+<Message><ID>10412</ID><Description>Error in accessing channel %1!d! in the symbol table.</Description></Message>
+<Message><ID>10414</ID><Description>Error in creating a Raster from a geodataset.</Description></Message>
+<Message><ID>10415</ID><Description>Invalid fuzzy function type.</Description></Message>
+<Message><ID>10416</ID><Description>Error in setting raster table filter for %1!s!.</Description></Message>
+<Message><ID>10417</ID><Description>The number of table records exceeds the hash table limit of raster table filter: %1!d!.</Description></Message>
+<Message><ID>10418</ID><Description>The input feature data has less than the minimum number of points, %1, as required by the operation.</Description></Message>
+<Message><ID>10419</ID><Description>Unable to build the attribute table of %1 as required by the operation.</Description></Message>
+<Message><ID>10420</ID><Description>There are values in the input position raster that are outside the range of 1 to the total number of input raster bands.</Description></Message>
+<Message><ID>10421</ID><Description>Invalid environment object or its settings.</Description></Message>
+<Message><ID>10422</ID><Description>Error in processing the environment mask.</Description></Message>
+<Message><ID>10423</ID><Description>%1 does not have valid statistics as required by the operation.</Description></Message>
+<Message><ID>10424</ID><Description>The length of a Grid or Coverage path name %1 exceeds 128.</Description></Message>
+<Message><ID>10425</ID><Description>Earth curvature correction is not supported when the input surface raster is in a Geographic Coordinate System.</Description></Message>
+<Message><ID>10426</ID><Description>Failed to create feature class %1!s!.</Description></Message>
+<Message><ID>10427</ID><Description>Error in writing to feature class %1!s!.</Description></Message>
+<Message><ID>10428</ID><Description>Multipoint feature inputs are not supported.</Description></Message>
+<Message><ID>10429</ID><Description>Error in GRID IO: %1!s!.</Description></Message>
+<Message><ID>10430</ID><Description>The number of input raster bands exceeds the limit of %1.</Description></Message>
+<Message><ID>10431</ID><Description>%1!s!: Remap table is based on values sampled using a skip factor greater than one.</Description></Message>
+<Message><ID>10432</ID><Description>Field %1 is being used for more than one attribute.</Description></Message>
+<Message><ID>10433</ID><Description>%1 cannot be larger than or same as %2.</Description></Message>
+<Message><ID>10434</ID><Description>Invalid transformation function type.</Description></Message>
+<Message><ID>10435</ID><Description>The Lower threshold must be less than the Upper threshold.</Description></Message>
+<Message><ID>10436</ID><Description>Spread must be greater than 0.</Description></Message>
+<Message><ID>10437</ID><Description>Mean multiplier must be greater than 0.</Description></Message>
+<Message><ID>10438</ID><Description>Standard deviation multiplier must be greater than 0.</Description></Message>
+<Message><ID>10439</ID><Description>Maximum and Minimum cannot be equal.</Description></Message>
+<Message><ID>10440</ID><Description>Base factor cannot be 0.</Description></Message>
+<Message><ID>10441</ID><Description>Factor must be greater than 0.</Description></Message>
+<Message><ID>10442</ID><Description>Exponent cannot be 0.</Description></Message>
+<Message><ID>10443</ID><Description>Maximum must be greater than Minimum.</Description></Message>
+<Message><ID>10444</ID><Description>Y-intercept percent must be between 0 and 50.</Description></Message>
+<Message><ID>10445</ID><Description>Y-intercept percent must be between 50 and 100.</Description></Message>
+<Message><ID>10446</ID><Description>No valid statistics exist to set default parameters. Click Calculate Stats button to obtain valid statistics.</Description></Message>
+<Message><ID>10447</ID><Description>Exponent of 1 reduces power function to linear function.</Description></Message>
+<Message><ID>10448</ID><Description>Midpoint must be greater than 0.</Description></Message>
+<Message><ID>10449</ID><Description>Tolerance 2 must be 6 times larger than or equal to tolerance 1.</Description></Message>
+<Message><ID>10450</ID><Description>The default %1 computed was: %2 %3.</Description></Message></Messages>

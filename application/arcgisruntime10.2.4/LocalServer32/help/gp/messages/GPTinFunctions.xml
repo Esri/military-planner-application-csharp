@@ -1,0 +1,102 @@
+<Messages STARTID="50000">
+<Message><ID>50001</ID><Description>Error adding Feature Class to TIN</Description></Message>
+<Message><ID>50002</ID><Description>Error in calulating surface area and volume\n</Description></Message>
+<Message><ID>50003</ID><Description>Error getting classes from %s</Description></Message>
+<Message><ID>50004</ID><Description>Failed to clip TIN</Description></Message>
+<Message><ID>50005</ID><Description>Error creating output fields</Description></Message>
+<Message><ID>50010</ID><Description>Invalid decimate method</Description></Message>
+<Message><ID>50011</ID><Description>Error getting Decimate method</Description></Message>
+<Message><ID>50012</ID><Description>Error setting text into decimate method</Description></Message>
+<Message><ID>50013</ID><Description>Error decoding feature layer</Description></Message>
+<Message><ID>50014</ID><Description>Cannot edit TIN</Description></Message>
+<Message><ID>50015</ID><Description>Error extracting TIN from Terrain.</Description></Message>
+<Message><ID>50016</ID><Description>Feature layer must be of type point, line, polygon, or multipatch</Description></Message>
+<Message><ID>50017</ID><Description>Geometry Outside Domain Extents -- try AutoExtents or change Spatial Extents</Description></Message>
+<Message><ID>50018</ID><Description>Error in height field name</Description></Message>
+<Message><ID>50019</ID><Description>Invalid cell size specified</Description></Message>
+<Message><ID>50021</ID><Description>Invalid input extent specified</Description></Message>
+<Message><ID>50022</ID><Description>Invalid pyramid level definition</Description></Message>
+<Message><ID>50026</ID><Description>Invalid Terrain container</Description></Message>
+<Message><ID>50027</ID><Description>Invalid Terrain data source name</Description></Message>
+<Message><ID>50032</ID><Description>Maximum number of data points has been reached</Description></Message>
+<Message><ID>50033</ID><Description>LAS attributes are not permitted in shapefiles.</Description></Message>
+<Message><ID>50035</ID><Description>No features were added to the TIN</Description></Message>
+<Message><ID>50036</ID><Description>Files do not exist.</Description></Message>
+<Message><ID>50038</ID><Description>No Valid Files</Description></Message>
+<Message><ID>50039</ID><Description>%s is not a Point Feature Class</Description></Message>
+<Message><ID>50040</ID><Description>%s is not a Polyline Feature Class</Description></Message>
+<Message><ID>50043</ID><Description>Point feature layer does not have 3D symbols</Description></Message>
+<Message><ID>50044</ID><Description>Failed to get Raster 3D domain</Description></Message>
+<Message><ID>50045</ID><Description>Failed to add Raster domain</Description></Message>
+<Message><ID>50046</ID><Description>Error reading file: %1!s!;  Line: %2!s!</Description></Message>
+<Message><ID>50047</ID><Description>Error saving TIN</Description></Message>
+<Message><ID>50048</ID><Description>The TIN will be too big.  TIN extraction canceled.</Description></Message>
+<Message><ID>50049</ID><Description>xMax is less than xMin</Description></Message>
+<Message><ID>50050</ID><Description>yMax is less than yMin</Description></Message>
+<Message><ID>50051</ID><Description>zMax is less than zMin</Description></Message>
+<Message><ID>50052</ID><Description>Unsupported spatial reference.  TIN will be saved without projection information.</Description></Message>
+<Message><ID>50053</ID><Description>A localized precision related problem was encountered during surface construction. This issue was bypassed and the rasterization process was run to completion.</Description></Message>
+<Message><ID>50054</ID><Description>Shapefiles do not support blob fields.  Intensity values will not be maintained.</Description></Message>
+<Message><ID>50055</ID><Description>Delimeter must be SPACE if decimal separator is DECIMAL_COMMA.</Description></Message>
+<Message><ID>50056</ID><Description>Value must be less than number of input TIN nodes.</Description></Message>
+<Message><ID>50057</ID><Description>One or more folders were specified for input. A file suffix is required when folders are used.</Description></Message>
+<Message><ID>50058</ID><Description>Missing HILLSHADE keyword.</Description></Message>
+<Message><ID>50059</ID><Description>Invalid keyword/value pair.</Description></Message>
+<Message><ID>50060</ID><Description>Multiple clip layers specified. Change settings so only one layer is entered for clipping.</Description></Message>
+<Message><ID>50061</ID><Description>Input terrain has no pyramid levels defined.</Description></Message>
+<Message><ID>50062</ID><Description>Value cannot be zero.</Description></Message>
+<Message><ID>50063</ID><Description>The Input Feature Dataset parameter must have a projected coordinate system.</Description></Message>
+<Message><ID>50064</ID><Description>Pyramid level definition must be defined by a pair of values.</Description></Message>
+<Message><ID>50065</ID><Description>Resolution must be greater than 0.</Description></Message>
+<Message><ID>50066</ID><Description>Scale must be greater than 0.</Description></Message>
+<Message><ID>50067</ID><Description>Minimum resolution must be less than or equal to maximum resolution.</Description></Message>
+<Message><ID>50068</ID><Description>Cannot perform schema edits on a versioned terrain.</Description></Message>
+<Message><ID>50069</ID><Description>Cannot perform a build involving schema edits on a versioned terrain.</Description></Message>
+<Message><ID>50070</ID><Description>For XYZI input, output must be MULTIPOINT or POINT.</Description></Message>
+<Message><ID>50071</ID><Description>Input feature classes must reside in the same feature dataset as input Terrain dataset.</Description></Message>
+<Message><ID>50072</ID><Description>Maximum window size exceeded. The largest that can be used with data of this point spacing is %d.</Description></Message>
+<Message><ID>50073</ID><Description>Minimum window size exceeded. The smallest that can be used with data of this point spacing is %d.</Description></Message>
+<Message><ID>50074</ID><Description>Terrain creation not supported in this release of the geodatabase.</Description></Message>
+<Message><ID>50075</ID><Description>A window size pyramid type is not supported by this release of the geodatabase.</Description></Message>
+<Message><ID>50076</ID><Description>LAST_RETURNS value cannot be combined with other return values.</Description></Message>
+<Message><ID>50077</ID><Description>Terrain does not reference any feature classes that can have their pyramid resolution bounds changed.</Description></Message>
+<Message><ID>50078</ID><Description>KERNEL value out of range.</Description></Message>
+<Message><ID>50079</ID><Description>The index interval must be evenly divisible by the contour interval.</Description></Message>
+<Message><ID>50080</ID><Description>Intersect failed in %1!s!, OID: %2!d!, %3!d!, result is NOT simple.</Description></Message>
+<Message><ID>50081</ID><Description>Intersect failed in %1!s!, OID: %2!d!, %3!d!.</Description></Message>
+<Message><ID>50082</ID><Description>Intersect failed in %1!s!, OID: %2!d!, and %3!s!, OID: %4!d!, result is NOT simple.</Description></Message>
+<Message><ID>50083</ID><Description>Intersect failed in %1!s!, OID: %2!d!, and %3!s!, OID: %4!d!.</Description></Message>
+<Message><ID>50084</ID><Description>No Intersect result generated.</Description></Message>
+<Message><ID>50085</ID><Description>Non-closed feature ignored in %1!s!, OID: %2!d!.</Description></Message>
+<Message><ID>50086</ID><Description>Invalid feature ignored in %1!s!, OID: %2!d!.</Description></Message>
+<Message><ID>50087</ID><Description>Union failed, result is NOT simple.</Description></Message>
+<Message><ID>50088</ID><Description>Union failed.</Description></Message>
+<Message><ID>50089</ID><Description>No Union result generated.</Description></Message>
+<Message><ID>50090</ID><Description>Cannot determine whether %1!s!, OID: %2!d! is inside %3!s!, OID: %4!d!.</Description></Message>
+<Message><ID>50091</ID><Description>Cannot perform data edits on non-versioned terrain.</Description></Message>
+<Message><ID>50092</ID><Description>Outlier cap of %s reached. Tool execution halted before entire area of interest processed.</Description></Message>
+<Message><ID>50093</ID><Description>Memory use for terrain analysis has been minimized via the environment settings. This may affect performance.</Description></Message>
+<Message><ID>50094</ID><Description>One or more features with NULL shapes or Z values were encountered and ignored.</Description></Message>
+<Message><ID>50095</ID><Description>The TIN has no triangle tags.</Description></Message>
+<Message><ID>50096</ID><Description>Both observer and target height sources must either be set to fields or to 'None'.</Description></Message>
+<Message><ID>50097</ID><Description>Difference failed when subtracting from %1!s!, OID: %2!d!, result is NOT simple.</Description></Message>
+<Message><ID>50098</ID><Description>Difference failed when subtracting from %1!s!, OID: %2!d!.</Description></Message>
+<Message><ID>50099</ID><Description>No Difference result generated.</Description></Message>
+<Message><ID>50100</ID><Description>Could not save TIN in the specified version, using current version.</Description></Message>
+<Message><ID>50101</ID><Description>The terrain needs to be built before it can be used with this tool.</Description></Message>
+<Message><ID>50102</ID><Description>Field %s already exists. Values will be overwritten.</Description></Message>
+<Message><ID>50103</ID><Description>At least one outlier method must be selected.</Description></Message>
+<Message><ID>50104</ID><Description>Input TIN has no breaklines. Output feature class will be empty.</Description></Message>
+<Message><ID>50105</ID><Description>Buffer failed in %1!s!, OID: %2!d!.</Description></Message>
+<Message><ID>50106</ID><Description>Too many points have been chosen to build a TIN. Either increase the amount of thinning or increase the maximum allowed output size.</Description></Message>
+<Message><ID>50107</ID><Description>Error getting Interpolation Type.</Description></Message>
+<Message><ID>50108</ID><Description>Improved LAS point spacing estimate is not performed.</Description></Message>
+<Message><ID>50109</ID><Description>One or more invalid or unsupported LAS files present in folder.</Description></Message>
+<Message><ID>50110</ID><Description>The input polylines must be 3D.</Description></Message>
+<Message><ID>50111</ID><Description>The output may not match the input exactly because one or more precision issues were encountered and needed to be resolved.</Description></Message>
+<Message><ID>50112</ID><Description>The output coordinate system is angular; this is not recommended. TINs should be made using projected coordinate systems.</Description></Message>
+<Message><ID>50113</ID><Description>%s input features had null geometries; no output features were generated from them.</Description></Message>
+<Message><ID>50114</ID><Description>%s input geometries were not interpolated, possibly due to not being within the surface extent.</Description></Message>
+<Message><ID>50115</ID><Description>Grid size %1!s! is used for OID: %2!d!.</Description></Message>
+<Message><ID>50116</ID><Description>Failed to enclose feature OID: %d. Please consider using larger grid size.</Description></Message>
+</Messages>

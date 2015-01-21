@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Messages STARTID='30001'>
+<Message><ID>30001</ID><Description>Parameter not a network analysis layer, or is a disconnected layer.</Description></Message>
+<Message><ID>30002</ID><Description>Error creating analysis context.</Description></Message>
+<Message><ID>30003</ID><Description>Failed to create locator from agents.</Description></Message>
+<Message><ID>30004</ID><Description>Failed to create location field agent.</Description></Message>
+<Message><ID>30005</ID><Description>Failed to start an edit session.</Description></Message>
+<Message><ID>30006</ID><Description>Could not remove all existing locations.</Description></Message>
+<Message><ID>30007</ID><Description>Sort field %s does not exist on table.</Description></Message>
+<Message><ID>30008</ID><Description>Failed to load locations.</Description></Message>
+<Message><ID>30009</ID><Description>Failed to stop the edit session.</Description></Message>
+<Message><ID>30010</ID><Description>Table %s is being edited.</Description></Message>
+<Message><ID>30011</ID><Description>Table %s is not editable.</Description></Message>
+<Message><ID>30012</ID><Description>Unable to add field %s.</Description></Message>
+<Message><ID>30013</ID><Description>Table is not editable.</Description></Message>
+<Message><ID>30014</ID><Description>Failed to get record count.</Description></Message>
+<Message><ID>30015</ID><Description>Failed to get update cursor.</Description></Message>
+<Message><ID>30016</ID><Description>Could not fetch field indexes from table.</Description></Message>
+<Message><ID>30017</ID><Description>Failed to add fields.</Description></Message>
+<Message><ID>30018</ID><Description>Network analysis layer is not supported.</Description></Message>
+<Message><ID>30019</ID><Description>Could not get Directions from StreetAgent.</Description></Message>
+<Message><ID>30020</ID><Description>Failed to generate directions.</Description></Message>
+<Message><ID>30021</ID><Description>Unable to save XML file.</Description></Message>
+<Message><ID>30022</ID><Description>Failed creating internal layer.</Description></Message>
+<Message><ID>30023</ID><Description>Solve operation cancelled by user.</Description></Message>
+<Message><ID>30024</ID><Description>Solve returned a failure.</Description></Message>
+<Message><ID>30025</ID><Description>Partial solution generated.</Description></Message>
+<Message><ID>30026</ID><Description>The network workspace is being edited.</Description></Message>
+<Message><ID>30027</ID><Description>The turn feature class is being edited.</Description></Message>
+<Message><ID>30028</ID><Description>Could not find any edge feature sources with a field named %s or the field types are not the same among the edge feature sources with this field name.</Description></Message>
+<Message><ID>30029</ID><Description>The field type for field(s) named %s cannot be used as an alternate ID reference.</Description></Message>
+<Message><ID>30030</ID><Description>Error adding AltID fields.</Description></Message>
+<Message><ID>30031</ID><Description>Could not find a field named %1 in the %2 turn feature class.</Description></Message>
+<Message><ID>30032</ID><Description>Mid-to-High break value must be less than Low-to-Mid break value.</Description></Message>
+<Message><ID>30033</ID><Description>Parameter does not contain a network dataset data element.</Description></Message>
+<Message><ID>30034</ID><Description>%s is not a valid member of the domain.</Description></Message>
+<Message><ID>30035</ID><Description>A data element with this name exists.</Description></Message>
+<Message><ID>30036</ID><Description>A layer with this name exists.</Description></Message>
+<Message><ID>30037</ID><Description>Hierarchy settings - empty string.</Description></Message>
+<Message><ID>30038</ID><Description>Hierarchy settings: integer expected.</Description></Message>
+<Message><ID>30039</ID><Description>Hierarchy settings: value must be greater than or equal to zero.</Description></Message>
+<Message><ID>30040</ID><Description>Field length must be specified.</Description></Message>
+<Message><ID>30041</ID><Description>Field scale must be specified.</Description></Message>
+<Message><ID>30042</ID><Description>Field precision must be specified.</Description></Message>
+<Message><ID>30043</ID><Description>Illegal ring value: %s.</Description></Message>
+<Message><ID>30044</ID><Description>Could not decode keyword into geometry hit part %s.</Description></Message>
+<Message><ID>30045</ID><Description>Could not convert length unit.</Description></Message>
+<Message><ID>30046</ID><Description>Could not construct locator feature agents for the network.</Description></Message>
+<Message><ID>30047</ID><Description>Not all network location fields have a field mapping or default value.</Description></Message>
+<Message><ID>30048</ID><Description>Missing location field: %s.</Description></Message>
+<Message><ID>30049</ID><Description>Ring values must be greater than zero.</Description></Message>
+<Message><ID>30050</ID><Description>Could not construct locator - no agents.</Description></Message>
+<Message><ID>30051</ID><Description>Could not construct source subtype array.</Description></Message>
+<Message><ID>30052</ID><Description>Subtype code not found for subtype name %s.</Description></Message>
+<Message><ID>30053</ID><Description>No locator agents specified - cannot perform search.</Description></Message>
+<Message><ID>30054</ID><Description>Network has no cost attributes.</Description></Message>
+<Message><ID>30055</ID><Description>Network dataset does not support directions.</Description></Message>
+<Message><ID>30056</ID><Description>Analysis context does not have a default locator.</Description></Message>
+<Message><ID>30057</ID><Description>Value must be greater than zero.</Description></Message>
+<Message><ID>30058</ID><Description>Network has no sources.</Description></Message>
+<Message><ID>30059</ID><Description>No sublayers found.</Description></Message>
+<Message><ID>30060</ID><Description>Could not open network %s.</Description></Message>
+<Message><ID>30061</ID><Description>Dataset %s is not a network dataset.</Description></Message>
+<Message><ID>30062</ID><Description>The network is not buildable.</Description></Message>
+<Message><ID>30063</ID><Description>Failed to refresh the list of locator agents.</Description></Message>
+<Message><ID>30064</ID><Description>Error in setting solver properties.</Description></Message>
+<Message><ID>30065</ID><Description>Search tolerance must be greater than or equal to zero.</Description></Message>
+<Message><ID>30066</ID><Description>Updates to the object ID field are not allowed.</Description></Message>
+<Message><ID>30067</ID><Description>The value "%1" is not a %2.</Description></Message>
+<Message><ID>30068</ID><Description>Maximum edges must be at least %1 and at most %2.</Description></Message>
+<Message><ID>30069</ID><Description>Maximum edges is already set to the maximum allowed value.</Description></Message>
+<Message><ID>30070</ID><Description>Invalid network dataset type.</Description></Message>
+<Message><ID>30071</ID><Description>Error in setting solver properties.</Description></Message>
+<Message><ID>30072</ID><Description>Output %s already exists.</Description></Message>
+<Message><ID>30073</ID><Description>Network has no turn feature classes.</Description></Message>
+<Message><ID>30074</ID><Description>Could not create turn feature class.</Description></Message>
+<Message><ID>30075</ID><Description>Value cannot be less than zero.</Description></Message>
+<Message><ID>30076</ID><Description>Could not delete existing turn feature class.</Description></Message>
+<Message><ID>30077</ID><Description>Impedance parameter cannot be zero.</Description></Message>
+<Message><ID>30078</ID><Description>Target market share must be greater than zero and less than or equal to 100.</Description></Message>
+<Message><ID>30079</ID><Description>Turn Feature Class must enable Z values if the Network Dataset is Z-aware.</Description></Message>
+<Message><ID>30080</ID><Description>Network Dataset must have only one Edge Source.</Description></Message>
+<Message><ID>30081</ID><Description>Location ranges can only be calculated for Geodatabase line and polygon feature classes.</Description></Message>
+<Message><ID>30082</ID><Description>Locations property can only be mapped by itself.</Description></Message>
+<Message><ID>30083</ID><Description>Failed to dissolve the network dataset.</Description></Message>
+<Message><ID>30084</ID><Description>System field "%s" was not added to the new turn feature class.</Description></Message>
+<Message><ID>30085</ID><Description>Solving network analysis layer.</Description></Message>
+<Message><ID>30086</ID><Description>This release of the Geodatabase is not up to date.</Description></Message>
+<Message><ID>30087</ID><Description>The Network Dataset has already been upgraded.</Description></Message>
+<Message><ID>30088</ID><Description>Solve returned an error, but errors were converted to warnings.</Description></Message>
+<Message><ID>30089</ID><Description>VRP Solver failed due to empty infeasible routes.</Description></Message>
+<Message><ID>30090</ID><Description>VRP Solver failed due to preassigned infeasible routes.</Description></Message>
+<Message><ID>30091</ID><Description>VRP Solver could not find a solution.</Description></Message>
+<Message><ID>30092</ID><Description>VRP Solver failed due to invalid input.</Description></Message>
+<Message><ID>30093</ID><Description>Date must be 1/1/1970 or later.</Description></Message>
+<Message><ID>30094</ID><Description>Network analysis layer does not support traversal result.</Description></Message>
+<Message><ID>30095</ID><Description>The number of street features affected by %1 limit of %2 has been exceeded.</Description></Message>
+<Message><ID>30096</ID><Description>The maximum records for %1 limit of %2 has been exceeded.</Description></Message>
+<Message><ID>30097</ID><Description>%s is not valid when using hierarchy.</Description></Message>
+<Message><ID>30098</ID><Description>The network dataset must have at least one time-based and one distance-based cost attribute.</Description></Message>
+<Message><ID>30099</ID><Description>Using language, "%1", for directions because the specified language, "%2", is not supported on the executing (server) machine.</Description></Message>
+<Message><ID>30100</ID><Description>Using style name, "%1", for directions because the specified style name, "%2", is not available on the executing (server) machine.</Description></Message>
+<Message><ID>30101</ID><Description>%s is invalid.</Description></Message>
+<Message><ID>30102</ID><Description>Authentication failed due to incorrect Username and/or Password.</Description></Message>
+<Message><ID>30103</ID><Description>Failed to update traffic data.</Description></Message>
+<Message><ID>30104</ID><Description>Failed to update traffic incidents.</Description></Message>
+<Message><ID>30105</ID><Description>Network analysis layer uses hierarchy.</Description></Message>
+<Message><ID>30106</ID><Description>Network analysis layer has output path shape equal to None.</Description></Message>
+<Message><ID>30107</ID><Description>Insufficient access rights to the requested file.</Description></Message>
+<Message><ID>30108</ID><Description>%s is missing one or more required fields.</Description></Message>
+<Message><ID>30109</ID><Description>Using hierarchy in analysis.</Description></Message>
+<Message><ID>30110</ID><Description>%1 %2 could not be located and were ignored.</Description></Message>
+<Message><ID>30111</ID><Description>%s must be greater than or equal to zero.</Description></Message>
+<Message><ID>30112</ID><Description>%s must be greater than zero.</Description></Message>
+<Message><ID>30113</ID><Description>The following restriction attributes are not valid and were ignored: "%s".</Description></Message>
+<Message><ID>30114</ID><Description>The attribute name, "%1", used with parameter name, "%2", is not valid and was ignored.</Description></Message>
+<Message><ID>30115</ID><Description>The service capability name "%s" is not valid and was ignored.</Description></Message>
+<Message><ID>30116</ID><Description>The network was built, but with some errors.  Error details are at "%s".</Description></Message>
+<Message><ID>30117</ID><Description>Insufficient input. Need at least one facility and one break value.</Description></Message>
+<Message><ID>30118</ID><Description>All break values must be numeric.</Description></Message>
+<Message><ID>30119</ID><Description>The network dataset does not support hierarchy but "%s" is set.</Description></Message>
+<Message><ID>30120</ID><Description>The largest break value, %1, exceeds the threshold, %2, set to generate polygons without using hierarchy.</Description></Message>
+<Message><ID>30121</ID><Description>The number of input breaks, %1, is greater than the maximum number of breaks allowed, %2.</Description></Message>
+<Message><ID>30122</ID><Description>The largest break value, %1 is greater than the maximum break time allowed, %2.</Description></Message>
+<Message><ID>30123</ID><Description>The largest break value, %1 is greater than the maximum break distance allowed, %2.</Description></Message>
+<Message><ID>30124</ID><Description>Output layer file name: %s</Description></Message>
+<Message><ID>30125</ID><Description>Insufficient input. Need at least one facility and one incident.</Description></Message>
+<Message><ID>30126</ID><Description>The number of facilities to find, %1, is greater than the maximum allowed, %2.</Description></Message>
+<Message><ID>30127</ID><Description>The inputs for the analysis exceed the threshold, %1, set to find routes without using hierarchy.</Description></Message>
+<Message><ID>30128</ID><Description>The following accumulate attributes are not valid and were ignored: "%s".</Description></Message>
+<Message><ID>30129</ID><Description>Directions are not configured for this analysis layer.</Description></Message>
+<Message><ID>30130</ID><Description>The attribute parameter, "%1", for the attribute, "%2", is not valid and was ignored.</Description></Message>
+<Message><ID>30131</ID><Description>The maximum orders per route value for route %1 is greater than the maximum allowed, %2.</Description></Message>
+<Message><ID>30132</ID><Description>The parameter value is invalid for the "%1" parameter of the "%2" attribute.</Description></Message>
+<Message><ID>30133</ID><Description>Failed to delete intermediate dataset "%1".</Description></Message>
+</Messages>

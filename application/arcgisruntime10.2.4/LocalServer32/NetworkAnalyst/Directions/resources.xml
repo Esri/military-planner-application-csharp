@@ -1,0 +1,758 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Directions>
+  <Language id="en" description="English">
+   <Strings>
+   
+    <!-- ================================================================== -->
+    <!--                         Common substrings                          -->
+    <!-- ================================================================== -->
+    <String id="AzimuthN">{north}</String>
+    <String id="AzimuthNE">{northeast}</String>
+    <String id="AzimuthE">{east}</String>
+    <String id="AzimuthSE">{southeast}</String>
+    <String id="AzimuthS">{south}</String>
+    <String id="AzimuthSW">{southwest}</String>
+    <String id="AzimuthW">{west}</String>
+    <String id="AzimuthNW">{northwest}</String>
+    
+    <String id="StopArrival">{ } #StopArrival({early},{late})</String>
+    <String id="StopSideRight">{, on the right}</String>
+    <String id="StopSideLeft">{, on the left}</String>    
+    <String id="AtExit">{at exit } #SignpostExit { }</String>
+    <String id="RoundaboutHeader">#Select(({At roundabout, take the } @@ExitNumberString(#ExitNumber) { exit}), {Take roundabout})</String>
+    <String id="OnBranchDestination">({ on } #Branch) ({ toward } #Destination)</String>
+    <String id="ToBranchDestination">({ to } #Branch) ({ toward } #Destination)</String>    
+    <String id="Names">NAME ({ (} ALT_NAME {)})</String>
+    <String id="AtIntersectionNames">{ at } #Intersection(NAME) ({ (} #Intersection(ALT_NAME) {)})</String>
+    <String id="AtIntersectionOrCrossNames">#Select(@AtIntersectionNames, ({ at } #CrossNames))</String>
+    
+    <LookupMapping id="ExitNumberString">
+     <Value key="1">{first}</Value>
+     <Value key="2">{second}</Value>
+     <Value key="3">{third}</Value>
+     <Value key="4">{fourth}</Value>
+     <Value key="5">{fifth}</Value>
+     <Value key="6">{sixth}</Value>
+     <Value key="7">{seventh}</Value>
+     <Value key="8">{eighth}</Value>
+     <Value key="9">{ninth}</Value>
+     <Value key="10">{tenth}</Value>
+    </LookupMapping>
+
+    <!-- ================================================================== -->
+    <!--                            Maneuvers                               -->
+    <!-- ================================================================== -->
+    <String id="ManeuverHeader">{Start} ({ at } #StopName)</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverFooter">{Finish} @StopArrival ({ at } #StopName) (#StopSide)</String>
+    <!-- ================================================================== -->    
+    <String id="ManeuverArrive">{Arrive} @StopArrival ({ at } #StopName) (#StopSide)</String>
+    <!-- ================================================================== -->    
+    <String id="ManeuverDepart">{Depart} ({ } #StopName)</String>
+    <!-- ================================================================== -->    
+    <String id="ManeuverFerry">{Take} ({ } @@Names) { ferry}</String>
+    <!-- ================================================================== -->    
+    <String id="ManeuverFerryBypass">{Stay on ferry for} ({ ~ } #ItemTime) ({ } #ItemLength)</String>
+    <!-- ================================================================== -->    
+    <String id="ManeuverAnyRoad">#FirstUpper(({go} ({ } #Azimuth) ({ on } @@Names) ({ toward } #CrossNames)))</String>
+    <!-- ================================================================== -->    
+    <String id="ManeuverStopArrive">#FirstUpper((#StopArriveAction ({ } #Azimuth) ({ on } @@Names)))</String>
+    <String id="StopArriveActionGo">{go}</String>
+    <String id="StopArriveActionBack">{go back}</String>
+    <String id="StopArriveActionContinue">{continue}</String>
+    <!-- ================================================================== -->    
+    <String id="ManeuverSkipRoundabout">@RoundaboutHeader @ToProceed</String>
+    <String id="ToProceed">{ to proceed} #Select(@OnBranchDestination, ({ on } @@Names))</String>
+    <!-- ================================================================== -->    
+    <String id="ManeuverSkipRoundaboutRamp">@RoundaboutHeader #Select(@ToBranchDestination, ({ to } @@Names))</String>
+    <!-- ================================================================== -->    
+    <String id="ManeuverStopOnRoundabout">{Take roundabout}</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverUTurn">{Make U-turn} @AtIntersectionOrCrossNames { and go back} ({ on } @@Names)</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverUTurnViaRoundabout">@RoundaboutHeaderGoBack ({ on } @@Names)</String>
+    <String id="RoundaboutHeaderGoBack">#Select(({At roundabout, take the } @@ExitNumberString(#ExitNumber) { exit to go back}), {Take roundabout and go back})</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverUTurnViaRamp">#FirstUpper( (#UTurnRampAction { to make U-turn and go back} ({ on } @@Names)) )</String>
+    <String id="UTurnRampActionFork">#Select(#UTurnRampActionAtFork, {take ramp})</String>
+    <String id="UTurnRampActionAtForkLeft">{take ramp on the left}</String>
+    <String id="UTurnRampActionAtForkRight">{take ramp on the right}</String>
+    <String id="UTurnRampActionTakeRamp">{take ramp}</String>
+    <String id="UTurnRampActionBearRight">{bear right onto ramp}</String>
+    <String id="UTurnRampActionTurnRight">{turn right onto ramp}</String>
+    <String id="UTurnRampActionMakeSharpRight">{make sharp right onto ramp}</String>
+    <String id="UTurnRampActionMakeSharpLeft">{make sharp left onto ramp}</String>
+    <String id="UTurnRampActionTurnLeft">{turn left onto ramp}</String>
+    <String id="UTurnRampActionBearLeft">{bear left onto ramp}</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverFork">#FirstUpper( (#Select(@AtExit, {at fork }) #ForkAction ({ } #ForkSide) #Select(@OnBranchDestination, ({ on } @@Names))) )</String>
+    <String id="ForkActionLeft">{keep}</String>
+    <String id="ForkActionRight">{keep}</String>
+    <String id="ForkActionStraight">{go}</String>
+    <String id="ForkSideRight">{right}</String>
+    <String id="ForkSideLeft">{left}</String>
+    <String id="ForkSideStraight">{straight}</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverSkipHighwayRamps">#FirstUpper( @AtExit #SkipHighwayRampAction #Select(@AndGoOnBranchDestination, ({ and go on } @@Names)) )</String>
+    <String id="SkipHighwayRampActionAtFork">#Select(#SkipHighwayRampActionAtFork, {take ramp})</String>
+    <String id="SkipHighwayRampActionAtForkLeft">{take ramp on the left}</String>
+    <String id="SkipHighwayRampActionAtForkRight">{take ramp on the right}</String>
+    <String id="SkipHighwayRampActionTakeRamp">{take ramp}</String>
+    <String id="SkipHighwayRampActionBearRight">{bear right onto ramp}</String>
+    <String id="SkipHighwayRampActionTurnRight">{turn right onto ramp}</String>
+    <String id="SkipHighwayRampActionMakeSharpRight">{make sharp right onto ramp}</String>
+    <String id="SkipHighwayRampActionMakeSharpLeft">{make sharp left onto ramp}</String>
+    <String id="SkipHighwayRampActionTurnLeft">{turn left onto ramp}</String>
+    <String id="SkipHighwayRampActionBearLeft">{bear left onto ramp}</String>
+    <String id="AndGoOnBranchDestination">({ and go on } #Branch) ({ toward } #Destination)</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverSkipSignpostRamps">#FirstUpper( @AtExit #SkipSignpostRampAction #Select(@ToBranchDestination, ({ to } @@Names)) )</String>
+    <String id="SkipSignpostRampActionAtFork">#Select(#SkipSignpostRampActionAtFork, {take ramp})</String>
+    <String id="SkipSignpostRampActionAtForkLeft">{take ramp on the left}</String>
+    <String id="SkipSignpostRampActionAtForkRight">{take ramp on the right}</String>
+    <String id="SkipSignpostRampActionTakeRamp">{take ramp}</String>
+    <String id="SkipSignpostRampActionBearRight">{bear right onto ramp}</String>
+    <String id="SkipSignpostRampActionTurnRight">{turn right onto ramp}</String>
+    <String id="SkipSignpostRampActionMakeSharpRight">{make sharp right onto ramp}</String>
+    <String id="SkipSignpostRampActionMakeSharpLeft">{make sharp left onto ramp}</String>
+    <String id="SkipSignpostRampActionTurnLeft">{turn left onto ramp}</String>
+    <String id="SkipSignpostRampActionBearLeft">{bear left onto ramp}</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverEndOfFerry">#FirstUpper( @AtExit #EndOfFerryAction #Select(@OnBranchDestination,  ({ on } @@Names)) )</String>
+    <String id="EndOfFerryActionGo">{go}</String>
+    <String id="EndOfFerryActionBearRight">{bear right}</String>
+    <String id="EndOfFerryActionTurnRight">{turn right}</String>
+    <String id="EndOfFerryActionMakeSharpRight">{make sharp right}</String>
+    <String id="EndOfFerryActionMakeSharpLeft">{make sharp left}</String>
+    <String id="EndOfFerryActionTurnLeft">{turn left}</String>
+    <String id="EndOfFerryActionBearLeft">{bear left}</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverOntoHighway">#FirstUpper( @AtExit #HighwayAction @AtIntersectionNames #Select(@OnBranchDestination, ({ on } @@Names)) )</String>
+    <String id="HighwayActionGo">{go}</String>
+    <String id="HighwayActionBearRight">{bear right}</String>
+    <String id="HighwayActionTurnRight">{turn right}</String>
+    <String id="HighwayActionMakeSharpRight">{make sharp right}</String>
+    <String id="HighwayActionMakeSharpLeft">{make sharp left}</String>
+    <String id="HighwayActionTurnLeft">{turn left}</String>
+    <String id="HighwayActionBearLeft">{bear left}</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverPathCurves">#FirstUpper( (@AtExit #PathCurveAction @AtIntersectionOrCrossNames ({ to stay on } @@Names) ({ toward } #Destination)) )</String>
+    <String id="PathCurveActionContinue">{continue}</String>
+    <String id="PathCurveActionBearRight">{bear right}</String>
+    <String id="PathCurveActionTurnRight">{turn right}</String>
+    <String id="PathCurveActionMakeSharpRight">{make sharp right}</String>
+    <String id="PathCurveActionMakeSharpLeft">{make sharp left}</String>
+    <String id="PathCurveActionTurnLeft">{turn left}</String>
+    <String id="PathCurveActionBearLeft">{bear left}</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverTurnOntoLocalRoad">#FirstUpper( (@AtExit #LocalRoadAction @AtIntersectionNames ({ on } @@Names) ({ toward } #Destination)) )</String>
+    <String id="LocalRoadActionGo">{go}</String>
+    <String id="LocalRoadActionContinue">{continue}</String>
+    <String id="LocalRoadActionBearRight">{bear right}</String>
+    <String id="LocalRoadActionTurnRight">{turn right}</String>
+    <String id="LocalRoadActionMakeSharpRight">{make sharp right}</String>
+    <String id="LocalRoadActionMakeSharpLeft">{make sharp left}</String>
+    <String id="LocalRoadActionTurnLeft">{turn left}</String>
+    <String id="LocalRoadActionBearLeft">{bear left}</String>
+    <!-- ================================================================== -->
+    <String id="ManeuverDoubleTurn">#FirstUpper( (#FirstTurn(#FirstActionBearing) { and } #SecondTurn(#SecondActionBearing)) )</String>
+    <String id="FirstActionContinue">{continue} @AtIntersectionNames ({ on } NAME)</String>
+    <String id="FirstActionBearRight">{bear right} @AtIntersectionNames ({ on } NAME)</String>
+    <String id="FirstActionTurnRight">{turn right} @AtIntersectionNames ({ on } NAME)</String>
+    <String id="FirstActionMakeSharpRight">{make sharp right} @AtIntersectionNames ({ on } NAME)</String>
+    <String id="FirstActionMakeSharpLeft">{make sharp left} @AtIntersectionNames ({ on } NAME)</String>
+    <String id="FirstActionTurnLeft">{turn left} @AtIntersectionNames ({ on } NAME)</String>
+    <String id="FirstActionBearLeft">{bear left} @AtIntersectionNames ({ on } NAME)</String>    
+    <String id="SecondActionContinue">{immediately continue} ({ on } NAME)</String>
+    <String id="SecondActionBearRight">{immediately bear right} ({ on } NAME)</String>
+    <String id="SecondActionTurnRight">{immediately turn right} ({ on } NAME)</String>
+    <String id="SecondActionMakeSharpRight">{immediately make sharp right} ({ on } NAME)</String>
+    <String id="SecondActionMakeSharpLeft">{immediately make sharp left} ({ on } NAME)</String>
+    <String id="SecondActionTurnLeft">{immediately turn left} ({ on } NAME)</String>
+    <String id="SecondActionBearLeft">{immediately bear left} ({ on } NAME)</String>
+    <!-- ================================================================== -->
+
+
+    <!-- ================================================================== -->
+    <!--                             Events                                 -->
+    <!-- ================================================================== -->
+    <String id="EventCrossingBorder">{Entering} ({ } CROSSADMINBORDER)</String>
+    <!-- ================================================================== -->
+    <String id="EventTimeChanged">{Entering a new time zone.} ({ Time change: } #TZChange)</String>
+    <!-- ================================================================== -->
+    <String id="EventTakeRoundaboutToStay">{Take roundabout} ({ to stay on } @@Names)</String>
+    <!-- ================================================================== -->
+    <String id="EventRestrictionViolation">{Restriction: } #Restriction</String>
+    <!-- ================================================================== -->
+    <!-- Uncomment this to report intersection event instruction
+    <String id="EventIntersection">{Skip intersection} ({ with } #CrossNames)</String> -->
+
+       <!-- Measures -->
+    <String id="DistanceShort">{&lt; } #MinDistance(1) ({ } #DistanceUnits)</String>
+    <String id="DistanceLong">#Distance(1) ({ } #DistanceUnits)</String>
+    <String id="TimeShort">{&lt; 1 min}</String>
+    <String id="TimeLong">(#TotalHours(0) { hr }) (#RoundedMinutesOfHour(0) { min})</String>
+    <String id="TimeZoneChange">#Sign (#TotalHours(0) { hr }) (#RoundedMinutesOfHour(0) { min})</String>
+    <String id="CumulativeDistanceLong">#Select(#Distance(1), {0}) ({ } #DistanceUnits)</String>
+    <String id="StopTimeShort">{&lt; 1 min}</String>
+    <String id="StopTimeLong">(#TotalHours(0) { hr }) (#RoundedMinutesOfHour(0) { min})</String>
+    <String id="TravelTimeShort">{&lt; 1 min}</String>
+    <String id="TravelTimeLong">(#Days(0) { d }) (#HoursOfDay(0) { hr }) (#RoundedMinutesOfHour(0) { min})</String>
+
+    <!-- Signposts, Cross Names -->
+    <String id="SignpostDestination">#String(0) ({ / } #String(1)) ({ / } #String(2)) ({ / } #String(3)) ({ / } #String(4))</String>
+    <String id="CrossNames">#String(0) ({ / } #String(1))</String>
+
+    <!-- Formatting: Units -->
+    <String id="UnitMileSingular">{mi}</String>
+    <String id="UnitMilePlural">{mi}</String>
+    <String id="UnitMileNeutral">{mi}</String>
+    <String id="UnitKilometerSingular">{km}</String>
+    <String id="UnitKilometerPlural">{km}</String>
+    <String id="UnitKilometerNeutral">{km}</String>
+    <String id="UnitMeterSingular">{m}</String>
+    <String id="UnitMeterPlural">{m}</String>
+    <String id="UnitMeterNeutral">{m}</String>
+    <String id="UnitFootSingular">{ft}</String>
+    <String id="UnitFootPlural">{ft}</String>
+    <String id="UnitFootNeutral">{ft}</String>
+    <String id="UnitYardSingular">{yd}</String>
+    <String id="UnitYardPlural">{yd}</String>
+    <String id="UnitYardNeutral">{yd}</String>
+    <String id="UnitNauticalSingular">{nmi}</String>
+    <String id="UnitNauticalPlural">{nmi}</String>
+    <String id="UnitNauticalNeutral">{nmi}</String>
+    <String id="UnitSecondSingular">{sec}</String>
+    <String id="UnitSecondPlural">{sec}</String>
+    <String id="UnitSecondNeutral">{sec}</String>
+
+    <!-- Formatting: Group - Summary -->
+    <String id="SummaryDrive">({Driving distance: } #TotalLength )\n ({Driving time: } #TotalTimeSpan)</String>
+    <String id="SummaryLength">#TotalLength</String>
+    <String id="SummaryETA">#TotalETAEnd</String>
+    <String id="SummaryCumulativeLength">#TotalLength</String>
+    <String id="SummaryTravelTime">#TravelTime</String>
+    <String id="SummaryTripPlan">({Total time: } #TravelTime)\n ({Total distance: } #TotalLength)\n ({Total violation time: } #TotalStopViolationTime)\n ({Total wait time: } #TotalStopWaitTime)\n ({Start time: } #TotalTimeStart)\n ({Finish time: } #TotalTimeEnd)</String>
+
+    <!-- Formatting: Group - Stop -->
+    <String id="StopFullTime">#StopFullTime</String>
+    <String id="StopStayTime">{Service Time: } #StopStayTime</String>
+    <String id="StopWaitTime">{Wait Time: } #StopWaitTime</String>
+    <String id="StopViolationTime">{Time Violation: } #StopViolationTime</String>
+    <String id="StopTimeWindow">{Time Window: } #StopTimeWindowStart { - } #StopTimeWindowEnd</String>
+    <String id="StopLength">#StopLength</String>
+    <String id="StopSummary">{Distance: } #StopLength</String>
+
+    <!-- Formatting: Group - Maneuver -->
+    <String id="DirectionDrive">{Drive} ({ } #ItemLength) ({ ~ } #ItemTime)</String>
+    <String id="DirectionLength">#ItemLength</String>
+    <String id="DirectionTime">#ItemTime</String>
+    <String id="DirectionCumulativeLength">#CumulativeDistance</String>
+    <String id="DirectionETA">#ArriveTime</String>
+    <String id="DirectionAfterBreak">(#DepartTime { }) {Stay} { on } @@Names</String>
+    <String id="DirectionDayEnd">(#ArriveTime { }) {End of day}</String>
+    <String id="DirectionRestBreak">#ArriveTime ({-} #DepartTime) { Rest break}</String>
+    <String id="DirectionAltNames">ALT_NAME ({ / } ALT_NAME2)</String>
+    <String id="DirectionCrossStreet">#CrossNames</String>
+    <String id="DirectionExitName">#SignpostExit</String>
+    <String id="DirectionBranch">#Branch</String>
+    <String id="DirectionToward">#Destination</String>
+    <String id="DirectionStreet">NAME</String>
+
+    <!-- Landmark format strings-->
+    <!-- ================================================================== -->
+    <String id="EventLandmarkManeuverGuidance">#FirstUpper(#LandmarkName) { is near the intersection}</String>
+    <!-- ================================================================== -->
+    <String id="EventLandmarkPassageVerification">{Pass by } #LandmarkName ({. It will be on the } #LandmarkPosition)</String>
+
+    <String id="LandmarkOnTheLeft">{left}</String>
+    <String id="LandmarkOnTheRight">{right}</String>
+    <String id="LandmarkOnTheFarLeft">{far left}</String>
+    <String id="LandmarkOnTheFarRight">{far right}</String>
+    <String id="LandmarkOnTheNearLeft">{near left}</String>
+    <String id="LandmarkOnTheNearRight">{near right}</String>
+    <!-- ================================================================== -->
+
+    <!-- Strings for NA Mobile style -->
+
+    <!-- ================================================================== -->
+    <!--                         Common substrings                          -->
+    <!-- ================================================================== -->
+    <!-- Azimuths -->
+    <String id="mobAzimuthN">{North}</String>
+    <String id="mobAzimuthNE">{North East}</String>
+    <String id="mobAzimuthE">{East}</String>
+    <String id="mobAzimuthSE">{South East}</String>
+    <String id="mobAzimuthS">{South}</String>
+    <String id="mobAzimuthSW">{South West}</String>
+    <String id="mobAzimuthW">{West}</String>
+    <String id="mobAzimuthNW">{North West}</String>
+
+    <String id="mobStopSideRight">{right}</String>
+    <String id="mobStopSideLeft">{left}</String>  
+    <String id="mobAtExit">{at exit } #SignpostExit { }</String>
+    <String id="mobRoundaboutHeader">#Select(({At roundabout, take the } @@ExitNumberString(#ExitNumber) { exit}), {Take roundabout})</String>
+    <String id="mobAtIntersectionNames">{ at } #Intersection(NAME) ({ (} #Intersection(ALT_NAME) {)})</String>
+
+    <!-- ================================================================== -->
+    <!--                            Maneuvers                               -->
+    <!-- ================================================================== -->
+    <String id="mobManeuverHeader">{Depart} ({ } #StopName)</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverFooter">{Arrive at destination} ({, on the } #StopSide)</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverArrive">{Arrive at destination} ({, on the } #StopSide)</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverDepart">{Depart} ({ } #StopName)</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverFerry">{Take} ({ } NAME ({ (} ALT_NAME {)})) { ferry}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverFerryBypass">{Stay on ferry for} ({ } #ItemTime) ({ ~ } #ItemLength)</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverAnyRoad">#FirstUpper(({go} ({ } #Azimuth) ({ on } NAME) ({ toward } #CrossNames) ))</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverStopArrive">#FirstUpper((#StopArriveAction ({ } #Azimuth) ({ on } NAME) ))</String>
+    <String id="mobStopArriveActionGo">{go}</String>
+    <String id="mobStopArriveActionBack">{go back}</String>
+    <String id="mobStopArriveActionContinue">{continue}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverSkipRoundabout">@mobRoundaboutHeader @mobToProceed</String>
+    <String id="mobToProceed">{ to proceed} #Select(({ on } #Branch), ({ on } NAME))</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverSkipRoundaboutRamp">@mobRoundaboutHeader (#Select(({ to } #Branch), ({ to } NAME)) )</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverStopOnRoundabout">{Take roundabout}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverUTurn">{Make a legal U-turn} @mobAtIntersectionNames { and go back} ({ on } NAME)</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverUTurnViaRoundabout">@mobRoundaboutHeaderGoBack ({ on } NAME)</String>
+    <String id="mobRoundaboutHeaderGoBack">#Select(({At roundabout, take the } @@ExitNumberString(#ExitNumber) { exit to go back}), {Take roundabout and go back})</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverUTurnViaRamp">#FirstUpper((#UTurnRampAction { to make a legal U-turn and go back} ({ on } NAME) ))</String>
+    <String id="mobUTurnRampActionFork">#Select(#UTurnRampActionAtFork, {take ramp})</String>
+    <String id="mobUTurnRampActionAtForkLeft">{take ramp on the left}</String>
+    <String id="mobUTurnRampActionAtForkRight">{take ramp on the right}</String>
+    <String id="mobUTurnRampActionTakeRamp">{take ramp}</String>
+    <String id="mobUTurnRampActionBearRight">{bear right onto ramp}</String>
+    <String id="mobUTurnRampActionTurnRight">{turn right onto ramp}</String>
+    <String id="mobUTurnRampActionMakeSharpRight">{make sharp right onto ramp}</String>
+    <String id="mobUTurnRampActionMakeSharpLeft">{make sharp left onto ramp}</String>
+    <String id="mobUTurnRampActionTurnLeft">{turn left onto ramp}</String>
+    <String id="mobUTurnRampActionBearLeft">{bear left onto ramp}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverFork">#FirstUpper((#Select(@mobAtExit, {at fork }) #ForkAction ({ } #ForkSide) #Select(({ on } #Branch), ({ on } NAME)) ))</String>
+    <String id="mobForkActionLeft">{keep}</String>
+    <String id="mobForkActionRight">{keep}</String>
+    <String id="mobForkActionStraight">{go}</String>
+    <String id="mobForkSideRight">{right}</String>
+    <String id="mobForkSideLeft">{left}</String>
+    <String id="mobForkSideStraight">{straight}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverSkipHighwayRamps">#FirstUpper(( @mobAtExit #SkipHighwayRampAction #Select(({ and go on } #Branch), ({ and go on } NAME)) ))</String>
+    <String id="mobSkipHighwayRampActionAtFork">#Select(#SkipHighwayRampActionAtFork, {take ramp})</String>
+    <String id="mobSkipHighwayRampActionAtForkLeft">{take ramp on the left}</String>
+    <String id="mobSkipHighwayRampActionAtForkRight">{take ramp on the right}</String>
+    <String id="mobSkipHighwayRampActionTakeRamp">{take ramp}</String>
+    <String id="mobSkipHighwayRampActionBearRight">{bear right onto ramp}</String>
+    <String id="mobSkipHighwayRampActionTurnRight">{turn right onto ramp}</String>
+    <String id="mobSkipHighwayRampActionMakeSharpRight">{make sharp right onto ramp}</String>
+    <String id="mobSkipHighwayRampActionMakeSharpLeft">{make sharp left onto ramp}</String>
+    <String id="mobSkipHighwayRampActionTurnLeft">{turn left onto ramp}</String>
+    <String id="mobSkipHighwayRampActionBearLeft">{bear left onto ramp}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverSkipSignpostRamps">#FirstUpper(( @mobAtExit #SkipSignpostRampAction #Select(({ to } #Branch), ({ to } NAME)) ))</String>
+    <String id="mobSkipSignpostRampActionAtFork">#Select(#SkipSignpostRampActionAtFork, {take ramp})</String>
+    <String id="mobSkipSignpostRampActionAtForkLeft">{take ramp on the left}</String>
+    <String id="mobSkipSignpostRampActionAtForkRight">{take ramp on the right}</String>
+    <String id="mobSkipSignpostRampActionTakeRamp">{take ramp}</String>
+    <String id="mobSkipSignpostRampActionBearRight">{bear right onto ramp}</String>
+    <String id="mobSkipSignpostRampActionTurnRight">{turn right onto ramp}</String>
+    <String id="mobSkipSignpostRampActionMakeSharpRight">{make sharp right onto ramp}</String>
+    <String id="mobSkipSignpostRampActionMakeSharpLeft">{make sharp left onto ramp}</String>
+    <String id="mobSkipSignpostRampActionTurnLeft">{turn left onto ramp}</String>
+    <String id="mobSkipSignpostRampActionBearLeft">{bear left onto ramp}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverEndOfFerry">#FirstUpper(( @mobAtExit {get off the ferry and } #EndOfFerryAction #Select(({ on } #Branch), ({ on } NAME)) ))</String>    
+    <String id="mobEndOfFerryActionGo">{go}</String>
+    <String id="mobEndOfFerryActionBearRight">{bear right}</String>
+    <String id="mobEndOfFerryActionTurnRight">{turn right}</String>
+    <String id="mobEndOfFerryActionMakeSharpRight">{make sharp right}</String>
+    <String id="mobEndOfFerryActionMakeSharpLeft">{make sharp left}</String>
+    <String id="mobEndOfFerryActionTurnLeft">{turn left}</String>
+    <String id="mobEndOfFerryActionBearLeft">{bear left}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverOntoHighway">#FirstUpper(( @mobAtExit #HighwayAction #Select(({ on } #Branch), ({ on } NAME)) ))</String>
+    <String id="mobHighwayActionGo">{go}</String>
+    <String id="mobHighwayActionBearRight">{bear right}</String>
+    <String id="mobHighwayActionTurnRight">{turn right}</String>
+    <String id="mobHighwayActionMakeSharpRight">{make sharp right}</String>
+    <String id="mobHighwayActionMakeSharpLeft">{make sharp left}</String>
+    <String id="mobHighwayActionTurnLeft">{turn left}</String>
+    <String id="mobHighwayActionBearLeft">{bear left}</String>
+    <!-- ================================================================== -->
+    <String id="mobHighwayChanges">#FirstUpper(( @mobAtExit {road changes} #Select(({ to } #Branch), ({ to } NAME)) ))</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverPathCurves">#FirstUpper(( @mobAtExit #PathCurveAction @mobAtIntersectionOrCrossNames ({ to stay on } NAME) ))</String>
+    <String id="mobPathCurveActionContinue">{continue}</String>
+    <String id="mobPathCurveActionBearRight">{bear right}</String>
+    <String id="mobPathCurveActionTurnRight">{turn right}</String>
+    <String id="mobPathCurveActionMakeSharpRight">{make sharp right}</String>
+    <String id="mobPathCurveActionMakeSharpLeft">{make sharp left}</String>
+    <String id="mobPathCurveActionTurnLeft">{turn left}</String>
+    <String id="mobPathCurveActionBearLeft">{bear left}</String>
+    <String id="mobAtIntersectionOrCrossNames">#Select(@mobAtIntersectionNames, ({ at } #CrossNames))</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverTurnOntoLocalRoad">#FirstUpper(( @mobAtExit #LocalRoadAction @mobAtIntersectionNames ({ on } NAME) ))</String>
+    <String id="mobLocalRoadActionGo">{go}</String>
+    <String id="mobLocalRoadActionContinue">{continue}</String>
+    <String id="mobLocalRoadActionBearRight">{bear right}</String>
+    <String id="mobLocalRoadActionTurnRight">{turn right}</String>
+    <String id="mobLocalRoadActionMakeSharpRight">{make sharp right}</String>
+    <String id="mobLocalRoadActionMakeSharpLeft">{make sharp left}</String>
+    <String id="mobLocalRoadActionTurnLeft">{turn left}</String>
+    <String id="mobLocalRoadActionBearLeft">{bear left}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverCrossingBorder">{Entering} ({ } CROSSADMINBORDER)</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverCrossingBorderTurn">#FirstUpper(( ({Entering } CROSSADMINBORDER {. }) #FirstUpper(@mobAtExit #CrossingBorderTurnAction ({ on } NAME) )))</String>
+    <String id="mobCrossingBorderTurnActionGo">{go}</String>
+    <String id="mobCrossingBorderTurnActionContinue">{continue}</String>
+    <String id="mobCrossingBorderTurnActionBearRight">{bear right}</String>
+    <String id="mobCrossingBorderTurnActionTurnRight">{turn right}</String>
+    <String id="mobCrossingBorderTurnActionMakeSharpRight">{make sharp right}</String>
+    <String id="mobCrossingBorderTurnActionMakeSharpLeft">{make sharp left}</String>
+    <String id="mobCrossingBorderTurnActionTurnLeft">{turn left}</String>
+    <String id="mobCrossingBorderTurnActionBearLeft">{bear left}</String>
+    <!-- ================================================================== -->
+    <String id="mobManeuverCrossingBorderFerry">#FirstUpper(( ({Entering } CROSSADMINBORDER {. }) #FirstUpper(@mobAtExit #CrossingBorderFerryAction ({ on} ({ } NAME ({ (} ALT_NAME {)})) { ferry}) )))</String>
+    <String id="mobCrossingBorderFerryActionGo">{go}</String>
+    <String id="mobCrossingBorderFerryActionContinue">{continue}</String>
+    <String id="mobCrossingBorderFerryActionBearRight">{bear right}</String>
+    <String id="mobCrossingBorderFerryActionTurnRight">{turn right}</String>
+    <String id="mobCrossingBorderFerryActionMakeSharpRight">{make sharp right}</String>
+    <String id="mobCrossingBorderFerryActionMakeSharpLeft">{make sharp left}</String>
+    <String id="mobCrossingBorderFerryActionTurnLeft">{turn left}</String>
+    <String id="mobCrossingBorderFerryActionBearLeft">{bear left}</String>
+    <!-- ================================================================== -->
+
+    <!-- Measures -->
+    <String id="mobDistanceShort">{&lt; } #MinDistance(1) ({ } #DistanceUnits)</String>
+    <String id="mobDistanceLong">#Distance(1) ({ } #DistanceUnits)</String>
+    <String id="mobTimeShort">{&lt; 1 minute}</String>
+    <String id="mobTimeLong">(#TotalHours(0) { hour(s) }) (#RoundedMinutesOfHour(0) { minute(s)})</String>
+    <String id="mobCumulativeDistanceLong">#Select(#Distance(1), {0}) ({ } #DistanceUnits)</String>
+    <String id="mobStopTimeShort">{&lt; 1 minute}</String>
+    <String id="mobStopTimeLong">(#TotalHours(0) { hour(s) }) (#RoundedMinutesOfHour(0) { minute(s)})</String>
+    <String id="mobTravelTimeShort">{&lt; 1 minute}</String>
+    <String id="mobTravelTimeLong">(#Days(0) { day(s) }) (#HoursOfDay(0) { hour(s) }) (#RoundedMinutesOfHour(0) { minute(s)})</String>
+
+    <!-- Signposts, Cross Names -->
+    <String id="mobSignpostDestination">#String(0) ({ / } #String(1)) ({ / } #String(2)) ({ / } #String(3)) ({ / } #String(4))</String>
+    <String id="mobCrossNames">#String(0)</String>
+
+    <!-- Formatting: Units -->
+    <String id="mobUnitMileSingular">{mile}</String>
+    <String id="mobUnitMilePlural">{miles}</String>
+    <String id="mobUnitMileNeutral">{mile(s)}</String>
+    <String id="mobUnitKilometerSingular">{kilometer}</String>
+    <String id="mobUnitKilometerPlural">{kilometers}</String>
+    <String id="mobUnitKilometerNeutral">{kilometer(s)}</String>
+    <String id="mobUnitMeterSingular">{meter}</String>
+    <String id="mobUnitMeterPlural">{meters}</String>
+    <String id="mobUnitMeterNeutral">{meter(s)}</String>
+    <String id="mobUnitFootSingular">{foot}</String>
+    <String id="mobUnitFootPlural">{feet}</String>
+    <String id="mobUnitFootNeutral">{feet}</String>
+    <String id="mobUnitYardSingular">{yard}</String>
+    <String id="mobUnitYardPlural">{yards}</String>
+    <String id="mobUnitYardNeutral">{yard(s)}</String>
+    <String id="mobUnitSecondSingular">{second}</String>
+    <String id="mobUnitSecondPlural">{seconds}</String>
+    <String id="mobUnitSecondNeutral">{second(s)}</String>
+    <String id="mobUnitNauticalSingular">{nmi}</String>
+    <String id="mobUnitNauticalPlural">{nmi}</String>
+    <String id="mobUnitNauticalNeutral">{nmi}</String>
+
+    <!-- Formatting: Group - Summary -->
+    <String id="mobSummaryTripPlan">({Driving distance: } #TotalLength )\n ({Total travel time: } #TravelTime )\n ({Driving time: } #TotalTimeSpan)</String>
+
+    <!-- Formatting: Group - Maneuver -->
+    <String id="mobDirectionDrive">{Drive} ({ } #ItemLength)</String>
+    <String id="mobDirectionAfterBreak">{Stay} ({ on } NAME)</String>
+    <String id="mobDirectionDayEnd">{End of day}</String>
+    <String id="mobDirectionRestBreak">{ Rest break}</String>
+    <String id="mobDirectionAltNames">ALT_NAME</String>
+
+    <!-- Strings for NA Campus style -->
+
+    <!-- ================================================================== -->
+    <!--                         Common substrings                          -->
+    <!-- ================================================================== -->
+    <String id="campusStopSideRight">{, on the right}</String>
+    <String id="campusStopSideLeft">{, on the left}</String>
+    <String id="campusNames">NAME ({ (} ALT_NAME {)})</String>
+    <String id="campusToNames"> #To(NAME) ({ (} #To(ALT_NAME) {)})</String>
+    <String id="campusDestination">{ toward } #Destination</String>
+    <String id="campusAtIntersectionNames">{ at } #Intersection(NAME) ({ (} #Intersection(ALT_NAME) {)})</String>
+    <String id="campusLeftSide">{left}</String>
+    <String id="campusRightSide">{right}</String>
+    
+
+    <!-- Maneuvers -->
+    
+    <!-- Maneuvers : Headers and footers -->
+    <!-- ================================================================== -->
+    <String id="campusManeuverHeader">{Start} ({ at } #StopName)</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverFooter">{Finish} ({ } #StopArrival({early},{late})) ({ at } #StopName) (#StopSide)</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverArrive">{Arrive} ({ } #StopArrival({early},{late})) ({ at } #StopName) (#StopSide)</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverDepart">{Depart} ({ } #StopName)</String>
+    <!-- ================================================================== -->
+
+    <!-- Maneuvers : Department instructions -->
+    <!-- ================================================================== -->
+    <String id="campusManeuverDepartHallway">{Go forward} ({ through } @@campusNames) ({ toward } #CrossNames)</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverDepartWalkway">{Go forward} ({ on } @@campusNames) ({ toward } #CrossNames)</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverContinueHallway">#ContinueHallwayAction ({ through } @@campusNames)</String>
+    <String id="campusContinueHallwayActionForward">{Continue forward}</String>
+    <String id="campusContinueHallwayActionGoForward">{Go forward}</String>
+    <String id="campusContinueHallwayActionGoBack">{Go back}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverContinueWalkway">#ContinueWalkwayAction ({ on } @@campusNames)</String>
+    <String id="campusContinueWalkwayActionForward">{Continue forward}</String>
+    <String id="campusContinueWalkwayActionGoForward">{Go forward}</String>
+    <String id="campusContinueWalkwayActionGoBack">{Go back}</String>
+    <!-- ================================================================== -->
+
+    <!-- Maneuvers : Simple turn instructions -->
+    <!-- ================================================================== -->
+    <String id="campusManeuverTurnHallway">#TurnHallwayAction ({ through } @@campusNames)</String>
+    <String id="campusTurnHallwayActionGo">{Go}</String>
+    <String id="campusTurnHallwayActionContinue">{Continue}</String>
+    <String id="campusTurnHallwayActionContinueForward">{Continue forward}</String>
+    <String id="campusTurnHallwayActionKeepRight">{Keep right}</String>
+    <String id="campusTurnHallwayActionBearRight">{Bear right}</String>
+    <String id="campusTurnHallwayActionTurnRight">{Turn right}</String>   
+    <String id="campusTurnHallwayActionMakeSharpRight">{Make sharp right}</String>    
+    <String id="campusTurnHallwayActionMakeSharpLeft">{Make sharp left}</String>    
+    <String id="campusTurnHallwayActionTurnLeft">{Turn left}</String>    
+    <String id="campusTurnHallwayActionBearLeft">{Bear left}</String>
+    <String id="campusTurnHallwayActionKeepLeft">{Keep left}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverTurnWalkway">#TurnWalkwayAction ({ on } @@campusNames)</String>
+    <String id="campusTurnWalkwayActionGo">{Go}</String>
+    <String id="campusTurnWalkwayActionContinue">{Continue}</String>
+    <String id="campusTurnWalkwayActionContinueForward">{Continue forward}</String>
+    <String id="campusTurnWalkwayActionKeepRight">{Keep right}</String>
+    <String id="campusTurnWalkwayActionBearRight">{Bear right}</String>
+    <String id="campusTurnWalkwayActionTurnRight">{Turn right}</String>   
+    <String id="campusTurnWalkwayActionMakeSharpRight">{Make sharp right}</String>    
+    <String id="campusTurnWalkwayActionMakeSharpLeft">{Make sharp left}</String>    
+    <String id="campusTurnWalkwayActionTurnLeft">{Turn left}</String>    
+    <String id="campusTurnWalkwayActionBearLeft">{Bear left}</String>
+    <String id="campusTurnWalkwayActionKeepLeft">{Keep left}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverTurnToHallway">#TurnToHallwayAction ({ and go through } @@campusNames) @campusDestination</String>
+    <String id="campusTurnToHallwayActionGo">{Go}</String>
+    <String id="campusTurnToHallwayActionContinue">{Continue}</String>
+    <String id="campusTurnToHallwayActionContinueForward">{Continue forward}</String>
+    <String id="campusTurnToHallwayActionKeepRight">{Keep right}</String>
+    <String id="campusTurnToHallwayActionBearRight">{Bear right}</String>
+    <String id="campusTurnToHallwayActionTurnRight">{Turn right}</String>   
+    <String id="campusTurnToHallwayActionMakeSharpRight">{Make sharp right}</String>    
+    <String id="campusTurnToHallwayActionMakeSharpLeft">{Make sharp left}</String>    
+    <String id="campusTurnToHallwayActionTurnLeft">{Turn left}</String>    
+    <String id="campusTurnToHallwayActionBearLeft">{Bear left}</String>
+    <String id="campusTurnToHallwayActionKeepLeft">{Keep left}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverTurnToWalkway">#TurnToWalkwayAction ({ and go on } @@campusNames) @campusDestination</String>
+    <String id="campusTurnToWalkwayActionGo">{Go}</String>
+    <String id="campusTurnToWalkwayActionContinue">{Continue}</String>
+    <String id="campusTurnToWalkwayActionContinueForward">{Continue forward}</String>
+    <String id="campusTurnToWalkwayActionKeepRight">{Keep right}</String>
+    <String id="campusTurnToWalkwayActionBearRight">{Bear right}</String>
+    <String id="campusTurnToWalkwayActionTurnRight">{Turn right}</String>   
+    <String id="campusTurnToWalkwayActionMakeSharpRight">{Make sharp right}</String>    
+    <String id="campusTurnToWalkwayActionMakeSharpLeft">{Make sharp left}</String>    
+    <String id="campusTurnToWalkwayActionTurnLeft">{Turn left}</String>    
+    <String id="campusTurnToWalkwayActionBearLeft">{Bear left}</String>
+    <String id="campusTurnToWalkwayActionKeepLeft">{Keep left}</String>
+    <!-- ================================================================== -->
+
+    <!-- Maneuvers : Simple turn via turning arc instructions -->
+    <String id="campusManeuverArcToHallway">#FirstUpper(#Select(@campusArcToHallway, @campusStraightToHallway))</String>
+    <String id="campusArcToHallway">#ArcToHallwayAction (#Select(({ and go through } @@campusToNames), ({ and go toward } #Destination)))</String>
+    <String id="campusStraightToHallway">{continue forward} ({ through } @@campusToNames) @campusDestination</String>
+    <String id="campusArcToHallwayActionContinueForward">{continue forward}</String>
+    <String id="campusArcToHallwayActionKeepRight">{keep right}</String>
+    <String id="campusArcToHallwayActionBearRight">{bear right}</String>
+    <String id="campusArcToHallwayActionTurnRight">{turn right}</String>   
+    <String id="campusArcToHallwayActionMakeSharpRight">{make sharp right}</String>    
+    <String id="campusArcToHallwayActionMakeSharpLeft">{make sharp left}</String>    
+    <String id="campusArcToHallwayActionTurnLeft">{turn left}</String>    
+    <String id="campusArcToHallwayActionBearLeft">{bear left}</String>
+    <String id="campusArcToHallwayActionKeepLeft">{keep left}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverArcToWalkway">#FirstUpper(#Select(@campusArcToWalkway, @campusStraightToWalkway))</String>
+    <String id="campusArcToWalkway">#ArcToWalkwayAction (#Select(({ and go on } @@campusToNames), ({ and go toward } #Destination)))</String>
+    <String id="campusStraightToWalkway">{continue forward} ({ on } @@campusToNames) @campusDestination</String>
+    <String id="campusArcToWalkwayActionContinueForward">{continue forward}</String>
+    <String id="campusArcToWalkwayActionKeepRight">{keep right}</String>
+    <String id="campusArcToWalkwayActionBearRight">{bear right}</String>
+    <String id="campusArcToWalkwayActionTurnRight">{turn right}</String>   
+    <String id="campusArcToWalkwayActionMakeSharpRight">{make sharp right}</String>    
+    <String id="campusArcToWalkwayActionMakeSharpLeft">{make sharp left}</String>    
+    <String id="campusArcToWalkwayActionTurnLeft">{turn left}</String>    
+    <String id="campusArcToWalkwayActionBearLeft">{bear left}</String>
+    <String id="campusArcToWalkwayActionKeepLeft">{keep left}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverArcTo">#Select((#ArcToAction ({ and go toward } #Destination)), {Continue forward})</String>
+    <String id="campusArcToActionContinueForward">{Continue forward}</String>
+    <String id="campusArcToActionKeepRight">{Keep right}</String>
+    <String id="campusArcToActionBearRight">{Bear right}</String>
+    <String id="campusArcToActionTurnRight">{Turn right}</String>   
+    <String id="campusArcToActionMakeSharpRight">{Make sharp right}</String>    
+    <String id="campusArcToActionMakeSharpLeft">{Make sharp left}</String>    
+    <String id="campusArcToActionTurnLeft">{Turn left}</String>    
+    <String id="campusArcToActionBearLeft">{Bear left}</String>
+    <String id="campusArcToActionKeepLeft">{Keep left}</String>
+    <!-- ================================================================== -->
+
+    <!-- Maneuvers : Double turn instructions-->
+    <!-- ================================================================== -->
+    <String id="campusManeuverDoubleTurn">#FirstTurn(#FirstActionBearing) { and } #SecondTurn(#SecondActionBearing)</String>
+    <String id="campusFirstActionContinue">{Continue} @campusAtIntersectionNames ({ into } NAME)</String>
+    <String id="campusFirstActionBearRight">{Bear right} @campusAtIntersectionNames ({ into } NAME)</String>
+    <String id="campusFirstActionTurnRight">{Turn right} @campusAtIntersectionNames ({ into } NAME)</String>
+    <String id="campusFirstActionMakeSharpRight">{Make sharp right} @campusAtIntersectionNames ({ into } NAME)</String>
+    <String id="campusFirstActionMakeSharpLeft">{Make sharp left} @campusAtIntersectionNames ({ into } NAME)</String>
+    <String id="campusFirstActionTurnLeft">{Turn left} @campusAtIntersectionNames ({ into } NAME)</String>
+    <String id="campusFirstActionBearLeft">{Bear left} @campusAtIntersectionNames ({ into } NAME)</String>    
+    <String id="campusSecondActionContinue">{immediately continue} ({ into } NAME)</String>
+    <String id="campusSecondActionBearRight">{immediately bear right} ({ into } NAME)</String>
+    <String id="campusSecondActionTurnRight">{immediately turn right} ({ into } NAME)</String>
+    <String id="campusSecondActionMakeSharpRight">{immediately make sharp right} ({ into } NAME)</String>
+    <String id="campusSecondActionMakeSharpLeft">{immediately make sharp left} ({ into } NAME)</String>
+    <String id="campusSecondActionTurnLeft">{immediately turn left} ({ into } NAME)</String>
+    <String id="campusSecondActionBearLeft">{immediately bear left} ({ into } NAME)</String>
+    <!-- ================================================================== -->
+
+    <!-- Maneuvers : Elevation instructions -->
+    <!-- ================================================================== -->
+    <String id="campusManeuverElevation">@campusBeforeElevation #ElevationName ({ } #ElevationCourse) ({ to level } #To(TO_FLOOR_NAME))</String>
+    <String id="campusBeforeElevation">#Select((#TurnActionBeforeElevation { and take }), {Take })</String>
+    <String id="campusBeforeElevationActionBearRight">{Bear right}</String>
+    <String id="campusBeforeElevationActionTurnRight">{Turn right}</String>   
+    <String id="campusBeforeElevationActionMakeSharpRight">{Make sharp right}</String>    
+    <String id="campusBeforeElevationActionMakeSharpLeft">{Make sharp left}</String>    
+    <String id="campusBeforeElevationActionTurnLeft">{Turn left}</String>    
+    <String id="campusBeforeElevationActionBearLeft">{Bear left}</String>
+    <String id="campusElevationEscalator">{escalator}</String>
+    <String id="campusElevationElevator">{elevator}</String>
+    <String id="campusElevationStairs">{stairs}</String>
+    <String id="campusElevationRamp">{ramp}</String>
+    <String id="campusElevationUp">{up}</String>
+    <String id="campusElevationDown">{down}</String>
+    <!-- ================================================================== -->
+
+    <!-- Maneuvers : Area passage instructions -->
+    <!-- ================================================================== -->
+    <String id="campusManeuverEnter">{Go inside and continue forward} ({ through } @@campusNames)</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverExit">{Go outside and continue forward} ({ on } @@campusNames)</String>
+    <!-- ================================================================== -->
+
+    <!-- Maneuvers : Doors reporting with simple turns -->
+    <!-- ================================================================== -->
+    <String id="campusManeuverTakeDoor">#TakeDoorAction ({ } #Select(#Door(NAME), {the door})) ({ on the } #DoorSide)</String>
+    <String id="campusTakeDoorActionGoInside">{Go inside through}</String>
+    <String id="campusTakeDoorActionGoOutside">{Go outside through}</String>
+    <String id="campusTakeDoorActionGo">{Go through}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverTakeDoorToHallway">#TakeDoorToHallwayAction ({ } #Select(#Door(NAME), {the door})) ({ on the } #DoorSide) @@campusAndGoTrough</String>
+    <String id="campusAndGoTrough">{ and } #GoToHallwayAction ({ through } @@campusNames) @campusDestination</String>
+    <String id="campusTakeDoorToHallwayActionGoInside">{Go inside through}</String>
+    <String id="campusTakeDoorToHallwayActionGoOutside">{Go outside through}</String>
+    <String id="campusTakeDoorToHallwayActionGo">{Go through}</String>
+    <String id="campusGoToHallwayActionContinueForward">{continue forward}</String>
+    <String id="campusGoToHallwayActionGoForward">{go forward}</String>
+    <String id="campusGoToHallwayActionGoBack">{go back}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverTakeDoorToWalkway">#TakeDoorToWalkwayAction ({ } #Select(#Door(NAME), {the door})) ({ on the } #DoorSide) @@campusAndGoOn</String>
+    <String id="campusAndGoOn">{ and } #GoToWalkwayAction ({ on } @@campusNames) @campusDestination</String>
+    <String id="campusTakeDoorToWalkwayActionGoInside">{Go inside through}</String>
+    <String id="campusTakeDoorToWalkwayActionGoOutside">{Go outside through}</String>
+    <String id="campusTakeDoorToWalkwayActionGo">{Go through}</String>
+    <String id="campusGoToWalkwayActionContinueForward">{continue forward}</String>
+    <String id="campusGoToWalkwayActionGoForward">{go forward}</String>
+    <String id="campusGoToWalkwayActionGoBack">{go back}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverDoor">#DoorAction ({ } #Select(#Door(NAME), {the door}))</String>
+    <String id="campusDoorActionGoInside">{Go inside through}</String>
+    <String id="campusDoorActionGoOutside">{Go outside through}</String>
+    <String id="campusDoorActionGo">{Go through}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverDoorTo">#DoorToAction ({ } #Select(#Door(NAME), {the door})) @campusAndToAction</String>
+    <String id="campusAndToAction">{ and } #ToAction</String>
+    <String id="campusDoorToActionGoInside">{Go inside through}</String>
+    <String id="campusDoorToActionGoOutside">{Go outside through}</String>
+    <String id="campusDoorToActionGo">{Go through}</String>
+    <String id="campusToActionContinueForward">{continue forward}</String>
+    <String id="campusToActionGoForward">{go forward}</String>
+    <String id="campusToActionGoBack">{go back}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverDoorToHallway">#DoorToHallwayAction ({ } #Select(#Door(NAME), {the door})) @@campusAndToHallwayGoThroug</String>
+    <String id="campusAndToHallwayGoThroug">{ and } #ToHallwayAction ({ through } @@campusNames) @campusDestination</String>
+    <String id="campusDoorToHallwayActionGoInside">{Go inside through}</String>
+    <String id="campusDoorToHallwayActionGoOutside">{Go outside through}</String>
+    <String id="campusDoorToHallwayActionGo">{Go through}</String>
+    <String id="campusToHallwayActionContinueForward">{continue forward}</String>
+    <String id="campusToHallwayActionGoForward">{go forward}</String>
+    <String id="campusToHallwayActionGoBack">{go back}</String>
+    <!-- ================================================================== -->
+    <String id="campusManeuverDoorToWalkway">#DoorToWalkwayAction ({ } #Select(#Door(NAME), {the door})) @@campusAndToWalkwayGoOn</String>
+    <String id="campusAndToWalkwayGoOn">{ and } #ToWalkwayAction ({ on } @@campusNames) @campusDestination</String>
+    <String id="campusDoorToWalkwayActionGoInside">{Go inside through}</String>
+    <String id="campusDoorToWalkwayActionGoOutside">{Go outside through}</String>
+    <String id="campusDoorToWalkwayActionGo">{Go through}</String>
+    <String id="campusToWalkwayActionContinueForward">{continue forward}</String>
+    <String id="campusToWalkwayActionGoForward">{go forward}</String>
+    <String id="campusToWalkwayActionGoBack">{go back}</String>
+    <!-- ================================================================== -->
+
+
+    <!-- Events -->
+    <!-- ================================================================== -->
+    <String id="campusEventEnterBuilding">{Entering} ({ } CROSSADMINBORDER)</String>
+    <!-- ================================================================== -->
+    <String id="campusEventLeaveBuilding">{Leaving} ({ } #From(CROSSADMINBORDER))</String>
+    <!-- ================================================================== -->
+    <String id="campusEventRestrictionViolation">{Restriction: } #Restriction</String>
+    <!-- ================================================================== -->
+
+    <!-- Landmark format strings-->
+    <!-- ================================================================== -->
+    <String id="campusEventLandmarkManeuverGuidance">#FirstUpper(#LandmarkName) { is near the intersection}</String>
+    <!-- ================================================================== -->
+    <String id="campusEventLandmarkPassageVerification">{Pass by } #LandmarkName ({. It will be on the } #LandmarkPosition)</String>
+    <String id="campusLandmarkOnTheLeft">{left}</String>
+    <String id="campusLandmarkOnTheRight">{right}</String>
+    <String id="campusLandmarkOnTheFarLeft">{far left}</String>
+    <String id="campusLandmarkOnTheFarRight">{far right}</String>
+    <String id="campusLandmarkOnTheNearLeft">{near left}</String>
+    <String id="campusLandmarkOnTheNearRight">{near right}</String>
+    <!-- ================================================================== -->
+    
+    <!-- Formatting: Group - Summary -->
+    <String id="campusSummaryDrive">({Walking distance: } #TotalLength )\n ({Walking time: } #TotalTimeSpan)</String>
+
+    <!-- Formatting: Group - Maneuver -->
+    <String id="campusDirectionWalk">{Walk} ({ } #ItemLength) ({ ~ } #ItemTime)</String>
+    
+   </Strings>
+  </Language>
+</Directions>

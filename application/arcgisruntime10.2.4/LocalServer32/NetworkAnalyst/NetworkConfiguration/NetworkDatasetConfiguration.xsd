@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.esri.com/configuration/ArcGIS/10.1/NetworkDataset" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esri.com/configuration/ArcGIS/10.1/NetworkDataset" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="Network">
+    <xs:annotation>
+      <xs:documentation>Network Configuration Templates Data</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="AttributeTemplates" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DefaultScriptParserLanguage" type="ScriptParserType" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="Prefixes">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Dividers">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Divider" maxOccurs="unbounded">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PrefixPair" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Along">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="Against">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                      <xs:unique name="DirectionalPrefixes_key">
+                        <xs:selector xpath="Along | Against"/>
+                        <xs:field xpath="."/>
+                      </xs:unique>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Attributes" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Name" type="xs:string"/>
+                          <xs:element name="Usage" type="UsageType"/>
+                          <xs:element name="Data" type="DataType"/>
+                          <xs:element name="Units" type="UnitsType"/>
+                          <xs:element name="UseByDefault" type="xs:boolean" minOccurs="0"/>
+                          <xs:element name="HierarchyRangeMaxValues" type="xs:string" minOccurs="0"/>
+                          <xs:element name="IsTimeZone" type="xs:boolean" minOccurs="0"/>
+                          <xs:element name="WeekdayFallback" type="xs:boolean" minOccurs="0"/>
+                          <xs:element name="WeekendFallback" type="xs:boolean" minOccurs="0"/>
+                          <xs:element name="RestrictionUsageCodedName" type="xs:string" minOccurs="0"/>
+                          <xs:element name="RestrictionUsageCodedValue" type="xs:double" minOccurs="0"/>
+                          <xs:element name="EvaluatorTemplates">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="EvaluatorTemplate" type="EvaluatorTemplateType" maxOccurs="unbounded"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <xs:unique name="AttributeName_key">
+                  <xs:selector xpath="Attribute"/>
+                  <xs:field xpath="Name"/>
+                </xs:unique>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ElevationTemplates" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Prefixes">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Dividers">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Divider" maxOccurs="unbounded">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PrefixPair" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FromEnd">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="ToEnd">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                      <xs:unique name="ElevationPrefixes_key">
+                        <xs:selector xpath="FromEnd | ToEnd"/>
+                        <xs:field xpath="."/>
+                      </xs:unique>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BaseNames">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="BaseName" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DirectionTemplates" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DirectionAttributes" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="OutputLinearUnits" type="LinearUnits"/>
+                    <xs:element name="AttributeMappingsConstraints" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="AttributeMappingConstraints" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="KeyName" type="xs:string"/>
+                                <xs:element name="Usage" type="UsageType"/>
+                                <xs:element name="Data" type="DataType" minOccurs="1" maxOccurs="unbounded"/>
+                                <xs:element name="AttributeName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DirectionStreetFields" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PreDirFields" minOccurs="0" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="PreTypeFields" minOccurs="0" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="StreetNameFields" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SuffixTypeFields" minOccurs="0" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SuffixFields" minOccurs="0" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="FullNameFields" minOccurs="0" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="HighwayDirectionFields" minOccurs="0" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="LanguageFields" minOccurs="0" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="FieldMappingsConstraints" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FieldMappingConstraints" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="KeyName" type="xs:string"/>
+                                <xs:element name="AllowDirectional" type="xs:boolean"/>
+                                <xs:element name="Type" type="FieldType" maxOccurs="unbounded"/>
+                                <xs:element name="BaseName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DirectionLandmarkFields" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LabelFields" minOccurs="0" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TrafficData" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TimeSliceBaseNames" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="BaseName" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TimeSliceBaseSpeedFactorNames" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="BaseName" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TimeSliceCoverage" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="FirstTimeSliceStartTime" type="xs:time"/>
+                    <xs:element name="LastTimeSliceFinishTime" type="xs:time"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TrafficBaseTravelTimeFullNames" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="TrafficBaseTravelTimeFullName" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Name" minOccurs="1" maxOccurs="1">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="Units" type="TemporalUnits" minOccurs="1" maxOccurs="1"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TrafficBaseSpeedFullNames" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="TrafficBaseSpeedFullName" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Name" minOccurs="1" maxOccurs="1">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="Units" type="SpeedUnits" minOccurs="1" maxOccurs="1"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TrafficBaseTravelTimeBaseNames" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="BaseName" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TrafficBaseSpeedBaseNames" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="BaseName" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="JoinTableProfileIDFieldBaseNames" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="BaseName" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="JoinTableCustomDayOfWeekNameGroups" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="DayOfWeekNameGroup" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DayOfWeek" minOccurs="7" maxOccurs="7">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DynamicTrafficTMCFullNames" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Name" maxOccurs="unbounded">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="EvaluatorTemplateType">
+    <xs:annotation>
+      <xs:documentation>Generic Evaluator Template</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Default" type="xs:boolean"/>
+      <xs:element name="ElementType" type="ElementType" minOccurs="0"/>
+      <xs:element name="DirectionType" type="DirectionType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FieldEvaluatorTemplate">
+    <xs:annotation>
+      <xs:documentation>Evaluator Template for Field Evaluators</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="EvaluatorTemplateType">
+        <xs:sequence>
+          <xs:element name="Fields">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Field" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Name" maxOccurs="unbounded">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="Type" type="FieldType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Script" type="ScriptType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ScriptType">
+    <xs:annotation>
+      <xs:documentation>Generic Evaluator Script Type</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Language" type="ScriptParserType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="PreLogic" type="ScriptLine" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Expression" type="ScriptLine"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ScriptLine">
+    <xs:annotation>
+      <xs:documentation>Single Line of Script</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="preserve"/>
+      <xs:pattern value="[^\n\r]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UsageType">
+    <xs:annotation>
+      <xs:documentation>Network Attribute Usage Type Enumeration</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="esriNAUTCost"/>
+      <xs:enumeration value="esriNAUTDescriptor"/>
+      <xs:enumeration value="esriNAUTRestriction"/>
+      <xs:enumeration value="esriNAUTHierarchy"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UnitsType">
+    <xs:annotation>
+      <xs:documentation>Network Attribute Units Enumeration</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="esriNAUUnknown"/>
+      <xs:enumeration value="esriNAUInches"/>
+      <xs:enumeration value="esriNAUFeet"/>
+      <xs:enumeration value="esriNAUYards"/>
+      <xs:enumeration value="esriNAUMiles"/>
+      <xs:enumeration value="esriNAUNauticalMiles"/>
+      <xs:enumeration value="esriNAUMillimeters"/>
+      <xs:enumeration value="esriNAUCentimeters"/>
+      <xs:enumeration value="esriNAUMeters"/>
+      <xs:enumeration value="esriNAUKilometers"/>
+      <xs:enumeration value="esriNAUDecimalDegrees"/>
+      <xs:enumeration value="esriNAUDecimeters"/>
+      <xs:enumeration value="esriNAUSeconds"/>
+      <xs:enumeration value="esriNAUMinutes"/>
+      <xs:enumeration value="esriNAUHours"/>
+      <xs:enumeration value="esriNAUDays"/>
+      <xs:enumeration value="esriNAUMilesPerHour"/>
+      <xs:enumeration value="esriNAUKilometersPerHour"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DataType">
+    <xs:annotation>
+      <xs:documentation>Network Attribute Data Type Enumeration</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="esriNADTInteger"/>
+      <xs:enumeration value="esriNADTFloat"/>
+      <xs:enumeration value="esriNADTDouble"/>
+      <xs:enumeration value="esriNADTBoolean"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FieldType">
+    <xs:annotation>
+      <xs:documentation>Field Type Enumeration</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="esriFieldTypeSmallInteger"/>
+      <xs:enumeration value="esriFieldTypeInteger"/>
+      <xs:enumeration value="esriFieldTypeSingle"/>
+      <xs:enumeration value="esriFieldTypeDouble"/>
+      <xs:enumeration value="esriFieldTypeString"/>
+      <xs:enumeration value="esriFieldTypeDate"/>
+      <xs:enumeration value="esriFieldTypeOID"/>
+      <xs:enumeration value="esriFieldTypeGeometry"/>
+      <xs:enumeration value="esriFieldTypeBlob"/>
+      <xs:enumeration value="esriFieldTypeRaster"/>
+      <xs:enumeration value="esriFieldTypeGUID"/>
+      <xs:enumeration value="esriFieldTypeGlobalID"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ElementType">
+    <xs:annotation>
+      <xs:documentation>Network Element Type Enumeration</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="esriNETJunction"/>
+      <xs:enumeration value="esriNETEdge"/>
+      <xs:enumeration value="esriNETTurn"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DirectionType">
+    <xs:annotation>
+      <xs:documentation>Network Edge Direction Type</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="esriNEDNone"/>
+      <xs:enumeration value="esriNEDAlongDigitized"/>
+      <xs:enumeration value="esriNEDAgainstDigitized"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LinearUnits">
+    <xs:annotation>
+      <xs:documentation>Network Attribute Linear Units Enumeration</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="esriNAUInches"/>
+      <xs:enumeration value="esriNAUFeet"/>
+      <xs:enumeration value="esriNAUYards"/>
+      <xs:enumeration value="esriNAUMiles"/>
+      <xs:enumeration value="esriNAUNauticalMiles"/>
+      <xs:enumeration value="esriNAUMillimeters"/>
+      <xs:enumeration value="esriNAUCentimeters"/>
+      <xs:enumeration value="esriNAUMeters"/>
+      <xs:enumeration value="esriNAUKilometers"/>
+      <xs:enumeration value="esriNAUDecimalDegrees"/>
+      <xs:enumeration value="esriNAUDecimeters"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TemporalUnits">
+    <xs:annotation>
+      <xs:documentation>Network Attribute Temporal Units Enumeration</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="esriNAUSeconds"/>
+      <xs:enumeration value="esriNAUMinutes"/>
+      <xs:enumeration value="esriNAUHours"/>
+      <xs:enumeration value="esriNAUDays"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SpeedUnits">
+    <xs:annotation>
+      <xs:documentation>Network Attribute Speed Units Enumeration</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="esriNAUMilesPerHour"/>
+      <xs:enumeration value="esriNAUKilometersPerHour"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ScriptParserType">
+    <xs:annotation>
+      <xs:documentation>Network Evaluator Script Parser Type</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VBScript"/>
+      <xs:enumeration value="Python"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,2569 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Messages STARTID="84000">
+
+<!-- ****************************************** -->
+<!--   Spatial Stats Results/Progress Messages  -->
+<!-- ****************************************** -->
+
+<Message>
+    <ID>84001</ID>
+    <Description>Reading Data....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84002</ID>
+    <Description>Computing Results....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84003</ID>
+    <Description>Writing Results to Output Feature Class....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84004</ID>
+    <Description>Exiting....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84005</ID>
+    <Description>Obtaining Complete Set of Unique IDs....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84006</ID>
+    <Description>Copying Analysis Fields to Output Feature Class....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84007</ID>
+    <Description>Calculating Results....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84008</ID>
+    <Description>Writing Results to Output Table....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84009</ID>
+    <Description>Reading Spatial Weights From File (Text Format)....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84010</ID>
+    <Description>Standardizing Spatial Weights....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84011</ID>
+    <Description>Computing Confidence Envelope....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84012</ID>
+    <Description>Writing Results to ASCII File....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84013</ID>
+    <Description>Cleaning up....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84014</ID>
+    <Description>Copying Existing Fields to Output Feature Class....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84015</ID>
+    <Description>Implementing Edge Correction....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84016</ID>
+    <Description>Input Field</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84017</ID>
+    <Description>Constructing Convex Hull....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84018</ID>
+    <Description>R2</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84019</ID>
+    <Description>Multiple R-Squared</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84020</ID>
+    <Description>R-Squared, Coefficient of Determination: The proportion of variation in the dependent variable that is explained by the model.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84021</ID>
+    <Description>AdjR2</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84022</ID>
+    <Description>Adjusted R-Squared</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84023</ID>
+    <Description>Adjusted R-Squared: R-Squared adjusted for model complexity (number of variables) as it relates to the data.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84024</ID>
+    <Description>F-Stat</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84025</ID>
+    <Description>Joint F-Statistic</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84026</ID>
+    <Description>Joint F-Statistic Value: Used to assess overall model significance.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84027</ID>
+    <Description>F-Prob</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84028</ID>
+    <Description>Prob(>F), ({0},{1}) degrees of freedom</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84029</ID>
+    <Description>Joint F-Statistic Probability (p-value): The probability that none of the explanatory variables have an effect on the dependent variable.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84030</ID>
+    <Description>Wald</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84031</ID>
+    <Description>Joint Wald Statistic</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84032</ID>
+    <Description>Wald Statistic: Used to assess overall robust model significance.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84033</ID>
+    <Description>Wald-Prob</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84034</ID>
+    <Description>Prob(>chi-squared), ({0}) degrees of freedom</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84035</ID>
+    <Description>Wald Statistic Probability (p-value): The computed probability, using robust standard errors, that none of the explanatory variables have an effect on the dependent variable.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84036</ID>
+    <Description>K(BP)</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84037</ID>
+    <Description>Koenker (BP) Statistic</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84038</ID>
+    <Description>Koenker's studentized Breusch-Pagan Statistic: Used to test the reliability of standard error values when heteroskedasticity (non-constant variance) is present.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84039</ID>
+    <Description>K(BP)-Prob</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84040</ID>
+    <Description>Prob(>chi-squared), ({0}) degrees of freedom</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84041</ID>
+    <Description>Koenker (BP) Statistic Probability (p-value): The probability that heteroskedasticity (non-constant variance) has not made standard errors unreliable.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84042</ID>
+    <Description>JB</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84043</ID>
+    <Description>Jarque-Bera Statistic</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84044</ID>
+    <Description>Jarque-Bera Statistic: Used to determine whether the residuals deviate from a normal distribution.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84045</ID>
+    <Description>JB-Prob</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84046</ID>
+    <Description>Prob(>chi-squared), ({0}) degrees of freedom</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84047</ID>
+    <Description>Jarque-Bera Probability (p-value): The probability that the residuals are normally distributed.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84048</ID>
+    <Description>Coef</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84049</ID>
+    <Description>Coefficient</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84050</ID>
+    <Description>SE</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84051</ID>
+    <Description>StdError</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84052</ID>
+    <Description>t_Stat</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84053</ID>
+    <Description>t-Statistic</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84054</ID>
+    <Description>Prob</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84055</ID>
+    <Description>Probability</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84056</ID>
+    <Description>N</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84057</ID>
+    <Description>Number of Observations</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84058</ID>
+    <Description>K</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84059</ID>
+    <Description>Number of explanatory variables</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84060</ID>
+    <Description>DOF</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84061</ID>
+    <Description>Degrees of Freedom: the number of observations minus the number of estimated parameters.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84062</ID>
+    <Description>Sigma2</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84063</ID>
+    <Description>Sigma-Squared: OLS estimate of the variance of the error term (residuals).</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84064</ID>
+    <Description>Intercept</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84065</ID>
+    <Description>Diag_Name</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84066</ID>
+    <Description>Diag_Value</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84067</ID>
+    <Description>Definition</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84068</ID>
+    <Description>Variable</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84069</ID>
+    <Description>X</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84070</ID>
+    <Description>_SUPP</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84071</ID>
+    <Description>Writing Coefficient Output Table....</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84072</ID>
+    <Description>OLS requires an instance of the GeoProcessor to create output tables.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84073</ID>
+    <Description>Summary of Robust OLS Results</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84074</ID>
+    <Description>Robust OLS Diagnostics</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84075</ID>
+    <Description>Summary of OLS Results</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84076</ID>
+    <Description>OLS Diagnostics</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84077</ID>
+    <Description>Distance ({0})</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84078</ID>
+    <Description>Estimated</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84079</ID>
+    <Description>Residual</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84080</ID>
+    <Description>[a]</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84081</ID>
+    <Description>Notes on Interpretation</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84082</ID>
+    <Description>An asterisk next to a number indicates a statistically significant p-value (p &lt; {0}).</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84083</ID>
+    <Description>Variance Inflation Factor (VIF): Large Variance Inflation Factor (VIF) values (> {0}) indicate redundancy among explanatory variables.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84084</ID>
+    <Description>R-Squared and Akaike's Information Criterion (AICc): Measures of model fit/performance.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84085</ID>
+    <Description>Joint F and Wald Statistics: Asterisk (*) indicates overall model significance (p &lt; {0}); if the Koenker (BP) Statistic [f] is statistically significant, use the Wald Statistic to determine overall model significance.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84086</ID>
+    <Description>[b]</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84087</ID>
+    <Description>Koenker (BP) Statistic: When this test is statistically significant (p &lt; {0}), the relationships modeled are not consistent (either due to non-stationarity or heteroskedasticity).  You should rely on the Robust Probabilities (Robust_Pr) to determine coefficient significance and on the Wald Statistic to determine overall model significance.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84088</ID>
+    <Description>Jarque-Bera Statistic: When this test is statistically significant (p &lt; {0}) model predictions are biased (the residuals are not normally distributed).</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84089</ID>
+    <Description>Use the Spatial Autocorrelation (Moran's I) Tool to ensure residuals are not spatially autocorrelated.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84090</ID>
+    <Description>The number of explanatory variables (excluding intercept) needs to be greater than 1 to test for multicollinearity.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84091</ID>
+    <Description>Singularity in design matrix X.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84092</ID>
+    <Description>--------</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84093</ID>
+    <Description>Number of Observations</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84094</ID>
+    <Description>Number of Variables</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84095</ID>
+    <Description>Degrees of Freedom</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84096</ID>
+    <Description>Estimate of Variance</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84097</ID>
+    <Description>Robust_SE</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84098</ID>
+    <Description>Writing Diagnostic Output Table....</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84099</ID>
+    <Description>Writing Summary Text Table....</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84100</ID>
+    <Description>SE (Robust)</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84101</ID>
+    <Description>Robust_t</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84102</ID>
+    <Description>Robust_Pr</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84103</ID>
+    <Description>[c]</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84104</ID>
+    <Description>[d]</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84105</ID>
+    <Description>[e]</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84106</ID>
+    <Description>[f]</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84107</ID>
+    <Description>[g]</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84108</ID>
+    <Description>NumVars</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84109</ID>
+    <Description>Multicollinearity</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84110</ID>
+    <Description>R-Squared, Adjusted R-Squared</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84111</ID>
+    <Description>*</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84112</ID>
+    <Description>Dependent Variable</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84113</ID>
+    <Description>StdResid</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84114</ID>
+    <Description>AIC</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84115</ID>
+    <Description>Global Median</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84116</ID>
+    <Description>Akaike's Information Criterion: A relative measure of performance used to compare models; the smaller AIC indicates the superior model.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84117</ID>
+    <Description>Converting weights from SWM format to database table....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84118</ID>
+    <Description>Constructing spatial weights based on distance criteria....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84119</ID>
+    <Description>Constructing spatial weights based on k-nearest neighbors....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84120</ID>
+    <Description>Constructing spatial weights based on Delaunay Triangulation....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84121</ID>
+    <Description>Constructing spatial weights based on polygon contiguity (Edges Only)....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84122</ID>
+    <Description>Constructing spatial weights based on polygon contiguity (Edges or Corners)....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84123</ID>
+    <Description>Constructing spatial weights based on input table....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84124</ID>
+    <Description>Pre-Processing points....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84125</ID>
+    <Description>Calculating and writing distance based weights....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84126</ID>
+    <Description>Pre-Processing polygons....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84127</ID>
+    <Description>Writing spatial weights to file....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84128</ID>
+    <Description>Processing island polygons to assure one neighbor based on nearest centroid....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84129</ID>
+    <Description>Building neighborhood structure....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84130</ID>
+    <Description>Searching for nearest neighbors....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84131</ID>
+    <Description>Executing Delaunay Triangulation....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84132</ID>
+    <Description>Constructing Origin-Destination Cost Layer....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84133</ID>
+    <Description>Adding Destinations to Origin-Destination Cost Layer....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84134</ID>
+    <Description>Building Node Neighborhood Structure....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84135</ID>
+    <Description>Building Polygon Neighborhood Structure....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84136</ID>
+    <Description>The default neighborhood search threshold was {0}.</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84137</ID>
+    <Description>Spatial Weights Matrix Summary</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84138</ID>
+    <Description>Number of Features: </Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84139</ID>
+    <Description>Percentage of Spatial Connectivity: </Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84140</ID>
+    <Description>Average Number of Neighbors: </Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84141</ID>
+    <Description>Minimum Number of Neighbors: </Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84142</ID>
+    <Description>Maximum Number of Neighbors: </Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84143</ID>
+    <Description>Organizing data for neighborhood search....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84144</ID>
+    <Description>Calculating default distance threshold....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84145</ID>
+    <Description>Adding origins and solving for chunk {0} of {1}....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84146</ID>
+    <Description>Writing spatial weights to file for chunk {0} of {1}....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84147</ID>
+    <Description>Adding Barriers to Origin-Destination Cost Layer....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84148</ID>
+    <Description>Moran's Index: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84149</ID>
+    <Description>Expected Index: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84150</ID>
+    <Description>Variance: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84151</ID>
+    <Description>z-score: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84152</ID>
+    <Description>p-value: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84153</ID>
+    <Description>Observed General G: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84154</ID>
+    <Description>Expected General G: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84155</ID>
+    <Description>Nearest Neighbor Ratio: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84156</ID>
+    <Description>Nearest Neighbor Observed Mean Distance: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84157</ID>
+    <Description>Expected Mean Distance: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84158</ID>
+    <Description>Nearest Neighbor Ratio: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84159</ID>
+    <Description>General G Summary</Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84160</ID>
+    <Description>Global Moran's I Summary</Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84161</ID>
+    <Description>Average Nearest Neighbor Summary</Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84162</ID>
+    <Description>Observed Mean Distance: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84163</ID>
+    <Description>Expected Mean Distance: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84164</ID>
+    <Description>Nearest Neighbor Ratio: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84165</ID>
+    <Description>Minimum {0} neighbor distance: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84166</ID>
+    <Description>Average {0} neighbor distance: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84167</ID>
+    <Description>Maximum {0} neighbor distance: </Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84168</ID>
+    <Description>The units are in the units of the feature class spatial reference
+</Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84169</ID>
+    <Description>For distance {0}, L(d) = {1}, Diff = {2}   Confidence Envelope: {3}, {4}</Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84170</ID>
+    <Description>For distance {0}, L(d) = {1}, Diff = {2}</Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84171</ID>
+    <Description>Calculate Distance Band Summary</Description>
+    <Tool>results</Tool>
+</Message>
+<Message>
+    <ID>84172</ID>
+    <Description>F_AREA</Description>
+    <Tool>fields</Tool>
+</Message>
+<Message>
+    <ID>84173</ID>
+    <Description>ICOUNT</Description>
+    <Tool>fields</Tool>
+</Message>
+<Message>
+    <ID>84174</ID>
+    <Description>ExpectedK</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84175</ID>
+    <Description>ObservedK</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84176</ID>
+    <Description>DiffK</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84177</ID>
+    <Description>LwConfEnv</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84178</ID>
+    <Description>HiConfEnv</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84179</ID>
+    <Description>Distance</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84180</ID>
+    <Description>L(d)</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84181</ID>
+    <Description>Diff</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84182</ID>
+    <Description>Min L(d)</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84183</ID>
+    <Description>Max L(d)</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84184</ID>
+    <Description>Calculating Permutation {0} of {1}....</Description>
+    <Tool>kfunction</Tool>
+</Message>    
+<Message>
+    <ID>84185</ID>
+    <Description>k-Function Summary</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84186</ID>
+    <Description>Writing output graphic file....</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84187</ID>
+    <Description>Constructing Convex Hull....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84188</ID>
+    <Description>A convex hull requires at least 3 unique points!</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84189</ID>
+    <Description>Constructing Minimum Enclosing Rectangle....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84190</ID>
+    <Description>Median Center Summary</Description>
+    <Tool>median center</Tool>
+</Message>
+<Message>
+    <ID>84191</ID>
+    <Description>Case</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84192</ID>
+    <Description>XCoord</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84193</ID>
+    <Description>YCoord</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84194</ID>
+    <Description>Median({0})</Description>
+    <Tool>median center</Tool>
+</Message>
+<Message>
+    <ID>84195</ID>
+    <Description>AttField</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84196</ID>
+    <Description>Mean Center Summary</Description>
+    <Tool>mean center</Tool>
+</Message>
+<Message>
+    <ID>84197</ID>
+    <Description>ZCoord</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84198</ID>
+    <Description>Mean({0})</Description>
+    <Tool>mean center</Tool>
+</Message>
+<Message>
+    <ID>84199</ID>
+    <Description>DimField</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84200</ID>
+    <Description>Central Feature Summary</Description>
+    <Tool>central feature</Tool>
+</Message>
+<Message>
+    <ID>84201</ID>
+    <Description>Central Feature IDs</Description>
+    <Tool>central feature</Tool>
+</Message>
+<Message>
+    <ID>84202</ID>
+    <Description>Total Cost</Description>
+    <Tool>central feature</Tool>
+</Message>
+<Message>
+    <ID>84203</ID>
+    <Description>Linear Directional Mean Summary</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84204</ID>
+    <Description>CompassA</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84205</ID>
+    <Description>DirMean</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84206</ID>
+    <Description>CirVar</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84207</ID>
+    <Description>AveX</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84208</ID>
+    <Description>AveY</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84209</ID>
+    <Description>AveLen</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84210</ID>
+    <Description>Standard Ellipse Summary</Description>
+    <Tool>standard ellipse</Tool>
+</Message>
+<Message>
+    <ID>84211</ID>
+    <Description>CenterX</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84212</ID>
+    <Description>CenterY</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84213</ID>
+    <Description>XStdDist</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84214</ID>
+    <Description>YStdDist</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84215</ID>
+    <Description>Rotation</Description>
+    <Tool>linear mean</Tool>
+</Message>
+<Message>
+    <ID>84216</ID>
+    <Description>NID</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84217</ID>
+    <Description>WEIGHT</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84218</ID>
+    <Description>GiZScore</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84219</ID>
+    <Description>GiPValue</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84220</ID>
+    <Description>LMiIndex</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84221</ID>
+    <Description>LMiZScore</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84222</ID>
+    <Description>LMiPValue</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84223</ID>
+    <Description>COType</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84224</ID>
+    <Description>Standard Distance Summary</Description>
+    <Tool>standard distance</Tool>
+</Message>
+<Message>
+    <ID>84225</ID>
+    <Description>Radius</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84226</ID>
+    <Description>StdDist</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84227</ID>
+    <Description>MoransI_Result</Description>
+    <Tool>file</Tool>
+</Message>
+<Message>
+    <ID>84228</ID>
+    <Description>Writing html report....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84229</ID>
+    <Description>Spatial Autocorrelation Report</Description>
+    <Tool>moran</Tool>
+</Message>
+<Message>
+    <ID>84230</ID>
+    <Description>Given the z-score of {0}, </Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84231</ID>
+    <Description>there is a less than {0} likelihood that this {1} pattern could be the result of random chance.</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84232</ID>
+    <Description>the pattern does not appear to be significantly different than random.</Description>
+    <Tool>moran</Tool>
+</Message>
+<Message>
+    <ID>84233</ID>
+    <Description>Input Feature Class</Description>
+    <Tool>dataset</Tool>
+</Message>
+<Message>
+    <ID>84234</ID>
+    <Description>Conceptualization</Description>
+    <Tool>dataset</Tool>
+</Message>
+<Message>
+    <ID>84235</ID>
+    <Description>Distance Method</Description>
+    <Tool>dataset</Tool>
+</Message>
+<Message>
+    <ID>84236</ID>
+    <Description>Row Standardization</Description>
+    <Tool>dataset</Tool>
+</Message>
+<Message>
+    <ID>84237</ID>
+    <Description>Distance Threshold</Description>
+    <Tool>dataset</Tool>
+</Message>
+<Message>
+    <ID>84238</ID>
+    <Description>Weights Matrix File</Description>
+    <Tool>dataset</Tool>
+</Message>
+<Message>
+    <ID>84239</ID>
+    <Description>Dataset Information</Description>
+    <Tool>dataset</Tool>
+</Message>
+<Message>
+    <ID>84240</ID>
+    <Description>NearestNeighbor_Result</Description>
+    <Tool>file</Tool>
+</Message>
+<Message>
+    <ID>84241</ID>
+    <Description>Study Area</Description>
+    <Tool>file</Tool>
+</Message>
+<Message>
+    <ID>84242</ID>
+    <Description>GeneralG_Result</Description>
+    <Tool>file</Tool>
+</Message>
+<Message>
+    <ID>84243</ID>
+    <Description>clustered</Description>
+    <Tool>global</Tool>
+</Message>
+<Message>
+    <ID>84244</ID>
+    <Description>dispersed</Description>
+    <Tool>global</Tool>
+</Message>
+<Message>
+    <ID>84245</ID>
+    <Description>low-clustered</Description>
+    <Tool>global</Tool>
+</Message>
+<Message>
+    <ID>84246</ID>
+    <Description>high-clustered</Description>
+    <Tool>global</Tool>
+</Message>
+<Message>
+    <ID>84247</ID>
+    <Description>High-Low Clustering Report</Description>
+    <Tool>moran</Tool>
+</Message>
+<Message>
+    <ID>84248</ID>
+    <Description>Setting Study Area....</Description>
+    <Tool>general</Tool>
+</Message>
+<Message>
+    <ID>84249</ID>
+    <Description>AICc</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84250</ID>
+    <Description>Corrected Akaike's Information Criterion: second order correction for small sample sizes.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84251</ID>
+    <Description>Akaike's Information Criterion (AICc)</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84252</ID>
+    <Description>Sigma-Squared</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84253</ID>
+    <Description>Input Features</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84254</ID>
+    <Description>Dependent Variable</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84255</ID>
+    <Description>Constructing spatial weights based on space-time window....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84256</ID>
+    <Description>Assessing temporal restrictions....</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84257</ID>
+    <Description>SS_GROUP</Description>
+    <Tool>fields</Tool>
+</Message>
+<Message>
+    <ID>84258</ID>
+    <Description>SS_SEED</Description>
+    <Tool>fields</Tool>
+</Message>
+<Message>
+    <ID>84259</ID>
+    <Description>Finding feasible solution....</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84260</ID>
+    <Description>Solved in {0} iterations.</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84261</ID>
+    <Description>Mean</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84262</ID>
+    <Description>Std. Dev.</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84263</ID>
+    <Description>Theil's T</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84264</ID>
+    <Description>Within</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84265</ID>
+    <Description>Between</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84266</ID>
+    <Description>Proportion</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84267</ID>
+    <Description>Proportion</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84268</ID>
+    <Description>Variable-Wise Summary</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84269</ID>
+    <Description>Standardized Values</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84270</ID>
+    <Description>Group-Wise Summary</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84271</ID>
+    <Description>Min</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84272</ID>
+    <Description>Max</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84273</ID>
+    <Description>Share</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84274</ID>
+    <Description>(cont.)</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84275</ID>
+    <Description>Variable-Wise Summary</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84276</ID>
+    <Description>Group {0}: Count = {1}{2} Std. Distance = {3}{2} SSD = {4}</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84277</ID>
+    <Description>Parallel Box Plot</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84278</ID>
+    <Description>MoransI</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84279</ID>
+    <Description>ExpectedI</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84280</ID>
+    <Description>Running Moran's I at Varying Distances....</Description>
+    <Tool>isa</Tool>
+</Message>
+<Message>
+    <ID>84281</ID>
+    <Description>{0} of {1}: {2:0.4f}</Description>
+    <Tool>isa</Tool>
+</Message>
+<Message>
+    <ID>84282</ID>
+    <Description> by Distance</Description>
+    <Tool>isa</Tool>
+</Message>
+<Message>
+    <ID>84283</ID>
+    <Description>Choose {0} of {1} Summary</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84284</ID>
+    <Description>VIF</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84285</ID>
+    <Description>MI</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84286</ID>
+    <Description>  Model</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84287</ID>
+    <Description>Highest Adjusted R-Squared Results</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84288</ID>
+    <Description>Passing Models</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84289</ID>
+    <Description>*</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84290</ID>
+    <Description>RunID</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84291</ID>
+    <Description>MaxVIF</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84292</ID>
+    <Description>SA</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84293</ID>
+    <Description>{0} variables, choose: {1}</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84294</ID>
+    <Description>Percentage of Search Criteria Passed</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84295</ID>
+    <Description>Search Criterion</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84296</ID>
+    <Description>Cutoff</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84297</ID>
+    <Description>Trials</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84298</ID>
+    <Description># Passed</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84299</ID>
+    <Description>&#x0025; Passed</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84300</ID>
+    <Description>Min Adjusted R-Squared</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84301</ID>
+    <Description>Max Coefficient p-value</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84302</ID>
+    <Description>Max VIF Value</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84303</ID>
+    <Description>Min Jarque-Bera p-value</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84304</ID>
+    <Description>Min Spatial Autocorrelation p-value</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84305</ID>
+    <Description>Summary of Variable Significance</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84306</ID>
+    <Description>Summary of Multicollinearity</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84307</ID>
+    <Description>&#x0025; Significant</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84308</ID>
+    <Description>Violations</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84309</ID>
+    <Description>Covariates</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84310</ID>
+    <Description>Summary of Residual Normality (JB)</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84311</ID>
+    <Description>Summary of Residual Spatial Autocorrelation (SA)</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84312</ID>
+    <Description>Table Abbreviations</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84313</ID>
+    <Description>Variable sign (+/-)</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84314</ID>
+    <Description>Variable significance (* = {0}{1} ** = {2}{1} *** = {3})</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84315</ID>
+    <Description>Adjusted R-Squared</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84316</ID>
+    <Description>Akaike's Information Criterion</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84317</ID>
+    <Description>Jarque-Bera p-value</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84318</ID>
+    <Description>Koenker (BP) Statistic p-value</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84319</ID>
+    <Description>Max Variance Inflation Factor</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84320</ID>
+    <Description>Global Moran's I p-value</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84321</ID>
+    <Description> Exploratory Regression Global Summary ({0}) </Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84322</ID>
+    <Description>Reading Spatial Weights From File....</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84323</ID>
+    <Description>Constructing Minimum Spanning Tree....</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84324</ID>
+    <Description>Constructing Regions....</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84325</ID>
+    <Description>Finding Optimal Number of Groups....</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84326</ID>
+    <Description>Pseudo F-Statistic for Group {0} is {1}</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84327</ID>
+    <Description>Adding Pseudo F-Statistic Plot to Output Report....</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84328</ID>
+    <Description>Pseudo F-Statistic Plot</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84329</ID>
+    <Description>Number of Groups</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84330</ID>
+    <Description>Pseudo F-Statistic</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84331</ID>
+    <Description>1st Peak</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84332</ID>
+    <Description>Max Peak</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84333</ID>
+    <Description>K_BP</Description>
+    <Tool>field</Tool>
+</Message>
+<Message>
+    <ID>84334</ID>
+    <Description>Spatial Autocorrelation by Distance</Description>
+    <Tool>moran</Tool>
+</Message>
+<Message>
+    <ID>84335</ID>
+    <Description>z-score</Description>
+    <Tool>moran</Tool>
+</Message>
+<Message>
+    <ID>84336</ID>
+    <Description>Residual vs. Predicted Plot</Description>
+    <Tool>ols</Tool>
+</Message>
+<Message>
+    <ID>84337</ID>
+    <Description>Std. Residuals</Description>
+    <Tool>ols</Tool>
+</Message>
+<Message>
+    <ID>84338</ID>
+    <Description>Predicted</Description>
+    <Tool>ols</Tool>
+</Message>
+<Message>
+    <ID>84339</ID>
+    <Description>This is a graph of residuals (model over and under \n  predictions) in relation to predicted dependent variable \n values (Y).  For a properly specified model, this scatterplot \n will have little structure, and look random (see graph on \n the right).  If there is a structure to this plot, the type of \n structure may be a valuable clue to help you figure out \n what's going on.</Description>
+    <Tool>ols</Tool>
+</Message>
+<Message>
+    <ID>84340</ID>
+    <Description>Random Residuals</Description>
+    <Tool>ols</Tool>
+</Message>
+<Message>
+    <ID>84341</ID>
+    <Description>Histogram of Standardized Residuals</Description>
+    <Tool>ols</Tool>
+</Message>
+<Message>
+    <ID>84342</ID>
+    <Description>Distance*</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84343</ID>
+    <Description>* Measured in {0}</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84344</ID>
+    <Description>Distance measured in {0}</Description>
+    <Tool>kfunction</Tool>
+</Message>
+<Message>
+    <ID>84345</ID>
+    <Description>Global Lower Quartile</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84346</ID>
+    <Description>Global Upper Quartile</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84347</ID>
+    <Description>Global Lower Whisker</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84348</ID>
+    <Description>Global Upper Whisker</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84349</ID>
+    <Description>Coefficient: Represents the strength and type of relationship between each explanatory variable and the dependent variable.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84350</ID>
+    <Description>Probability and Robust Probability (Robust_Pr): Asterisk (*) indicates a coefficient is statistically significant (p &lt; {0}); if the Koenker (BP) Statistic [f] is statistically significant, use the Robust Probability column (Robust_Pr) to determine coefficient significance.</Description> 
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84351</ID>
+    <Description>Outlier</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84352</ID>
+    <Description>Group Mean</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84353</ID>
+    <Description>Group Min</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84354</ID>
+    <Description>Group Max</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84355</ID>
+    <Description>Total</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84356</ID>
+    <Description>{0}: R2 = {1}</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84357</ID>
+    <Description>Overall Variable Statistics: Count = {0}{1} Std. Distance = {2}{1} SSD = {3}</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84358</ID>
+    <Description>18</Description>
+    <Tool>group</Tool>
+</Message>
+<Message>
+    <ID>84359</ID>
+    <Description>Unique ID Field</Description>
+    <Tool>report</Tool>
+</Message>
+<Message>
+    <ID>84360</ID>
+    <Description>Output Feature Class</Description>
+    <Tool>report</Tool>
+</Message>
+<Message>
+    <ID>84361</ID>
+    <Description>Spatial Constraints</Description>
+    <Tool>report</Tool>
+</Message>
+<Message>
+    <ID>84362</ID>
+    <Description>Number of Neighbors</Description>
+    <Tool>report</Tool>
+</Message>
+<Message>
+    <ID>84363</ID>
+    <Description>Initialization Method</Description>
+    <Tool>report</Tool>
+</Message>
+<Message>
+    <ID>84364</ID>
+    <Description>Initialization Field</Description>
+    <Tool>report</Tool>
+</Message>
+<Message>
+    <ID>84365</ID>
+    <Description>Grouping Analysis Parameters</Description>
+    <Tool>report</Tool>
+</Message>
+<Message>
+    <ID>84366</ID>
+    <Description>&#x0025; Negative</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84367</ID>
+    <Description>&#x0025; Positive</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84368</ID>
+    <Description>ALL</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84369</ID>
+    <Description>INTERCEPT</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84370</ID>
+    <Description>Model Variables</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84371</ID>
+    <Description>Variable Distributions and Relationships</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84372</ID>
+    <Description>Ordinary Least Squares Parameters</Description>
+    <Tool>ols</Tool>
+</Message>
+<Message>
+    <ID>84373</ID>
+    <Description>Incremental Autocorrelation Parameters</Description>
+    <Tool>ia</Tool>
+</Message>
+<Message>
+    <ID>84374</ID>
+    <Description>Number of Distance Bands</Description>
+    <Tool>ia</Tool>
+</Message>
+<Message>
+    <ID>84375</ID>
+    <Description>Beginning Distance</Description>
+    <Tool>ia</Tool>
+</Message>
+<Message>
+    <ID>84376</ID>
+    <Description>Distance Increment</Description>
+    <Tool>ia</Tool>
+</Message>
+<Message>
+    <ID>84377</ID>
+    <Description>(Cont.)</Description>
+    <Tool>ia</Tool>
+</Message>
+<Message>
+    <ID>84378</ID>
+    <Description>Spatial Weights Matrix Description</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84379</ID>
+    <Description>Spatial Reference Name</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84380</ID>
+    <Description>Additional Field</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84381</ID>
+    <Description>Output Spatial Weights Matrix File</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84382</ID>
+    <Description>ArcGIS Version</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84383</ID>
+    <Description>Exponent</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84384</ID>
+    <Description>Input Table</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84385</ID>
+    <Description>Date/Time Field</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84386</ID>
+    <Description>Date/Time Type</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84387</ID>
+    <Description>Date/Time Value</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84388</ID>
+    <Description>Input Network</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84389</ID>
+    <Description>Impedance Attribute</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84390</ID>
+    <Description>Impedance Cutoff</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84391</ID>
+    <Description>Maximum Number of Neighbors</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84392</ID>
+    <Description>Barriers</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84393</ID>
+    <Description>U-turn Policy</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84394</ID>
+    <Description>Restrictions</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84395</ID>
+    <Description>Use Hierarchy in Analysis</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84396</ID>
+    <Description>Search Tolerance</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84397</ID>
+    <Description>Additional Spatial Conceptualization</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84398</ID>
+    <Description>Group</Description>
+    <Tool>ga</Tool>
+</Message>
+<Message>
+    <ID>84399</ID>
+    <Description>Analysis Fields</Description>
+    <Tool>ga</Tool>
+</Message>
+<Message>
+    <ID>84400</ID>
+    <Description>Parameter Name</Description>
+    <Tool>report</Tool>
+</Message>
+<Message>
+    <ID>84401</ID>
+    <Description>Input Value</Description>
+    <Tool>report</Tool>
+</Message>
+<Message>
+    <ID>84402</ID>
+    <Description>Explanatory Variables</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84403</ID>
+    <Description>The above graphs are Histograms and Scatterplots for each explanatory variable and the dependent variable.  The histograms show how each variable is distributed.  OLS does not require variables to be normally distributed.  However, if you are having trouble finding a properly-specified model, you can try transforming strongly skewed variables to see if you get a better result.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84404</ID>
+    <Description>Each scatterplot depicts the relationship between an explanatory variable and the dependent variable.  Strong relationships appear as diagonals and the direction of the slant indicates if the relationship is positive or negative.  Try transforming your variables if you detect any non-linear relationships.  For more information see the Regression Analysis Basics documentation.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84405</ID>
+    <Description>Highest Pseudo F-Statistic (Group{0} Value): {1}{0} {2}</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84406</ID>
+    <Description>Fixed Weight Values</Description>
+    <Tool>weights</Tool>
+</Message>
+<Message>
+    <ID>84407</ID>
+    <Description>Pseudo F-Statistics for Group {0}: Mean = {1}{2} Min = {3}{2} Max = {4}{2} Median = {5}</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84408</ID>
+    <Description>Highest {0} Pseudo F-Statistic (Group{1} Value): {2}{1} {3}</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84409</ID>
+    <Description>* At least one model failed to solve due to perfect multicollinearity.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84410</ID>
+    <Description>Please review the warning messages for further information.</Description>
+    <Tool>regression</Tool>
+</Message>
+<Message>
+    <ID>84411</ID>
+    <Description>Pseudo F-Statistic Summary</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84412</ID>
+    <Description>Minimum</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84413</ID>
+    <Description>Maximum</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84414</ID>
+    <Description>Median</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84415</ID>
+    <Description>Symbology</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84416</ID>
+    <Description>Max({0})</Description>
+    <Tool>gsf</Tool>
+</Message>
+<Message>
+    <ID>84417</ID>
+    <Description>* At least one distance increment resulted in features with no neighbors which may invalidate the significance of the corresponding results.</Description>
+    <Tool>inc</Tool>
+</Message>
+<Message>
+    <ID>84418</ID>
+    <Description>Selection Set</Description>
+    <Tool>inc</Tool>
+</Message>
+<Message>
+    <ID>84419</ID>
+    <Description>First Peak (Distance{1} Value): {0}{1} {2}</Description>
+    <Tool>inc</Tool>
+</Message>
+<Message>
+    <ID>84420</ID>
+    <Description>Max Peak (Distance{1} Value): {0}{1} {2}</Description>
+    <Tool>inc</Tool>
+</Message>
+<Message>
+    <ID>84421</ID>
+    <Description>Ideally the histogram of your residuals would match the normal curve, indicated above in blue.  If the histogram looks very different from the normal curve, you may have a biased model.  If this bias is significant it will also be represented by a statistically significant Jarque-Bera p-value (*).</Description>
+    <Tool>ols</Tool>
+</Message>
+<Message>
+    <ID>84422</ID>
+    <Description>This is a graph of residuals (model over and under predictions) in relation to predicted dependent variable values.  For a properly specified model, this scatterplot will have little structure, and look random (see graph on the right).  If there is a structure to this plot, the type of structure may be a valuable clue to help you figure out what's going on.</Description>
+    <Tool>ols</Tool>
+</Message>
+<Message>
+    <ID>84423</ID>
+    <Description>Calculating Number of Neighbors Per Increment....</Description>
+    <Tool>inc</Tool>
+</Message>
+<Message>
+    <ID>84424</ID>
+    <Description>Must provide an analysis field for input polygons.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84425</ID>
+    <Description>Must provide an incident data aggregation method for points without analysis field.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84426</ID>
+    <Description>Must provide polygons for aggregating incidents into counts for this incident data aggregation method.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84427</ID>
+    <Description>Must provide bounding polygon(s) for defining where incidents are possible for this incident data aggregation method.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84428</ID>
+    <Description>Initial Data Assessment</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84429</ID>
+    <Description>Making sure there are enough weighted features for analysis....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84430</ID>
+    <Description>Evaluating the aggregation polygons....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84431</ID>
+    <Description>Making sure there are enough incidents for analysis....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84432</ID>
+    <Description>Evaluating the Analysis Field values....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84433</ID>
+    <Description>There is sufficient variance in the specified analysis field.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84434</ID>
+    <Description>There were {0} outlier locations; these will not be used to compute {1}.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84435</ID>
+    <Description>There were {0} locations with nearest neighbor distances larger than {1} standard deviations from the average.</Description>
+    <Tool>utils</Tool>
+</Message>
+<Message>
+    <ID>84436</ID>
+    <Description>The location outlier IDs are: {0}.</Description>
+    <Tool>utils</Tool>
+</Message>
+<Message>
+    <ID>84437</ID>
+    <Description>There were no outlier locations found.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84438</ID>
+    <Description>Looking for locational outliers....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84439</ID>
+    <Description>Checking to see if the Environment Settings include a raster analysis mask....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84440</ID>
+    <Description>Raster analysis mask not set; constructing convex hull....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84441</ID>
+    <Description>Finding all unique incident locations....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84442</ID>
+    <Description>Snapping nearby incidents together to create weighted points....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84443</ID>
+    <Description>Copying incidents in order to integrate without affecting input features....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84444</ID>
+    <Description>Incident Aggregation</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84445</ID>
+    <Description>Aggregating features less than {0} from each other.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84446</ID>
+    <Description>{0} Properties:</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84447</ID>
+    <Description>The aggregation process resulted in {0} weighted points.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84448</ID>
+    <Description>Evaluating incident counts and the number of weighted point features....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84449</ID>
+    <Description>Creating fishnet polygon mesh to use for aggregating incidents....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84450</ID>
+    <Description>Using a polygon cell size of {0}</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84451</ID>
+    <Description>Counting the number of incidents in each polygon cell....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84452</ID>
+    <Description>Analysis is performed on all polygon cells containing at least one incident.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84453</ID>
+    <Description>Analysis is performed on all polygon cells within the bounding polygon feature class.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84454</ID>
+    <Description>Removing polygon cells outside bounding polygon feature class....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84455</ID>
+    <Description>Removing polygon cells that do not contain at least one incident....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84456</ID>
+    <Description>Evaluating incident counts and number of polygons....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84457</ID>
+    <Description>Creating fishnet polygon mesh within the bounding polygon feature class to use for aggregating incidents....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84458</ID>
+    <Description>Counting the number of incidents in each polygon....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84459</ID>
+    <Description>Scale of Analysis</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84460</ID>
+    <Description>Looking for an optimal scale of analysis by assessing the intensity of clustering at increasing distances....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84461</ID>
+    <Description>The optimal fixed distance band is based on peak clustering found at {0}</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84462</ID>
+    <Description>No optimal distance was found using this method.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84463</ID>
+    <Description>Determining an optimal distance using the spatial distribution of features....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84464</ID>
+    <Description>The optimal fixed distance band is based on the average distance to {0} nearest neighbors: {1}</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84465</ID>
+    <Description>The optimal fixed distance band is based on one standard distance of the features from the geometric mean: {0}</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84466</ID>
+    <Description>Hot Spot Analysis</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84467</ID>
+    <Description>Finding statistically significant clusters of high and low {0}....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84468</ID>
+    <Description>values</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84469</ID>
+    <Description>incident counts</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84470</ID>
+    <Description>There are {0} output features statistically significant based on an FDR correction for multiple testing and spatial dependence.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84471</ID>
+    <Description>Output</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84472</ID>
+    <Description>Assessing {0} Significance using the False Discovery Rate (FDR) Correction....</Description>
+    <Tool>gi</Tool>
+</Message>
+<Message>
+    <ID>84473</ID>
+    <Description>Assessing {0} Significance using asymptotic properties....</Description>
+    <Tool>gi</Tool>
+</Message>
+<Message>
+    <ID>84474</ID>
+    <Description>Cluster Outlier Analysis</Description>
+    <Tool>li</Tool>
+</Message>
+<Message>
+    <ID>84475</ID>
+    <Description>Creating output feature class: {0}</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84476</ID>
+    <Description>Red output features represent hot spots where high {0} cluster.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84477</ID>
+    <Description>Blue output features represent cold spots where low {0} cluster.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84478</ID>
+    <Description>Creating a density surface of the incident points: {0}</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84479</ID>
+    <Description>Creating a density surface of the input points weighted by the analysis field: {0}</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84480</ID>
+    <Description>Kernal Point Density is only appropriate for point features.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84481</ID>
+    <Description>Using optimal fixed distance band ({0}) for the kernel density search radius.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84482</ID>
+    <Description>The surface will be clipped to a convex hull of the input points.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84483</ID>
+    <Description>The surface will be clipped based on the raster mask defined in the environments.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84484</ID>
+    <Description>The surface will be clipped based on the bounding polygon feature class.</Description>
+    <Tool>ohs</Tool>
+</Message>	
+<Message>
+    <ID>84485</ID>
+    <Description>There are {0} valid input features.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84486</ID>
+    <Description>Evaluating the bounding polygon feature class....</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84487</ID>
+    <Description>Evaluating the properties of the {0}:</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84488</ID>
+    <Description>Incident Count</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84489</ID>
+    <Description>Analysis is performed on all aggregation polygons.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84490</ID>
+    <Description>The aggregation process resulted in {0} weighted polygons.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84491</ID>
+    <Description>There are {0} valid input aggregation polygons.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84492</ID>
+    <Description>The total study area is {0}.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84493</ID>
+    <Description>There was 1 outlier location; it will not be used to compute {0}.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84494</ID>
+    <Description>the snap distance</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84495</ID>
+    <Description>the polygon cell size</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84496</ID>
+    <Description>the optimal fixed distance band</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84497</ID>
+    <Description>Creating output raster layer: {0}</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84498</ID>
+    <Description>Could not create output raster layer; make sure that your Spatial Analyst extension has been checked out.</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84499</ID>
+    <Description>NA</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84500</ID>
+    <Description>Not Applicable</Description>
+    <Tool>expreg</Tool>
+</Message>
+<Message>
+    <ID>84501</ID>
+    <Description>points</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84502</ID>
+    <Description>polygons</Description>
+    <Tool>ohs</Tool>
+</Message>
+<Message>
+    <ID>84503</ID>
+    <Description>Summary of Input Features to Match</Description>
+    <Tool>ss</Tool>
+</Message>
+<Message>
+    <ID>84504</ID>
+    <Description>Summary of Attributes of Interest</Description>
+    <Tool>ss</Tool>
+</Message>
+<Message>
+    <ID>84505</ID>
+    <Description>{0} Most Similar Locations ({1})</Description>
+    <Tool>ss</Tool>
+</Message>
+<Message>
+    <ID>84506</ID>
+    <Description>{0} Least Similar Locations ({1})</Description>
+    <Tool>ss</Tool>
+</Message>
+<Message>
+    <ID>84507</ID>
+    <Description>Attribute</Description>
+    <Tool>ss</Tool>
+</Message>
+<Message>
+    <ID>84508</ID>
+    <Description>Input</Description>
+    <Tool>ss</Tool>
+</Message>
+<Message>
+    <ID>84509</ID>
+    <Description>SD</Description>
+    <Tool>ss</Tool>
+</Message>
+<Message>
+    <ID>84510</ID>
+    <Description>Hot Spot with {0}&#37; Confidence</Description>
+    <Tool>gi</Tool>
+</Message>
+<Message>
+    <ID>84511</ID>
+    <Description>Not Significant</Description>
+    <Tool>gi</Tool>
+</Message>
+<Message>
+    <ID>84512</ID>
+    <Description>Cold Spot with {0}&#37; Confidence</Description>
+    <Tool>gi</Tool>
+</Message>
+</Messages>

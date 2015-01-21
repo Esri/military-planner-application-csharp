@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Messages STARTID="20000">
+<Message><ID>20001</ID><Description>Invalid schematic diagram template %s.</Description></Message>
+<Message><ID>20002</ID><Description>Parameter doesn't contain a schematic container data element.</Description></Message>
+<Message><ID>20003</ID><Description>Parameter doesn't contain a schematic diagram data element.</Description></Message>
+<Message><ID>20004</ID><Description>Standard Builder is expecting Feature classes or Tables as input.</Description></Message>
+<Message><ID>20005</ID><Description>Network Dataset Builder is expecting one valid Network Analyst Layer as input.</Description></Message>
+<Message><ID>20006</ID><Description>Network Dataset Builder is expecting only one Network Analyst Layer as input.</Description></Message>
+<Message><ID>20007</ID><Description>Input Network Analyst Layer must be valid.</Description></Message>
+<Message><ID>20008</ID><Description>This builder doesn't support any input data.</Description></Message>
+<Message><ID>20009</ID><Description>Invalid input data %s.</Description></Message>
+<Message><ID>20010</ID><Description>XML Builder is expecting one XML file as input.</Description></Message>
+<Message><ID>20011</ID><Description>XML Builder is expecting only one XML file as input.</Description></Message>
+</Messages>

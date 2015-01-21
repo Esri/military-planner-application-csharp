@@ -1,0 +1,237 @@
+<Messages STARTID="86001">
+<Message><ID>86001</ID><Description>Executing AddGlobalIDs...</Description></Message>
+<Message><ID>86002</ID><Description>Add Global IDS successfully completed...</Description></Message>
+<Message><ID>86003</ID><Description>Executing Geocode Addresses...</Description></Message>
+<Message><ID>86004</ID><Description>Analyzing input features...</Description></Message>
+<Message><ID>86005</ID><Description>Assembling Features...</Description></Message>
+<Message><ID>86006</ID><Description>Assembling Tile Features...</Description></Message>
+<Message><ID>86007</ID><Description>Executing Create Address Locator...</Description></Message>
+<Message><ID>86008</ID><Description>Executing CompareReplicaSchema...</Description></Message>
+<Message><ID>86009</ID><Description>CompareReplicaSchema successfully completed...</Description></Message>
+<Message><ID>86010</ID><Description>Configuration Restarted successfully.</Description></Message>
+<Message><ID>86011</ID><Description>Configuration Restarted successfully. Updating Cache</Description></Message>
+<Message><ID>86012</ID><Description>Configuration Restarted successfully. Updating Cache Scales</Description></Message>
+<Message><ID>86013</ID><Description>Constructing polygons...</Description></Message>
+<Message><ID>86014</ID><Description>Constructing polygons (non_orthogonal)...</Description></Message>
+<Message><ID>86015</ID><Description>Constructing polygons (orthogonal)...</Description></Message>
+<Message><ID>86016</ID><Description>Cracking Features...</Description></Message>
+<Message><ID>86017</ID><Description>Creating centerlines...</Description></Message>
+<Message><ID>86018</ID><Description>Executing CreateReplica...</Description></Message>
+<Message><ID>86019</ID><Description>CreateReplica successfully completed...</Description></Message>
+<Message><ID>86020</ID><Description>Executing CreateReplicaFootprints...</Description></Message>
+<Message><ID>86021</ID><Description>CreateReplicaFootprints successfully completed...</Description></Message>
+<Message><ID>86022</ID><Description>Executing Create Replica From Server...</Description></Message>
+<Message><ID>86023</ID><Description>Create Replica From Server successfully completed...</Description></Message>
+<Message><ID>86024</ID><Description>Executing CreateTopology...</Description></Message>
+<Message><ID>86025</ID><Description>Detecting junctions...</Description></Message>
+<Message><ID>86026</ID><Description>Dissolving...</Description></Message>
+<Message><ID>86027</ID><Description>Executing Create CAD XData...</Description></Message>
+<Message><ID>86028</ID><Description>ExportAcknowledgementMessage successfully completed...</Description></Message>
+<Message><ID>86029</ID><Description>ExportDataChangeMessage successfully completed...</Description></Message>
+<Message><ID>86030</ID><Description>Executing ExportReplicaSchema...</Description></Message>
+<Message><ID>86031</ID><Description>ExportReplicaSchema successfully completed...</Description></Message>
+<Message><ID>86032</ID><Description>Finding point clusters...</Description></Message>
+<Message><ID>86033</ID><Description>Finding polygon clusters...</Description></Message>
+<Message><ID>86034</ID><Description>Finished Creating the cache. Restarting configuration.</Description></Message>
+<Message><ID>86035</ID><Description>...Importing and consolidating extended data to separate table</Description></Message>
+<Message><ID>86036</ID><Description>Executing ImportMessage...</Description></Message>
+<Message><ID>86037</ID><Description>ImportMessage successfully completed...</Description></Message>
+<Message><ID>86038</ID><Description>Executing ImportReplicaSchema...</Description></Message>
+<Message><ID>86039</ID><Description>ImportReplicaSchema successfully completed...</Description></Message>
+<Message><ID>86040</ID><Description>No conflicts were found.</Description></Message>
+<Message><ID>86041</ID><Description>No topological errors were found.</Description></Message>
+<Message><ID>86042</ID><Description>Processing Tiles...</Description></Message>
+<Message><ID>86043</ID><Description>Reading Features...</Description></Message>
+<Message><ID>86044</ID><Description>Executing Rebuild Address Locator...</Description></Message>
+<Message><ID>86045</ID><Description>Reconstructing lines...</Description></Message>
+<Message><ID>86046</ID><Description>Reconstructing polygons...</Description></Message>
+<Message><ID>86047</ID><Description>Executing RemoveFeatureClassFromTopology...</Description></Message>
+<Message><ID>86048</ID><Description>Resolving line-crossing...</Description></Message>
+<Message><ID>86049</ID><Description>Restarting configuration.</Description></Message>
+<Message><ID>86050</ID><Description>Executing SetClusterTolerance...</Description></Message>
+<Message><ID>86051</ID><Description>Simplifying buildings in group...</Description></Message>
+<Message><ID>86052</ID><Description>Simplifying isolated buildings...</Description></Message>
+<Message><ID>86053</ID><Description>Simplifying lines...</Description></Message>
+<Message><ID>86054</ID><Description>Simplifying polygons...</Description></Message>
+<Message><ID>86055</ID><Description>Smoothing lines...</Description></Message>
+<Message><ID>86056</ID><Description>Smoothing polygons...</Description></Message>
+<Message><ID>86057</ID><Description>Sorting Attributes...</Description></Message>
+<Message><ID>86058</ID><Description>Executing Standardize Addresses...</Description></Message>
+<Message><ID>86059</ID><Description>Successfully deleted the cache. Restarting configuration.</Description></Message>
+<Message><ID>86060</ID><Description>Synchronize successfully completed...</Description></Message>
+<Message><ID>86061</ID><Description>The server object was not cached.</Description></Message>
+<Message><ID>86062</ID><Description>Updated Cache Configuration.</Description></Message>
+<Message><ID>86063</ID><Description>Executing UpgradeSpatialReference</Description></Message>
+<Message><ID>86064</ID><Description>UpgradeSpatialReference successfully completed...</Description></Message>
+<Message><ID>86065</ID><Description>WFS to Feature Class...</Description></Message>
+<Message><ID>86066</ID><Description>WFS to Feature Class successfully completed...</Description></Message>
+<Message><ID>86067</ID><Description>Optimizer is dealing with Partition %i</Description></Message>
+<Message><ID>86068</ID><Description>Building pyramids on %s</Description></Message>
+<Message><ID>86069</ID><Description>Calculating statistics on %s</Description></Message>
+<Message><ID>86070</ID><Description>Statistics exist</Description></Message>
+<Message><ID>86071</ID><Description>%s is loading...</Description></Message>
+<Message><ID>86072</ID><Description>Found %d feature(s)</Description></Message>
+<Message><ID>86073</ID><Description>Found %1!d! feature(s) within %2</Description></Message>
+<Message><ID>86074</ID><Description>Processing feature with OID = %1!ld! (%2!ld! of %3!ld! features)</Description></Message>
+<Message><ID>86075</ID><Description>Deleting previous tiles</Description></Message>
+<Message><ID>86076</ID><Description>Finding missing tiles</Description></Message>
+<Message><ID>86077</ID><Description>Caching new tiles</Description></Message>
+<Message><ID>86078</ID><Description>Adding %1 to %2...</Description></Message>
+<Message><ID>86079</ID><Description>%d buildings were flagged.</Description></Message>
+<Message><ID>86080</ID><Description>Check out name: %s</Description></Message>
+<Message><ID>86081</ID><Description>Default XY Tolerance = %20.10f</Description></Message>
+<Message><ID>86082</ID><Description>Default Spatial Grid Index1 = %20.10f</Description></Message>
+<Message><ID>86083</ID><Description>Default Spatial Grid Index2 = %20.10f</Description></Message>
+<Message><ID>86084</ID><Description>Default Spatial Grid Index3 = %20.10f</Description></Message>
+<Message><ID>86085</ID><Description>%1!d! duplicate(s) in %2!d! group(s) found.</Description></Message>
+<Message><ID>86086</ID><Description>......%1!ld! entities imported from %2</Description></Message>
+<Message><ID>86087</ID><Description>.....exporting to %s</Description></Message>
+<Message><ID>86088</ID><Description>...Exporting %s to CAD</Description></Message>
+<Message><ID>86089</ID><Description>...Importing entities from %s</Description></Message>
+<Message><ID>86090</ID><Description>...Importing layers from %s</Description></Message>
+<Message><ID>86091</ID><Description>Lines were collapsed to points, %d point(s) written to the point output.</Description></Message>
+<Message><ID>86092</ID><Description>%d lines were flagged.</Description></Message>
+<Message><ID>86093</ID><Description>M Domain (Min,Max) = %1,%2</Description></Message>
+<Message><ID>86094</ID><Description>Value = %s</Description></Message>
+<Message><ID>86095</ID><Description>Polygons were collapsed to points, %d point(s) written to the point output.</Description></Message>
+<Message><ID>86096</ID><Description>%d polygons were flagged.</Description></Message>
+<Message><ID>86097</ID><Description>Row Count = %d</Description></Message>
+<Message><ID>86098</ID><Description>Set %1 into %2</Description></Message>
+<Message><ID>86099</ID><Description>Spatial Reference = %s</Description></Message>
+<Message><ID>86100</ID><Description>%d unclosed polygons were processed.</Description></Message>
+<Message><ID>86101</ID><Description>XY Domain (XMin,YMin XMax,YMax) = %1,%2 %3,%4</Description></Message>
+<Message><ID>86102</ID><Description>Z Domain (Min,Max) = %1,%2</Description></Message>
+<Message><ID>86103</ID><Description>Importing %1 to %2.</Description></Message>
+<Message><ID>86104</ID><Description>Exported to %s:</Description></Message>
+<Message><ID>86105</ID><Description>Imported to %s:</Description></Message>
+<Message><ID>86109</ID><Description>Output workspace does not exist: </Description></Message>
+<Message><ID>86110</ID><Description>Must Enter a Spatial Reference or Template Feature Class.</Description></Message>
+<Message><ID>86111</ID><Description>Failed to project </Description></Message>
+<Message><ID>86112</ID><Description>Projecting multiple datasets ...</Description></Message>
+<Message><ID>86113</ID><Description>Projecting</Description></Message>
+<Message><ID>86114</ID><Description>Projected %1 to %2 successfully.</Description></Message>
+<Message><ID>86115</ID><Description>Successfully built pyramids on </Description></Message>
+<Message><ID>86116</ID><Description>Failed to build pyramids on</Description></Message>
+<Message><ID>86117</ID><Description>Building pyramids on </Description></Message>
+<Message><ID>86118</ID><Description>Building pyramids...</Description></Message>
+<Message><ID>86119</ID><Description>Successfully calculated statistics : </Description></Message>
+<Message><ID>86120</ID><Description>Failed to calculate statistics : </Description></Message>
+<Message><ID>86121</ID><Description>Calculating statistics on </Description></Message>
+<Message><ID>86122</ID><Description>Calculating statistics...</Description></Message>
+<Message><ID>86123</ID><Description>Problem generating Output Name</Description></Message>
+<Message><ID>86124</ID><Description>Problem generating Output Raster Name</Description></Message>
+<Message><ID>86125</ID><Description>Problem encountered parse input list</Description></Message>
+<Message><ID>86126</ID><Description>Problem encountered validate input raster</Description></Message>
+<Message><ID>86127</ID><Description>Output location does not exist: </Description></Message>
+<Message><ID>86128</ID><Description>Successfully converted: </Description></Message>
+<Message><ID>86129</ID><Description>Failed to convert: </Description></Message>
+<Message><ID>86130</ID><Description>Converting </Description></Message>
+<Message><ID>86131</ID><Description>Coordinate System WKID %s is not valid.  Output Coordinate System will be the same as the input layer's Coordinate System</Description></Message>
+<Message><ID>86132</ID><Description>Couldn't find the specified projection file %s.  Output Coordinate System will be the same as the input layer's Coordinate System.</Description></Message>
+<Message><ID>86133</ID><Description>  Unable to compress zip file contents.</Description></Message>
+<Message><ID>86134</ID><Description>Error adding %1: %2</Description></Message>
+<Message><ID>86135</ID><Description>  clipped %s...</Description></Message>
+<Message><ID>86136</ID><Description>  failed to clip layer %s...</Description></Message>
+<Message><ID>86137</ID><Description>  Output file format with specified pixel type or number of bands or colormap is not supported.</Description></Message>
+<Message><ID>86138</ID><Description>  Extension is invalid for the output raster format.  Please verify that the format you have specified is valid.</Description></Message>
+<Message><ID>86139</ID><Description>..using export to cad..</Description></Message>
+<Message><ID>86140</ID><Description>  failed to export to %s.  The requested formats require the Data Interoperability extension.  This extension is currently unavailable.</Description></Message>
+<Message><ID>86141</ID><Description>  failed to export layer %s with Quick Export.  Please verify that the format you have specified is valid.</Description></Message>
+<Message><ID>86142</ID><Description>  layer %s failed...</Description></Message>
+<Message><ID>86143</ID><Description>Cannot clip layer: %1.  This tool does not clip layers of type: %2...</Description></Message>
+<Message><ID>86144</ID><Description>Failure in clipAndConvert..\n</Description></Message>
+<Message><ID>86145</ID><Description>Converting multiple feature classes ...</Description></Message>
+<Message><ID>86147</ID><Description>Error in executing Iso Cluster Unsupervised Classification.</Description></Message>
+<Message><ID>86149</ID><Description>Buffering distance </Description></Message>
+<Message><ID>86150</ID><Description>Merging rings...</Description></Message>
+<Message><ID>86151</ID><Description>Dissolving overlapping boundaries...</Description></Message>
+<Message><ID>86152</ID><Description>Insufficient number of parameters provided</Description></Message>
+<Message><ID>86153</ID><Description>Failed to convert </Description></Message>
+<Message><ID>86154</ID><Description>Sent zipfile to %1 from %2</Description></Message>
+<Message><ID>86155</ID><Description>The resulting zip file is too large (%sMB).  Must be less than %sMB.  Please digitize a smaller Area of Interest.</Description></Message>
+<Message><ID>86156</ID><Description>Zip file size = </Description></Message>
+<Message><ID>86157</ID><Description>Unable to send email</Description></Message>
+<Message><ID>86158</ID><Description>Java is not installed, please see the usage tip in the tool's help for more information.</Description></Message>
+<Message><ID>86159</ID><Description>Incorrect number of input parameters.</Description></Message>
+<Message><ID>86160</ID><Description>Please use a valid cell size.</Description></Message>
+<Message><ID>86161</ID><Description>Please use a valid smoothing factor.</Description></Message>
+<Message><ID>86162</ID><Description>The first parameter must contain point features</Description></Message>
+<Message><ID>86163</ID><Description>Barriers must be either lines or polygons.</Description></Message>
+<Message><ID>86164</ID><Description>The Shape field does not contain Z Values</Description></Message>
+<Message><ID>86165</ID><Description>Output raster has too many cells. Decrease the extent or increase the cell size.</Description></Message>
+<Message><ID>86166</ID><Description>A problem has been encountered. Please verify that the inputs are correct.</Description></Message>
+<Message><ID>86167</ID><Description>Spline with Barriers failed</Description></Message>
+<Message><ID>86168</ID><Description>Spatial Analyst or 3D license required</Description></Message>
+<Message><ID>86169</ID><Description>Java %s required.\nPlease see the usage tip in the tool's help for more information.</Description></Message>
+<Message><ID>86170</ID><Description>Null value(s) in the input data and will be are ignored.</Description></Message>
+<Message><ID>86171</ID><Description>Verifying Java version</Description></Message>
+<Message><ID>86172</ID><Description>Reading input features</Description></Message>
+<Message><ID>86173</ID><Description>Default cell size = </Description></Message>
+<Message><ID>86174</ID><Description>Writing output ...</Description></Message>
+<Message><ID>86175</ID><Description>Converting multiple tables ...</Description></Message>
+<Message><ID>86176</ID><Description>Converted %1 to %2 successfully.</Description></Message>
+<Message><ID>86177</ID><Description>Verifying input fields...</Description></Message>
+<Message><ID>86178</ID><Description>Input field '%s' does not exist in the input feature class or table.</Description></Message>
+<Message><ID>86179</ID><Description>Running transpose time fields...</Description></Message>
+<Message><ID>86180</ID><Description>Creating output table...</Description></Message>
+<Message><ID>86181</ID><Description>Creating output feature class...</Description></Message>
+<Message><ID>86182</ID><Description>Dataset type not supported. Please input either a table or a feature class.</Description></Message>
+<Message><ID>86183</ID><Description>Appending records...</Description></Message>
+<Message><ID>86184</ID><Description>Adding time field and value field...</Description></Message>
+<Message><ID>86185</ID><Description>Updating time field and value field...</Description></Message>
+<Message><ID>86186</ID><Description>Selected rows count incorrect. Failed to SelectLayerByAttribute.</Description></Message>
+<Message><ID>86187</ID><Description>%s fields have been transposed successfully...</Description></Message>
+<Message><ID>86188</ID><Description>Failed to execute Transpose Time Fields.</Description></Message>
+<Message><ID>86189</ID><Description>Output rows count incorrect. Failed to append.</Description></Message>
+<Message><ID>86190</ID><Description>Time field type not supported</Description></Message>
+<Message><ID>86191</ID><Description>Dropping unneeded fields</Description></Message>
+<Message><ID>86192</ID><Description>Interpolating...</Description></Message>
+<Message><ID>86193</ID><Description>...%s</Description></Message>
+<Message><ID>86194</ID><Description>......%s</Description></Message>
+<Message><ID>86195</ID><Description>%s</Description></Message>
+<Message><ID>86196</ID><Description>Pyramids exist</Description></Message>
+<Message><ID>86197</ID><Description>Opening: %s</Description></Message>
+<Message><ID>86198</ID><Description>Invalid raster dataset</Description></Message>
+<Message><ID>86199</ID><Description>%1 out of %2 datasets processed</Description></Message>
+<Message><ID>86200</ID><Description>Adjusting statistics by block field...</Description></Message>
+<Message><ID>86201</ID><Description>Estimate statistics for mosaic dataset...</Description></Message>
+<Message><ID>86202</ID><Description>No duplicates found.</Description></Message>
+<Message><ID>86203</ID><Description>Getting server information (server folders, data stores, etc.).</Description></Message>
+<Message><ID>86204</ID><Description>Extracting manifiest from uploaded service definition.</Description></Message>
+<Message><ID>86205</ID><Description>Updating state based on configuration overwrite.</Description></Message>
+<Message><ID>86206</ID><Description>Validating service definition.</Description></Message>
+<Message><ID>86207</ID><Description>Determining if the service requires data to be in ArcGIS Server's Managed Database.</Description></Message>
+<Message><ID>86208</ID><Description>Getting the server's server-only enterprise database.</Description></Message>
+<Message><ID>86209</ID><Description>Determining service's input folder name.</Description></Message>
+<Message><ID>86210</ID><Description>Attempt to find service's input folder.</Description></Message>
+<Message><ID>86211</ID><Description>Creating the service.</Description></Message>
+<Message><ID>86212</ID><Description>Adding item information card to service.</Description></Message>
+<Message><ID>86213</ID><Description>Triggering the cooking of the initial cache.</Description></Message>
+<Message><ID>86214</ID><Description>Updating database information in service's manifest.</Description></Message>
+<Message><ID>86215</ID><Description>Adding manifest to configuration store.</Description></Message>
+<Message><ID>86216</ID><Description>Building the service URLs.</Description></Message>
+<Message><ID>86217</ID><Description>Validating publish options.</Description></Message>
+<Message><ID>86218</ID><Description>Connecting to the server.</Description></Message>
+<Message><ID>86219</ID><Description>Getting basic item metadata for service definition upload.</Description></Message>
+<Message><ID>86220</ID><Description>Updating Updating the initial cache settings.</Description></Message>
+<Message><ID>86221</ID><Description>Updating file and folder information in service's manifest.</Description></Message>
+<Message><ID>86222</ID><Description>Output directory in service definition is not set or is invalid. Using default output directory.</Description></Message>
+<Message><ID>86223</ID><Description>Jobs directory in service definition is not set or is invalid. Using default jobs directory.</Description></Message>
+<Message><ID>86224</ID><Description>Cache directory in service definition is not set or is invalid. Using default cache directory.</Description></Message>
+<Message><ID>86225</ID><Description>A pre-existing cache was found on the server for the service being published (Orphan cache found).</Description></Message>
+<Message><ID>86226</ID><Description>Building cache for scale: %s.</Description></Message>
+<Message><ID>86227</ID><Description>Exporting cache for scale: %s.</Description></Message>
+<Message><ID>86228</ID><Description>Importing cache for scale: %s.</Description></Message>
+<Message><ID>86229</ID><Description>Generating tile cache using %d parallel instances.</Description></Message>
+<Message><ID>86230</ID><Description>Deleting tile cache using %d parallel instances.</Description></Message>
+<Message><ID>86231</ID><Description>Exporting tile cache using %d parallel instances.</Description></Message>
+<Message><ID>86232</ID><Description>Importing tile cache using %d parallel instances.</Description></Message>
+<Message><ID>86233</ID><Description>Parallel processing has been disabled for the tool on this product.</Description></Message>
+<Message><ID>86234</ID><Description>Deriving arcgis server service from hosted service (hosted service definition).</Description></Message>
+<Message><ID>86235</ID><Description>Exporting tile cache for feature with OID: %d.</Description></Message>
+<Message><ID>86236</ID><Description>Generating tile cache for feature with OID: %d. </Description></Message>
+<Message><ID>86237</ID><Description>Importing tile cache for feature with OID: %d.</Description></Message>
+<Message><ID>86238</ID><Description>Building a neighborhood index from the Near Features...</Description></Message>
+<Message><ID>86239</ID><Description>Generating Near Table...</Description></Message>
+<Message><ID>86240</ID><Description>Determining data processing extents...</Description></Message>
+</Messages>
