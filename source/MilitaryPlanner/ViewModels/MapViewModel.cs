@@ -40,7 +40,7 @@ namespace MilitaryPlanner.ViewModels
         private EditState _editState = EditState.None;
         private List<TimeAwareMessageLayer> _messageLayerList = new List<TimeAwareMessageLayer>();
         private TimeAwareMessageLayer _currentMessageLayer;
-        private TimeExtent _currentTimeExtent = new TimeExtent(DateTime.Now);
+        private TimeExtent _currentTimeExtent = new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
         private int _messageLayerCount = 1;
         //private List<string> _messageIDList = new List<string>();
         //TODO change this dictionary to be string key for phase ID, and string list of message ID's
@@ -387,7 +387,6 @@ namespace MilitaryPlanner.ViewModels
             {
                 DisplayName = displayName,
                 ID = id,
-                //VisibleTimeExtent = timeExtent,
                 IsVisible = visible,
                 SymbolDictionaryType = symbolDictType
             };
@@ -447,7 +446,6 @@ namespace MilitaryPlanner.ViewModels
                 {
                     DisplayName = String.Format("Message Layer {0}", _messageLayerCount++),
                     ID = Guid.NewGuid().ToString("D"),
-                    //VisibleTimeExtent = GetNewMessageLayerTimeExtent(),
                     IsVisible = true,
                     SymbolDictionaryType = SymbolDictionaryType.Mil2525c
                 };
@@ -509,7 +507,9 @@ namespace MilitaryPlanner.ViewModels
         private TimeExtent GetNewMessageLayerTimeExtent()
         {
             // we are doing a 1 hour time span for now
-            return _messageLayerList.Last().VisibleTimeExtent.Offset(new TimeSpan(0, 1, 0));
+            var lastTimeExtent = _messageLayerList.Last().VisibleTimeExtent;
+            var nextTimeExtent = new TimeExtent(lastTimeExtent.End.AddSeconds(1.0), lastTimeExtent.Offset(new TimeSpan(1, 0, 0)).End);
+            return nextTimeExtent;
         }
 
         private void OnSetMap(object param)
