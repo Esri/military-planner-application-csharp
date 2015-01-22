@@ -86,7 +86,7 @@ namespace MilitaryPlanner.ViewModels
         private void CreateUpdateSymbolWithPM(PersistentMessage pm, int currentStartPhase, int currentEndPhase)
         {
             // is this an update or a new symbol
-            var foundSymbol = _symbols.Where(sl => sl.ItemSVM.Model.Values.ContainsKey(Constants.MSG_ID_KEY_NAME) && sl.ItemSVM.Model.Values[Constants.MSG_ID_KEY_NAME] == pm.ID);
+            var foundSymbol = _symbols.Where(sl => sl.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName) && sl.ItemSVM.Model.Values[Message.IdPropertyName] == pm.ID);
 
             if (foundSymbol != null && foundSymbol.Count() > 0)
             {
@@ -104,9 +104,9 @@ namespace MilitaryPlanner.ViewModels
 
                 // create SVM
                 psvm.ItemSVM = SymbolLoader.Search(pm.PropertyItems.Where(pi => pi.Key == "sic").ElementAt(0).Value);
-                if (!psvm.ItemSVM.Model.Values.ContainsKey(Constants.MSG_ID_KEY_NAME))
+                if (!psvm.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName))
                 {
-                    psvm.ItemSVM.Model.Values.Add(Constants.MSG_ID_KEY_NAME, pm.ID);
+                    psvm.ItemSVM.Model.Values.Add(Message.IdPropertyName, pm.ID);
                 }
 
                 _symbols.Add(psvm);

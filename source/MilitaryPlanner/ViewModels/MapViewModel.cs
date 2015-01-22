@@ -43,8 +43,9 @@ namespace MilitaryPlanner.ViewModels
         private TimeExtent _currentTimeExtent = new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
         private int _messageLayerCount = 1;
         //private List<string> _messageIDList = new List<string>();
-        //TODO change this dictionary to be string key for phase ID, and string list of message ID's
-        //private Dictionary<string, string> _messageDictionary = new Dictionary<string, string>();
+        /// <summary>
+        /// Dictionary containing a message layer ID as the KEY and a list of military message ID's as the value
+        /// </summary>
         private Dictionary<string, List<string>> _phaseMessageDictionary = new Dictionary<string, List<string>>();
 
         public RelayCommand SetMapCommand { get; set; }
@@ -168,8 +169,7 @@ namespace MilitaryPlanner.ViewModels
             {
                 _currentMessageLayer = _messageLayerList[index];
 
-                //_map.TimeExtent = _currentMessageLayer.VisibleTimeExtent;
-                _mapView.TimeExtent = _currentMessageLayer.VisibleTimeExtent;
+                SetMapViewVisibleTimeExtent(_currentMessageLayer.VisibleTimeExtent);
 
                 //get phase and fire notifications for messages
                 var phaseMessageList = _phaseMessageDictionary[_currentMessageLayer.MessageLayer.ID];
@@ -181,6 +181,11 @@ namespace MilitaryPlanner.ViewModels
 
                 RefreshMapLayers();
             }
+        }
+
+        private void SetMapViewVisibleTimeExtent(TimeExtent timeExtent)
+        {
+            _mapView.TimeExtent = timeExtent;
         }
 
         private void OnPhaseBack(object param)
@@ -407,7 +412,7 @@ namespace MilitaryPlanner.ViewModels
             if (makeCurrent)
             {
                 _currentMessageLayer = messageLayer;
-                _mapView.TimeExtent = messageLayer.VisibleTimeExtent;
+                SetMapViewVisibleTimeExtent(messageLayer.VisibleTimeExtent);
                 _currentTimeExtent = messageLayer.VisibleTimeExtent;
             }
 
@@ -433,8 +438,7 @@ namespace MilitaryPlanner.ViewModels
                 // initialize message layer
                 OnSetMessageLayer(messageLayer);
 
-                // set the map view to the current time extent
-                _mapView.TimeExtent = _currentTimeExtent;
+                SetMapViewVisibleTimeExtent(_currentTimeExtent);
 
                 // notify colleagues of new layer
                 Mediator.NotifyColleagues(Constants.ACTION_MSG_LAYER_ADDED, messageLayer);
@@ -461,7 +465,7 @@ namespace MilitaryPlanner.ViewModels
 
                 OnSetMessageLayer(tamLayer);
                 
-                _mapView.TimeExtent = tamLayer.VisibleTimeExtent;
+                SetMapViewVisibleTimeExtent(tamLayer.VisibleTimeExtent);
                 _currentTimeExtent = tamLayer.VisibleTimeExtent;
 
                 Mediator.NotifyColleagues(Constants.ACTION_MSG_LAYER_ADDED, messageLayer);
@@ -490,9 +494,9 @@ namespace MilitaryPlanner.ViewModels
                         //TODO test guid
                         //oldMsg.Id = Guid.NewGuid().ToString();
 
-                        if (oldMsg.ContainsKey(Constants.MSG_ACTION_KEY_NAME))
+                        if (oldMsg.ContainsKey(MilitaryMessage.ActionPropertyName))
                         {
-                            oldMsg[Constants.MSG_ACTION_KEY_NAME] = "update";
+                            oldMsg[MilitaryMessage.ActionPropertyName] = Constants.MSG_ACTION_UPDATE;
                         }
 
                         if (ProcessMessage(_currentMessageLayer.MessageLayer, oldMsg))
@@ -522,7 +526,6 @@ namespace MilitaryPlanner.ViewModels
             }
             _mapView = mapView;
             _map = mapView.Map;
-            //_draw = new Draw(map);
 
             mapView.MouseLeftButtonDown += mapView_MouseLeftButtonDown;//map_MouseLeftButtonDown;
             mapView.MouseLeftButtonUp += mapView_MouseLeftButtonUp;
@@ -618,12 +621,11 @@ namespace MilitaryPlanner.ViewModels
             if (graphic == null)
                 return;
 
-            if (graphic.Attributes.ContainsKey(Constants.MSG_ID_KEY_NAME))
+            if (graphic.Attributes.ContainsKey(Message.IdPropertyName))
             {
-                var selectMessage = _currentMessageLayer.MessageLayer.GetMessage(graphic.Attributes[Constants.MSG_ID_KEY_NAME].ToString());
+                var selectMessage = _currentMessageLayer.MessageLayer.GetMessage(graphic.Attributes[Message.IdPropertyName].ToString());
                 SelectMessage(selectMessage, true);
             }
-
         }
 
         private Point GetMessageOffset(Graphic graphic, Point screenPoint)
@@ -707,7 +709,6 @@ namespace MilitaryPlanner.ViewModels
             if (messageLayer != null)
             {
                 _mapView.Map.Layers.Add(messageLayer.MessageLayer);
-                //_map.Layers.Add(messageLayer);
             }
         }
 
@@ -798,15 +799,14 @@ namespace MilitaryPlanner.ViewModels
 
                     foreach (var item in pm.PropertyItems)
                     {
-                        if (item.Key.ToLower().Contains(Constants.MSG_ACTION_KEY_NAME))
+                        if (item.Key.ToLower().Contains(MilitaryMessage.ActionPropertyName))
                         {
-                            item.Value = "update";
+                            item.Value = Constants.MSG_ACTION_UPDATE;
                         }
 
                         message.Add(item.Key, item.Value);
                     }
 
-                    //messageLayer.ProcessMessage(message);
                     ProcessMessage(messageLayer.MessageLayer, message);
                 }
             }
@@ -872,9 +872,9 @@ namespace MilitaryPlanner.ViewModels
         {
             if (_mapView != null)
             {
-                if (_mapView.Editor.IsActive)
+                if (_mapView.Editor.Cancel.CanExecute(null))
                 {
-                    //_mapView.Editor.Cancel;
+                    _mapView.Editor.Cancel.Execute(null);
                 }
             }
             //if (_draw != null)
@@ -897,23 +897,6 @@ namespace MilitaryPlanner.ViewModels
             {
                 Dictionary<string, string> values = (Dictionary<string, string>)_SelectedSymbol.Model.Values;
                 _geometryType = values["GeometryType"];
-
-                
-                //_draw.LineSymbol = new SimpleLineSymbol()
-                //{
-                //    Color = new SolidColorBrush(Colors.Yellow),
-                //    Style = SimpleLineSymbol.LineStyle.Solid,
-                //    Width = 2
-                //};
-                //_draw.FillSymbol = new SimpleFillSymbol()
-                //{
-                //    BorderBrush = new SolidColorBrush(Colors.Yellow),
-                //    BorderThickness = 1,
-                //    Fill = new SolidColorBrush(Colors.Green)
-                //};
-
-                //_draw.DrawComplete -= _draw_DrawComplete;
-                //_draw.DrawComplete += _draw_DrawComplete;
 
                 Esri.ArcGISRuntime.Geometry.Geometry geometry = null;
 
@@ -945,8 +928,6 @@ namespace MilitaryPlanner.ViewModels
 
                     // process symbol with geometry
                     ProcessSymbol(_SelectedSymbol, geometry);
-
-                    //_draw.IsEnabled = (_draw.DrawMode != DrawMode.None);
                 }
                 catch (TaskCanceledException tex)
                 {
@@ -967,19 +948,18 @@ namespace MilitaryPlanner.ViewModels
 
             //set the ID and other parts of the message
             msg.Id = Guid.NewGuid().ToString();
-            msg.Add("_type", Constants.MSG_TYPE_POSITION_REPORT);
-            msg.Add(Constants.MSG_ACTION_KEY_NAME, "update");
-            msg.Add("_wkid", "3857");
-            //msg.Add("_wkid", _draw.Map.SpatialReference.WKID.ToString());
-            msg.Add("sic", symbol.SymbolID);
-            msg.Add("uniquedesignation", "1");
+            msg.Add(MilitaryMessage.TypePropertyName, Constants.MSG_TYPE_POSITION_REPORT);
+            msg.Add(MilitaryMessage.ActionPropertyName, Constants.MSG_ACTION_UPDATE);
+            msg.Add(MilitaryMessage.WkidPropertyName, "3857");
+            msg.Add(MilitaryMessage.SicCodePropertyName, symbol.SymbolID);
+            msg.Add(MilitaryMessage.UniqueDesignationPropertyName, "1");
 
             // Construct the Control Points based on the geometry type of the drawn geometry.
             switch (geometry.GeometryType)
             {
                 case GeometryType.Point:
                     MapPoint point = geometry as MapPoint;
-                    msg.Add("_control_points", point.X.ToString() + "," + point.Y.ToString());
+                    msg.Add(MilitaryMessage.ControlPointsPropertyName, point.X.ToString() + "," + point.Y.ToString());
                     break;
                 case GeometryType.Polygon:
                     Polygon polygon = geometry as Polygon;
@@ -992,7 +972,7 @@ namespace MilitaryPlanner.ViewModels
                             cpts += ";" + segpt.X.ToString() + "," + segpt.Y.ToString();
                         }
                     }
-                    msg.Add("_control_points", cpts);
+                    msg.Add(MilitaryMessage.ControlPointsPropertyName, cpts);
                     break;
                 case GeometryType.Polyline:
                     Polyline polyline = geometry as Polyline;
@@ -1012,14 +992,13 @@ namespace MilitaryPlanner.ViewModels
                     //    cpts += ";" + cpts.Split(new char[] { ';' }).Last();
                     //}
 
-                    msg.Add("_control_points", cpts);
+                    msg.Add(MilitaryMessage.ControlPointsPropertyName, cpts);
                     break;
             }
 
             //Process the message
             if (ProcessMessage(_currentMessageLayer.MessageLayer, msg))
             {
-                //_draw.IsEnabled = true;
             }
             else
             {
@@ -1041,106 +1020,45 @@ namespace MilitaryPlanner.ViewModels
 
         private List<MapPoint> AdjustMapPoints(Polyline polyline, DrawShape drawShape)
         {
+            if (polyline == null || polyline.Parts == null || polyline.Parts.Count() < 1)
+            {
+                return null;
+            }
+
             var mapPoints = new List<MapPoint>();
+
+            var points = polyline.Parts.First().GetPoints().ToList();
 
             if (drawShape == DrawShape.Arrow)
             {
-                var tempPoly = polyline.Parts;
-                //var mpList = new List<MapPoint>();
-                MapPoint lastMapPoint = null;
-                foreach (var pt in tempPoly)
+                // Arrow shapes like axis of advance 
+                // requires at least 3 points, 1 back, 2 front, 3 width
+
+                if (points.Count() == 2)
                 {
-                    foreach (var segpt in pt.GetPoints())
+                    // add a third point, otherwise the message processor will fail
+                    var thridPoint = new MapPoint(points.Last().X, points.Last().Y);
+                    points.Add(thridPoint);
+                }
+
+                foreach (var point in points)
+                {
+                    if (point != points.Last())
                     {
-                        if (segpt != pt.GetPoints().Last())
-                        {
-                            mapPoints.Add(segpt);
-                        }
-                        else
-                        {
-                            lastMapPoint = segpt;
-                        }
+                        mapPoints.Add(point);
                     }
                 }
 
                 mapPoints.Reverse();
-                mapPoints.Add(lastMapPoint);
+                mapPoints.Add(points.Last());
             }
             else
             {
-                var tempPoly = polyline.Parts;
-
-                foreach (var pt in tempPoly)
-                {
-                    foreach (var segpt in pt.GetPoints())
-                    {
-                        mapPoints.Add(segpt);
-                    }
-                }
+                mapPoints = points;
             }
 
             return mapPoints;
         }
-
-        //void _draw_DrawComplete(object sender, DrawEventArgs e)
-        //{
-        //    _draw.IsEnabled = false;
-
-        //    //create a new message
-        //    Message msg = new Message();
-
-        //    //set the ID and other parts of the message
-        //    msg.Id = Guid.NewGuid().ToString();
-        //    msg.Add("_type", Constants.MSG_TYPE_POSITION_REPORT);
-        //    msg.Add(Constants.MSG_ACTION_KEY_NAME, "update");
-        //    msg.Add("_wkid", "3857");
-        //    //msg.Add("_wkid", _draw.Map.SpatialReference.WKID.ToString());
-        //    msg.Add("sic", _SelectedSymbol.SymbolID);
-        //    msg.Add("uniquedesignation", "1");
-
-        //    // Construct the Control Points based on the geometry type of the drawn geometry.
-        //    switch (_draw.DrawMode)
-        //    {
-        //        case DrawMode.Point:
-        //            MapPoint point = e.Geometry as MapPoint;
-        //            msg.Add("_control_points", point.X.ToString() + "," + point.Y.ToString());
-        //            break;
-        //        case DrawMode.Polygon:
-        //            Polygon polygon = e.Geometry as Polygon;
-        //            string cpts = string.Empty;
-        //            foreach (var pt in polygon.Rings[0])
-        //            {
-        //                cpts += ";" + pt.X.ToString() + "," + pt.Y.ToString();
-        //            }
-        //            msg.Add("_control_points", cpts);
-        //            break;
-        //        case DrawMode.Polyline:
-        //            Polyline polyline = e.Geometry as Polyline;
-        //            cpts = string.Empty;
-        //            foreach (var pt in polyline.Paths[0].Reverse())
-        //            {
-        //                cpts += ";" + pt.X.ToString() + "," + pt.Y.ToString();
-        //            }
-
-        //            if (_geometryControlType == "ArrowWithOffset")
-        //            {
-        //                cpts += ";" + cpts.Split(new char[] { ';' }).Last();
-        //            }
-
-        //            msg.Add("_control_points", cpts);
-        //            break;
-        //    }
-
-        //    //Process the message
-        //    if (ProcessMessage(_currentMessageLayer, msg))
-        //    {
-        //        _draw.IsEnabled = true;
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Failed to process message.");
-        //    }
-        //}
 
         /// <summary>
         /// IDragable.DataType
@@ -1180,22 +1098,20 @@ namespace MilitaryPlanner.ViewModels
             //set the ID and other parts of the message
             //msg.Id = Guid.NewGuid().ToString();
             msg.Id = guid;
-            msg.Add("_type", Constants.MSG_TYPE_POSITION_REPORT);
-            msg.Add(Constants.MSG_ACTION_KEY_NAME, "update");
-            msg.Add("_wkid", "3857");
-            //msg.Add("_wkid", _draw.Map.SpatialReference.WKID.ToString());
-            msg.Add("sic", symbolViewModel.SymbolID);
-            msg.Add("uniquedesignation", "1");
+            msg.Add(MilitaryMessage.TypePropertyName, Constants.MSG_TYPE_POSITION_REPORT);
+            msg.Add(MilitaryMessage.ActionPropertyName, Constants.MSG_ACTION_UPDATE);
+            msg.Add(MilitaryMessage.WkidPropertyName, "3857");
+            msg.Add(MilitaryMessage.SicCodePropertyName, symbolViewModel.SymbolID);
+            msg.Add(MilitaryMessage.UniqueDesignationPropertyName, "1");
 
             // Construct the Control Points based on the geometry type of the drawn geometry.
             //MapPoint point = e.Geometry as MapPoint;
             var point = _mapView.ScreenToLocation(p);
-            msg.Add("_control_points", point.X.ToString() + "," + point.Y.ToString());
+            msg.Add(MilitaryMessage.ControlPointsPropertyName, point.X.ToString() + "," + point.Y.ToString());
 
             //Process the message
             if (ProcessMessage(_currentMessageLayer.MessageLayer, msg))
             {
-                //_draw.IsEnabled = true;
             }
             else
             {
