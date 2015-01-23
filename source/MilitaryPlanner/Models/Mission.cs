@@ -27,6 +27,7 @@ namespace MilitaryPlanner.Models
         }
 
         private string _name;
+
         public string Name
         {
             get { return _name; }
@@ -41,6 +42,7 @@ namespace MilitaryPlanner.Models
         }
 
         private List<MissionPhase> _phaseList = new List<MissionPhase>();
+
         public List<MissionPhase> PhaseList
         {
             get { return _phaseList; }
@@ -65,6 +67,36 @@ namespace MilitaryPlanner.Models
             XmlWriter writer = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
 
             x.Serialize(writer, this);
+
+            return true;
+        }
+
+        public bool AddPhase(string name)
+        {
+            try
+            {
+                var phase = new MissionPhase(name);
+
+                phase.ID = Guid.NewGuid().ToString("D");
+
+                if (PhaseList.Count > 0)
+                {
+                    var lastTimeExtent = PhaseList.Last().VisibleTimeExtent;
+
+                    phase.VisibleTimeExtent = new TimeExtent(lastTimeExtent.End.AddSeconds(1.0), lastTimeExtent.Offset(new TimeSpan(1, 0, 0)).End);
+                }
+                else
+                {
+                    // set default time extent
+                    phase.VisibleTimeExtent = new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
+                }
+
+                PhaseList.Add(phase);
+            }
+            catch
+            {
+                return false;
+            }
 
             return true;
         }
@@ -140,6 +172,7 @@ namespace MilitaryPlanner.Models
         }
 
         private string _name;
+
         public string Name
         {
             get { return _name; }
@@ -154,36 +187,22 @@ namespace MilitaryPlanner.Models
         }
 
         public string ID { get; set; }
+
         public TimeExtent VisibleTimeExtent { get; set; }
 
-        private List<PersistentMessage> _persistentMessages = new List<PersistentMessage>();
+        //private List<PersistentMessage> _persistentMessages = new List<PersistentMessage>();
 
-        public List<PersistentMessage> PersistentMessages
-        {
-            get
-            {
-                return _persistentMessages;
-            }
-            set
-            {
-                if (value != _persistentMessages)
-                {
-                    _persistentMessages = value;
-                }
-            }
-        }
-
-        //private List<MessageLayer> _messageLayers = new List<MessageLayer>();
-
-        //public List<MessageLayer> MessageLayers
+        //public List<PersistentMessage> PersistentMessages
         //{
-        //    get { return _messageLayers; }
+        //    get
+        //    {
+        //        return _persistentMessages;
+        //    }
         //    set
         //    {
-        //        if (_messageLayers != value)
+        //        if (value != _persistentMessages)
         //        {
-        //            _messageLayers = value;
-        //            RaisePropertyChanged(() => MessageLayers);
+        //            _persistentMessages = value;
         //        }
         //    }
         //}
@@ -214,20 +233,5 @@ namespace MilitaryPlanner.Models
             get;
             set;
         }
-        //private List<KeyValuePair<string, string>> _Properties = new List<KeyValuePair<string, string>>();
-        //public List<KeyValuePair<string, string>> Properties
-        //{
-        //    get
-        //    {
-        //        return _Properties;
-        //    }
-        //    set
-        //    {
-        //        if (_Properties != value)
-        //        {
-        //            _Properties = value;
-        //        }
-        //    }
-        //}
     }
 }

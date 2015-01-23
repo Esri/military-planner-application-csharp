@@ -16,8 +16,10 @@ namespace MilitaryPlanner.Helpers
         public const string ACTION_MISSION_LOADED = "MissionLoaded";
         public const string ACTION_MISSION_HYDRATE = "MissionHydrate";
         public const string ACTION_MSG_PROCESSED = "MessageProcessed";
+        public const string ACTION_PHASE_ADDED = "PhaseAdded";
         public const string ACTION_PHASE_NEXT = "PhaseNext";
         public const string ACTION_PHASE_BACK = "PhaseBack";
+        public const string ACTION_PHASE_INDEX_CHANGED = "PhaseIndexChanged";
         public const string ACTION_ITEM_WITH_GUID_REMOVED = "ItemWithGuidRemoved";
         public const string ACTION_ITEM_WITH_GUID_ADDED = "ItemWithGuidAdded";
         public const string ACTION_DRAG_DROP_STARTED = "DragDropStart";

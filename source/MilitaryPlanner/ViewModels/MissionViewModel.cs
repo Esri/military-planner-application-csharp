@@ -72,11 +72,12 @@ namespace MilitaryPlanner.ViewModels
             foreach (var phase in _mission.PhaseList)
             {
                 // for each message in the phase
-                foreach (var pm in phase.PersistentMessages)
-                {
-                    // for each message, create/update a phase symbol in the symbol list
-                    CreateUpdateSymbolWithPM(pm, currentStartPhase, currentEndPhase);
-                }
+                //TODO revisit
+                //foreach (var pm in phase.PersistentMessages)
+                //{
+                //    // for each message, create/update a phase symbol in the symbol list
+                //    CreateUpdateSymbolWithPM(pm, currentStartPhase, currentEndPhase);
+                //}
 
                 currentStartPhase++;
                 currentEndPhase++;
