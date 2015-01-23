@@ -877,10 +877,11 @@ namespace MilitaryPlanner.ViewModels
                     _mapView.Editor.Cancel.Execute(null);
                 }
             }
-            //if (_draw != null)
-            //{
-            //    _draw.IsEnabled = false;
-            //}
+
+            if (_editState == EditState.Create)
+            {
+                _editState = EditState.None;
+            }
         }
 
         private async void DoActionSymbolChanged(object param)
