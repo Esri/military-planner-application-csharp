@@ -70,6 +70,8 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_DRAG_DROP_STARTED, DoDragDropStarted);
             //Mediator.Register(Constants.ACTION_SLIDER_NEXT, OnPhaseNext);
             //Mediator.Register(Constants.ACTION_SLIDER_BACK, OnPhaseBack);
+            Mediator.Register(Constants.ACTION_PHASE_NEXT, DoSliderPhaseNext);
+            Mediator.Register(Constants.ACTION_PHASE_BACK, DoSliderPhaseBack);
 
             SetMapCommand = new RelayCommand(OnSetMap);
             //SetMessageLayerCommand = new RelayCommand(OnSetMessageLayer);
@@ -79,6 +81,16 @@ namespace MilitaryPlanner.ViewModels
 
             MeasureCommand = new RelayCommand(OnMeasureCommand);
             //AddMessageLayer();
+        }
+
+        private void DoSliderPhaseBack(object obj)
+        {
+            OnPhaseBack(null);
+        }
+
+        private void DoSliderPhaseNext(object obj)
+        {
+            OnPhaseNext(null);
         }
 
         public int CurrentPhaseIndex
@@ -247,8 +259,6 @@ namespace MilitaryPlanner.ViewModels
                 ClearSelectedMessage();
 
                 CurrentPhaseIndex++;
-
-                Mediator.NotifyColleagues(Constants.ACTION_PHASE_NEXT, CurrentPhaseIndex);
             }
         }
 
@@ -285,8 +295,6 @@ namespace MilitaryPlanner.ViewModels
                 ClearSelectedMessage();
 
                 CurrentPhaseIndex--;
-
-                Mediator.NotifyColleagues(Constants.ACTION_PHASE_BACK, CurrentPhaseIndex);
             }
         }
 
@@ -294,6 +302,8 @@ namespace MilitaryPlanner.ViewModels
         {
             if (_mission.AddPhase("Default Phase Name"))
             {
+                Mediator.NotifyColleagues(Constants.ACTION_PHASE_ADDED, null);
+
                 ExtendTimeExtentOnMilitaryMessages(CurrentPhaseIndex);
 
                 CurrentPhaseIndex = _mission.PhaseList.Count - 1;
@@ -520,7 +530,7 @@ namespace MilitaryPlanner.ViewModels
             _mapView = mapView;
             _map = mapView.Map;
 
-            mapView.MouseLeftButtonDown += mapView_MouseLeftButtonDown;//map_MouseLeftButtonDown;
+            mapView.MouseLeftButtonDown += mapView_MouseLeftButtonDown;
             mapView.MouseLeftButtonUp += mapView_MouseLeftButtonUp;
             mapView.MouseMove += mapView_MouseMove;
 
@@ -1064,15 +1074,20 @@ namespace MilitaryPlanner.ViewModels
             //Process the message
             if (ProcessMessage(_militaryMessageLayer, msg))
             {
-                msg.PhaseControlPointsDictionary.Add(_mission.PhaseList[CurrentPhaseIndex].ID, msg[MilitaryMessage.ControlPointsPropertyName]);
-
-                AddMilitaryMessageToMessageList(msg);
+                RecordMessageBeingAdded(msg);
             }
             else
             {
                 MessageBox.Show("Failed to process message.");
             }
 
+        }
+
+        private void RecordMessageBeingAdded(TimeAwareMilitaryMessage tam)
+        {
+            tam.PhaseControlPointsDictionary.Add(_mission.PhaseList[CurrentPhaseIndex].ID, tam[MilitaryMessage.ControlPointsPropertyName]);
+
+            AddMilitaryMessageToMessageList(tam);
         }
 
         private void AddMilitaryMessageToMessageList(TimeAwareMilitaryMessage tam)
@@ -1169,26 +1184,30 @@ namespace MilitaryPlanner.ViewModels
         private void AddNewMessage(SymbolViewModel symbolViewModel, System.Windows.Point p, string guid)
         {
             //create a new message
-            Message msg = new Message();
+            var tam = new TimeAwareMilitaryMessage();
+
+            // set default time extent
+            tam.VisibleTimeExtent = new TimeExtent(_mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.Start,
+                                                    _mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.End);
 
             //set the ID and other parts of the message
             //msg.Id = Guid.NewGuid().ToString();
-            msg.Id = guid;
-            msg.Add(MilitaryMessage.TypePropertyName, Constants.MSG_TYPE_POSITION_REPORT);
-            msg.Add(MilitaryMessage.ActionPropertyName, Constants.MSG_ACTION_UPDATE);
-            msg.Add(MilitaryMessage.WkidPropertyName, "3857");
-            msg.Add(MilitaryMessage.SicCodePropertyName, symbolViewModel.SymbolID);
-            msg.Add(MilitaryMessage.UniqueDesignationPropertyName, "1");
+            tam.Id = guid;
+            tam.Add(MilitaryMessage.TypePropertyName, Constants.MSG_TYPE_POSITION_REPORT);
+            tam.Add(MilitaryMessage.ActionPropertyName, Constants.MSG_ACTION_UPDATE);
+            tam.Add(MilitaryMessage.WkidPropertyName, "3857");
+            tam.Add(MilitaryMessage.SicCodePropertyName, symbolViewModel.SymbolID);
+            tam.Add(MilitaryMessage.UniqueDesignationPropertyName, "1");
 
             // Construct the Control Points based on the geometry type of the drawn geometry.
             //MapPoint point = e.Geometry as MapPoint;
             var point = _mapView.ScreenToLocation(p);
-            msg.Add(MilitaryMessage.ControlPointsPropertyName, point.X.ToString() + "," + point.Y.ToString());
+            tam.Add(MilitaryMessage.ControlPointsPropertyName, point.X.ToString() + "," + point.Y.ToString());
 
             //Process the message
-            if (ProcessMessage(_militaryMessageLayer, msg))
+            if (ProcessMessage(_militaryMessageLayer, tam))
             {
-                //TODO add stuff here
+                RecordMessageBeingAdded(tam);
             }
             else
             {

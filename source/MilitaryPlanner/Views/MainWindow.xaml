@@ -28,7 +28,7 @@
 
         <UserControl Grid.RowSpan="2" Content="{Binding OOBView}" />
 
-        <Slider Grid.Column="1" Grid.Row="1" Minimum="{Binding SliderMinimum}" Maximum="{Binding SliderMaximum}" Value="{Binding SliderValue}" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" />
+        <Slider Grid.Column="1" Grid.Row="1" Minimum="{Binding SliderMinimum}" Maximum="{Binding SliderMaximum}" Value="{Binding SliderValue}" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="10,0" SmallChange="1" Cursor="Cross" />
 
         <UserControl Grid.Column="1" Content="{Binding MapView}" Visibility="Visible"/>
     </Grid>

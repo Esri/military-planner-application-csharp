@@ -12,6 +12,8 @@ namespace MilitaryPlanner.ViewModels
     {
         #region Properties
 
+        private bool IsFromMediator = false;
+
         #region MyDateTime
 
         //private Mission _mission = new Mission("Default Mission");
@@ -50,7 +52,7 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private int _sliderMaximum = 0;
+        private int _sliderMaximum = -1;
         public int SliderMaximum
         {
             get
@@ -80,16 +82,21 @@ namespace MilitaryPlanner.ViewModels
             {
                 if (_sliderValue != value)
                 {
-                    if (value > _sliderValue)
+                    if (!IsFromMediator)
                     {
-                        // next
-                        Mediator.NotifyColleagues(Constants.ACTION_PHASE_NEXT, value);
+                        if (value > _sliderValue)
+                        {
+                            // next
+                            Mediator.NotifyColleagues(Constants.ACTION_PHASE_NEXT, value);
+                        }
+                        else
+                        {
+                            // back
+                            Mediator.NotifyColleagues(Constants.ACTION_PHASE_BACK, value);
+                        }
                     }
-                    else
-                    {
-                        // back
-                        Mediator.NotifyColleagues(Constants.ACTION_PHASE_BACK, value);
-                    }
+
+                    IsFromMediator = false;
 
                     _sliderValue = value;
                     RaisePropertyChanged(() => SliderValue);
@@ -167,6 +174,8 @@ namespace MilitaryPlanner.ViewModels
             //Mediator.Register(Constants.ACTION_MSG_LAYER_ADDED, _mission.DoMessageLayerAdded);
             Mediator.Register(Constants.ACTION_MSG_LAYER_ADDED, DoMessageLayerAdded);
             //Mediator.Register(Constants.ACTION_MSG_PROCESSED, _mission.DoMessageProcessed);
+            Mediator.Register(Constants.ACTION_PHASE_ADDED, DoPhaseAdded);
+            Mediator.Register(Constants.ACTION_PHASE_INDEX_CHANGED, DoPhaseIndexChanged);
 
             CancelCommand = new RelayCommand(OnCancelCommand);
             DeleteCommand = new RelayCommand(OnDeleteCommand);
@@ -176,6 +185,22 @@ namespace MilitaryPlanner.ViewModels
             MapView = new Views.MapView();
             OOBView = new Views.OrderOfBattleView();
             MTLView = new Views.MissionTimeLineView();
+        }
+
+        private void DoPhaseIndexChanged(object obj)
+        {
+            int index = (int)obj;
+
+            IsFromMediator = true;
+
+            SliderValue = index;
+        }
+
+        private void DoPhaseAdded(object obj)
+        {
+            IsFromMediator = true;
+            SliderMaximum++;
+            SliderValue = SliderMaximum;
         }
 
         private void DoMessageLayerAdded(object obj)
