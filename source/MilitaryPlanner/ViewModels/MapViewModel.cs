@@ -38,22 +38,17 @@ namespace MilitaryPlanner.ViewModels
         private Map _map;
         private Message _currentMessage;
         private EditState _editState = EditState.None;
-        //private List<TimeAwareMessageLayer> _messageLayerList = new List<TimeAwareMessageLayer>();
-        //private TimeAwareMessageLayer _currentMessageLayer;
         private MessageLayer _militaryMessageLayer;
         private List<TimeAwareMilitaryMessage> _militaryMessageList = new List<TimeAwareMilitaryMessage>();
         private TimeExtent _currentTimeExtent = new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
-        //private int _messageLayerCount = 1;
         private Mission _mission = new Mission("Default Mission");
         private int _currentPhaseIndex = 0;
-        //private List<string> _messageIDList = new List<string>();
         /// <summary>
         /// Dictionary containing a message layer ID as the KEY and a list of military message ID's as the value
         /// </summary>
         private Dictionary<string, List<string>> _phaseMessageDictionary = new Dictionary<string, List<string>>();
 
         public RelayCommand SetMapCommand { get; set; }
-        //public RelayCommand SetMessageLayerCommand { get; set; }
         public RelayCommand PhaseAddCommand { get; set; }
         public RelayCommand PhaseBackCommand { get; set; }
         public RelayCommand PhaseNextCommand { get; set; }
@@ -68,19 +63,15 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_MISSION_LOADED, DoMissionLoaded);
             Mediator.Register(Constants.ACTION_MISSION_HYDRATE, DoMissionHydrate);
             Mediator.Register(Constants.ACTION_DRAG_DROP_STARTED, DoDragDropStarted);
-            //Mediator.Register(Constants.ACTION_SLIDER_NEXT, OnPhaseNext);
-            //Mediator.Register(Constants.ACTION_SLIDER_BACK, OnPhaseBack);
             Mediator.Register(Constants.ACTION_PHASE_NEXT, DoSliderPhaseNext);
             Mediator.Register(Constants.ACTION_PHASE_BACK, DoSliderPhaseBack);
 
             SetMapCommand = new RelayCommand(OnSetMap);
-            //SetMessageLayerCommand = new RelayCommand(OnSetMessageLayer);
             PhaseAddCommand = new RelayCommand(OnPhaseAdd);
             PhaseBackCommand = new RelayCommand(OnPhaseBack);
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
 
             MeasureCommand = new RelayCommand(OnMeasureCommand);
-            //AddMessageLayer();
         }
 
         private void DoSliderPhaseBack(object obj)
@@ -171,7 +162,7 @@ namespace MilitaryPlanner.ViewModels
                 }
             }
 
-            RefreshMapLayers();
+            //RefreshMapLayers();
         }
 
         private void DoDragDropStarted(object obj)
@@ -188,8 +179,6 @@ namespace MilitaryPlanner.ViewModels
         {
             foreach (var phase in mission.PhaseList)
             {
-                //foreach (var kvp in _messageDictionary.Where(s => s.Value.Equals(phase.ID)))
-                //foreach (var kvp in _phaseMessageDictionary.Where(s => s.Key.Equals(phase.ID)))
                 var phaseMessageList = _phaseMessageDictionary[phase.ID];
 
                 if(phaseMessageList != null && phaseMessageList.Count > 0)
@@ -262,26 +251,6 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        //private void SetCurrentMessageLayer(int index)
-        //{
-        //    if (index >= 0 && index < _messageLayerList.Count)
-        //    {
-        //        _currentMessageLayer = _messageLayerList[index];
-
-        //        SetMapViewVisibleTimeExtent(_currentMessageLayer.VisibleTimeExtent);
-
-        //        //get phase and fire notifications for messages
-        //        var phaseMessageList = _phaseMessageDictionary[_currentMessageLayer.MessageLayer.ID];
-
-        //        foreach (var msgID in phaseMessageList)
-        //        {
-        //            Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_ADDED, msgID);
-        //        }
-
-        //        RefreshMapLayers();
-        //    }
-        //}
-
         private void SetMapViewVisibleTimeExtent(TimeExtent timeExtent)
         {
             _mapView.TimeExtent = timeExtent;
@@ -310,7 +279,7 @@ namespace MilitaryPlanner.ViewModels
             }
             
             // refresh layers, this will honor any new time extents
-            RefreshMapLayers();
+            //RefreshMapLayers();
         }
 
         private void ExtendTimeExtentOnMilitaryMessages(int CurrentPhaseIndex)
@@ -582,20 +551,11 @@ namespace MilitaryPlanner.ViewModels
 
         async void mapView_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            //if (_draw.IsEnabled)
-            //    return;
-
             if (_editState == EditState.Create)
             {
-                //e.Handled = false;
                 return;
             }
 
-            //if (_currentMessage != null)
-            //{
-            //    e.Handled = true;
-            //    _editState = EditState.Move;
-            //}
             if (_editState == EditState.None)
             {
                 // hit test on message layer
@@ -688,31 +648,31 @@ namespace MilitaryPlanner.ViewModels
             return null;
         }
 
-        private void RefreshMapLayers()
-        {
-            if (_map == null)
-            {
-                return;
-            }
+        //private void RefreshMapLayers()
+        //{
+        //    if (_map == null)
+        //    {
+        //        return;
+        //    }
 
-            foreach (var layer in _map.Layers)
-            {
-                var ml = layer as MessageLayer;
+        //    foreach (var layer in _map.Layers)
+        //    {
+        //        var ml = layer as MessageLayer;
 
-                if (ml != null)
-                {
-                    //TODO revisit
-                    //if (_messageLayerList.Where(s => s.MessageLayer.ID == ml.ID).First().VisibleTimeExtent.Intersects(_mapView.TimeExtent))
-                    //{
-                    //    ml.IsVisible = true;
-                    //}
-                    //else
-                    //{
-                    //    ml.IsVisible = false;
-                    //}
-                }
-            }
-        }
+        //        if (ml != null)
+        //        {
+        //            //TODO revisit
+        //            //if (_messageLayerList.Where(s => s.MessageLayer.ID == ml.ID).First().VisibleTimeExtent.Intersects(_mapView.TimeExtent))
+        //            //{
+        //            //    ml.IsVisible = true;
+        //            //}
+        //            //else
+        //            //{
+        //            //    ml.IsVisible = false;
+        //            //}
+        //        }
+        //    }
+        //}
 
         //private void OnSetMessageLayer(object param)
         //{
@@ -825,8 +785,6 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        //private Draw _draw;
-        //private MessageLayer _messageLayer;
         private SymbolViewModel _SelectedSymbol;
         private string _geometryType = String.Empty;
 

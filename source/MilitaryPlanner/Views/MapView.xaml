@@ -87,8 +87,8 @@
 							ToolTipService.ToolTip="Redo"/>
 						<Button Content="Stop" Margin="5" Command="{Binding EditStopCommand}"           
 							ToolTipService.ToolTip="Stop edit"/>-->
-						<Button Content="Cancel" Margin="5" Command="{Binding EditCancelCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>
+						<!--<Button Content="Cancel" Margin="5" Command="{Binding EditCancelCommand}"            
+							ToolTipService.ToolTip="Cancel edit"/>-->
 						<Button Content="Add Phase" Margin="5" Command="{Binding PhaseAddCommand}"            
 							ToolTipService.ToolTip="Add a new phase"/>
 						<!--<Button Content="Remove Phase" Margin="5" Command="{Binding PhaseRemoveCommand}"            
@@ -99,22 +99,8 @@
 							ToolTipService.ToolTip="Go forward one phase"/>
 						<Button Content="Save" Margin="5" Command="{Binding SaveCommand}"            
 							ToolTipService.ToolTip="Save mission"/>
-						<Button Content="Measure" Margin="5" Command="{Binding MeasureCommand}"            
-							ToolTipService.ToolTip="Measure">
-							<!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <esri:MeasureAction                                  
-                                    AreaUnit="SquareMiles"
-                                    DisplayTotals="True"
-                                    DistanceUnit="Miles"
-                                    MapUnits="Meters"
-                                    MeasureMode="Polygon"                                   
-                                    FillSymbol="{StaticResource DefaultFillSymbol}"
-                                    TargetName="MyMap"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
-
-							</Button>
+                        <Button Content="Measure" Margin="5" Command="{Binding MeasureCommand}"            
+							ToolTipService.ToolTip="Measure" />
 					</StackPanel>
 				</StackPanel>
 			</Grid>
