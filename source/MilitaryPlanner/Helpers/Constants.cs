@@ -16,15 +16,17 @@ namespace MilitaryPlanner.Helpers
         public const string ACTION_MISSION_LOADED = "MissionLoaded";
         public const string ACTION_MISSION_HYDRATE = "MissionHydrate";
         public const string ACTION_MSG_PROCESSED = "MessageProcessed";
+        public const string ACTION_PHASE_ADDED = "PhaseAdded";
         public const string ACTION_PHASE_NEXT = "PhaseNext";
         public const string ACTION_PHASE_BACK = "PhaseBack";
+        public const string ACTION_PHASE_INDEX_CHANGED = "PhaseIndexChanged";
         public const string ACTION_ITEM_WITH_GUID_REMOVED = "ItemWithGuidRemoved";
         public const string ACTION_ITEM_WITH_GUID_ADDED = "ItemWithGuidAdded";
         public const string ACTION_DRAG_DROP_STARTED = "DragDropStart";
         public const string ACTION_DRAG_DROP_ENDED = "DragDropEnded";
 
+        public const string MSG_ACTION_UPDATE = "update";
+        public const string MSG_ACTION_REMOVE = "remove";
         public const string MSG_TYPE_POSITION_REPORT = "position_report";
-        public const string MSG_ID_KEY_NAME = "_id";
-        public const string MSG_ACTION_KEY_NAME = "_action";
     }
 }
