@@ -9,7 +9,7 @@ NOTE : Currently this uses Runtime for WPF 10.2.3, Updating to ArcGIS SDK for .N
 
 This is an Esri ArcGIS for .NET application that can be used for planning military operations.  It uses __. Learn more about it [here](http://solutions.arcgis.com/military/templates/military-planner/).
 
-![alt text](/military-planner-application-csharp/blob/master/data/screenshots/Capture.PNG?raw=true) 
+![alt text](/blob/master/data/screenshots/Capture.PNG?raw=true) 
 
 ## Features
 * Time enabled layers, grouped by Courses of Action and Phases of the Operation
