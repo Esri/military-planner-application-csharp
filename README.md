@@ -9,8 +9,6 @@ NOTE : Currently this uses Runtime for WPF 10.2.3, Updating to ArcGIS SDK for .N
 
 This is an Esri ArcGIS for .NET application that can be used for planning military operations.  It uses __. Learn more about it [here](http://solutions.arcgis.com/military/templates/military-planner/).
 
-[View live app here](Add App Link here)
-
 ![App](Add Picture Link Here) 
 
 ## Features
@@ -19,11 +17,13 @@ This is an Esri ArcGIS for .NET application that can be used for planning milita
 * What You See Is What You Get (WYSIWYG) editing of military symbols and control measures
 * MIL-STD-2525D compliant symbology
 
-## Instructions (TODO)
+## Instructions
 
-1. Download and unzip the .zip file.
-2. Web-enable the directory or copy/paste the source to your own .html file.
-3. Access the .html page.
+1. Download and unzip the .zip file(s).  \\disldb\Shared\MilitaryPlanner\application or (https://esri.box.com/s/g6nes1k4xqjwtmgs1kanvr1ayx4m9yfg)
+1. Unzip military planner application zip file
+2. Unzip arcgisruntime10.2.4 folder so that you end up with ./application/arcgisruntime10.2.4  (same level as MilitaryPlanner.exe file)
+	2a. Only need to do this once
+3. Run MilitaryPlanner.exe
 
 ## Requirements
 
