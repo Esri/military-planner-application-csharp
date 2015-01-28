@@ -176,6 +176,7 @@ namespace MilitaryPlanner.ViewModels
             //Mediator.Register(Constants.ACTION_MSG_PROCESSED, _mission.DoMessageProcessed);
             Mediator.Register(Constants.ACTION_PHASE_ADDED, DoPhaseAdded);
             Mediator.Register(Constants.ACTION_PHASE_INDEX_CHANGED, DoPhaseIndexChanged);
+            Mediator.Register(Constants.ACTION_MISSION_LOADED, DoMissionLoaded);
 
             CancelCommand = new RelayCommand(OnCancelCommand);
             DeleteCommand = new RelayCommand(OnDeleteCommand);
@@ -239,6 +240,8 @@ namespace MilitaryPlanner.ViewModels
                 //Mediator.NotifyColleagues(Constants.ACTION_MISSION_HYDRATE, _mission);
 
                 //_mission.Save(sfd.FileName);
+
+                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, sfd.FileName);
             }
         }
 
@@ -256,9 +259,21 @@ namespace MilitaryPlanner.ViewModels
                 //TODO revisit
                 //OnLoadMission(ofd.FileName);
                 //Mediator.NotifyColleagues(Constants.ACTION_MISSION_LOADED, _mission);
+
+                Mediator.NotifyColleagues(Constants.ACTION_OPEN_MISSION, ofd.FileName);
             }
 
             //InitializeUI(_mission);
+        }
+
+        private void DoMissionLoaded(object obj)
+        {
+            var mission = obj as Mission;
+
+            if (mission != null)
+            {
+                InitializeUI(mission);
+            }
         }
 
         private void InitializeUI(Mission _mission)

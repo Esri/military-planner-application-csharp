@@ -38,7 +38,7 @@ namespace MilitaryPlanner.ViewModels
             // Create a new SymbolDictionary instance 
             SymbolLoader._symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
-            CurrentMission =  Mission.Load(@".\data\missions\testMission.xml");
+            //CurrentMission =  Mission.Load(@".\data\missions\testMission.xml");
         }
 
         public IReadOnlyCollection<PhaseSymbolViewModel> Symbols
