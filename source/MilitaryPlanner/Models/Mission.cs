@@ -9,8 +9,6 @@ using System.Xml.Serialization;
 using System.Xml;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using Esri.ArcGISRuntime.Data;
-//using ESRI.ArcGIS.Client.AdvancedSymbology;
-//using ESRI.ArcGIS.Client;
 
 namespace MilitaryPlanner.Models
 {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using MilitaryPlanner.Models;
 using System.Collections.ObjectModel;
-//using ESRI.ArcGIS.Client.AdvancedSymbology;
 using System.Windows.Data;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using MilitaryPlanner.Helpers;

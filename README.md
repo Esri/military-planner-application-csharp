@@ -15,7 +15,7 @@ This is an Esri ArcGIS for .NET application that can be used for planning milita
 * Time enabled layers, grouped by Courses of Action and Phases of the Operation
 * Order of Battle Widget customizable for individual units
 * What You See Is What You Get (WYSIWYG) editing of military symbols and control measures
-* MIL-STD-2525D compliant symbology
+* MIL-STD-2525C compliant symbology
 
 ## Instructions
 

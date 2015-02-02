@@ -1,8 +1,4 @@
-﻿//using ESRI.ArcGIS.Client;
-//using ESRI.ArcGIS.Client.AdvancedSymbology;
-//using ESRI.ArcGIS.Client.Geometry;
-//using ESRI.ArcGIS.Client.Symbols;
-using MilitaryPlanner.Helpers;
+﻿using MilitaryPlanner.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +56,6 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_SELECTED_SYMBOL_CHANGED, DoActionSymbolChanged);
             Mediator.Register(Constants.ACTION_CANCEL, DoActionCancel);
             Mediator.Register(Constants.ACTION_DELETE, DoActionDelete);
-            Mediator.Register(Constants.ACTION_MISSION_LOADED, DoMissionLoaded);
             Mediator.Register(Constants.ACTION_MISSION_HYDRATE, DoMissionHydrate);
             Mediator.Register(Constants.ACTION_DRAG_DROP_STARTED, DoDragDropStarted);
             Mediator.Register(Constants.ACTION_PHASE_NEXT, DoSliderPhaseNext);
@@ -817,71 +812,6 @@ namespace MilitaryPlanner.ViewModels
         // edit support
         //Graphic selectedPointGraphic;
         //Message selectedMessage;
-
-        private void DoMissionLoaded(object obj)
-        {
-            var mission = obj as Mission;
-
-            if(mission == null)
-            {
-                return;
-            }
-
-            //TODO revisit
-            // clear out current layers
-            //ClearMessageLayers();
-
-            foreach (var phase in mission.PhaseList)
-            {
-                var first = phase.Equals(mission.PhaseList.First());
-                
-                //TODO revisit
-                // add message layer
-                //var messageLayer = CreateMessageLayer(phase.Name, phase.ID, phase.VisibleTimeExtent, first, SymbolDictionaryType.Mil2525c);
-
-                //TODO revisit
-                //AddMessageLayer(messageLayer, first);
-
-                //Mediator.NotifyColleagues(Constants.ACTION_MSG_LAYER_ADDED, messageLayer);
-
-                //TODO revisit
-                //foreach (var pm in phase.PersistentMessages)
-                //{
-                //    var message = new Message();
-
-                //    //message.Id = pm.ID;
-
-                //    foreach (var item in pm.PropertyItems)
-                //    {
-                //        if (item.Key.ToLower().Contains(MilitaryMessage.ActionPropertyName))
-                //        {
-                //            item.Value = Constants.MSG_ACTION_UPDATE;
-                //        }
-
-                //        message.Add(item.Key, item.Value);
-                //    }
-
-                //    ProcessMessage(messageLayer.MessageLayer, message);
-                //}
-            }
-        }
-
-        //private void ClearMessageLayers()
-        //{
-        //    if (_map == null)
-        //    {
-        //        return;
-        //    }
-
-        //    var mls = _map.Layers.Where(l => l is MessageLayer).ToList();
-
-        //    foreach (var item in mls)
-        //    {
-        //        _map.Layers.Remove(item);
-        //    }
-
-        //    _messageLayerList.Clear();
-        //}
 
         private bool ProcessMessage(MessageLayer messageLayer, Message msg)
         {

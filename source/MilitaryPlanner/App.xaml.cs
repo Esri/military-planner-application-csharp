@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-//using ESRI.ArcGIS.Client;
 
 namespace MilitaryPlanner
 {
