@@ -20,9 +20,9 @@ This is an Esri ArcGIS for .NET application that can be used for planning milita
 ## Instructions
 
 1. Download and unzip the .zip file(s).  \\disldb\Shared\MilitaryPlanner\application or (https://esri.box.com/s/g6nes1k4xqjwtmgs1kanvr1ayx4m9yfg)
-1. Unzip military planner application zip file
-2. Unzip arcgisruntime10.2.4 folder so that you end up with ./application/arcgisruntime10.2.4  (same level as MilitaryPlanner.exe file)
-	2a. Only need to do this once
+2. Unzip military planner application zip file
+3. Unzip arcgisruntime10.2.4 folder so that you end up with ./application/arcgisruntime10.2.4  (same level as MilitaryPlanner.exe file)
+  3a. Only need to do this once
 3. Run MilitaryPlanner.exe
 
 ## Requirements
