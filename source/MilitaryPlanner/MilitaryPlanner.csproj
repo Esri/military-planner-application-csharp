@@ -120,6 +120,7 @@
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\EventToCommand.cs" />
     <Compile Include="Helpers\Mediator.cs" />
+    <Compile Include="Helpers\TimeAwareMessageLayer.cs" />
     <Compile Include="Models\Mission.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\MissionViewModel.cs" />

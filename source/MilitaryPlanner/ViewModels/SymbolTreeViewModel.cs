@@ -1,5 +1,4 @@
 ﻿using Esri.ArcGISRuntime.Symbology.Specialized;
-//using ESRI.ArcGIS.Client.AdvancedSymbology;
 using MilitaryPlanner.DragDrop.UI.Behavior;
 using System;
 using System.Collections.Generic;
