@@ -3,11 +3,9 @@ military-planner-application-csharp
 
 Military Planner Application
 
-NOTE : Currently this uses Runtime for WPF 10.2.3, Updating to ArcGIS SDK for .NET 10.2.4
-
 # military-planning-application-csharp
 
-This is an Esri ArcGIS for .NET application that can be used for planning military operations.  It uses __. Learn more about it [here](http://solutions.arcgis.com/military/templates/military-planner/).
+This is an Esri ArcGIS for .NET application that can be used for planning military operations.  It uses ArcGIS SDK for .NET 10.2.4. Learn more about it [here](http://solutions.arcgis.com/military/templates/military-planner/).
 
 ![alt text](/data/screenshots/Capture.PNG?raw=true) 
 
