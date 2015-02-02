@@ -486,14 +486,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MilitaryPlanner.exe" size="89088">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MilitaryPlanner.exe" size="90624">
       <assemblyIdentity name="MilitaryPlanner" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SRcSzZlomOLzhIJLTKby2npCIu/TpPcsLkFcEEurMzk=</dsig:DigestValue>
+        <dsig:DigestValue>aRK/cL1RcXAkMbRXiazHdM5SEqGxSITXyGYWIy6wZDk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

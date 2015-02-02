@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Media;
-//using ESRI.ArcGIS.Client.AdvancedSymbology;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 
 namespace MilitaryPlanner.ViewModels

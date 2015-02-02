@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-//using ESRI.ArcGIS.Client;
-//using ESRI.ArcGIS.Client.AdvancedSymbology;
 using MilitaryPlanner.Helpers;
 using System.Windows.Controls;
 using System.Windows;
@@ -61,8 +59,6 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_CANCEL, DoActionCancel);
             Mediator.Register(Constants.ACTION_ITEM_WITH_GUID_REMOVED, DoActionItemWithGuidRemoved);
             Mediator.Register(Constants.ACTION_ITEM_WITH_GUID_ADDED, DoActionItemWithGuidAdded);
-            Mediator.Register(Constants.ACTION_PHASE_NEXT, OnPhaseNext);
-            Mediator.Register(Constants.ACTION_PHASE_BACK, OnPhaseBack);
 
             // Check the ArcGIS Runtime is initialized
             if (!Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.IsInitialized)
@@ -98,17 +94,6 @@ namespace MilitaryPlanner.ViewModels
             ExpandGroupSymbol(_groupSymbol);
         }
 
-        private void OnPhaseBack(object obj)
-        {
-            // set all tree children leaf nodes to hasbeendragged false
-            SetAllNodesToDraggable();
-        }
-
-        private void OnPhaseNext(object obj)
-        {
-            SetAllNodesToDraggable();
-        }
-
         private void SetAllNodesToDraggable()
         {
             foreach (var sym in _groupSymbol.FirstGeneration)
@@ -130,6 +115,11 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        /// <summary>
+        /// Method that handles the addition of a symbol to the map view
+        /// Sets the property that controls the objects dragability
+        /// </summary>
+        /// <param name="obj"></param>
         private void DoActionItemWithGuidAdded(object obj)
         {
             var guid = obj as string;
@@ -151,6 +141,11 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        /// <summary>
+        /// Method handles the removal of a symbol from the entire mission
+        /// Reset HasBeenDragged property in OOB Tree so that it can be dragged/dropped again
+        /// </summary>
+        /// <param name="obj"></param>
         private void DoActionItemWithGuidRemoved(object obj)
         {
             var guid = obj as string;
@@ -172,6 +167,12 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        /// <summary>
+        /// Method finds the first child node with the given GUID
+        /// </summary>
+        /// <param name="stvm"></param>
+        /// <param name="guid"></param>
+        /// <returns>Tree Symbol object with the given GUID</returns>
         private SymbolTreeViewModel FindChildWithGuid(SymbolTreeViewModel stvm, string guid)
         {
             if (stvm == null)
@@ -222,6 +223,10 @@ namespace MilitaryPlanner.ViewModels
             
         }
 
+        /// <summary>
+        /// Handler for when a selection of a symbol has changed
+        /// </summary>
+        /// <param name="param"></param>
         private void OnSymbolChanged(object param)
         {
             var e = param as SelectionChangedEventArgs;

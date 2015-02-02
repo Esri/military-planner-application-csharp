@@ -79,42 +79,28 @@
 			<Grid x:Name="layoutGrid" Margin="5" Background="White">
 				<StackPanel Orientation="Vertical">
 					<StackPanel x:Name="MyStackPanel" Orientation="Horizontal">
-						<Button Content="Edit" Margin="5" Command="{Binding EditStartCommand}"           
+						<!--<Button Content="Edit" Margin="5" Command="{Binding EditStartCommand}"           
 							ToolTipService.ToolTip="Start editing"/>
 						<Button Content="Undo" Margin="5" Command="{Binding EditUndoCommand}"
 							ToolTipService.ToolTip="Undo"/>
 						<Button Content="Redo" Margin="5" Command="{Binding EditRedoCommand}"
 							ToolTipService.ToolTip="Redo"/>
 						<Button Content="Stop" Margin="5" Command="{Binding EditStopCommand}"           
-							ToolTipService.ToolTip="Stop edit"/>
-						<Button Content="Cancel" Margin="5" Command="{Binding EditCancelCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>
-						<Button Content="Add Slide" Margin="5" Command="{Binding PhaseAddCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>
-						<Button Content="Remove Slide" Margin="5" Command="{Binding PhaseRemoveCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>
-						<Button Content="Back Slide" Margin="5" Command="{Binding PhaseBackCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>
-						<Button Content="Next Slide" Margin="5" Command="{Binding PhaseNextCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>
+							ToolTipService.ToolTip="Stop edit"/>-->
+						<!--<Button Content="Cancel" Margin="5" Command="{Binding EditCancelCommand}"            
+							ToolTipService.ToolTip="Cancel edit"/>-->
+						<Button Content="Add Phase" Margin="5" Command="{Binding PhaseAddCommand}"            
+							ToolTipService.ToolTip="Add a new phase"/>
+						<!--<Button Content="Remove Phase" Margin="5" Command="{Binding PhaseRemoveCommand}"            
+							ToolTipService.ToolTip="Cancel edit"/>-->
+						<Button Content="Back Phase" Margin="5" Command="{Binding PhaseBackCommand}"            
+							ToolTipService.ToolTip="Go back one phase"/>
+						<Button Content="Next Phase" Margin="5" Command="{Binding PhaseNextCommand}"            
+							ToolTipService.ToolTip="Go forward one phase"/>
 						<Button Content="Save" Margin="5" Command="{Binding SaveCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>
-						<Button Content="Measure" Margin="5" Command="{Binding MeasureCommand}"            
-							ToolTipService.ToolTip="Measure">
-							<!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <esri:MeasureAction                                  
-                                    AreaUnit="SquareMiles"
-                                    DisplayTotals="True"
-                                    DistanceUnit="Miles"
-                                    MapUnits="Meters"
-                                    MeasureMode="Polygon"                                   
-                                    FillSymbol="{StaticResource DefaultFillSymbol}"
-                                    TargetName="MyMap"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
-
-							</Button>
+							ToolTipService.ToolTip="Save mission"/>
+                        <Button Content="Measure" Margin="5" Command="{Binding MeasureCommand}"            
+							ToolTipService.ToolTip="Measure" />
 					</StackPanel>
 				</StackPanel>
 			</Grid>
