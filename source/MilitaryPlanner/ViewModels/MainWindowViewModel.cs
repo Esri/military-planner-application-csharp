@@ -16,8 +16,6 @@ namespace MilitaryPlanner.ViewModels
 
         #region MyDateTime
 
-        //private Mission _mission = new Mission("Default Mission");
-
         private DateTime _myDateTime;
         public DateTime MyDateTime
         {
@@ -176,6 +174,7 @@ namespace MilitaryPlanner.ViewModels
             //Mediator.Register(Constants.ACTION_MSG_PROCESSED, _mission.DoMessageProcessed);
             Mediator.Register(Constants.ACTION_PHASE_ADDED, DoPhaseAdded);
             Mediator.Register(Constants.ACTION_PHASE_INDEX_CHANGED, DoPhaseIndexChanged);
+            Mediator.Register(Constants.ACTION_MISSION_LOADED, DoMissionLoaded);
 
             CancelCommand = new RelayCommand(OnCancelCommand);
             DeleteCommand = new RelayCommand(OnDeleteCommand);
@@ -239,6 +238,8 @@ namespace MilitaryPlanner.ViewModels
                 //Mediator.NotifyColleagues(Constants.ACTION_MISSION_HYDRATE, _mission);
 
                 //_mission.Save(sfd.FileName);
+
+                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, sfd.FileName);
             }
         }
 
@@ -252,13 +253,18 @@ namespace MilitaryPlanner.ViewModels
 
             if (ofd.ShowDialog() == true)
             {
-                //_mission = Mission.Load(ofd.FileName);
-                //TODO revisit
-                //OnLoadMission(ofd.FileName);
-                //Mediator.NotifyColleagues(Constants.ACTION_MISSION_LOADED, _mission);
+                Mediator.NotifyColleagues(Constants.ACTION_OPEN_MISSION, ofd.FileName);
             }
+        }
 
-            //InitializeUI(_mission);
+        private void DoMissionLoaded(object obj)
+        {
+            var mission = obj as Mission;
+
+            if (mission != null)
+            {
+                InitializeUI(mission);
+            }
         }
 
         private void InitializeUI(Mission _mission)
@@ -267,28 +273,6 @@ namespace MilitaryPlanner.ViewModels
             SliderMaximum = _mission.PhaseList.Count - 1;
             SliderValue = 0;
         }
-
-        private void OnLoadMission(string filename)
-        {
-            //if (_mission != null)
-            //{
-            //    Mediator.Unregister(Constants.ACTION_MSG_LAYER_ADDED, _mission.DoMessageLayerAdded);
-            //}
-
-            //_mission = Mission.Load(filename);
-
-            //if (_mission != null)
-            //{
-            //    Mediator.Register(Constants.ACTION_MSG_LAYER_ADDED, _mission.DoMessageLayerAdded);
-            //}
-        }
-
-        //private void OnSaveMission(string filename)
-        //{
-        //    Mediator.NotifyColleagues(Constants.ACTION_MISSION_HYDRATE, _mission);
-
-        //    _mission.Save(filename);
-        //}
 
         #endregion
 

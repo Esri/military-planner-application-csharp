@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-//using ESRI.ArcGIS.Client;
-//using ESRI.ArcGIS.Client.AdvancedSymbology;
 using MilitaryPlanner.Helpers;
 using System.Windows.Controls;
 using System.Windows;
@@ -117,6 +115,11 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        /// <summary>
+        /// Method that handles the addition of a symbol to the map view
+        /// Sets the property that controls the objects dragability
+        /// </summary>
+        /// <param name="obj"></param>
         private void DoActionItemWithGuidAdded(object obj)
         {
             var guid = obj as string;
@@ -138,6 +141,11 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        /// <summary>
+        /// Method handles the removal of a symbol from the entire mission
+        /// Reset HasBeenDragged property in OOB Tree so that it can be dragged/dropped again
+        /// </summary>
+        /// <param name="obj"></param>
         private void DoActionItemWithGuidRemoved(object obj)
         {
             var guid = obj as string;
@@ -159,6 +167,12 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        /// <summary>
+        /// Method finds the first child node with the given GUID
+        /// </summary>
+        /// <param name="stvm"></param>
+        /// <param name="guid"></param>
+        /// <returns>Tree Symbol object with the given GUID</returns>
         private SymbolTreeViewModel FindChildWithGuid(SymbolTreeViewModel stvm, string guid)
         {
             if (stvm == null)
@@ -209,6 +223,10 @@ namespace MilitaryPlanner.ViewModels
             
         }
 
+        /// <summary>
+        /// Handler for when a selection of a symbol has changed
+        /// </summary>
+        /// <param name="param"></param>
         private void OnSymbolChanged(object param)
         {
             var e = param as SelectionChangedEventArgs;

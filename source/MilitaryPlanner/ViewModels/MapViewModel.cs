@@ -1,8 +1,4 @@
-﻿//using ESRI.ArcGIS.Client;
-//using ESRI.ArcGIS.Client.AdvancedSymbology;
-//using ESRI.ArcGIS.Client.Geometry;
-//using ESRI.ArcGIS.Client.Symbols;
-using MilitaryPlanner.Helpers;
+﻿using MilitaryPlanner.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +15,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Imagery;
 using Esri.ArcGISRuntime.Symbology;
+using System.IO;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -39,7 +36,6 @@ namespace MilitaryPlanner.ViewModels
         private Message _currentMessage;
         private EditState _editState = EditState.None;
         private MessageLayer _militaryMessageLayer;
-        private List<TimeAwareMilitaryMessage> _militaryMessageList = new List<TimeAwareMilitaryMessage>();
         private TimeExtent _currentTimeExtent = new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
         private Mission _mission = new Mission("Default Mission");
         private int _currentPhaseIndex = 0;
@@ -60,11 +56,12 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_SELECTED_SYMBOL_CHANGED, DoActionSymbolChanged);
             Mediator.Register(Constants.ACTION_CANCEL, DoActionCancel);
             Mediator.Register(Constants.ACTION_DELETE, DoActionDelete);
-            Mediator.Register(Constants.ACTION_MISSION_LOADED, DoMissionLoaded);
             Mediator.Register(Constants.ACTION_MISSION_HYDRATE, DoMissionHydrate);
             Mediator.Register(Constants.ACTION_DRAG_DROP_STARTED, DoDragDropStarted);
             Mediator.Register(Constants.ACTION_PHASE_NEXT, DoSliderPhaseNext);
             Mediator.Register(Constants.ACTION_PHASE_BACK, DoSliderPhaseBack);
+            Mediator.Register(Constants.ACTION_SAVE_MISSION, DoSaveMission);
+            Mediator.Register(Constants.ACTION_OPEN_MISSION, DoOpenMission);
 
             SetMapCommand = new RelayCommand(OnSetMap);
             PhaseAddCommand = new RelayCommand(OnPhaseAdd);
@@ -72,6 +69,44 @@ namespace MilitaryPlanner.ViewModels
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
 
             MeasureCommand = new RelayCommand(OnMeasureCommand);
+        }
+
+        private void DoOpenMission(object obj)
+        {
+            string fileName = obj.ToString();
+
+            if (!String.IsNullOrWhiteSpace(fileName) && File.Exists(fileName))
+            {
+                try
+                {
+                    _mission.Load(fileName);
+
+                    InitializeMapWithMission();
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        private void InitializeMapWithMission()
+        {
+            CurrentPhaseIndex = 0;
+
+            Mediator.NotifyColleagues(Constants.ACTION_MISSION_LOADED, _mission);
+
+            OnCurrentPhaseIndexChanged();
+        }
+
+        private void DoSaveMission(object obj)
+        {
+            string fileName = obj.ToString();
+
+            if (!String.IsNullOrWhiteSpace(fileName))
+            {
+                _mission.Save(fileName);
+            }
         }
 
         private void DoSliderPhaseBack(object obj)
@@ -133,7 +168,7 @@ namespace MilitaryPlanner.ViewModels
         private void ProccessMilitaryMessages(TimeExtent timeExtent)
         {
             // get a list of military messages that intersect this time extent
-            var militaryMessages = _militaryMessageList.Where(m => m.VisibleTimeExtent.Intersects(timeExtent)).ToList();
+            var militaryMessages = _mission.MilitaryMessages.Where(m => m.VisibleTimeExtent.Intersects(timeExtent)).ToList();
             var phaseID = _mission.PhaseList[CurrentPhaseIndex].ID;
 
             foreach (var mm in militaryMessages)
@@ -291,7 +326,7 @@ namespace MilitaryPlanner.ViewModels
             var nextTimeExtentEnd = _mission.PhaseList[CurrentPhaseIndex + 1].VisibleTimeExtent.End;
             var nextPhaseID = _mission.PhaseList[CurrentPhaseIndex + 1].ID;
 
-            var currentPhaseMessages = _militaryMessageList.Where(m => m.VisibleTimeExtent.End == currentTimeExtentEnd).ToList();
+            var currentPhaseMessages = _mission.MilitaryMessages.Where(m => m.VisibleTimeExtent.End == currentTimeExtentEnd).ToList();
 
             foreach (var tam in currentPhaseMessages)
             {
@@ -720,7 +755,7 @@ namespace MilitaryPlanner.ViewModels
 
         private void UpdateMilitaryMessageControlPoints(MilitaryMessage msg)
         {
-            var tam = _militaryMessageList.Where(m => m.Id == msg.Id).First();
+            var tam = _mission.MilitaryMessages.Where(m => m.Id == msg.Id).First();
 
             if (tam != null)
             {
@@ -732,27 +767,11 @@ namespace MilitaryPlanner.ViewModels
         private void RemoveMessage(Message message)
         {
             var msg = new MilitaryMessage(message.Id, MilitaryMessageType.PositionReport, MilitaryMessageAction.Remove);
-            //TODO update process message
+
+            // remove from visible layer
             _militaryMessageLayer.ProcessMessage(msg);
 
-            RemoveMessageFromPhase(CurrentPhaseIndex, _militaryMessageList.Where(m => m.Id == message.Id).First());
-
-            // now remove from military message list or update time extent to next/previous phase
-
-            //if (_messageDictionary.ContainsKey(message.Id))
-            //{
-            //    _messageDictionary.Remove(message.Id);
-            //    // notify removal of item with guid
-            //    Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_REMOVED, message.Id);
-            //}
-
-            //TODO Does removing a symbol only remove from current phase or entire mission
-
-            //if (_phaseMessageDictionary[_currentMessageLayer.MessageLayer.ID].Contains(message.Id))
-            //{
-            //    _phaseMessageDictionary[_currentMessageLayer.MessageLayer.ID].Remove(message.Id);
-            //    Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_REMOVED, message.Id);
-            //}
+            RemoveMessageFromPhase(CurrentPhaseIndex, _mission.MilitaryMessages.Where(m => m.Id == message.Id).First());
         }
 
         private void RemoveMessageFromPhase(int phaseIndex, TimeAwareMilitaryMessage tam)
@@ -763,7 +782,9 @@ namespace MilitaryPlanner.ViewModels
             if (tam.VisibleTimeExtent.Start >= phaseTimeExtent.Start && tam.VisibleTimeExtent.End <= phaseTimeExtent.End)
             {
                 // contained in this phase only, remove completely
-                _militaryMessageList.Remove(tam);
+                _mission.MilitaryMessages.Remove(tam);
+
+                Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_REMOVED, tam.Id);
                 return;
             }
             else if (tam.VisibleTimeExtent.Start >= phaseTimeExtent.Start && tam.VisibleTimeExtent.End > phaseTimeExtent.End)
@@ -791,71 +812,6 @@ namespace MilitaryPlanner.ViewModels
         // edit support
         //Graphic selectedPointGraphic;
         //Message selectedMessage;
-
-        private void DoMissionLoaded(object obj)
-        {
-            var mission = obj as Mission;
-
-            if(mission == null)
-            {
-                return;
-            }
-
-            //TODO revisit
-            // clear out current layers
-            //ClearMessageLayers();
-
-            foreach (var phase in mission.PhaseList)
-            {
-                var first = phase.Equals(mission.PhaseList.First());
-                
-                //TODO revisit
-                // add message layer
-                //var messageLayer = CreateMessageLayer(phase.Name, phase.ID, phase.VisibleTimeExtent, first, SymbolDictionaryType.Mil2525c);
-
-                //TODO revisit
-                //AddMessageLayer(messageLayer, first);
-
-                //Mediator.NotifyColleagues(Constants.ACTION_MSG_LAYER_ADDED, messageLayer);
-
-                //TODO revisit
-                //foreach (var pm in phase.PersistentMessages)
-                //{
-                //    var message = new Message();
-
-                //    //message.Id = pm.ID;
-
-                //    foreach (var item in pm.PropertyItems)
-                //    {
-                //        if (item.Key.ToLower().Contains(MilitaryMessage.ActionPropertyName))
-                //        {
-                //            item.Value = Constants.MSG_ACTION_UPDATE;
-                //        }
-
-                //        message.Add(item.Key, item.Value);
-                //    }
-
-                //    ProcessMessage(messageLayer.MessageLayer, message);
-                //}
-            }
-        }
-
-        //private void ClearMessageLayers()
-        //{
-        //    if (_map == null)
-        //    {
-        //        return;
-        //    }
-
-        //    var mls = _map.Layers.Where(l => l is MessageLayer).ToList();
-
-        //    foreach (var item in mls)
-        //    {
-        //        _map.Layers.Remove(item);
-        //    }
-
-        //    _messageLayerList.Clear();
-        //}
 
         private bool ProcessMessage(MessageLayer messageLayer, Message msg)
         {
@@ -1050,9 +1006,9 @@ namespace MilitaryPlanner.ViewModels
 
         private void AddMilitaryMessageToMessageList(TimeAwareMilitaryMessage tam)
         {
-            if (_militaryMessageList.Where(m => m.Id == tam.Id).Count() == 0)
+            if (_mission.MilitaryMessages.Where(m => m.Id == tam.Id).Count() == 0)
             {
-                _militaryMessageList.Add(tam);
+                _mission.MilitaryMessages.Add(tam);
             }
         }
 

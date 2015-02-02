@@ -9,8 +9,6 @@ using System.Xml.Serialization;
 using System.Xml;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using Esri.ArcGISRuntime.Data;
-//using ESRI.ArcGIS.Client.AdvancedSymbology;
-//using ESRI.ArcGIS.Client;
 
 namespace MilitaryPlanner.Models
 {
@@ -56,6 +54,25 @@ namespace MilitaryPlanner.Models
             }
         }
 
+        private List<TimeAwareMilitaryMessage> _timeAwareMilitaryMessages = new List<TimeAwareMilitaryMessage>();
+
+        public List<TimeAwareMilitaryMessage> MilitaryMessages
+        {
+            get
+            {
+                return _timeAwareMilitaryMessages;
+            }
+
+            set
+            {
+                if (value != _timeAwareMilitaryMessages)
+                {
+                    _timeAwareMilitaryMessages = value;
+                    RaisePropertyChanged(() => MilitaryMessages);
+                }
+            }
+        }
+
         public bool Save(string filename)
         {
             if (String.IsNullOrWhiteSpace(filename))
@@ -69,6 +86,35 @@ namespace MilitaryPlanner.Models
             x.Serialize(writer, this);
 
             return true;
+        }
+
+        public bool Load(string filename)
+        {
+            if (!String.IsNullOrWhiteSpace(filename) && File.Exists(filename))
+            {
+                try
+                {
+                    XmlSerializer x = new XmlSerializer(this.GetType());
+                    TextReader tr = new StreamReader(filename);
+                    var temp = x.Deserialize(tr) as Mission;
+
+                    if(temp != null)
+                    {
+                        this.Name = temp.Name;
+                        this.PhaseList = temp.PhaseList;
+                        this.MilitaryMessages = temp.MilitaryMessages;
+
+                        return true;
+                    }
+                }
+                catch
+                {
+
+                }
+                
+            }
+
+            return false;
         }
 
         public bool AddPhase(string name)
@@ -100,64 +146,6 @@ namespace MilitaryPlanner.Models
 
             return true;
         }
-
-        public static Mission Load(string filename)
-        {
-            var xmlOver = new XmlAttributeOverrides();
-            var xmlAttr = new XmlAttributes();
-            xmlAttr.XmlIgnore = true;
-
-            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "InitializationFailure", xmlAttr);
-            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "FullExtent", xmlAttr);
-            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "IsInitialized", xmlAttr);
-            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.Layer), "SpatialReference", xmlAttr);
-            //xmlOver.Add(typeof(ESRI.ArcGIS.Client.AdvancedSymbology.MessageLayer), "SubLayers", xmlAttr);
-
-            XmlSerializer x = new XmlSerializer(typeof(Mission), xmlOver);
-
-            FileStream fs = new FileStream(filename, FileMode.Open);
-
-            XmlReader reader = XmlReader.Create(fs);
-
-            Mission mission;
-
-            mission = x.Deserialize(reader) as Mission;
-
-            return mission;
-        }
-
-        public void DoMessageLayerAdded(object obj)
-        {
-            var msgLayer = obj as MessageLayer;
-
-            if (msgLayer != null)
-            {
-                var tempPhase = new MissionPhase("Temp Phase");
-                //tempPhase.MessageLayers.Add(msgLayer);
-                tempPhase.ID = msgLayer.ID;
-                this.PhaseList.Add(tempPhase);
-            }
-        }
-
-        public void DoMessageProcessed(object obj)
-        {
-            var kvp = (KeyValuePair<string, Message>)obj;
-
-            if (!String.IsNullOrWhiteSpace(kvp.Key) && kvp.Value != null)
-            {
-                // find phase
-                var phase = PhaseList.First(s => s.ID.Equals(kvp.Key));
-
-                if (phase != null)
-                {
-                    var pm = new PersistentMessage();
-
-                    pm.ID = kvp.Value.Id;
-                    //pm.Properties = kvp.Value.
-                }
-            }
-        }
-
     }
 
     public class MissionPhase : NotificationObject
@@ -189,49 +177,6 @@ namespace MilitaryPlanner.Models
         public string ID { get; set; }
 
         public TimeExtent VisibleTimeExtent { get; set; }
-
-        //private List<PersistentMessage> _persistentMessages = new List<PersistentMessage>();
-
-        //public List<PersistentMessage> PersistentMessages
-        //{
-        //    get
-        //    {
-        //        return _persistentMessages;
-        //    }
-        //    set
-        //    {
-        //        if (value != _persistentMessages)
-        //        {
-        //            _persistentMessages = value;
-        //        }
-        //    }
-        //}
     }
 
-    public class PropertyItem
-    {
-        public PropertyItem() { }
-
-        public string Key { get; set; }
-        public string Value { get; set; }
-    }
-
-    public class PersistentMessage
-    {
-        public PersistentMessage()
-        {
-
-        }
-
-        public string ID
-        {
-            get;
-            set;
-        }
-        public List<PropertyItem> PropertyItems
-        {
-            get;
-            set;
-        }
-    }
 }
