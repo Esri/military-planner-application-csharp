@@ -26,7 +26,6 @@ namespace MilitaryPlanner.Helpers
         public const string ACTION_ITEM_WITH_GUID_ADDED = "ItemWithGuidAdded";
         public const string ACTION_DRAG_DROP_STARTED = "DragDropStart";
         public const string ACTION_DRAG_DROP_ENDED = "DragDropEnded";
-        public const string ACTION_PROVISION_PLAN = "ProvisionPlan";
 
         public const string MSG_ACTION_UPDATE = "update";
         public const string MSG_ACTION_REMOVE = "remove";
