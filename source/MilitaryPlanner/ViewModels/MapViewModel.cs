@@ -62,6 +62,7 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_PHASE_BACK, DoSliderPhaseBack);
             Mediator.Register(Constants.ACTION_SAVE_MISSION, DoSaveMission);
             Mediator.Register(Constants.ACTION_OPEN_MISSION, DoOpenMission);
+            Mediator.Register(Constants.ACTION_PROVISION_PLAN, DoProvisionPlan);
 
             SetMapCommand = new RelayCommand(OnSetMap);
             PhaseAddCommand = new RelayCommand(OnPhaseAdd);
@@ -106,6 +107,16 @@ namespace MilitaryPlanner.ViewModels
             if (!String.IsNullOrWhiteSpace(fileName))
             {
                 _mission.Save(fileName);
+            }
+        }
+
+        private void DoProvisionPlan(object obj)
+        {
+            string fileName = obj.ToString();
+
+            if (!String.IsNullOrWhiteSpace(fileName))
+            {
+                _mission.Save(fileName, Constants.SAVE_AS_GEOMESSAGES);
             }
         }
 
