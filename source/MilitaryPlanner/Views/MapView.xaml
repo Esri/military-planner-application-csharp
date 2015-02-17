@@ -57,6 +57,21 @@
                 <esri:GraphicsOverlay ID="graphicsOverlay" />
             </esri:MapView.GraphicsOverlays>
         </esri:MapView>
+        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Text="{Binding CoordinateReadout}">
+            <TextBlock.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Format">
+                        <MenuItem Command="{Binding CoordinateReadoutCommand}" CommandParameter="DD" Header="DD" />
+                        <MenuItem Command="{Binding CoordinateReadoutCommand}" CommandParameter="DMS" Header="DMS" />
+                        <MenuItem Command="{Binding CoordinateReadoutCommand}" CommandParameter="GARS" Header="GARS" />
+                        <MenuItem Command="{Binding CoordinateReadoutCommand}" CommandParameter="GEOREF" Header="GEOREF" />
+                        <MenuItem Command="{Binding CoordinateReadoutCommand}" CommandParameter="MGRS" Header="MGRS" />
+                        <MenuItem Command="{Binding CoordinateReadoutCommand}" CommandParameter="USNG" Header="USNG" />
+                        <MenuItem Command="{Binding CoordinateReadoutCommand}" CommandParameter="UTM" Header="UTM" />
+                    </MenuItem>
+                </ContextMenu>
+            </TextBlock.ContextMenu>
+        </TextBlock>
         <Rectangle x:Name="HideObject" Fill="#00F4F4F5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="2000" Margin="0,18.6,0,0" Stroke="Black" StrokeThickness="0" Width="2000">
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName="MouseEnter">

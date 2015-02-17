@@ -29,6 +29,17 @@ namespace MilitaryPlanner.ViewModels
             None
         };
 
+        private enum CoordinateReadoutFormat
+        {
+            DD,
+            DMS,
+            GARS,
+            GEOREF,
+            MGRS,
+            USNG,
+            UTM
+        };
+
         private Point _lastKnownPoint;
         private Point _pointOffset = new Point();
         private MapView _mapView;
@@ -39,6 +50,8 @@ namespace MilitaryPlanner.ViewModels
         private TimeExtent _currentTimeExtent = new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
         private Mission _mission = new Mission("Default Mission");
         private int _currentPhaseIndex = 0;
+        private CoordinateReadoutFormat _coordinateReadoutFormat = CoordinateReadoutFormat.DD;
+
         /// <summary>
         /// Dictionary containing a message layer ID as the KEY and a list of military message ID's as the value
         /// </summary>
@@ -50,6 +63,7 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand PhaseNextCommand { get; set; }
 
         public RelayCommand MeasureCommand { get; set; }
+        public RelayCommand CoordinateReadoutCommand { get; set; }
 
         public MapViewModel()
         {
@@ -69,6 +83,23 @@ namespace MilitaryPlanner.ViewModels
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
 
             MeasureCommand = new RelayCommand(OnMeasureCommand);
+
+            CoordinateReadoutCommand = new RelayCommand(OnCoordinateReadoutCommand);
+        }
+
+        private string _coordinateReadout = "";
+        public string CoordinateReadout
+        {
+            get
+            {
+                return _coordinateReadout;
+            }
+
+            private set
+            {
+                _coordinateReadout = value;
+                RaisePropertyChanged(() => CoordinateReadout);
+            }
         }
 
         private void DoOpenMission(object obj)
@@ -346,6 +377,41 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        private void OnCoordinateReadoutCommand(object obj)
+        {
+            string format = obj as string;
+
+            if (!String.IsNullOrWhiteSpace(format))
+            {
+                switch (format)
+                {
+                    case "DD":
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.DD;
+                        break;
+                    case "DMS":
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.DMS;
+                        break;
+                    case "GARS":
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.GARS;
+                        break;
+                    case "GEOREF":
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.GEOREF;
+                        break;
+                    case "MGRS":
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
+                        break;
+                    case "USNG":
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.USNG;
+                        break;
+                    case "UTM":
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.UTM;
+                        break;
+                    default:
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
+                        break;
+                }
+            }
+        }
 
         private Symbol _pointSymbol;
         private Symbol _lineSymbol;
@@ -559,12 +625,48 @@ namespace MilitaryPlanner.ViewModels
 
             _lastKnownPoint = e.GetPosition(_mapView);
 
+            UpdateCoordinateReadout(_lastKnownPoint);
+
             var adjustedPoint = AdjustPointWithOffset(_lastKnownPoint);
 
             //if a selected symbol, move it
             if (_editState == EditState.Move && e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
             {
                 UpdateCurrentMessage(_mapView.ScreenToLocation(adjustedPoint));
+            }
+        }
+
+        private void UpdateCoordinateReadout(Point point)
+        {
+            var mp = _mapView.ScreenToLocation(point);
+
+            // we can do DD, DMS, GARS, GEOREF, MGRS, USNG, UTM
+            switch (_coordinateReadoutFormat)
+            {
+                case CoordinateReadoutFormat.DD:
+                    CoordinateReadout = ConvertCoordinate.ToDecimalDegrees(mp, 3);
+                    break;
+                case CoordinateReadoutFormat.DMS:
+                    CoordinateReadout = ConvertCoordinate.ToDegreesMinutesSeconds(mp, 1);
+                    break;
+                case CoordinateReadoutFormat.GARS:
+                    CoordinateReadout = ConvertCoordinate.ToGars(mp);
+                    break;
+                case CoordinateReadoutFormat.GEOREF:
+                    CoordinateReadout = ConvertCoordinate.ToGeoref(mp, 4, true);
+                    break;
+                case CoordinateReadoutFormat.MGRS:
+                    CoordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
+                    break;
+                case CoordinateReadoutFormat.USNG:
+                    CoordinateReadout = ConvertCoordinate.ToUsng(mp, 5, true, true);
+                    break;
+                case CoordinateReadoutFormat.UTM:
+                    CoordinateReadout = ConvertCoordinate.ToUtm(mp, UtmConversionMode.None, true);
+                    break;
+                default:
+                    CoordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
+                    break;
             }
         }
 
