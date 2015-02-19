@@ -36,7 +36,7 @@ namespace MilitaryPlanner.ViewModels
         private Message _currentMessage;
         private EditState _editState = EditState.None;
         private MessageLayer _militaryMessageLayer;
-        private TimeExtent _currentTimeExtent = new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
+        private TimeExtent _currentTimeExtent = null; //new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
         private Mission _mission = new Mission("Default Mission");
         private int _currentPhaseIndex = 0;
         /// <summary>
@@ -62,6 +62,7 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_PHASE_BACK, DoSliderPhaseBack);
             Mediator.Register(Constants.ACTION_SAVE_MISSION, DoSaveMission);
             Mediator.Register(Constants.ACTION_OPEN_MISSION, DoOpenMission);
+            Mediator.Register(Constants.ACTION_EDIT_MISSION_PHASES, DoEditMissionPhases);
 
             SetMapCommand = new RelayCommand(OnSetMap);
             PhaseAddCommand = new RelayCommand(OnPhaseAdd);
@@ -69,6 +70,46 @@ namespace MilitaryPlanner.ViewModels
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
 
             MeasureCommand = new RelayCommand(OnMeasureCommand);
+        }
+
+        private void DoEditMissionPhases(object obj)
+        {
+            // clone mission phases
+            //var cloneMissionPhases = Utilities.DeepClone(_mission.PhaseList);
+            var cloneMissionPhases = Utilities.CloneObject(_mission.PhaseList);
+
+            // load edit mission phases dialog
+
+
+        }
+
+        public bool HasTimeExtent
+        {
+            get
+            {
+                if (CurrentTimeExtent != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public TimeExtent CurrentTimeExtent
+        {
+            get
+            {
+                return _currentTimeExtent;
+            }
+            set
+            {
+                _currentTimeExtent = value;
+                RaisePropertyChanged(() => CurrentTimeExtent);
+                RaisePropertyChanged(() => HasTimeExtent);
+            }
         }
 
         private void DoOpenMission(object obj)
@@ -619,6 +660,8 @@ namespace MilitaryPlanner.ViewModels
             if (_currentMessage != null)
             {
                 SelectMessage(_currentMessage, false);
+
+                CurrentTimeExtent = null;
             }
         }
 
@@ -631,6 +674,18 @@ namespace MilitaryPlanner.ViewModels
             {
                 var selectMessage = _militaryMessageLayer.GetMessage(graphic.Attributes[Message.IdPropertyName].ToString());
                 SelectMessage(selectMessage, true);
+
+                UpdateCurrentTimeExtent(selectMessage);
+            }
+        }
+
+        private void UpdateCurrentTimeExtent(Message selectMessage)
+        {
+            var mm = _mission.MilitaryMessages.First(m => m.Id == selectMessage.Id);
+
+            if (mm != null)
+            {
+                CurrentTimeExtent = mm.VisibleTimeExtent;
             }
         }
 

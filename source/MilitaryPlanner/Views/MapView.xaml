@@ -10,11 +10,13 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:b="clr-namespace:MilitaryPlanner.DragDrop.UI.Behavior"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="MilitaryPlanner.Views.MapView"
+             xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="500">
     <UserControl.Resources>
         <viewModels:MapViewModel x:Key="MyMapViewModel" />
 		<esri:SimpleFillSymbol x:Key="DefaultFillSymbol" Color="#4400FF00" />
+        <BooleanToVisibilityConverter x:Key="boolToVisConverter" />
     </UserControl.Resources>
 	<Grid DataContext="{StaticResource MyMapViewModel}"
 		helper:EventToCommand.Event="FrameworkElement.Loaded"
@@ -112,5 +114,33 @@
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 		</Rectangle>
-	</Grid>
+        <Border x:Name="TimeAwareAttributeEditor"
+                Visibility="{Binding HasTimeExtent, Converter={StaticResource boolToVisConverter}}"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="20"
+                Padding="10">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="2,2,2,2">
+                    <TextBlock Width="30" Margin="2"
+                                   VerticalAlignment="Center"
+                                   Text="Start" />
+                    <xceed:DateTimePicker Value="{Binding CurrentTimeExtent.Start}" Width="140" HorizontalAlignment="Left" Margin="3,0,0,0" FormatString="yyyy/MM/dd HH:mm" Format="Custom" TimeFormat="Custom" TimeFormatString="HH:mm" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="2,2,2,2">
+                    <TextBlock Width="30" Margin="2"
+                                   VerticalAlignment="Center"
+                                   Text="End" />
+                    <xceed:DateTimePicker Value="{Binding CurrentTimeExtent.End}" Width="140" HorizontalAlignment="Left" Margin="3,0,0,0" FormatString="yyyy/MM/dd HH:mm" Format="Custom" TimeFormat="Custom" TimeFormatString="HH:mm" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+    </Grid>
 </UserControl>
