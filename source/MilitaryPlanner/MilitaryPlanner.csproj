@@ -147,6 +147,9 @@
     <Compile Include="ViewModels\SymbolGroupViewModel.cs" />
     <Compile Include="ViewModels\SymbolTreeViewModel.cs" />
     <Compile Include="ViewModels\SymbolViewModel.cs" />
+    <Compile Include="Views\EditMissionPhasesView.xaml.cs">
+      <DependentUpon>EditMissionPhasesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\StylesResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditMissionPhasesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

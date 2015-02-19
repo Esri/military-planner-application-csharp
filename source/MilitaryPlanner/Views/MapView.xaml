@@ -141,6 +141,6 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" Text="{Binding PhaseDescription}" />
     </Grid>
 </UserControl>

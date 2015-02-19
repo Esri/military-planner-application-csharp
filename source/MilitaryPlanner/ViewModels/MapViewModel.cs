@@ -76,11 +76,22 @@ namespace MilitaryPlanner.ViewModels
         {
             // clone mission phases
             //var cloneMissionPhases = Utilities.DeepClone(_mission.PhaseList);
-            var cloneMissionPhases = Utilities.CloneObject(_mission.PhaseList);
+            Mission cloneMission = Utilities.CloneObject(_mission) as Mission;
 
             // load edit mission phases dialog
+            var editPhaseDialog = new MilitaryPlanner.Views.EditMissionPhasesView();
 
+            // update mission cloned
+            Mediator.NotifyColleagues(Constants.ACTION_MISSION_CLONED, cloneMission);
 
+            editPhaseDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            if (editPhaseDialog.ShowDialog() == true)
+            {
+                _mission.PhaseList = cloneMission.PhaseList;
+                OnCurrentPhaseIndexChanged();
+                RaisePropertyChanged(() => PhaseDescription);
+            }
         }
 
         public bool HasTimeExtent
@@ -109,6 +120,20 @@ namespace MilitaryPlanner.ViewModels
                 _currentTimeExtent = value;
                 RaisePropertyChanged(() => CurrentTimeExtent);
                 RaisePropertyChanged(() => HasTimeExtent);
+            }
+        }
+
+        public string PhaseDescription
+        {
+            get
+            {
+                if (CurrentPhaseIndex >= 0 && CurrentPhaseIndex < _mission.PhaseList.Count)
+                {
+                    var mp = _mission.PhaseList[CurrentPhaseIndex];
+                    return String.Format("Phase : {0} \nStart : {1} \nEnd : {2}", mp.Name, mp.VisibleTimeExtent.Start, mp.VisibleTimeExtent.End);
+                }
+
+                return "Testing";
             }
         }
 
@@ -172,7 +197,9 @@ namespace MilitaryPlanner.ViewModels
                 if (value != _currentPhaseIndex)
                 {
                     _currentPhaseIndex = value;
+
                     RaisePropertyChanged(() => CurrentPhaseIndex);
+                    RaisePropertyChanged(() => PhaseDescription);
 
                     OnCurrentPhaseIndexChanged();
 
@@ -587,6 +614,7 @@ namespace MilitaryPlanner.ViewModels
                 if (_mission.AddPhase("Phase 1"))
                 {
                     Mediator.NotifyColleagues(Constants.ACTION_PHASE_ADDED, null);
+                    RaisePropertyChanged(() => PhaseDescription);
                 }
             }
         }

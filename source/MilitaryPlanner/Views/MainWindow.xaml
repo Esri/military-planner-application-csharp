@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:MilitaryPlanner.Views"
         xmlns:vm="clr-namespace:MilitaryPlanner.ViewModels"
-        Title="MainWindow" Height="350" Width="525"
+        Title="Military Planner" Height="350" Width="525"
         DataContext="{DynamicResource ViewModelMain}">
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="ViewModelMain"/>
