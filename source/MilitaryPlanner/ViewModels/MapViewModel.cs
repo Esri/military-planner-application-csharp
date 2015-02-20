@@ -51,6 +51,9 @@ namespace MilitaryPlanner.ViewModels
 
         public RelayCommand MeasureCommand { get; set; }
 
+        public RelayCommand StartViewShedCommand { get; set; }
+        public RelayCommand ToggleViewShedToolCommand { get; set; }
+
         public MapViewModel()
         {
             Mediator.Register(Constants.ACTION_SELECTED_SYMBOL_CHANGED, DoActionSymbolChanged);
@@ -69,6 +72,44 @@ namespace MilitaryPlanner.ViewModels
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
 
             MeasureCommand = new RelayCommand(OnMeasureCommand);
+
+            StartViewShedCommand = new RelayCommand(OnStartViewShedCommand);
+            ToggleViewShedToolCommand = new RelayCommand(OnToggleViewShedToolCommand);
+
+            _IsViewShedToolVisible = false;
+        }
+
+        private void OnToggleViewShedToolCommand(object obj)
+        {
+            string temp = obj as string;
+            if (temp == "True")
+            {
+                IsViewShedToolVisible = true;
+            }
+            else
+            {
+                IsViewShedToolVisible = false;
+            }
+        }
+
+        private bool _IsViewShedToolVisible = false;
+        public bool IsViewShedToolVisible
+        {
+            get
+            {
+                return _IsViewShedToolVisible;
+            }
+
+            set
+            {
+                _IsViewShedToolVisible = value;
+                RaisePropertyChanged(() => IsViewShedToolVisible);
+            }
+        }
+
+        private void OnStartViewShedCommand(object obj)
+        {
+
         }
 
         private void DoOpenMission(object obj)
