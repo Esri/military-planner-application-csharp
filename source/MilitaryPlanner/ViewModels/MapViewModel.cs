@@ -76,7 +76,7 @@ namespace MilitaryPlanner.ViewModels
         {
             // clone mission phases
             //var cloneMissionPhases = Utilities.DeepClone(_mission.PhaseList);
-            Mission cloneMission = Utilities.CloneObject(_mission) as Mission;
+            Mission cloneMission = _mission.DeepCopy(); //Utilities.CloneObject(_mission) as Mission;
 
             // load edit mission phases dialog
             var editPhaseDialog = new MilitaryPlanner.Views.EditMissionPhasesView();
@@ -130,7 +130,7 @@ namespace MilitaryPlanner.ViewModels
                 if (CurrentPhaseIndex >= 0 && CurrentPhaseIndex < _mission.PhaseList.Count)
                 {
                     var mp = _mission.PhaseList[CurrentPhaseIndex];
-                    return String.Format("Phase : {0} \nStart : {1} \nEnd : {2}", mp.Name, mp.VisibleTimeExtent.Start, mp.VisibleTimeExtent.End);
+                    return String.Format("Phase : {0} \nStart : {1:yyyy/MM/dd HH:mm} \nEnd  : {2:yyyy/MM/dd HH:mm}", mp.Name, mp.VisibleTimeExtent.Start, mp.VisibleTimeExtent.End);
                 }
 
                 return "Testing";

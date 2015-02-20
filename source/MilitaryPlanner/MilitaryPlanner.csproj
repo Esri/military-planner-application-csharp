@@ -136,7 +136,6 @@
     <Compile Include="Behavior\TreeViewDragBehavoir.cs" />
     <Compile Include="Behavior\TreeViewItemBehavior.cs" />
     <Compile Include="Helpers\Constants.cs" />
-    <Compile Include="Helpers\DeepClone.cs" />
     <Compile Include="Helpers\EventToCommand.cs" />
     <Compile Include="Helpers\Mediator.cs" />
     <Compile Include="Helpers\TimeAwareMessageLayer.cs" />
