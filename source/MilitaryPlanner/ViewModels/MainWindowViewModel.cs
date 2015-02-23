@@ -151,6 +151,7 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand OpenCommand { get; set; }
+        public RelayCommand EditMissionPhasesCommand { get; set; }
 
         #endregion
 
@@ -180,10 +181,16 @@ namespace MilitaryPlanner.ViewModels
             DeleteCommand = new RelayCommand(OnDeleteCommand);
             SaveCommand = new RelayCommand(OnSaveCommand);
             OpenCommand = new RelayCommand(OnOpenCommand);
+            EditMissionPhasesCommand = new RelayCommand(OnEditMissionPhases);
             
             MapView = new Views.MapView();
             OOBView = new Views.OrderOfBattleView();
             MTLView = new Views.MissionTimeLineView();
+        }
+
+        private void OnEditMissionPhases(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_EDIT_MISSION_PHASES, null);
         }
 
         private void DoPhaseIndexChanged(object obj)

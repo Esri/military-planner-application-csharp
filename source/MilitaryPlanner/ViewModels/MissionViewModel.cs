@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Data;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using MilitaryPlanner.Helpers;
+using Esri.ArcGISRuntime.Data;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -14,7 +15,7 @@ namespace MilitaryPlanner.ViewModels
     {
         readonly List<PhaseSymbolViewModel> _symbols = new List<PhaseSymbolViewModel>();
 
-        private Mission _mission;
+        private Mission _mission = new Mission();
 
         public Mission CurrentMission
         {
@@ -27,8 +28,14 @@ namespace MilitaryPlanner.ViewModels
             {
                 _mission = value;
                 ProcessMission();
+                RaisePropertyChanged(() => CurrentMission);
+                RaisePropertyChanged(() => PhaseCount);
+                RaisePropertyChanged(() => CurrentPhase);
             }
         }
+
+        public RelayCommand PhaseBackCommand { get; set; }
+        public RelayCommand PhaseNextCommand { get; set; }
 
         public MissionViewModel()
         {
@@ -38,6 +45,38 @@ namespace MilitaryPlanner.ViewModels
             SymbolLoader._symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             //CurrentMission =  Mission.Load(@".\data\missions\testMission.xml");
+
+            Mediator.Register(Constants.ACTION_MISSION_CLONED, OnMissionCloned);
+
+            PhaseBackCommand = new RelayCommand(OnPhaseBack);
+            PhaseNextCommand = new RelayCommand(OnPhaseNext);
+        }
+
+        private void OnPhaseNext(object obj)
+        {
+            if (CurrentPhaseIndex < PhaseCount - 1)
+            {
+                CurrentPhaseIndex++;
+            }
+        }
+
+        private void OnPhaseBack(object obj)
+        {
+            if (CurrentPhaseIndex > 0)
+            {
+                CurrentPhaseIndex--;
+            }
+        }
+
+        private void OnMissionCloned(object obj)
+        {
+            Mission mission = obj as Mission;
+
+            if (mission != null)
+            {
+                CurrentMission = mission;
+                CurrentPhaseIndex = 0;
+            }
         }
 
         public IReadOnlyCollection<PhaseSymbolViewModel> Symbols
@@ -56,12 +95,74 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        private int _currentPhaseIndex = 0;
+        public int CurrentPhaseIndex
+        {
+            get
+            {
+                return _currentPhaseIndex;
+            }
+
+            set
+            {
+                //if (value != _currentPhaseIndex)
+                {
+                    _currentPhaseIndex = value;
+                    // update current time extent
+                    //CurrentTimeExtent = _mission.PhaseList[_currentPhaseIndex].VisibleTimeExtent;
+                    CurrentPhase = _mission.PhaseList[_currentPhaseIndex];
+                    RaisePropertyChanged(() => CurrentPhaseIndex);
+                    RaisePropertyChanged(() => PhaseMessage);
+                }
+            }
+        }
+
+        private MissionPhase _currentPhase = new MissionPhase();
+        public MissionPhase CurrentPhase
+        {
+            get
+            {
+                return _currentPhase;
+            }
+
+            set
+            {
+                _currentPhase = value;
+                RaisePropertyChanged(() => CurrentPhase);
+            }
+        }
+
+        public string PhaseMessage
+        {
+            get
+            {
+                return String.Format("{0} of {1}", CurrentPhaseIndex + 1, PhaseCount);
+            }
+        }
+
+        //private TimeExtent _currentTimeExtent = null;
+        //public TimeExtent CurrentTimeExtent
+        //{
+        //    get
+        //    {
+        //        return _currentTimeExtent;
+        //    }
+
+        //    set
+        //    {
+        //        _currentTimeExtent = value;
+        //        RaisePropertyChanged(() => CurrentTimeExtent);
+        //    }
+        //}
+
         private void ProcessMission()
         {
             if (_mission == null || _mission.PhaseList.Count < 1)
             {
                 return;
             }
+
+            CurrentPhase = _mission.PhaseList[CurrentPhaseIndex];
 
             // ok, we have a mission with at least 1 phase
             int currentStartPhase = 0;

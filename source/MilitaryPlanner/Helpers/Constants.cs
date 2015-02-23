@@ -27,6 +27,9 @@ namespace MilitaryPlanner.Helpers
         public const string ACTION_DRAG_DROP_STARTED = "DragDropStart";
         public const string ACTION_DRAG_DROP_ENDED = "DragDropEnded";
 
+        public const string ACTION_EDIT_MISSION_PHASES = "EditMissionPhases";
+        public const string ACTION_MISSION_CLONED = "EditMissionCloned";
+
         public const string MSG_ACTION_UPDATE = "update";
         public const string MSG_ACTION_REMOVE = "remove";
         public const string MSG_TYPE_POSITION_REPORT = "position_report";
