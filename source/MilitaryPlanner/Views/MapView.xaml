@@ -122,10 +122,11 @@
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 		</Rectangle>
-        <Border x:Name="uiPanel" Background="White" BorderBrush="Black" BorderThickness="1" 
+        <Border x:Name="viewShedPanel" Background="White" BorderBrush="Black" BorderThickness="1" 
 			HorizontalAlignment="Right" VerticalAlignment="Center"
 			Margin="30" Padding="20"
-			Width="350" Visibility="{Binding IsViewShedToolVisible, Converter={StaticResource boolConverter}}">
+			Width="350" Visibility="{Binding IsViewShedToolVisible, Converter={StaticResource boolConverter}}"
+                IsEnabled="{Binding ViewShedEnabled}">
             <Border.Effect>
                 <DropShadowEffect/>
             </Border.Effect>
@@ -139,13 +140,13 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="Start" HorizontalAlignment="Stretch" Margin="24,16,24,0" Command="{Binding StartViewShedCommand}" CommandParameter="{Binding Path=Text,ElementName=txtMiles}" />
-                    <Button Name="buttonCloseViewShed" Content="Close" Margin="15,0,0,0" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="False" />
+                    <Button Content="Start" Height="30" HorizontalAlignment="Stretch" Margin="24,16,24,0" Command="{Binding StartViewShedCommand}" CommandParameter="{Binding Path=Text,ElementName=txtMiles}" />
+                    <Button Name="buttonCloseViewShed" Height="30" Content="Close" Margin="15,16,0,0" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="False" />
                 </StackPanel>
 
-                <StackPanel x:Name="progress" Visibility="Collapsed">
+                <StackPanel x:Name="progress" Visibility="{Binding ViewShedProgressVisible, Converter={StaticResource boolConverter}}">
                     <ProgressBar Margin="12,12,12,0" IsIndeterminate="True" />
-                    <TextBlock x:Name="txtStatus" Margin="12,12,12,0" FontSize="14"/>
+                    <TextBlock x:Name="txtStatus" Margin="12,12,12,0" FontSize="14" Text="{Binding ToolStatus}"/>
                 </StackPanel>
             </StackPanel>
         </Border>
