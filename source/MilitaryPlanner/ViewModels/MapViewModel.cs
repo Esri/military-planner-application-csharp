@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Imagery;
 using Esri.ArcGISRuntime.Symbology;
 using System.IO;
+using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -26,6 +27,7 @@ namespace MilitaryPlanner.ViewModels
             Create,
             DragDrop,
             Move,
+            Tool,
             None
         };
 
@@ -51,6 +53,57 @@ namespace MilitaryPlanner.ViewModels
 
         public RelayCommand MeasureCommand { get; set; }
 
+        public RelayCommand StartViewShedCommand { get; set; }
+        public RelayCommand ToggleViewShedToolCommand { get; set; }
+
+        //viewshed
+        private const string ViewshedServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
+
+        private GraphicsOverlay _inputOverlay;
+        private GraphicsOverlay _viewshedOverlay;
+        private Geoprocessor _gpTask;
+
+        private bool _ViewShedEnabled = true;
+        public bool ViewShedEnabled 
+        {
+            get
+            {
+                return _ViewShedEnabled;
+            }
+            set
+            {
+                _ViewShedEnabled = value;
+                RaisePropertyChanged(() => ViewShedEnabled);
+            }
+        }
+        private bool _ViewShedProgressVisible = false;
+        public bool ViewShedProgressVisible 
+        {
+            get
+            {
+                return _ViewShedProgressVisible;
+            }
+            set
+            {
+                _ViewShedProgressVisible = value;
+                RaisePropertyChanged(() => ViewShedProgressVisible);
+            }
+        }
+        private string _ToolStatus = "";
+        public string ToolStatus
+        {
+            get
+            {
+                return _ToolStatus;
+            }
+            set
+            {
+                _ToolStatus = value;
+                RaisePropertyChanged(() => ToolStatus);
+            }
+        }
+
+
         public MapViewModel()
         {
             Mediator.Register(Constants.ACTION_SELECTED_SYMBOL_CHANGED, DoActionSymbolChanged);
@@ -69,6 +122,85 @@ namespace MilitaryPlanner.ViewModels
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
 
             MeasureCommand = new RelayCommand(OnMeasureCommand);
+
+            StartViewShedCommand = new RelayCommand(OnStartViewShedCommand);
+            ToggleViewShedToolCommand = new RelayCommand(OnToggleViewShedToolCommand);
+
+            _IsViewShedToolVisible = false;
+        }
+
+        private void OnToggleViewShedToolCommand(object obj)
+        {
+            string temp = obj as string;
+            if (temp == "True")
+            {
+                IsViewShedToolVisible = true;
+            }
+            else
+            {
+                IsViewShedToolVisible = false;
+            }
+        }
+
+        private bool _IsViewShedToolVisible = false;
+        public bool IsViewShedToolVisible
+        {
+            get
+            {
+                return _IsViewShedToolVisible;
+            }
+
+            set
+            {
+                _IsViewShedToolVisible = value;
+                RaisePropertyChanged(() => IsViewShedToolVisible);
+            }
+        }
+
+        private async void OnStartViewShedCommand(object obj)
+        {
+            try
+            {
+                string txtMiles = obj as string;
+
+                //uiPanel.IsEnabled = false;
+                ViewShedEnabled = false;
+                _inputOverlay.Graphics.Clear();
+                _viewshedOverlay.Graphics.Clear();
+
+                //get the user's input point
+                var inputPoint = await _mapView.Editor.RequestPointAsync();
+
+                //progress.Visibility = Visibility.Visible;
+                ViewShedProgressVisible = true;
+                _inputOverlay.Graphics.Add(new Graphic() { Geometry = inputPoint });
+
+                var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
+                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Observation_Point", inputPoint));
+                parameter.GPParameters.Add(new GPLinearUnit("Viewshed_Distance ", LinearUnits.Miles, Convert.ToDouble(txtMiles)));
+
+                //txtStatus.Text = "Processing on server...";
+                ToolStatus = "Processing on server...";
+                var result = await _gpTask.ExecuteAsync(parameter);
+                if (result == null || result.OutParameters == null || !(result.OutParameters[0] is GPFeatureRecordSetLayer))
+                    throw new ApplicationException("No viewshed graphics returned for this start point.");
+
+                //txtStatus.Text = "Finished processing. Retrieving results...";
+                ToolStatus = "Finished processing. Retrieving results...";
+                var viewshedLayer = result.OutParameters[0] as GPFeatureRecordSetLayer;
+                _viewshedOverlay.Graphics.AddRange(viewshedLayer.FeatureSet.Features.OfType<Graphic>());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Sample Error");
+            }
+            finally
+            {
+                //uiPanel.IsEnabled = true;
+                ViewShedEnabled = true;
+                //progress.Visibility = Visibility.Collapsed;
+                ViewShedProgressVisible = false;
+            }
         }
 
         private void DoOpenMission(object obj)
@@ -538,6 +670,13 @@ namespace MilitaryPlanner.ViewModels
             mapView.MouseLeftButtonUp += mapView_MouseLeftButtonUp;
             mapView.MouseMove += mapView_MouseMove;
 
+            // viewshed
+            _inputOverlay = _mapView.GraphicsOverlays["inputOverlay"];
+            _viewshedOverlay = _mapView.GraphicsOverlays["ViewshedOverlay"];
+
+            _gpTask = new Geoprocessor(new Uri(ViewshedServiceUrl));
+
+
             // add default message layer
             AddNewMilitaryMessagelayer();
 
@@ -552,7 +691,7 @@ namespace MilitaryPlanner.ViewModels
 
         void mapView_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (_map == null)
+            if (_map == null || _editState == EditState.Tool)
             {
                 return;
             }
@@ -586,7 +725,7 @@ namespace MilitaryPlanner.ViewModels
 
         async void mapView_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (_editState == EditState.Create)
+            if (_editState == EditState.Create || _editState == EditState.Tool)
             {
                 return;
             }
