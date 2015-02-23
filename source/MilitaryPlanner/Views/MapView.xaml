@@ -15,8 +15,13 @@
              d:DesignHeight="500" d:DesignWidth="500">
     <UserControl.Resources>
         <viewModels:MapViewModel x:Key="MyMapViewModel" />
+        <BooleanToVisibilityConverter x:Key="boolConverter" />
 		<esri:SimpleFillSymbol x:Key="DefaultFillSymbol" Color="#4400FF00" />
-        <BooleanToVisibilityConverter x:Key="boolToVisConverter" />
+        <esri:SimpleMarkerSymbol x:Key="MarkerSymbol" Color="Black" Style="X" Size="8" />
+        <esri:SimpleRenderer x:Key="PointRenderer" Symbol="{StaticResource MarkerSymbol}" />
+        <esri:SimpleLineSymbol x:Key="OutlineSymbol" Color="Red" Width="2" Style="Solid" />
+        <esri:SimpleFillSymbol x:Key="DefaultFillSymbol2" Color="#44FF9999" Outline="{StaticResource OutlineSymbol}" />
+        <esri:SimpleRenderer x:Key="ViewshedRenderer" Symbol="{StaticResource DefaultFillSymbol2}" />
     </UserControl.Resources>
 	<Grid DataContext="{StaticResource MyMapViewModel}"
 		helper:EventToCommand.Event="FrameworkElement.Loaded"
@@ -57,6 +62,8 @@
             </esri:Map>
             <esri:MapView.GraphicsOverlays>
                 <esri:GraphicsOverlay ID="graphicsOverlay" />
+                <esri:GraphicsOverlay ID="ViewshedOverlay" Renderer="{StaticResource ViewshedRenderer}"/>
+                <esri:GraphicsOverlay ID="inputOverlay" Renderer="{StaticResource PointRenderer}"/>
             </esri:MapView.GraphicsOverlays>
         </esri:MapView>
         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Text="{Binding CoordinateReadout}">
@@ -118,6 +125,8 @@
 							ToolTipService.ToolTip="Save mission"/>
                         <Button Content="Measure" Margin="5" Command="{Binding MeasureCommand}"            
 							ToolTipService.ToolTip="Measure" />
+                        <Button Content="ViewShed" Margin="5" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="True"            
+							ToolTipService.ToolTip="ViewShed" />
 					</StackPanel>
 				</StackPanel>
 			</Grid>
@@ -130,7 +139,7 @@
 			</i:Interaction.Triggers>
 		</Rectangle>
         <Border x:Name="TimeAwareAttributeEditor"
-                Visibility="{Binding HasTimeExtent, Converter={StaticResource boolToVisConverter}}"
+                Visibility="{Binding HasTimeExtent, Converter={StaticResource boolConverter}}"
                 Background="White"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -157,5 +166,33 @@
             </StackPanel>
         </Border>
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" Text="{Binding PhaseDescription}" />
+        <Border x:Name="viewShedPanel" Background="White" BorderBrush="Black" BorderThickness="1" 
+			HorizontalAlignment="Right" VerticalAlignment="Center"
+			Margin="30" Padding="20"
+			Width="350" Visibility="{Binding IsViewShedToolVisible, Converter={StaticResource boolConverter}}"
+                IsEnabled="{Binding ViewShedEnabled}">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <StackPanel>
+                <TextBlock Text="Click 'Start' and then click on the map to see the calculated viewshed for the distance specified below."
+                            TextWrapping="Wrap" FontSize="14" Margin="8,8,8,0" HorizontalAlignment="Left"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="12,16,12,0">
+                    <TextBlock Text="Miles:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <TextBox x:Name="txtMiles" Text="10" Width="35" TextAlignment="Right" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Start" Height="30" HorizontalAlignment="Stretch" Margin="24,16,24,0" Command="{Binding StartViewShedCommand}" CommandParameter="{Binding Path=Text,ElementName=txtMiles}" />
+                    <Button Name="buttonCloseViewShed" Height="30" Content="Close" Margin="15,16,0,0" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="False" />
+                </StackPanel>
+
+                <StackPanel x:Name="progress" Visibility="{Binding ViewShedProgressVisible, Converter={StaticResource boolConverter}}">
+                    <ProgressBar Margin="12,12,12,0" IsIndeterminate="True" />
+                    <TextBlock x:Name="txtStatus" Margin="12,12,12,0" FontSize="14" Text="{Binding ToolStatus}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
