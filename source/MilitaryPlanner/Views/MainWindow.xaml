@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:MilitaryPlanner.Views"
         xmlns:vm="clr-namespace:MilitaryPlanner.ViewModels"
-        Title="MainWindow" Height="350" Width="525"
+        Title="Military Planner" Height="350" Width="525"
         DataContext="{DynamicResource ViewModelMain}">
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="ViewModelMain"/>
@@ -28,8 +28,10 @@
 
         <UserControl Grid.RowSpan="2" Content="{Binding OOBView}" />
 
-        <Slider Grid.Column="1" Grid.Row="1" Minimum="{Binding SliderMinimum}" Maximum="{Binding SliderMaximum}" Value="{Binding SliderValue}" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="10,0" SmallChange="1" Cursor="Cross" />
-
+        <DockPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Button Content="Edit" Margin="5,2,2,2" Command="{Binding EditMissionPhasesCommand}"/>
+            <Slider Minimum="{Binding SliderMinimum}" Maximum="{Binding SliderMaximum}" Value="{Binding SliderValue}" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="10,0" SmallChange="1" Cursor="Cross" />
+        </DockPanel>
         <UserControl Grid.Column="1" Content="{Binding MapView}" Visibility="Visible"/>
     </Grid>
 </Window>
