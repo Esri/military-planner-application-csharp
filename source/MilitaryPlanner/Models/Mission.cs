@@ -146,6 +146,34 @@ namespace MilitaryPlanner.Models
 
             return true;
         }
+
+        public Mission ShallowCopy()
+        {
+            return (Mission)this.MemberwiseClone();
+        }
+
+        public Mission DeepCopy()
+        {
+            Mission mission = (Mission)this.MemberwiseClone();
+
+            mission.Name = String.Copy(Name);
+
+            var pl = new List<MissionPhase>();
+
+            foreach (var mp in PhaseList)
+            {
+                pl.Add(new MissionPhase()
+                    {
+                        ID = String.Copy(mp.ID),
+                        Name = String.Copy(mp.Name),
+                        VisibleTimeExtent = new TimeExtent(mp.VisibleTimeExtent.Start, mp.VisibleTimeExtent.End)
+                    });
+            }
+
+            mission.PhaseList = pl;
+
+            return mission;
+        }
     }
 
     public class MissionPhase : NotificationObject
