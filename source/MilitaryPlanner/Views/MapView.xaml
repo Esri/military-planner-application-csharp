@@ -127,7 +127,9 @@
 							ToolTipService.ToolTip="Measure" />
                         <Button Content="ViewShed" Margin="5" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="ViewShed" />
-					</StackPanel>
+                        <Button Content="GotoXY" Margin="5" Command="{Binding ToggleGotoXYToolCommand}" CommandParameter="True"            
+							ToolTipService.ToolTip="GotoXY" />
+                    </StackPanel>
 				</StackPanel>
 			</Grid>
 		</StackPanel>

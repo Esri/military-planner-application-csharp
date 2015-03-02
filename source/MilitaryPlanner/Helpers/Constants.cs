@@ -33,5 +33,7 @@ namespace MilitaryPlanner.Helpers
         public const string MSG_ACTION_UPDATE = "update";
         public const string MSG_ACTION_REMOVE = "remove";
         public const string MSG_TYPE_POSITION_REPORT = "position_report";
+
+        public const string ACTION_GOTO_XY_COORDINATES = "ActionGotoXYCoordinates";
     }
 }
