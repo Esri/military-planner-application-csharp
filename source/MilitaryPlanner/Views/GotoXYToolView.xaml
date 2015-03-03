@@ -6,8 +6,9 @@
              mc:Ignorable="d" 
        IsOpen="{Binding IsToolOpen}"
        PopupAnimation="Fade"
-       VerticalOffset="50"
-       HorizontalOffset="20"
+       Placement="Top"
+       VerticalOffset="120"
+       HorizontalOffset="10"
              d:DesignHeight="320" d:DesignWidth="300">
     <Grid >
         <Border Name="gotoXYToolPanel" Background="White" BorderBrush="Black" BorderThickness="1"

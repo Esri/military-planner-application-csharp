@@ -22,14 +22,25 @@ namespace MilitaryPlanner.Controllers
             this.mapViewModel = mapViewModel;
 
             this.gotoXYToolView = new Views.GotoXYToolView();
+            this.gotoXYToolView.PlacementTarget = mapView;
             this.gotoXYToolView.ViewModel.mapView = mapView;
+
+            var owner = System.Windows.Window.GetWindow(mapView);
+
+            if (owner != null)
+            {
+                owner.LocationChanged += (sender, e) =>
+                    {
+                        gotoXYToolView.HorizontalOffset += 1;
+                        gotoXYToolView.HorizontalOffset -= 1;
+                    };
+            }
 
             Mediator.Register(Constants.ACTION_GOTO_XY_COORDINATES, OnGotoXYCoordinates);
         }
 
         public void Toggle()
         {
-            //gotoXYToolView.ViewModel.IsToolOpen = !gotoXYToolView.ViewModel.IsToolOpen;
             gotoXYToolView.ViewModel.Toggle();
         }
 
