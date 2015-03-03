@@ -241,11 +241,6 @@ namespace MilitaryPlanner.ViewModels
 
             if (sfd.ShowDialog() == true)
             {
-                //TODO revisit
-                //Mediator.NotifyColleagues(Constants.ACTION_MISSION_HYDRATE, _mission);
-
-                //_mission.Save(sfd.FileName);
-
                 Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, sfd.FileName);
             }
         }
