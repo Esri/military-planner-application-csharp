@@ -37,19 +37,19 @@ namespace MilitaryPlanner.Controllers
         {
             try
             {
-                string coordinates = obj as string;
+                var gitem = obj as GotoItem;
 
-                if (!String.IsNullOrWhiteSpace(coordinates))
+                var x = Convert.ToDouble(gitem.X);
+                var y = Convert.ToDouble(gitem.Y);
+                var mp = new MapPoint(x, y, SpatialReferences.Wgs84);
+
+                if (!String.IsNullOrWhiteSpace(gitem.Scale))
                 {
-                    var xy = coordinates.Split(new char[] { ';' });
-
-                    if (xy.Count() == 2)
-                    {
-                        var x = Convert.ToDouble(xy[0]);
-                        var y = Convert.ToDouble(xy[1]);
-                        var mp = new MapPoint(x, y, SpatialReferences.Wgs84);
-                        mapView.SetViewAsync(mp, 50000);
-                    }
+                    mapView.SetViewAsync(mp, Convert.ToDouble(gitem.Scale));
+                }
+                else
+                {
+                    mapView.SetViewAsync(mp);
                 }
             }
             catch

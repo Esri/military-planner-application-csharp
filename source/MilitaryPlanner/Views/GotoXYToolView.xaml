@@ -8,16 +8,43 @@
        PopupAnimation="Fade"
        VerticalOffset="50"
        HorizontalOffset="20"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+             d:DesignHeight="320" d:DesignWidth="300">
+    <Grid >
         <Border Name="gotoXYToolPanel" Background="White" BorderBrush="Black" BorderThickness="1"
-                    Margin="3" Padding="20"
-                    Width="350">
+                    Margin="3" Padding="7"
+                    Width="370">
             <Border.Effect>
                 <DropShadowEffect/>
             </Border.Effect>
-            <StackPanel>
-                <Button Content="Go" Height="30" Command="{Binding GotoXYToolCommand}" />
+            <StackPanel Orientation="Horizontal" >
+                <Button Content="Go" Height="20" Width="30" Command="{Binding GotoXYToolCommand}" />
+                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Height="20" Margin="3,3,3,3" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="1:5000" />
+                    <ComboBoxItem Content="1:25000" />
+                    <ComboBoxItem Content="1:50000" />
+                    <ComboBoxItem Content="1:100000" />
+                    <ComboBoxItem Content="1:250000" />
+                    <ComboBoxItem Content="1:500000" />
+                    <ComboBoxItem Content="1:1000000" />
+                    <ComboBoxItem Content="1:5000000" />
+                    <ComboBoxItem Content="1:10000000" />
+                    <ComboBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding GotoXYToolCommand}" />
+                    </ComboBox.InputBindings>
+                </ComboBox>
+                <TextBlock Text="X : " />
+                <TextBox Width="60" Text="{Binding X, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding GotoXYToolCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <TextBlock Text="Y : " />
+                <TextBox Width="60" Text="{Binding Y, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding GotoXYToolCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Content="Close" Margin="10,3,3,3" Command="{Binding CloseToolCommand}" />
             </StackPanel>
         </Border>
     </Grid>

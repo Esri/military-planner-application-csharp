@@ -862,6 +862,9 @@ namespace MilitaryPlanner.ViewModels
         {
             var mp = _mapView.ScreenToLocation(point);
 
+            if (mp == null)
+                return;
+
             // we can do DD, DMS, GARS, GEOREF, MGRS, USNG, UTM
             switch (_coordinateReadoutFormat)
             {
