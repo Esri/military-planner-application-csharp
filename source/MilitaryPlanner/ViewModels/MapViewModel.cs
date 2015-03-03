@@ -73,7 +73,7 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand ToggleGotoXYToolCommand { get; set; }
 
         // controllers
-        private GotoXYController gotoXYController;
+        private GotoXYToolController gotoXYToolController;
 
         //viewshed
         private const string ViewshedServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
@@ -154,7 +154,8 @@ namespace MilitaryPlanner.ViewModels
 
         private void OnToggleGotoXYToolCommand(object obj)
         {
-            Mediator.NotifyColleagues(Constants.ACTION_GOTO_XY_COORDINATES, "-103.793;40.259");
+            //Mediator.NotifyColleagues(Constants.ACTION_GOTO_XY_COORDINATES, "-103.793;40.259");
+            gotoXYToolController.Toggle();
         }
 
         private string _coordinateReadout = "";
@@ -821,7 +822,8 @@ namespace MilitaryPlanner.ViewModels
 
             _gpTask = new Geoprocessor(new Uri(ViewshedServiceUrl));
 
-            gotoXYController = new GotoXYController(mapView, this);
+            // setup any controllers that use the map view
+            gotoXYToolController = new GotoXYToolController(mapView, this);
 
             // add default message layer
             AddNewMilitaryMessagelayer();

@@ -1,0 +1,24 @@
+﻿<Popup x:Class="MilitaryPlanner.Views.GotoXYToolView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+       IsOpen="{Binding IsToolOpen}"
+       PopupAnimation="Fade"
+       VerticalOffset="50"
+       HorizontalOffset="20"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Border Name="gotoXYToolPanel" Background="White" BorderBrush="Black" BorderThickness="1"
+                    Margin="3" Padding="20"
+                    Width="350">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <StackPanel>
+                <Button Content="Go" Height="30" Command="{Binding GotoXYToolCommand}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Popup>
