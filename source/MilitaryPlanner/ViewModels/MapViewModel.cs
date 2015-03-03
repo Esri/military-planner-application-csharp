@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.Tasks.Imagery;
 using Esri.ArcGISRuntime.Symbology;
 using System.IO;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
+using Microsoft.Win32;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -64,6 +65,7 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand PhaseBackCommand { get; set; }
         public RelayCommand PhaseNextCommand { get; set; }
 
+        public RelayCommand SaveCommand { get; set; }
         public RelayCommand MeasureCommand { get; set; }
         public RelayCommand CoordinateReadoutCommand { get; set; }
 
@@ -136,6 +138,7 @@ namespace MilitaryPlanner.ViewModels
             PhaseBackCommand = new RelayCommand(OnPhaseBack);
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
 
+            SaveCommand = new RelayCommand(OnSaveCommand);
             MeasureCommand = new RelayCommand(OnMeasureCommand);
 
             CoordinateReadoutCommand = new RelayCommand(OnCoordinateReadoutCommand);
@@ -144,6 +147,20 @@ namespace MilitaryPlanner.ViewModels
             ToggleViewShedToolCommand = new RelayCommand(OnToggleViewShedToolCommand);
 
             _IsViewShedToolVisible = false;
+        }
+
+        private void OnSaveCommand(object obj)
+        {
+            // file dialog
+            var sfd = new SaveFileDialog();
+
+            sfd.Filter = "xml files (*.xml)|*.xml";
+            sfd.RestoreDirectory = true;
+
+            if (sfd.ShowDialog() == true)
+            {
+                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, sfd.FileName);
+            }
         }
 
         private string _coordinateReadout = "";
