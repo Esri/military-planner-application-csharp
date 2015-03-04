@@ -16,26 +16,27 @@ namespace MilitaryPlanner.ViewModels
             GotoXYToolCommand = new RelayCommand(OnGotoXYToolCommand);
         }
 
-        public string X { get; set; }
+        public string Coordinate { get; set; }
 
-        public string Y { get; set; }
+        public string ScaleSelectedValue { get; set; }
 
-        public string SelectedItem { get; set; }
+        public string FormatSelectedValue { get; set; }
 
         private void OnGotoXYToolCommand(object obj)
         {
             var item = new GotoItem();
-            item.X = X;
-            item.Y = Y;
 
-            if (SelectedItem != null && !String.IsNullOrWhiteSpace(SelectedItem))
+            if (ScaleSelectedValue != null && !String.IsNullOrWhiteSpace(ScaleSelectedValue))
             {
-                var temp = SelectedItem.Split(new string[] { "1:" }, StringSplitOptions.None);
+                var temp = ScaleSelectedValue.Split(new string[] { "1:" }, StringSplitOptions.None);
                 if (temp.Count() == 2)
                 {
                     item.Scale = temp[1];
                 }
             }
+
+            item.Coordinate = Coordinate;
+            item.Format = FormatSelectedValue;
 
             Mediator.NotifyColleagues(Constants.ACTION_GOTO_XY_COORDINATES, item);
         }

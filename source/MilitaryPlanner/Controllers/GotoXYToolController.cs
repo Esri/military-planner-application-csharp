@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MilitaryPlanner.Controllers
 {
@@ -50,22 +51,59 @@ namespace MilitaryPlanner.Controllers
             {
                 var gitem = obj as GotoItem;
 
-                var x = Convert.ToDouble(gitem.X);
-                var y = Convert.ToDouble(gitem.Y);
-                var mp = new MapPoint(x, y, SpatialReferences.Wgs84);
+                var sr = SpatialReferences.Wgs84;
+                MapPoint mp;
 
-                if (!String.IsNullOrWhiteSpace(gitem.Scale))
+                switch (gitem.Format)
                 {
-                    mapView.SetViewAsync(mp, Convert.ToDouble(gitem.Scale));
+                    case "DD":
+                        mp = ConvertCoordinate.FromDecimalDegrees(gitem.Coordinate, sr);
+                        break;
+                    case "DDM":
+                        mp = ConvertCoordinate.FromDegreesDecimalMinutes(gitem.Coordinate, sr);
+                        break;
+                    case "DMS":
+                        mp = ConvertCoordinate.FromDegreesMinutesSeconds(gitem.Coordinate, sr);
+                        break;
+                    case "GARS":
+                        mp = ConvertCoordinate.FromGars(gitem.Coordinate, sr, GarsConversionMode.Center);
+                        break;
+                    case "GEOREF":
+                        mp = ConvertCoordinate.FromGeoref(gitem.Coordinate, sr);
+                        break;
+                    case "MGRS":
+                        mp = ConvertCoordinate.FromMgrs(gitem.Coordinate, sr, MgrsConversionMode.Automatic);
+                        break;
+                    case "USNG":
+                        mp = ConvertCoordinate.FromUsng(gitem.Coordinate, sr);
+                        break;
+                    case "UTM":
+                        mp = ConvertCoordinate.FromUtm(gitem.Coordinate, sr, UtmConversionMode.None);
+                        break;
+                    default:
+                        mp = ConvertCoordinate.FromDecimalDegrees(gitem.Coordinate, SpatialReferences.Wgs84);
+                        break;
+                }
+
+                if (mp != null)
+                {
+                    if (!String.IsNullOrWhiteSpace(gitem.Scale))
+                    {
+                        mapView.SetViewAsync(mp, Convert.ToDouble(gitem.Scale));
+                    }
+                    else
+                    {
+                        mapView.SetViewAsync(mp);
+                    }
                 }
                 else
                 {
-                    mapView.SetViewAsync(mp);
+                    MessageBox.Show("Failed to convert coordinate.");
                 }
             }
             catch
             {
-
+                MessageBox.Show("Failed to convert coordinate.");
             }
         }
     }

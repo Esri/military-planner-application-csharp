@@ -160,7 +160,7 @@ namespace MilitaryPlanner.ViewModels
             //Mediator.NotifyColleagues(Constants.ACTION_GOTO_XY_COORDINATES, "-103.793;40.259");
             gotoXYToolController.Toggle();
         }
-        
+
         private void OnSaveCommand(object obj)
         {
             // file dialog
