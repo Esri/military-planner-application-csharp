@@ -137,8 +137,10 @@
     <Compile Include="Behavior\MapDropBehavior.cs" />
     <Compile Include="Behavior\TreeViewDragBehavoir.cs" />
     <Compile Include="Behavior\TreeViewItemBehavior.cs" />
+    <Compile Include="Controllers\CoordinateReadoutController.cs" />
     <Compile Include="Controllers\GotoXYToolController.cs" />
     <Compile Include="Controllers\NetworkingToolController.cs" />
+    <Compile Include="Controllers\ViewShedToolController.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\EventToCommand.cs" />
     <Compile Include="Helpers\GotoItem.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="ViewModels\SymbolGroupViewModel.cs" />
     <Compile Include="ViewModels\SymbolTreeViewModel.cs" />
     <Compile Include="ViewModels\SymbolViewModel.cs" />
+    <Compile Include="ViewModels\ViewShedToolViewModel.cs" />
     <Compile Include="Views\EditMissionPhasesView.xaml.cs">
       <DependentUpon>EditMissionPhasesView.xaml</DependentUpon>
     </Compile>
@@ -171,6 +174,9 @@
     </Compile>
     <Compile Include="Views\OrderOfBattleView.xaml.cs">
       <DependentUpon>OrderOfBattleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewShedToolView.xaml.cs">
+      <DependentUpon>ViewShedToolView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\IconsResourceDictionary.xaml">
       <SubType>Designer</SubType>
@@ -224,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OrderOfBattleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewShedToolView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

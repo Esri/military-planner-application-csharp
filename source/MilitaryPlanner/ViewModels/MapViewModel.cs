@@ -33,17 +33,6 @@ namespace MilitaryPlanner.ViewModels
             None
         };
 
-        private enum CoordinateReadoutFormat
-        {
-            DD,
-            DMS,
-            GARS,
-            GEOREF,
-            MGRS,
-            USNG,
-            UTM
-        };
-
         private Point _lastKnownPoint;
         private Point _pointOffset = new Point();
         private MapView _mapView;
@@ -54,7 +43,6 @@ namespace MilitaryPlanner.ViewModels
         private TimeExtent _currentTimeExtent = null; //new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
         private Mission _mission = new Mission("Default Mission");
         private int _currentPhaseIndex = 0;
-        private CoordinateReadoutFormat _coordinateReadoutFormat = CoordinateReadoutFormat.DD;
 
         /// <summary>
         /// Dictionary containing a message layer ID as the KEY and a list of military message ID's as the value
@@ -68,7 +56,7 @@ namespace MilitaryPlanner.ViewModels
 
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand MeasureCommand { get; set; }
-        public RelayCommand CoordinateReadoutCommand { get; set; }
+        public RelayCommand CoordinateReadoutFormatCommand { get; set; }
 
         public RelayCommand StartViewShedCommand { get; set; }
         public RelayCommand ToggleViewShedToolCommand { get; set; }
@@ -78,54 +66,8 @@ namespace MilitaryPlanner.ViewModels
         // controllers
         private GotoXYToolController gotoXYToolController;
         private NetworkingToolController networkingToolController;
-
-        //viewshed
-        private const string ViewshedServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
-
-        private GraphicsOverlay _inputOverlay;
-        private GraphicsOverlay _viewshedOverlay;
-        private Geoprocessor _gpTask;
-
-        private bool _ViewShedEnabled = true;
-        public bool ViewShedEnabled 
-        {
-            get
-            {
-                return _ViewShedEnabled;
-            }
-            set
-            {
-                _ViewShedEnabled = value;
-                RaisePropertyChanged(() => ViewShedEnabled);
-            }
-        }
-        private bool _ViewShedProgressVisible = false;
-        public bool ViewShedProgressVisible 
-        {
-            get
-            {
-                return _ViewShedProgressVisible;
-            }
-            set
-            {
-                _ViewShedProgressVisible = value;
-                RaisePropertyChanged(() => ViewShedProgressVisible);
-            }
-        }
-        private string _ToolStatus = "";
-        public string ToolStatus
-        {
-            get
-            {
-                return _ToolStatus;
-            }
-            set
-            {
-                _ToolStatus = value;
-                RaisePropertyChanged(() => ToolStatus);
-            }
-        }
-
+        private ViewShedToolController viewShedToolController;
+        private CoordinateReadoutController coordinateReadoutController;
 
         public MapViewModel()
         {
@@ -148,14 +90,11 @@ namespace MilitaryPlanner.ViewModels
             SaveCommand = new RelayCommand(OnSaveCommand);
             MeasureCommand = new RelayCommand(OnMeasureCommand);
 
-            CoordinateReadoutCommand = new RelayCommand(OnCoordinateReadoutCommand);
+            CoordinateReadoutFormatCommand = new RelayCommand(OnCoordinateReadoutFormatCommand);
 
-            StartViewShedCommand = new RelayCommand(OnStartViewShedCommand);
             ToggleViewShedToolCommand = new RelayCommand(OnToggleViewShedToolCommand);
             ToggleGotoXYToolCommand = new RelayCommand(OnToggleGotoXYToolCommand);
             ToggleNetworkingToolCommand = new RelayCommand(OnToggleNetworkingToolCommand);
-
-            _IsViewShedToolVisible = false;
         }
 
         private void OnToggleNetworkingToolCommand(object obj)
@@ -165,7 +104,6 @@ namespace MilitaryPlanner.ViewModels
 
         private void OnToggleGotoXYToolCommand(object obj)
         {
-            //Mediator.NotifyColleagues(Constants.ACTION_GOTO_XY_COORDINATES, "-103.793;40.259");
             gotoXYToolController.Toggle();
         }
 
@@ -191,11 +129,16 @@ namespace MilitaryPlanner.ViewModels
                 return _coordinateReadout;
             }
 
-            private set
+            set
             {
                 _coordinateReadout = value;
                 RaisePropertyChanged(() => CoordinateReadout);
             }
+        }
+
+        private void OnCoordinateReadoutFormatCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_COORDINATE_READOUT_FORMAT_CHANGED, obj);
         }
 
         private void DoEditMissionPhases(object obj)
@@ -265,76 +208,7 @@ namespace MilitaryPlanner.ViewModels
 
         private void OnToggleViewShedToolCommand(object obj)
         {
-            string temp = obj as string;
-            if (temp == "True")
-            {
-                IsViewShedToolVisible = true;
-            }
-            else
-            {
-                IsViewShedToolVisible = false;
-            }
-        }
-
-        private bool _IsViewShedToolVisible = false;
-        public bool IsViewShedToolVisible
-        {
-            get
-            {
-                return _IsViewShedToolVisible;
-            }
-
-            set
-            {
-                _IsViewShedToolVisible = value;
-                RaisePropertyChanged(() => IsViewShedToolVisible);
-            }
-        }
-
-        private async void OnStartViewShedCommand(object obj)
-        {
-            try
-            {
-                string txtMiles = obj as string;
-
-                //uiPanel.IsEnabled = false;
-                ViewShedEnabled = false;
-                _inputOverlay.Graphics.Clear();
-                _viewshedOverlay.Graphics.Clear();
-
-                //get the user's input point
-                var inputPoint = await _mapView.Editor.RequestPointAsync();
-
-                //progress.Visibility = Visibility.Visible;
-                ViewShedProgressVisible = true;
-                _inputOverlay.Graphics.Add(new Graphic() { Geometry = inputPoint });
-
-                var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
-                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Observation_Point", inputPoint));
-                parameter.GPParameters.Add(new GPLinearUnit("Viewshed_Distance ", LinearUnits.Miles, Convert.ToDouble(txtMiles)));
-
-                //txtStatus.Text = "Processing on server...";
-                ToolStatus = "Processing on server...";
-                var result = await _gpTask.ExecuteAsync(parameter);
-                if (result == null || result.OutParameters == null || !(result.OutParameters[0] is GPFeatureRecordSetLayer))
-                    throw new ApplicationException("No viewshed graphics returned for this start point.");
-
-                //txtStatus.Text = "Finished processing. Retrieving results...";
-                ToolStatus = "Finished processing. Retrieving results...";
-                var viewshedLayer = result.OutParameters[0] as GPFeatureRecordSetLayer;
-                _viewshedOverlay.Graphics.AddRange(viewshedLayer.FeatureSet.Features.OfType<Graphic>());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Sample Error");
-            }
-            finally
-            {
-                //uiPanel.IsEnabled = true;
-                ViewShedEnabled = true;
-                //progress.Visibility = Visibility.Collapsed;
-                ViewShedProgressVisible = false;
-            }
+            viewShedToolController.Toggle();
         }
 
         private void DoOpenMission(object obj)
@@ -614,42 +488,6 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private void OnCoordinateReadoutCommand(object obj)
-        {
-            string format = obj as string;
-
-            if (!String.IsNullOrWhiteSpace(format))
-            {
-                switch (format)
-                {
-                    case "DD":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.DD;
-                        break;
-                    case "DMS":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.DMS;
-                        break;
-                    case "GARS":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.GARS;
-                        break;
-                    case "GEOREF":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.GEOREF;
-                        break;
-                    case "MGRS":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
-                        break;
-                    case "USNG":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.USNG;
-                        break;
-                    case "UTM":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.UTM;
-                        break;
-                    default:
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
-                        break;
-                }
-            }
-        }
-
         private Symbol _pointSymbol;
         private Symbol _lineSymbol;
         private Symbol _polygonSymbol;
@@ -841,15 +679,11 @@ namespace MilitaryPlanner.ViewModels
             mapView.MouseLeftButtonUp += mapView_MouseLeftButtonUp;
             mapView.MouseMove += mapView_MouseMove;
 
-            // viewshed
-            _inputOverlay = _mapView.GraphicsOverlays["inputOverlay"];
-            _viewshedOverlay = _mapView.GraphicsOverlays["ViewshedOverlay"];
-
-            _gpTask = new Geoprocessor(new Uri(ViewshedServiceUrl));
-
             // setup any controllers that use the map view
             gotoXYToolController = new GotoXYToolController(mapView, this);
             networkingToolController = new NetworkingToolController(mapView, this);
+            viewShedToolController = new ViewShedToolController(mapView, this);
+            coordinateReadoutController = new CoordinateReadoutController(mapView, this);
 
             // add default message layer
             AddNewMilitaryMessagelayer();
@@ -873,51 +707,12 @@ namespace MilitaryPlanner.ViewModels
 
             _lastKnownPoint = e.GetPosition(_mapView);
 
-            UpdateCoordinateReadout(_lastKnownPoint);
-
             var adjustedPoint = AdjustPointWithOffset(_lastKnownPoint);
 
             //if a selected symbol, move it
             if (_editState == EditState.Move && e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
             {
                 UpdateCurrentMessage(_mapView.ScreenToLocation(adjustedPoint));
-            }
-        }
-
-        private void UpdateCoordinateReadout(Point point)
-        {
-            var mp = _mapView.ScreenToLocation(point);
-
-            if (mp == null)
-                return;
-
-            // we can do DD, DMS, GARS, GEOREF, MGRS, USNG, UTM
-            switch (_coordinateReadoutFormat)
-            {
-                case CoordinateReadoutFormat.DD:
-                    CoordinateReadout = ConvertCoordinate.ToDecimalDegrees(mp, 3);
-                    break;
-                case CoordinateReadoutFormat.DMS:
-                    CoordinateReadout = ConvertCoordinate.ToDegreesMinutesSeconds(mp, 1);
-                    break;
-                case CoordinateReadoutFormat.GARS:
-                    CoordinateReadout = ConvertCoordinate.ToGars(mp);
-                    break;
-                case CoordinateReadoutFormat.GEOREF:
-                    CoordinateReadout = ConvertCoordinate.ToGeoref(mp, 4, true);
-                    break;
-                case CoordinateReadoutFormat.MGRS:
-                    CoordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
-                    break;
-                case CoordinateReadoutFormat.USNG:
-                    CoordinateReadout = ConvertCoordinate.ToUsng(mp, 5, true, true);
-                    break;
-                case CoordinateReadoutFormat.UTM:
-                    CoordinateReadout = ConvertCoordinate.ToUtm(mp, UtmConversionMode.None, true);
-                    break;
-                default:
-                    CoordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
-                    break;
             }
         }
 

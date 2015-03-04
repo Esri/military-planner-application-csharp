@@ -35,5 +35,7 @@ namespace MilitaryPlanner.Helpers
         public const string MSG_TYPE_POSITION_REPORT = "position_report";
 
         public const string ACTION_GOTO_XY_COORDINATES = "ActionGotoXYCoordinates";
+
+        public const string ACTION_COORDINATE_READOUT_FORMAT_CHANGED = "ActionCoordinateReadoutFormatChanged";
     }
 }
