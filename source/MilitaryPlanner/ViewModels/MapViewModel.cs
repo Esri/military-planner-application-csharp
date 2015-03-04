@@ -112,12 +112,12 @@ namespace MilitaryPlanner.ViewModels
             // file dialog
             var sfd = new SaveFileDialog();
 
-            sfd.Filter = "xml files (*.xml)|*.xml";
+            sfd.Filter = "xml files (*.xml)|*.xml|Geomessage xml files (*.xml)|*.xml";
             sfd.RestoreDirectory = true;
 
             if (sfd.ShowDialog() == true)
             {
-                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, sfd.FileName);
+                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, String.Format("{0}{1}{2}",sfd.FilterIndex, Constants.SAVE_AS_DELIMITER, sfd.FileName));
             }
         }
 
@@ -241,11 +241,25 @@ namespace MilitaryPlanner.ViewModels
 
         private void DoSaveMission(object obj)
         {
-            string fileName = obj.ToString();
+            string param = obj.ToString();
+
+            string fileName;
+            int fileType = 1; // MISSION type
+
+            if (param.Contains(Constants.SAVE_AS_DELIMITER))
+            {
+                var temp = param.Split(new string[] {Constants.SAVE_AS_DELIMITER}, StringSplitOptions.None);
+                fileType = Convert.ToInt32(temp[0]);
+                fileName = temp[1];
+            }
+            else
+            {
+                fileName = param;
+            }
 
             if (!String.IsNullOrWhiteSpace(fileName))
             {
-                _mission.Save(fileName);
+                _mission.Save(fileName, fileType);
             }
         }
 

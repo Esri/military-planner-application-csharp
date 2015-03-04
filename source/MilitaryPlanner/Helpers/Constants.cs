@@ -37,5 +37,9 @@ namespace MilitaryPlanner.Helpers
         public const string ACTION_GOTO_XY_COORDINATES = "ActionGotoXYCoordinates";
 
         public const string ACTION_COORDINATE_READOUT_FORMAT_CHANGED = "ActionCoordinateReadoutFormatChanged";
+
+        public const int SAVE_AS_MISSION = 1;
+        public const int SAVE_AS_GEOMESSAGES = 2;
+        public const string SAVE_AS_DELIMITER = "::";
     }
 }
