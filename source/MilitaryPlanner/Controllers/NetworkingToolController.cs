@@ -76,16 +76,21 @@ namespace MilitaryPlanner.Controllers
 
             if (!networkingToolView.ViewModel.IsToolOpen)
             {
-                // clean up
-                networkingToolView.ViewModel.PanelResultsVisibility = System.Windows.Visibility.Collapsed;
-
-                _stopsOverlay.Graphics.Clear();
-                _routesOverlay.Graphics.Clear();
-                _directionsOverlay.GraphicsSource = null;
+                Reset();
             }
         }
 
-        void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private void Reset()
+        {
+            // clean up
+            networkingToolView.ViewModel.PanelResultsVisibility = System.Windows.Visibility.Collapsed;
+
+            _stopsOverlay.Graphics.Clear();
+            _routesOverlay.Graphics.Clear();
+            _directionsOverlay.GraphicsSource = null;
+        }
+
+        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             if (!networkingToolView.ViewModel.IsToolOpen)
                 return;
@@ -96,12 +101,7 @@ namespace MilitaryPlanner.Controllers
 
                 if (_directionsOverlay.Graphics.Count() > 0)
                 {
-                    //panelResults.Visibility = Visibility.Collapsed;
-                    networkingToolView.ViewModel.PanelResultsVisibility = System.Windows.Visibility.Collapsed;
-
-                    _stopsOverlay.Graphics.Clear();
-                    _routesOverlay.Graphics.Clear();
-                    _directionsOverlay.GraphicsSource = null;
+                    Reset();
                 }
 
                 var graphicIdx = _stopsOverlay.Graphics.Count + 1;
@@ -167,10 +167,12 @@ namespace MilitaryPlanner.Controllers
                 {
                     MessageBox.Show(ex.Message, "Sample Error");
                 }
+                Reset();
             }
             catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message, "Sample Error");
+                Reset();
             }
             finally
             {
