@@ -16,12 +16,6 @@
     <UserControl.Resources>
         <viewModels:MapViewModel x:Key="MyMapViewModel" />
         <BooleanToVisibilityConverter x:Key="boolConverter" />
-		<esri:SimpleFillSymbol x:Key="DefaultFillSymbol" Color="#4400FF00" />
-        <esri:SimpleMarkerSymbol x:Key="MarkerSymbol" Color="Black" Style="X" Size="8" />
-        <esri:SimpleRenderer x:Key="PointRenderer" Symbol="{StaticResource MarkerSymbol}" />
-        <esri:SimpleLineSymbol x:Key="OutlineSymbol" Color="Red" Width="2" Style="Solid" />
-        <esri:SimpleFillSymbol x:Key="DefaultFillSymbol2" Color="#44FF9999" Outline="{StaticResource OutlineSymbol}" />
-        <esri:SimpleRenderer x:Key="ViewshedRenderer" Symbol="{StaticResource DefaultFillSymbol2}" />
     </UserControl.Resources>
 	<Grid DataContext="{StaticResource MyMapViewModel}"
 		helper:EventToCommand.Event="FrameworkElement.Loaded"
