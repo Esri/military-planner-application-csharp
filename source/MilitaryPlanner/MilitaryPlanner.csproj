@@ -138,6 +138,7 @@
     <Compile Include="Behavior\TreeViewDragBehavoir.cs" />
     <Compile Include="Behavior\TreeViewItemBehavior.cs" />
     <Compile Include="Controllers\GotoXYToolController.cs" />
+    <Compile Include="Controllers\NetworkingToolController.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\EventToCommand.cs" />
     <Compile Include="Helpers\GotoItem.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="ViewModels\GotoXYToolViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\MissionViewModel.cs" />
+    <Compile Include="ViewModels\NetworkingToolViewModel.cs" />
     <Compile Include="ViewModels\OrderOfBattleViewModel.cs" />
     <Compile Include="ViewModels\SymbolGroupViewModel.cs" />
     <Compile Include="ViewModels\SymbolTreeViewModel.cs" />
@@ -163,6 +165,9 @@
     </Compile>
     <Compile Include="Views\MissionTimeLineView.xaml.cs">
       <DependentUpon>MissionTimeLineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkingToolView.xaml.cs">
+      <DependentUpon>NetworkingToolView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrderOfBattleView.xaml.cs">
       <DependentUpon>OrderOfBattleView.xaml</DependentUpon>
@@ -211,6 +216,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MissionTimeLineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkingToolView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -73,9 +73,11 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand StartViewShedCommand { get; set; }
         public RelayCommand ToggleViewShedToolCommand { get; set; }
         public RelayCommand ToggleGotoXYToolCommand { get; set; }
+        public RelayCommand ToggleNetworkingToolCommand { get; set; }
 
         // controllers
         private GotoXYToolController gotoXYToolController;
+        private NetworkingToolController networkingToolController;
 
         //viewshed
         private const string ViewshedServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
@@ -151,8 +153,14 @@ namespace MilitaryPlanner.ViewModels
             StartViewShedCommand = new RelayCommand(OnStartViewShedCommand);
             ToggleViewShedToolCommand = new RelayCommand(OnToggleViewShedToolCommand);
             ToggleGotoXYToolCommand = new RelayCommand(OnToggleGotoXYToolCommand);
+            ToggleNetworkingToolCommand = new RelayCommand(OnToggleNetworkingToolCommand);
 
             _IsViewShedToolVisible = false;
+        }
+
+        private void OnToggleNetworkingToolCommand(object obj)
+        {
+            networkingToolController.Toggle();
         }
 
         private void OnToggleGotoXYToolCommand(object obj)
@@ -841,6 +849,7 @@ namespace MilitaryPlanner.ViewModels
 
             // setup any controllers that use the map view
             gotoXYToolController = new GotoXYToolController(mapView, this);
+            networkingToolController = new NetworkingToolController(mapView, this);
 
             // add default message layer
             AddNewMilitaryMessagelayer();

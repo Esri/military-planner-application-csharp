@@ -129,6 +129,8 @@
 							ToolTipService.ToolTip="ViewShed" />
                         <Button Content="GotoXY" Margin="5" Command="{Binding ToggleGotoXYToolCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="GotoXY" />
+                        <Button Content="Routing" Margin="5" Command="{Binding ToggleNetworkingToolCommand}" CommandParameter="True"            
+							ToolTipService.ToolTip="Routing Tool" />
                     </StackPanel>
 				</StackPanel>
 			</Grid>
