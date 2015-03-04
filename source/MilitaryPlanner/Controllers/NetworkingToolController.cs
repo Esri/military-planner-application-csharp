@@ -125,9 +125,7 @@ namespace MilitaryPlanner.Controllers
             {
                 e.Handled = true;
 
-                //panelResults.Visibility = Visibility.Collapsed;
                 networkingToolView.ViewModel.PanelResultsVisibility = Visibility.Collapsed;
-                //progress.Visibility = Visibility.Visible;
                 networkingToolView.ViewModel.ProgressVisibility = Visibility.Visible;
 
                 RouteParameters routeParams = await _routeTask.GetDefaultParametersAsync();
@@ -145,12 +143,10 @@ namespace MilitaryPlanner.Controllers
                 _routesOverlay.Graphics.Add(new Graphic(route.RouteFeature.Geometry));
 
                 _directionsOverlay.GraphicsSource = route.RouteDirections.Select(rd => GraphicFromRouteDirection(rd));
-                //listDirections.ItemsSource = _directionsOverlay.Graphics;
                 networkingToolView.ViewModel.Graphics = _directionsOverlay.Graphics;
 
                 var totalTime = route.RouteDirections.Select(rd => rd.Time).Aggregate(TimeSpan.Zero, (p, v) => p.Add(v));
                 var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();
-                //txtRouteTotals.Text = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
                 networkingToolView.ViewModel.RouteTotals = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
 
                 if (!route.RouteFeature.Geometry.IsEmpty)
@@ -176,11 +172,10 @@ namespace MilitaryPlanner.Controllers
             }
             finally
             {
-                //progress.Visibility = Visibility.Collapsed;
                 networkingToolView.ViewModel.ProgressVisibility = Visibility.Collapsed;
+
                 if (_directionsOverlay.Graphics.Count() > 0)
                 {
-                    //panelResults.Visibility = Visibility.Visible;
                     networkingToolView.ViewModel.PanelResultsVisibility = Visibility.Visible;
                 }
             }

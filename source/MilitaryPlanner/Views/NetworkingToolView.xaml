@@ -48,8 +48,7 @@
                     <TextBlock Text="Route Details:"  FontSize="16" FontWeight="Bold" />
                     <TextBlock Grid.Row="1" FontStyle="Italic" Text="{Binding RouteTotals}"/>
 
-                    <ListView x:Name="listDirections" Grid.Row="2" ItemsSource="{Binding Graphics}"
-                              SelectionMode="Single"> <!--SelectionChanged="listDirections_SelectionChanged"-->
+                    <ListView x:Name="listDirections" Grid.Row="2" ItemsSource="{Binding Graphics}" SelectionMode="Single">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="4,0">
