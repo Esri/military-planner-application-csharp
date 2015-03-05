@@ -1,0 +1,69 @@
+﻿<Popup x:Class="MilitaryPlanner.Views.NetworkingToolView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             mc:Ignorable="d" 
+             IsOpen="{Binding IsToolOpen}"
+             PopupAnimation="Fade"
+             Placement="Relative"
+             VerticalOffset="70"
+             HorizontalOffset="10"
+       MaxHeight="640"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Resources>
+            <esri:SimpleLineSymbol x:Key="routeSymbol" Color="Blue" Width="5" Style="Dot" />
+            <esri:SimpleRenderer x:Key="routesRenderer" Symbol="{StaticResource routeSymbol}" />
+            <esri:SimpleMarkerSymbol x:Key="directionPointSymbol" Color="Blue" Size="6" Style="X" />
+            <esri:SimpleLineSymbol x:Key="directionLineSymbol" Color="Transparent" Width="2" Style="Solid" />
+            <esri:SimpleRenderer x:Key="directionsRenderer" Symbol="{StaticResource directionLineSymbol}" />
+        </Grid.Resources>
+
+        <Border Background="White" BorderBrush="Black" BorderThickness="1" 
+				Margin="3" Padding="7" Width="300">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Tap one or more stop locations on the map then double tap the final stop to calculate a simple route with directions." 
+                           TextWrapping="Wrap"/>
+
+                <ProgressBar x:Name="progress" Grid.Row="1" IsIndeterminate="True" Visibility="{Binding ProgressVisibility}" Margin="0,12,0,0" />
+
+                <Grid x:Name="panelResults" Grid.Row="2" Margin="0,12,0,0" Visibility="{Binding PanelResultsVisibility}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Route Details:"  FontSize="16" FontWeight="Bold" />
+                    <TextBlock Grid.Row="1" FontStyle="Italic" Text="{Binding RouteTotals}"/>
+
+                    <ListView x:Name="listDirections" Grid.Row="2" ItemsSource="{Binding Graphics}" SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="4,0">
+                                    <TextBlock Text="{Binding Attributes[Direction]}" FontSize="13" FontWeight="Bold" />
+                                    <TextBlock Margin="8,0,0,0" FontSize="12" FontStyle="Italic">
+                                        <Run Text="{Binding Attributes[Length]}" />
+                                        <Run Text=" mi  /  " />
+                                        <Run Text="{Binding Attributes[Time]}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Popup>

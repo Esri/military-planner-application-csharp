@@ -14,6 +14,7 @@ namespace MilitaryPlanner.Models
 {
     public class Mission : NotificationObject
     {
+
         public Mission()
         {
 
@@ -75,6 +76,24 @@ namespace MilitaryPlanner.Models
 
         public bool Save(string filename)
         {
+            return Save(filename, Constants.SAVE_AS_MISSION);
+        }
+
+        public bool Save(string filename, int saveAsType)
+        {
+            switch (saveAsType)
+            {
+                case Constants.SAVE_AS_GEOMESSAGES:
+                    return SaveGeomessages(filename);
+
+                case Constants.SAVE_AS_MISSION:
+                default:
+                    return SaveMission(filename);
+            }
+        }
+
+        private bool SaveMission(string filename)
+        {
             if (String.IsNullOrWhiteSpace(filename))
             {
                 return false;
@@ -85,6 +104,44 @@ namespace MilitaryPlanner.Models
 
             x.Serialize(writer, this);
 
+            return true;
+        }
+
+        private bool SaveGeomessages(string filename)
+        {
+            if (String.IsNullOrWhiteSpace(filename))
+            {
+                return false;
+            }
+
+            using (XmlWriter writer = XmlWriter.Create(filename))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("geomessages");
+
+                foreach (TimeAwareMilitaryMessage message in MilitaryMessages)
+                {
+                    writer.WriteStartElement("geomessage");
+                    foreach (KeyValuePair<string, string> kvp in message)
+                    {
+                        string key = kvp.Key.ToLower();
+                        string value = kvp.Value;
+                        if ("sic" == key)
+                        {
+                            while (15 > value.Length)
+                            {
+                                value += "-";
+                            }
+                        }
+
+                        writer.WriteElementString(key, value);
+                    }
+                    writer.WriteEndElement();
+                }
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
             return true;
         }
 
