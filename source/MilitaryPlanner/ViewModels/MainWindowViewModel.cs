@@ -129,20 +129,6 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private MilitaryPlanner.Views.MissionTimeLineView _MTLView;
-        public MilitaryPlanner.Views.MissionTimeLineView MTLView
-        {
-            get { return _MTLView; }
-            set
-            {
-                if (_MTLView != value)
-                {
-                    _MTLView = value;
-                    RaisePropertyChanged(() => MTLView);
-                }
-            }
-        }
-
         #endregion
 
         #region Commands
@@ -159,7 +145,7 @@ namespace MilitaryPlanner.ViewModels
 
         public MainWindowViewModel()
         {
-            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ClientId = "sloy45Jis4XaPxFd";
+            //Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ClientId = "sloy45Jis4XaPxFd";
 
             try
             {
@@ -170,9 +156,7 @@ namespace MilitaryPlanner.ViewModels
                 Console.WriteLine("Unable to initialize the ArcGIS Runtime with the client id provided: " + ex.Message);
             }
 
-            //Mediator.Register(Constants.ACTION_MSG_LAYER_ADDED, _mission.DoMessageLayerAdded);
             Mediator.Register(Constants.ACTION_MSG_LAYER_ADDED, DoMessageLayerAdded);
-            //Mediator.Register(Constants.ACTION_MSG_PROCESSED, _mission.DoMessageProcessed);
             Mediator.Register(Constants.ACTION_PHASE_ADDED, DoPhaseAdded);
             Mediator.Register(Constants.ACTION_PHASE_INDEX_CHANGED, DoPhaseIndexChanged);
             Mediator.Register(Constants.ACTION_MISSION_LOADED, DoMissionLoaded);
@@ -185,7 +169,6 @@ namespace MilitaryPlanner.ViewModels
             
             MapView = new Views.MapView();
             OOBView = new Views.OrderOfBattleView();
-            MTLView = new Views.MissionTimeLineView();
         }
 
         private void OnEditMissionPhases(object obj)

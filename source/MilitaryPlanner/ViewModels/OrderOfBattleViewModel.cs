@@ -76,15 +76,6 @@ namespace MilitaryPlanner.ViewModels
             // Collection of view models for the displayed list of symbols
             Symbols = new ObservableCollection<SymbolViewModel>();
 
-            // Collection of strings to hold the selected symbol dictionary keywords
-            //SelectedKeywords = new ObservableCollection<string>();
-            //_keywords = _symbolDictionary.Keywords;
-
-            // Set the DataContext for binding
-            //DataContext = this;
-
-            //InitializeComponent();
-
             // Set the image size
             _imageSize = 96;
 
@@ -246,18 +237,6 @@ namespace MilitaryPlanner.ViewModels
         {
             Dictionary<string, string> filters = new Dictionary<string, string>();
 
-            //if (cmbStyleFile.SelectedValue != null && !cmbStyleFile.SelectedValue.Equals(""))
-            //    filters["StyleFile"] = cmbStyleFile.SelectedValue.ToString();
-
-            //if (cmbCategory.SelectedValue != null && !cmbCategory.SelectedValue.Equals(""))
-            //    filters["Category"] = cmbCategory.SelectedValue.ToString();
-
-            //foreach (var item in cmbGeometryType.SelectedItems)
-            //{
-            //    if (item.ToString() != null && !item.ToString().Equals(""))
-            //        filters["GeometryType"] = item.ToString();
-            //}
-
             // Clear the current Symbols collection
             Symbols.Clear();
 
@@ -276,18 +255,6 @@ namespace MilitaryPlanner.ViewModels
             }
 
             var allSymbols = symbols.ToList();
-
-            // Update the list of applicable keywords (excluding any keywords that are not on the current result set)
-            //if (SelectedKeywords == null || SelectedKeywords.Count == 0)
-            //{
-            //    _keywords = _symbolDictionary.Keywords.Where(k => !IsSymbolId(k)).ToList();
-            //}
-            //else
-            //{
-            //    IEnumerable<string> allSymbolKeywords = allSymbols.SelectMany(s => s.Keywords);
-            //    _keywords = allSymbolKeywords.Distinct().Except(SelectedKeywords).Where(k => !IsSymbolId(k)).ToList();
-            //}
-            //FirePropertyChanged("Keywords");
 
             // Add symbols to UI collection
             foreach (var s in from symbol in allSymbols select new SymbolViewModel(symbol, _imageSize))
