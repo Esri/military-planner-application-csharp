@@ -5,6 +5,7 @@ using MilitaryPlanner.Helpers;
 using MilitaryPlanner.Models;
 using System.Windows.Data;
 using Microsoft.Win32;
+using System.Windows;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -143,8 +144,38 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        #endregion
+        private Visibility _mapViewVisibility = Visibility.Visible;
+        public Visibility MapViewVisibility
+        {
+            get
+            {
+                return _mapViewVisibility;
+            }
 
+            set
+            {
+                _mapViewVisibility = value;
+                RaisePropertyChanged(() => MapViewVisibility);
+            }
+        }
+
+        private Visibility _timeLineViewVisibility = Visibility.Collapsed;
+        public Visibility TimeLineViewVisibility
+        {
+            get
+            {
+                return _timeLineViewVisibility;
+            }
+
+            set
+            {
+                _timeLineViewVisibility = value;
+                RaisePropertyChanged(() => TimeLineViewVisibility);
+            }
+        }
+
+        #endregion
+        
         #region Commands
 
         public RelayCommand CancelCommand { get; set; }
@@ -152,6 +183,7 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand OpenCommand { get; set; }
         public RelayCommand EditMissionPhasesCommand { get; set; }
+        public RelayCommand SwitchViewCommand { get; set; }
 
         #endregion
 
@@ -182,10 +214,25 @@ namespace MilitaryPlanner.ViewModels
             SaveCommand = new RelayCommand(OnSaveCommand);
             OpenCommand = new RelayCommand(OnOpenCommand);
             EditMissionPhasesCommand = new RelayCommand(OnEditMissionPhases);
+            SwitchViewCommand = new RelayCommand(OnSwitchViewCommand);
             
             MapView = new Views.MapView();
             OOBView = new Views.OrderOfBattleView();
             MTLView = new Views.MissionTimeLineView();
+        }
+
+        private void OnSwitchViewCommand(object obj)
+        {
+            if (MapViewVisibility == Visibility.Visible)
+            {
+                TimeLineViewVisibility = Visibility.Visible;
+                MapViewVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                TimeLineViewVisibility = Visibility.Collapsed;
+                MapViewVisibility = Visibility.Visible;
+            }
         }
 
         private void OnEditMissionPhases(object obj)

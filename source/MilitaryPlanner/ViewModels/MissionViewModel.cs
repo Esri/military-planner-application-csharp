@@ -169,19 +169,51 @@ namespace MilitaryPlanner.ViewModels
             int currentEndPhase = 0;
             //int currentPhaseLength = 1;
 
-            foreach (var phase in _mission.PhaseList)
-            {
-                // for each message in the phase
-                //TODO revisit
-                //foreach (var pm in phase.PersistentMessages)
-                //{
-                //    // for each message, create/update a phase symbol in the symbol list
-                //    CreateUpdateSymbolWithPM(pm, currentStartPhase, currentEndPhase);
-                //}
+            //foreach (var phase in _mission.PhaseList)
+            //{
+            //    // for each message in the phase
+            //    //TODO revisit
+            //    //foreach (var pm in phase.PersistentMessages)
+            //    //{
+            //    //    // for each message, create/update a phase symbol in the symbol list
+            //    //    CreateUpdateSymbolWithPM(pm, currentStartPhase, currentEndPhase);
+            //    //}
+            //    currentStartPhase++;
+            //    currentEndPhase++;
+            //}
 
-                currentStartPhase++;
-                currentEndPhase++;
+            foreach (var mm in _mission.MilitaryMessages)
+            {
+                currentStartPhase = 0;
+                currentEndPhase = 0;
+
+                foreach (var phase in _mission.PhaseList)
+                {
+                    if (mm.VisibleTimeExtent.Intersects(phase.VisibleTimeExtent))
+                    {
+                        currentEndPhase = _mission.PhaseList.IndexOf(phase);
+                    }
+                    else
+                    {
+                        if (_mission.PhaseList.IndexOf(phase) < currentEndPhase)
+                        {
+                            currentStartPhase = _mission.PhaseList.IndexOf(phase);
+                        }
+                    }
+                }
+
+                var pm = new PersistentMessage() { ID = mm.Id, VisibleTimeExtent = mm.VisibleTimeExtent};
+                var piList = new List<PropertyItem>();
+                foreach (var item in mm)
+                {
+                    piList.Add(new PropertyItem() { Key = item.Key, Value = item.Value });
+                }
+
+                pm.PropertyItems = piList;
+
+                CreateUpdateSymbolWithPM(pm, currentStartPhase, currentEndPhase);
             }
+
         }
 
         private void CreateUpdateSymbolWithPM(PersistentMessage pm, int currentStartPhase, int currentEndPhase)

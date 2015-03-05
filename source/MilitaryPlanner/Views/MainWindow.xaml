@@ -30,9 +30,11 @@
 
         <DockPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Button Content="Edit" Margin="5,2,2,2" Command="{Binding EditMissionPhasesCommand}"/>
+            <Button Content="Switch" Margin="2,2,2,2" Command="{Binding SwitchViewCommand}"/>
             <Slider Minimum="{Binding SliderMinimum}" Maximum="{Binding SliderMaximum}" Value="{Binding SliderValue}" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="10,0" SmallChange="1" Cursor="Cross" />
         </DockPanel>
-        <UserControl Grid.Column="1" Content="{Binding MapView}" Visibility="Visible"/>
+        <UserControl Grid.Column="1" Content="{Binding MapView}" Visibility="{Binding MapViewVisibility}"/>
+        <UserControl Grid.Column="1" Content="{Binding MTLView}" Visibility="{Binding TimeLineViewVisibility}" />
     </Grid>
 </Window>
 
