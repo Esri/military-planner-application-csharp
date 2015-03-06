@@ -134,22 +134,33 @@
     <Compile Include="Behavior\FrameworkElementDropBehavior.cs" />
     <Compile Include="Behavior\IDragable.cs" />
     <Compile Include="Behavior\IDropable.cs" />
-    <Compile Include="Behavior\MapDropBehavior.cs" />
     <Compile Include="Behavior\TreeViewDragBehavoir.cs" />
     <Compile Include="Behavior\TreeViewItemBehavior.cs" />
+    <Compile Include="Controllers\CoordinateReadoutController.cs" />
+    <Compile Include="Controllers\GotoXYToolController.cs" />
+    <Compile Include="Controllers\NetworkingToolController.cs" />
+    <Compile Include="Controllers\ViewShedToolController.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\EventToCommand.cs" />
+    <Compile Include="Helpers\GotoItem.cs" />
     <Compile Include="Helpers\Mediator.cs" />
     <Compile Include="Helpers\TimeAwareMessageLayer.cs" />
     <Compile Include="Models\Mission.cs" />
+    <Compile Include="ViewModels\BaseToolViewModel.cs" />
+    <Compile Include="ViewModels\GotoXYToolViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\MissionViewModel.cs" />
+    <Compile Include="ViewModels\NetworkingToolViewModel.cs" />
     <Compile Include="ViewModels\OrderOfBattleViewModel.cs" />
     <Compile Include="ViewModels\SymbolGroupViewModel.cs" />
     <Compile Include="ViewModels\SymbolTreeViewModel.cs" />
     <Compile Include="ViewModels\SymbolViewModel.cs" />
+    <Compile Include="ViewModels\ViewShedToolViewModel.cs" />
     <Compile Include="Views\EditMissionPhasesView.xaml.cs">
       <DependentUpon>EditMissionPhasesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GotoXYToolView.xaml.cs">
+      <DependentUpon>GotoXYToolView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
@@ -157,8 +168,14 @@
     <Compile Include="Views\MissionTimeLineView.xaml.cs">
       <DependentUpon>MissionTimeLineView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NetworkingToolView.xaml.cs">
+      <DependentUpon>NetworkingToolView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OrderOfBattleView.xaml.cs">
       <DependentUpon>OrderOfBattleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewShedToolView.xaml.cs">
+      <DependentUpon>ViewShedToolView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\IconsResourceDictionary.xaml">
       <SubType>Designer</SubType>
@@ -176,6 +193,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\GotoXYToolView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,10 +205,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\IsBiggerThanConverter.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\NotificationObject.cs" />
-    <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -203,7 +222,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\NetworkingToolView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OrderOfBattleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewShedToolView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -267,7 +294,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\Esri.ArcGISRuntime.10.2.4.748\build\net45\Esri.ArcGISRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Esri.ArcGISRuntime.10.2.4.748\build\net45\Esri.ArcGISRuntime.targets'))" />
   </Target>
+  <Import Project="..\packages\Esri.ArcGISRuntime.10.2.4.748\build\net45\Esri.ArcGISRuntime.targets" Condition="Exists('..\packages\Esri.ArcGISRuntime.10.2.4.748\build\net45\Esri.ArcGISRuntime.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,22 +1,41 @@
-﻿using MilitaryPlanner.Helpers;
+﻿// Copyright 2015 Esri 
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
-using MilitaryPlanner.Models;
-using MilitaryPlanner.DragDrop.UI.Behavior;
-using Esri.ArcGISRuntime.Symbology.Specialized;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
-using Esri.ArcGISRuntime.Tasks.Imagery;
 using Esri.ArcGISRuntime.Symbology;
-using System.IO;
-using Esri.ArcGISRuntime.Tasks.Geoprocessing;
+using Esri.ArcGISRuntime.Symbology.Specialized;
+using Esri.ArcGISRuntime.Tasks.Imagery;
+using Microsoft.Win32;
+using MilitaryPlanner.Behavior;
+using MilitaryPlanner.Controllers;
+using MilitaryPlanner.Helpers;
+using MilitaryPlanner.Models;
+using MilitaryPlanner.Views;
+using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
+using MapView = Esri.ArcGISRuntime.Controls.MapView;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -31,17 +50,6 @@ namespace MilitaryPlanner.ViewModels
             None
         };
 
-        private enum CoordinateReadoutFormat
-        {
-            DD,
-            DMS,
-            GARS,
-            GEOREF,
-            MGRS,
-            USNG,
-            UTM
-        };
-
         private Point _lastKnownPoint;
         private Point _pointOffset = new Point();
         private MapView _mapView;
@@ -50,80 +58,40 @@ namespace MilitaryPlanner.ViewModels
         private EditState _editState = EditState.None;
         private MessageLayer _militaryMessageLayer;
         private TimeExtent _currentTimeExtent = null; //new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
-        private Mission _mission = new Mission("Default Mission");
+        private readonly Mission _mission = new Mission("Default Mission");
         private int _currentPhaseIndex = 0;
-        private CoordinateReadoutFormat _coordinateReadoutFormat = CoordinateReadoutFormat.DD;
 
         /// <summary>
         /// Dictionary containing a message layer ID as the KEY and a list of military message ID's as the value
         /// </summary>
-        private Dictionary<string, List<string>> _phaseMessageDictionary = new Dictionary<string, List<string>>();
+        private readonly Dictionary<string, List<string>> _phaseMessageDictionary = new Dictionary<string, List<string>>();
 
         public RelayCommand SetMapCommand { get; set; }
         public RelayCommand PhaseAddCommand { get; set; }
         public RelayCommand PhaseBackCommand { get; set; }
         public RelayCommand PhaseNextCommand { get; set; }
 
+        public RelayCommand SaveCommand { get; set; }
+        public RelayCommand LoadCommand { get; set; }
         public RelayCommand MeasureCommand { get; set; }
-        public RelayCommand CoordinateReadoutCommand { get; set; }
+        public RelayCommand CoordinateReadoutFormatCommand { get; set; }
 
         public RelayCommand StartViewShedCommand { get; set; }
         public RelayCommand ToggleViewShedToolCommand { get; set; }
+        public RelayCommand ToggleGotoXYToolCommand { get; set; }
+        public RelayCommand ToggleNetworkingToolCommand { get; set; }
 
-        //viewshed
-        private const string ViewshedServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
-
-        private GraphicsOverlay _inputOverlay;
-        private GraphicsOverlay _viewshedOverlay;
-        private Geoprocessor _gpTask;
-
-        private bool _ViewShedEnabled = true;
-        public bool ViewShedEnabled 
-        {
-            get
-            {
-                return _ViewShedEnabled;
-            }
-            set
-            {
-                _ViewShedEnabled = value;
-                RaisePropertyChanged(() => ViewShedEnabled);
-            }
-        }
-        private bool _ViewShedProgressVisible = false;
-        public bool ViewShedProgressVisible 
-        {
-            get
-            {
-                return _ViewShedProgressVisible;
-            }
-            set
-            {
-                _ViewShedProgressVisible = value;
-                RaisePropertyChanged(() => ViewShedProgressVisible);
-            }
-        }
-        private string _ToolStatus = "";
-        public string ToolStatus
-        {
-            get
-            {
-                return _ToolStatus;
-            }
-            set
-            {
-                _ToolStatus = value;
-                RaisePropertyChanged(() => ToolStatus);
-            }
-        }
-
+        // controllers
+        private GotoXYToolController _gotoXYToolController;
+        private NetworkingToolController _networkingToolController;
+        private ViewShedToolController _viewShedToolController;
+        private CoordinateReadoutController _coordinateReadoutController;
 
         public MapViewModel()
         {
             Mediator.Register(Constants.ACTION_SELECTED_SYMBOL_CHANGED, DoActionSymbolChanged);
             Mediator.Register(Constants.ACTION_CANCEL, DoActionCancel);
             Mediator.Register(Constants.ACTION_DELETE, DoActionDelete);
-            Mediator.Register(Constants.ACTION_MISSION_HYDRATE, DoMissionHydrate);
             Mediator.Register(Constants.ACTION_DRAG_DROP_STARTED, DoDragDropStarted);
             Mediator.Register(Constants.ACTION_PHASE_NEXT, DoSliderPhaseNext);
             Mediator.Register(Constants.ACTION_PHASE_BACK, DoSliderPhaseBack);
@@ -136,14 +104,55 @@ namespace MilitaryPlanner.ViewModels
             PhaseBackCommand = new RelayCommand(OnPhaseBack);
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
 
+            SaveCommand = new RelayCommand(OnSaveCommand);
+            LoadCommand = new RelayCommand(OnLoadCommand);
             MeasureCommand = new RelayCommand(OnMeasureCommand);
 
-            CoordinateReadoutCommand = new RelayCommand(OnCoordinateReadoutCommand);
+            CoordinateReadoutFormatCommand = new RelayCommand(OnCoordinateReadoutFormatCommand);
 
-            StartViewShedCommand = new RelayCommand(OnStartViewShedCommand);
             ToggleViewShedToolCommand = new RelayCommand(OnToggleViewShedToolCommand);
+            ToggleGotoXYToolCommand = new RelayCommand(OnToggleGotoXYToolCommand);
+            ToggleNetworkingToolCommand = new RelayCommand(OnToggleNetworkingToolCommand);
+        }
 
-            _IsViewShedToolVisible = false;
+        private void OnToggleNetworkingToolCommand(object obj)
+        {
+            _networkingToolController.Toggle();
+        }
+
+        private void OnToggleGotoXYToolCommand(object obj)
+        {
+            _gotoXYToolController.Toggle();
+        }
+
+        private void OnSaveCommand(object obj)
+        {
+            // file dialog
+            var sfd = new SaveFileDialog
+            {
+                Filter = "xml files (*.xml)|*.xml|Geomessage xml files (*.xml)|*.xml",
+                RestoreDirectory = true
+            };
+
+            if (sfd.ShowDialog() == true)
+            {
+                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, String.Format("{0}{1}{2}",sfd.FilterIndex, Constants.SAVE_AS_DELIMITER, sfd.FileName));
+            }
+        }
+
+        private void OnLoadCommand(object obj)
+        {
+            var ofd = new OpenFileDialog
+            {
+                Filter = "xml files (*.xml)|*.xml",
+                RestoreDirectory = true,
+                Multiselect = false
+            };
+
+            if (ofd.ShowDialog() == true)
+            {
+                Mediator.NotifyColleagues(Constants.ACTION_OPEN_MISSION, ofd.FileName);
+            }
         }
 
         private string _coordinateReadout = "";
@@ -154,11 +163,16 @@ namespace MilitaryPlanner.ViewModels
                 return _coordinateReadout;
             }
 
-            private set
+            set
             {
                 _coordinateReadout = value;
                 RaisePropertyChanged(() => CoordinateReadout);
             }
+        }
+
+        private void OnCoordinateReadoutFormatCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_COORDINATE_READOUT_FORMAT_CHANGED, obj);
         }
 
         private void DoEditMissionPhases(object obj)
@@ -168,7 +182,7 @@ namespace MilitaryPlanner.ViewModels
             Mission cloneMission = _mission.DeepCopy(); //Utilities.CloneObject(_mission) as Mission;
 
             // load edit mission phases dialog
-            var editPhaseDialog = new MilitaryPlanner.Views.EditMissionPhasesView();
+            var editPhaseDialog = new EditMissionPhasesView();
 
             // update mission cloned
             Mediator.NotifyColleagues(Constants.ACTION_MISSION_CLONED, cloneMission);
@@ -228,76 +242,7 @@ namespace MilitaryPlanner.ViewModels
 
         private void OnToggleViewShedToolCommand(object obj)
         {
-            string temp = obj as string;
-            if (temp == "True")
-            {
-                IsViewShedToolVisible = true;
-            }
-            else
-            {
-                IsViewShedToolVisible = false;
-            }
-        }
-
-        private bool _IsViewShedToolVisible = false;
-        public bool IsViewShedToolVisible
-        {
-            get
-            {
-                return _IsViewShedToolVisible;
-            }
-
-            set
-            {
-                _IsViewShedToolVisible = value;
-                RaisePropertyChanged(() => IsViewShedToolVisible);
-            }
-        }
-
-        private async void OnStartViewShedCommand(object obj)
-        {
-            try
-            {
-                string txtMiles = obj as string;
-
-                //uiPanel.IsEnabled = false;
-                ViewShedEnabled = false;
-                _inputOverlay.Graphics.Clear();
-                _viewshedOverlay.Graphics.Clear();
-
-                //get the user's input point
-                var inputPoint = await _mapView.Editor.RequestPointAsync();
-
-                //progress.Visibility = Visibility.Visible;
-                ViewShedProgressVisible = true;
-                _inputOverlay.Graphics.Add(new Graphic() { Geometry = inputPoint });
-
-                var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
-                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Observation_Point", inputPoint));
-                parameter.GPParameters.Add(new GPLinearUnit("Viewshed_Distance ", LinearUnits.Miles, Convert.ToDouble(txtMiles)));
-
-                //txtStatus.Text = "Processing on server...";
-                ToolStatus = "Processing on server...";
-                var result = await _gpTask.ExecuteAsync(parameter);
-                if (result == null || result.OutParameters == null || !(result.OutParameters[0] is GPFeatureRecordSetLayer))
-                    throw new ApplicationException("No viewshed graphics returned for this start point.");
-
-                //txtStatus.Text = "Finished processing. Retrieving results...";
-                ToolStatus = "Finished processing. Retrieving results...";
-                var viewshedLayer = result.OutParameters[0] as GPFeatureRecordSetLayer;
-                _viewshedOverlay.Graphics.AddRange(viewshedLayer.FeatureSet.Features.OfType<Graphic>());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Sample Error");
-            }
-            finally
-            {
-                //uiPanel.IsEnabled = true;
-                ViewShedEnabled = true;
-                //progress.Visibility = Visibility.Collapsed;
-                ViewShedProgressVisible = false;
-            }
+            _viewShedToolController.Toggle();
         }
 
         private void DoOpenMission(object obj)
@@ -306,15 +251,9 @@ namespace MilitaryPlanner.ViewModels
 
             if (!String.IsNullOrWhiteSpace(fileName) && File.Exists(fileName))
             {
-                try
+                if (_mission.Load(fileName))
                 {
-                    _mission.Load(fileName);
-
                     InitializeMapWithMission();
-                }
-                catch
-                {
-
                 }
             }
         }
@@ -330,11 +269,25 @@ namespace MilitaryPlanner.ViewModels
 
         private void DoSaveMission(object obj)
         {
-            string fileName = obj.ToString();
+            string param = obj.ToString();
+
+            string fileName;
+            int fileType = 1; // MISSION type
+
+            if (param.Contains(Constants.SAVE_AS_DELIMITER))
+            {
+                var temp = param.Split(new[] {Constants.SAVE_AS_DELIMITER}, StringSplitOptions.None);
+                fileType = Convert.ToInt32(temp[0]);
+                fileName = temp[1];
+            }
+            else
+            {
+                fileName = param;
+            }
 
             if (!String.IsNullOrWhiteSpace(fileName))
             {
-                _mission.Save(fileName);
+                _mission.Save(fileName, fileType);
             }
         }
 
@@ -391,8 +344,7 @@ namespace MilitaryPlanner.ViewModels
 
         private void AddNewMilitaryMessagelayer()
         {
-            _militaryMessageLayer = new MessageLayer(SymbolDictionaryType.Mil2525c);
-            _militaryMessageLayer.ID = Guid.NewGuid().ToString("D");
+            _militaryMessageLayer = new MessageLayer(SymbolDictionaryType.Mil2525c) {ID = Guid.NewGuid().ToString("D")};
             _mapView.Map.Layers.Add(_militaryMessageLayer);
         }
 
@@ -413,7 +365,7 @@ namespace MilitaryPlanner.ViewModels
                     }
                     else
                     {
-                        Console.WriteLine("ERROR : Control points not found for phase id {0}", phaseID);
+                        Console.WriteLine(@"ERROR : Control points not found for phase id {0}", phaseID);
                     }
                 }
 
@@ -427,84 +379,12 @@ namespace MilitaryPlanner.ViewModels
                     Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_ADDED, mm.Id);
                 }
             }
-
-            //RefreshMapLayers();
         }
 
         private void DoDragDropStarted(object obj)
         {
             _editState = EditState.DragDrop;
         }
-
-        private void DoMissionHydrate(object obj)
-        {
-            HydrateMissionMessages(obj as Mission);
-        }
-
-        private void HydrateMissionMessages(Mission mission)
-        {
-            foreach (var phase in mission.PhaseList)
-            {
-                var phaseMessageList = _phaseMessageDictionary[phase.ID];
-
-                if(phaseMessageList != null && phaseMessageList.Count > 0)
-                {
-                    foreach (var msgID in phaseMessageList)
-                    {
-                        var temp = new PersistentMessage()
-                        {
-                            ID = msgID
-                        };
-
-                        // get properties
-                        var ml = GetMessageLayer(phase.ID);
-
-                        if (ml != null)
-                        {
-                            //TODO revisit
-                            //phase.VisibleTimeExtent = _messageLayerList.Where(s => s.MessageLayer.ID == phase.ID).First().VisibleTimeExtent;
-
-                            var msg = ml.GetMessage(msgID);
-
-                            //temp.CorrectProperties = msg;
-                            temp.PropertyItems = new List<PropertyItem>();
-
-                            for (int x = 0; x < msg.Count; x++)
-                            {
-                                temp.PropertyItems.Add(new PropertyItem() { Key = msg.ElementAt(x).Key, Value = msg.ElementAt(x).Value });
-                            }
-                        }
-                        // TODO revisit
-                        //phase.PersistentMessages.Add(temp);
-                    }
-                }
-            }
-        }
-
-        private MessageLayer GetMessageLayer(string layerID)
-        {
-            if (_map != null && _map.Layers.Count > 0)
-            {
-                var layer = _map.Layers.Where(l => l is MessageLayer && l.ID == layerID);
-
-                if (layer != null && layer.Count() == 1)
-                {
-                    return layer.First() as MessageLayer;
-                }
-            }
-
-            return null;
-        }
-
-        //private int GetCurrentMessageLayerIndex()
-        //{
-        //    if (_currentMessageLayer != null && _messageLayerList.Count > 0)
-        //    {
-        //        return _messageLayerList.IndexOf(_currentMessageLayer);
-        //    }
-
-        //    return -1;
-        //}
 
         private void OnPhaseNext(object param)
         {
@@ -515,11 +395,6 @@ namespace MilitaryPlanner.ViewModels
 
                 CurrentPhaseIndex++;
             }
-        }
-
-        private void SetMapViewVisibleTimeExtent(TimeExtent timeExtent)
-        {
-            _mapView.TimeExtent = timeExtent;
         }
 
         private void OnPhaseBack(object param)
@@ -543,19 +418,16 @@ namespace MilitaryPlanner.ViewModels
 
                 CurrentPhaseIndex = _mission.PhaseList.Count - 1;
             }
-            
-            // refresh layers, this will honor any new time extents
-            //RefreshMapLayers();
         }
 
-        private void ExtendTimeExtentOnMilitaryMessages(int CurrentPhaseIndex)
+        private void ExtendTimeExtentOnMilitaryMessages(int currentPhaseIndex)
         {
             // update any military message time extent to the next phase if current extent END matches current phase time extent END
             // this will allow the current phase symbols with unedited time extents to be included in the next phase
 
-            var currentTimeExtentEnd = _mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.End;
-            var nextTimeExtentEnd = _mission.PhaseList[CurrentPhaseIndex + 1].VisibleTimeExtent.End;
-            var nextPhaseID = _mission.PhaseList[CurrentPhaseIndex + 1].ID;
+            var currentTimeExtentEnd = _mission.PhaseList[currentPhaseIndex].VisibleTimeExtent.End;
+            var nextTimeExtentEnd = _mission.PhaseList[currentPhaseIndex + 1].VisibleTimeExtent.End;
+            var nextPhaseID = _mission.PhaseList[currentPhaseIndex + 1].ID;
 
             var currentPhaseMessages = _mission.MilitaryMessages.Where(m => m.VisibleTimeExtent.End == currentTimeExtentEnd).ToList();
 
@@ -577,45 +449,7 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private void OnCoordinateReadoutCommand(object obj)
-        {
-            string format = obj as string;
-
-            if (!String.IsNullOrWhiteSpace(format))
-            {
-                switch (format)
-                {
-                    case "DD":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.DD;
-                        break;
-                    case "DMS":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.DMS;
-                        break;
-                    case "GARS":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.GARS;
-                        break;
-                    case "GEOREF":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.GEOREF;
-                        break;
-                    case "MGRS":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
-                        break;
-                    case "USNG":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.USNG;
-                        break;
-                    case "UTM":
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.UTM;
-                        break;
-                    default:
-                        _coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
-                        break;
-                }
-            }
-        }
-
-        private Symbol _pointSymbol;
         private Symbol _lineSymbol;
-        private Symbol _polygonSymbol;
         private GraphicsOverlay _graphicsOverlay;
         private MensurationTask _mensurationTask;
 
@@ -623,11 +457,7 @@ namespace MilitaryPlanner.ViewModels
         {
             if (_editState == EditState.None && _mapView != null && !_mapView.Editor.IsActive)
             {
-                //_pointSymbol = layoutGrid.Resources["PointSymbol"] as Symbol;
-                //_lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;
-                //_polygonSymbol = layoutGrid.Resources["PolygonSymbol"] as Symbol;
-
-                _lineSymbol = new SimpleLineSymbol() { Color = System.Windows.Media.Colors.Red, Style = SimpleLineStyle.Solid, Width = 2 } as Symbol;
+                _lineSymbol = new SimpleLineSymbol() { Color = Colors.Red, Style = SimpleLineStyle.Solid, Width = 2 } as Symbol;
 
                 _graphicsOverlay = _mapView.GraphicsOverlays["graphicsOverlay"];
 
@@ -636,8 +466,6 @@ namespace MilitaryPlanner.ViewModels
                 var temp = _mapView.Map.Layers["TestMapServiceLayer"];
 
                 _mensurationTask = new MensurationTask(new Uri((temp as ArcGISTiledMapServiceLayer).ServiceUri));
-
-                //_mensurationTask.
 
                 // lets do a basic distance measure
                 try
@@ -650,8 +478,8 @@ namespace MilitaryPlanner.ViewModels
 
                     var parameters = new MensurationLengthParameters()
                     {
-                        AngularUnit = Esri.ArcGISRuntime.Geometry.AngularUnits.Degrees,//comboAngularUnit.SelectedItem as AngularUnit,
-                        LinearUnit = Esri.ArcGISRuntime.Geometry.LinearUnits.Meters//comboLinearUnit.SelectedItem as LinearUnit
+                        AngularUnit = AngularUnits.Degrees,
+                        LinearUnit = LinearUnits.Meters
                     };
 
                     var result = await _mensurationTask.DistanceAndAngleAsync(
@@ -675,7 +503,7 @@ namespace MilitaryPlanner.ViewModels
         }
 
         // Retrieve the given shape type from the user
-        private async Task<Esri.ArcGISRuntime.Geometry.Geometry> RequestUserShape(DrawShape drawShape, Symbol symbol)
+        private async Task<Geometry> RequestUserShape(DrawShape drawShape, Symbol symbol)
         {
             if (_mapView == null)
                 return null;
@@ -804,12 +632,11 @@ namespace MilitaryPlanner.ViewModels
             mapView.MouseLeftButtonUp += mapView_MouseLeftButtonUp;
             mapView.MouseMove += mapView_MouseMove;
 
-            // viewshed
-            _inputOverlay = _mapView.GraphicsOverlays["inputOverlay"];
-            _viewshedOverlay = _mapView.GraphicsOverlays["ViewshedOverlay"];
-
-            _gpTask = new Geoprocessor(new Uri(ViewshedServiceUrl));
-
+            // setup any controllers that use the map view
+            _gotoXYToolController = new GotoXYToolController(mapView, this);
+            _networkingToolController = new NetworkingToolController(mapView, this);
+            _viewShedToolController = new ViewShedToolController(mapView, this);
+            _coordinateReadoutController = new CoordinateReadoutController(mapView, this);
 
             // add default message layer
             AddNewMilitaryMessagelayer();
@@ -824,7 +651,7 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        void mapView_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        void mapView_MouseMove(object sender, MouseEventArgs e)
         {
             if (_map == null || _editState == EditState.Tool)
             {
@@ -833,68 +660,29 @@ namespace MilitaryPlanner.ViewModels
 
             _lastKnownPoint = e.GetPosition(_mapView);
 
-            UpdateCoordinateReadout(_lastKnownPoint);
-
             var adjustedPoint = AdjustPointWithOffset(_lastKnownPoint);
 
             //if a selected symbol, move it
-            if (_editState == EditState.Move && e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+            if (_editState == EditState.Move && e.LeftButton == MouseButtonState.Pressed)
             {
                 UpdateCurrentMessage(_mapView.ScreenToLocation(adjustedPoint));
             }
         }
 
-        private void UpdateCoordinateReadout(Point point)
+        private Point AdjustPointWithOffset(Point lastKnownPoint)
         {
-            var mp = _mapView.ScreenToLocation(point);
-
-            // we can do DD, DMS, GARS, GEOREF, MGRS, USNG, UTM
-            switch (_coordinateReadoutFormat)
-            {
-                case CoordinateReadoutFormat.DD:
-                    CoordinateReadout = ConvertCoordinate.ToDecimalDegrees(mp, 3);
-                    break;
-                case CoordinateReadoutFormat.DMS:
-                    CoordinateReadout = ConvertCoordinate.ToDegreesMinutesSeconds(mp, 1);
-                    break;
-                case CoordinateReadoutFormat.GARS:
-                    CoordinateReadout = ConvertCoordinate.ToGars(mp);
-                    break;
-                case CoordinateReadoutFormat.GEOREF:
-                    CoordinateReadout = ConvertCoordinate.ToGeoref(mp, 4, true);
-                    break;
-                case CoordinateReadoutFormat.MGRS:
-                    CoordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
-                    break;
-                case CoordinateReadoutFormat.USNG:
-                    CoordinateReadout = ConvertCoordinate.ToUsng(mp, 5, true, true);
-                    break;
-                case CoordinateReadoutFormat.UTM:
-                    CoordinateReadout = ConvertCoordinate.ToUtm(mp, UtmConversionMode.None, true);
-                    break;
-                default:
-                    CoordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
-                    break;
-            }
+            return new Point(lastKnownPoint.X + _pointOffset.X, lastKnownPoint.Y + _pointOffset.Y);
         }
 
-        private Point AdjustPointWithOffset(Point _lastKnownPoint)
+        void mapView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            return new Point(_lastKnownPoint.X + _pointOffset.X, _lastKnownPoint.Y + _pointOffset.Y);
-        }
-
-        void mapView_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            //if (_draw.IsEnabled)
-            //    return;
-
             if (_editState == EditState.Move)
             {
                 _editState = EditState.None;
             }
         }
 
-        async void mapView_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        async void mapView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (_editState == EditState.Create || _editState == EditState.Tool)
             {
@@ -973,18 +761,15 @@ namespace MilitaryPlanner.ViewModels
                 {
                     var point = _mapView.LocationToScreen(mp);
 
-                    if (point != null)
-                    {
-                        resultPoint.X = point.X - screenPoint.X;
-                        resultPoint.Y = point.Y - screenPoint.Y;
-                    }
+                    resultPoint.X = point.X - screenPoint.X;
+                    resultPoint.Y = point.Y - screenPoint.Y;
                 }
             }
 
             return resultPoint;
         }
 
-        private async Task<Graphic> HitTestMessageLayerAsync(System.Windows.Input.MouseButtonEventArgs e)
+        private async Task<Graphic> HitTestMessageLayerAsync(MouseButtonEventArgs e)
         {
             if (_mapView != null && _militaryMessageLayer != null)
             {
@@ -1007,55 +792,12 @@ namespace MilitaryPlanner.ViewModels
             return null;
         }
 
-        //private void RefreshMapLayers()
-        //{
-        //    if (_map == null)
-        //    {
-        //        return;
-        //    }
-
-        //    foreach (var layer in _map.Layers)
-        //    {
-        //        var ml = layer as MessageLayer;
-
-        //        if (ml != null)
-        //        {
-        //            //TODO revisit
-        //            //if (_messageLayerList.Where(s => s.MessageLayer.ID == ml.ID).First().VisibleTimeExtent.Intersects(_mapView.TimeExtent))
-        //            //{
-        //            //    ml.IsVisible = true;
-        //            //}
-        //            //else
-        //            //{
-        //            //    ml.IsVisible = false;
-        //            //}
-        //        }
-        //    }
-        //}
-
-        //private void OnSetMessageLayer(object param)
-        //{
-        //    var messageLayer = param as TimeAwareMessageLayer;
-
-        //    if (messageLayer != null)
-        //    {
-        //        _mapView.Map.Layers.Add(messageLayer.MessageLayer);
-        //    }
-        //}
-
         private void SelectMessage(Message message, bool isSelected)
         {
             if (_militaryMessageLayer == null || message == null)
                 return;
 
-            if (isSelected)
-            {
-                _currentMessage = message;
-            }
-            else
-            {
-                _currentMessage = null;
-            }
+            _currentMessage = isSelected ? message : null;
 
             var msg = new MilitaryMessage(message.Id, MilitaryMessageType.PositionReport, isSelected ? MilitaryMessageAction.Select : MilitaryMessageAction.UnSelect);
 
@@ -1079,7 +821,7 @@ namespace MilitaryPlanner.ViewModels
 
         private void UpdateMilitaryMessageControlPoints(MilitaryMessage msg)
         {
-            var tam = _mission.MilitaryMessages.Where(m => m.Id == msg.Id).First();
+            var tam = _mission.MilitaryMessages.First(m => m.Id == msg.Id);
 
             if (tam != null)
             {
@@ -1095,7 +837,7 @@ namespace MilitaryPlanner.ViewModels
             // remove from visible layer
             _militaryMessageLayer.ProcessMessage(msg);
 
-            RemoveMessageFromPhase(CurrentPhaseIndex, _mission.MilitaryMessages.Where(m => m.Id == message.Id).First());
+            RemoveMessageFromPhase(CurrentPhaseIndex, _mission.MilitaryMessages.First(m => m.Id == message.Id));
         }
 
         private void RemoveMessageFromPhase(int phaseIndex, TimeAwareMilitaryMessage tam)
@@ -1130,12 +872,8 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private SymbolViewModel _SelectedSymbol;
+        private SymbolViewModel _selectedSymbol;
         private string _geometryType = String.Empty;
-
-        // edit support
-        //Graphic selectedPointGraphic;
-        //Message selectedMessage;
 
         private bool ProcessMessage(MessageLayer messageLayer, Message msg)
         {
@@ -1194,7 +932,7 @@ namespace MilitaryPlanner.ViewModels
 
         private async void DoActionSymbolChanged(object param)
         {
-            _SelectedSymbol = param as SymbolViewModel;
+            _selectedSymbol = param as SymbolViewModel;
 
             //Cancel editing if started
             if (_mapView.Editor.Cancel.CanExecute(null))
@@ -1202,12 +940,10 @@ namespace MilitaryPlanner.ViewModels
                 _mapView.Editor.Cancel.Execute(null);
             }
 
-            if (_SelectedSymbol != null)
+            if (_selectedSymbol != null)
             {
-                Dictionary<string, string> values = (Dictionary<string, string>)_SelectedSymbol.Model.Values;
+                Dictionary<string, string> values = (Dictionary<string, string>)_selectedSymbol.Model.Values;
                 _geometryType = values["GeometryType"];
-
-                Esri.ArcGISRuntime.Geometry.Geometry geometry = null;
 
                 DrawShape drawShape = DrawShape.Point;
 
@@ -1223,6 +959,7 @@ namespace MilitaryPlanner.ViewModels
                         drawShape = DrawShape.Polygon;
                         break;
                     default:
+                        drawShape = DrawShape.Point;
                         break;
                 }
 
@@ -1231,21 +968,21 @@ namespace MilitaryPlanner.ViewModels
                 try
                 {
                     // get geometry from editor
-                    geometry = await _mapView.Editor.RequestShapeAsync(drawShape);
+                    var geometry = await _mapView.Editor.RequestShapeAsync(drawShape);
 
                     _editState = EditState.None;
 
                     // process symbol with geometry
-                    ProcessSymbol(_SelectedSymbol, geometry);
+                    ProcessSymbol(_selectedSymbol, geometry);
                 }
-                catch (TaskCanceledException tex)
+                catch (TaskCanceledException)
                 {
                     // clean up when drawing task is canceled
                 }
             }
         }
 
-        private void ProcessSymbol(SymbolViewModel symbol, Esri.ArcGISRuntime.Geometry.Geometry geometry)
+        private void ProcessSymbol(SymbolViewModel symbol, Geometry geometry)
         {
             if (symbol == null || geometry == null)
             {
@@ -1253,14 +990,16 @@ namespace MilitaryPlanner.ViewModels
             }
 
             //create a new message
-            var msg = new TimeAwareMilitaryMessage();
+            var msg = new TimeAwareMilitaryMessage
+            {
+                VisibleTimeExtent = new TimeExtent(_mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.Start,
+                    _mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.End),
+                Id = Guid.NewGuid().ToString("D")
+            };
 
             // set default time extent
-            msg.VisibleTimeExtent = new TimeExtent(_mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.Start,
-                                                    _mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.End);
 
             //set the ID and other parts of the message
-            msg.Id = Guid.NewGuid().ToString("D");
             msg.Add(MilitaryMessage.TypePropertyName, Constants.MSG_TYPE_POSITION_REPORT);
             msg.Add(MilitaryMessage.ActionPropertyName, Constants.MSG_ACTION_UPDATE);
             msg.Add(MilitaryMessage.WkidPropertyName, "3857");
@@ -1272,19 +1011,13 @@ namespace MilitaryPlanner.ViewModels
             {
                 case GeometryType.Point:
                     MapPoint point = geometry as MapPoint;
-                    msg.Add(MilitaryMessage.ControlPointsPropertyName, point.X.ToString() + "," + point.Y.ToString());
+                    if (point != null)
+                        msg.Add(MilitaryMessage.ControlPointsPropertyName, string.Format("{0},{1}", point.X.ToString(), point.Y.ToString()));
                     break;
                 case GeometryType.Polygon:
                     Polygon polygon = geometry as Polygon;
-                    string cpts = string.Empty;
+                    string cpts = polygon.Parts.SelectMany(pt => pt.GetPoints()).Aggregate(string.Empty, (current, segpt) => current + (";" + segpt.X.ToString() + "," + segpt.Y.ToString()));
                     //foreach (var pt in polygon.Rings[0])
-                    foreach (var pt in polygon.Parts)
-                    {
-                        foreach (var segpt in pt.GetPoints())
-                        {
-                            cpts += ";" + segpt.X.ToString() + "," + segpt.Y.ToString();
-                        }
-                    }
                     msg.Add(MilitaryMessage.ControlPointsPropertyName, cpts);
                     break;
                 case GeometryType.Polyline:
@@ -1294,16 +1027,7 @@ namespace MilitaryPlanner.ViewModels
                     // TODO find a way to determine if polyline map points need adjustment based on symbol being drawn
                     var mpList = AdjustMapPoints(polyline, symbol);
 
-                    foreach (var mp in mpList)
-                    {
-                        cpts += ";" + mp.X.ToString() + "," + mp.Y.ToString();
-                    }
-
-                    // WARNING, this is from the WPF Runtime, the .net Runtime doesn't have this
-                    //if (_geometryControlType == "ArrowWithOffset")
-                    //{
-                    //    cpts += ";" + cpts.Split(new char[] { ';' }).Last();
-                    //}
+                    cpts = mpList.Aggregate(cpts, (current, mp) => current + (";" + mp.X.ToString() + "," + mp.Y.ToString()));
 
                     msg.Add(MilitaryMessage.ControlPointsPropertyName, cpts);
                     break;
@@ -1330,7 +1054,7 @@ namespace MilitaryPlanner.ViewModels
 
         private void AddMilitaryMessageToMessageList(TimeAwareMilitaryMessage tam)
         {
-            if (_mission.MilitaryMessages.Where(m => m.Id == tam.Id).Count() == 0)
+            if (_mission.MilitaryMessages.Count(m => m.Id == tam.Id) == 0)
             {
                 _mission.MilitaryMessages.Add(tam);
             }
@@ -1349,7 +1073,7 @@ namespace MilitaryPlanner.ViewModels
 
         private List<MapPoint> AdjustMapPoints(Polyline polyline, DrawShape drawShape)
         {
-            if (polyline == null || polyline.Parts == null || polyline.Parts.Count() < 1)
+            if (polyline == null || polyline.Parts == null || !polyline.Parts.Any())
             {
                 return null;
             }
@@ -1370,13 +1094,7 @@ namespace MilitaryPlanner.ViewModels
                     points.Add(thridPoint);
                 }
 
-                foreach (var point in points)
-                {
-                    if (point != points.Last())
-                    {
-                        mapPoints.Add(point);
-                    }
-                }
+                mapPoints.AddRange(points.Where(point => point != points.Last()));
 
                 mapPoints.Reverse();
                 mapPoints.Add(points.Last());
@@ -1419,18 +1137,16 @@ namespace MilitaryPlanner.ViewModels
             _editState = EditState.None;
         }
 
-        private void AddNewMessage(SymbolViewModel symbolViewModel, System.Windows.Point p, string guid)
+        private void AddNewMessage(SymbolViewModel symbolViewModel, Point p, string guid)
         {
             //create a new message
-            var tam = new TimeAwareMilitaryMessage();
+            var tam = new TimeAwareMilitaryMessage
+            {
+                VisibleTimeExtent = new TimeExtent(_mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.Start,
+                    _mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.End),
+                Id = guid
+            };
 
-            // set default time extent
-            tam.VisibleTimeExtent = new TimeExtent(_mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.Start,
-                                                    _mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.End);
-
-            //set the ID and other parts of the message
-            //msg.Id = Guid.NewGuid().ToString();
-            tam.Id = guid;
             tam.Add(MilitaryMessage.TypePropertyName, Constants.MSG_TYPE_POSITION_REPORT);
             tam.Add(MilitaryMessage.ActionPropertyName, Constants.MSG_ACTION_UPDATE);
             tam.Add(MilitaryMessage.WkidPropertyName, "3857");
@@ -1438,7 +1154,6 @@ namespace MilitaryPlanner.ViewModels
             tam.Add(MilitaryMessage.UniqueDesignationPropertyName, "1");
 
             // Construct the Control Points based on the geometry type of the drawn geometry.
-            //MapPoint point = e.Geometry as MapPoint;
             var point = _mapView.ScreenToLocation(p);
             tam.Add(MilitaryMessage.ControlPointsPropertyName, point.X.ToString() + "," + point.Y.ToString());
 

@@ -6,7 +6,7 @@
              xmlns:viewModels="clr-namespace:MilitaryPlanner.ViewModels"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:helper="clr-namespace:MilitaryPlanner.Helpers"
-             xmlns:b="clr-namespace:MilitaryPlanner.DragDrop.UI.Behavior"
+             xmlns:behavior="clr-namespace:MilitaryPlanner.Behavior"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="320">
     <UserControl.Resources>
@@ -31,7 +31,7 @@
 
         <TabControl Grid.Row="1" Grid.ColumnSpan="2" TabStripPlacement="Bottom">
             <TabItem Header="Palette">
-                <ListBox x:Name="SymbolListBox" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="10" ItemsSource="{Binding Symbols}" PreviewMouseDown="SymbolListBox_PreviewMouseDown"
+                <ListBox x:Name="SymbolListBox" Margin="0,0,0,0" ItemsSource="{Binding Symbols}" PreviewMouseDown="SymbolListBox_PreviewMouseDown"
                          helper:EventToCommand.Event ="ListBox.SelectionChanged"
                          helper:EventToCommand.CommandParameter="{Binding SelectedItem}"
                          helper:EventToCommand.Command="{Binding SymbolChangedCommand}">
@@ -52,9 +52,9 @@
                                     <Image Width="{Binding ImageSize}" Height="{Binding ImageSize}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Stretch="Uniform" Source="{Binding Thumbnail}"/>
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto"/>
@@ -64,8 +64,6 @@
                                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Category}"/>
                                         <TextBlock Grid.Row="1" Grid.Column="0">Symbol ID:</TextBlock>
                                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SymbolID}"/>
-                                        <!--<TextBlock Grid.Row="2" Grid.Column="0">Stylefile:</TextBlock>
-                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StyleFile}"/>-->
                                     </Grid>
                                 </Grid>
                             </StackPanel>
@@ -80,43 +78,27 @@
                     <TreeView.ItemContainerStyle>
                         <!-- This Style binds a TreeViewItem to a SymbolGroupViewModel. -->
                         <Style TargetType="{x:Type TreeViewItem}">
-                            <!--<Setter Property="b:TreeViewItemBehavior.IsTemp" Value="True" />-->
-                            <!--<EventSetter Event="TreeViewItem.MouseMove" Handler="treeViewItem_MouseMove" />-->
                             <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                             <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                            <!--<Setter Property="IsEnabled" Value="{Binding IsDragable, Mode=TwoWay}" />-->
                             <Setter Property="FontWeight" Value="Normal" />
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="FontWeight" Value="Bold" />
                                 </Trigger>
-                                <!--<DataTrigger Binding="{Binding IsDragable}" Value="True">
-                                    <Setter Property="Opacity" Value="1.0" />
-                                </DataTrigger>-->
-                                <!--<DataTrigger Binding="{Binding IsDragable}" Value="False">
-                                    <Setter Property="Opacity" Value="0.25" />
-                                    <Setter Property="Background" Value="DarkGray" />
-                                </DataTrigger>-->
                                 <DataTrigger Binding="{Binding HasBeenDragged}" Value="True">
                                     <Setter Property="Opacity" Value="0.5" />
                                 </DataTrigger>
-                                <!--<Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0.25" />
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="True">
-                                    <Setter Property="Opacity" Value="1.0" />
-                                </Trigger>-->
                             </Style.Triggers>
                         </Style>
                     </TreeView.ItemContainerStyle>
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="{Binding ImageSize}" Height="{Binding ImageSize}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Stretch="Uniform" Source="{Binding Thumbnail}">
-                                </Image>
+                                <Image Width="{Binding ImageSize}" Height="{Binding ImageSize}" VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" Stretch="Uniform" Source="{Binding Thumbnail}" />
                                 <TextBlock Text="{Binding Name}" />
                                 <i:Interaction.Behaviors>
-                                    <b:FrameworkElementDragBehavior/>    
+                                    <behavior:FrameworkElementDragBehavior/>    
                                 </i:Interaction.Behaviors>
                             </StackPanel>
                         </HierarchicalDataTemplate>
@@ -124,6 +106,5 @@
                 </TreeView>
             </TabItem>
         </TabControl>
-
     </Grid>
 </UserControl>

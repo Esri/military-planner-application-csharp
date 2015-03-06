@@ -1,0 +1,58 @@
+﻿<Popup x:Class="MilitaryPlanner.Views.GotoXYToolView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+       IsOpen="{Binding IsToolOpen}"
+       PopupAnimation="Fade"
+       Placement="Top"
+       VerticalOffset="120"
+       HorizontalOffset="10"
+             d:DesignHeight="320" d:DesignWidth="300">
+    <Grid >
+        <Border Name="gotoXYToolPanel" Background="White" BorderBrush="Black" BorderThickness="1"
+                    Margin="3" Padding="7"
+                    Width="430">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <StackPanel Orientation="Horizontal" >
+                <Button Content="Go" Height="20" Width="30" Command="{Binding GotoXYToolCommand}" />
+                <ComboBox SelectedValuePath="Content" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Height="20" Margin="3,3,3,3" SelectedValue="{Binding ScaleSelectedValue, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="1:5000" />
+                    <ComboBoxItem Content="1:25000" />
+                    <ComboBoxItem Content="1:50000" />
+                    <ComboBoxItem Content="1:100000" />
+                    <ComboBoxItem Content="1:250000" />
+                    <ComboBoxItem Content="1:500000" />
+                    <ComboBoxItem Content="1:1000000" />
+                    <ComboBoxItem Content="1:5000000" />
+                    <ComboBoxItem Content="1:10000000" />
+                    <ComboBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding GotoXYToolCommand}" />
+                    </ComboBox.InputBindings>
+                </ComboBox>
+                <ComboBox SelectedValuePath="Content" HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Height="20" Margin="3,3,3,3" SelectedValue="{Binding FormatSelectedValue, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="DD" />
+                    <ComboBoxItem Content="DDM" />
+                    <ComboBoxItem Content="DMS" />
+                    <ComboBoxItem Content="GARS" />
+                    <ComboBoxItem Content="GEOREF" />
+                    <ComboBoxItem Content="MGRS" />
+                    <ComboBoxItem Content="USNG" />
+                    <ComboBoxItem Content="UTM" />
+                    <ComboBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding GotoXYToolCommand}" />
+                    </ComboBox.InputBindings>
+                </ComboBox>
+                <TextBox Width="140" Text="{Binding Coordinate, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding GotoXYToolCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Content="Close" Margin="10,3,3,3" Command="{Binding CloseToolCommand}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Popup>
