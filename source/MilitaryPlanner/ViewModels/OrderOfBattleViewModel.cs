@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using MilitaryPlanner.Helpers;
+using System.Linq;
 using System.Windows.Controls;
-using System.Windows;
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Symbology.Specialized;
+using MilitaryPlanner.Helpers;
 
 namespace MilitaryPlanner.ViewModels
 {
     public class OrderOfBattleViewModel : BaseViewModel
     {
-        public static SymbolDictionary _symbolDictionary;
+        public static SymbolDictionary SymbolDictionary;
 
         // Public members for data binding
         public ObservableCollection<SymbolViewModel> Symbols { get; private set; }
@@ -24,20 +22,20 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand SymbolChangedCommand { get; set; }
         public RelayCommand SymbolDragCommand { get; set; }
 
-        private int _imageSize;
+        private readonly int _imageSize;
 
         // Currently selected symbol 
-        SymbolViewModel _SelectedSymbol = null;
+        SymbolViewModel _selectedSymbol = null;
         public SymbolViewModel SelectedSymbol
         {
             get
             {
-                return _SelectedSymbol;
+                return _selectedSymbol;
             }
 
             set
             {
-                _SelectedSymbol = value;
+                _selectedSymbol = value;
 
                 RaisePropertyChanged(() => SelectedSymbol);
 
@@ -61,9 +59,9 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_ITEM_WITH_GUID_ADDED, DoActionItemWithGuidAdded);
 
             // Check the ArcGIS Runtime is initialized
-            if (!Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.IsInitialized)
+            if (!ArcGISRuntimeEnvironment.IsInitialized)
             {
-                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
+                ArcGISRuntimeEnvironment.Initialize();
             }
 
             // hook the commands
@@ -71,7 +69,7 @@ namespace MilitaryPlanner.ViewModels
             SymbolChangedCommand = new RelayCommand(OnSymbolChanged);
 
             // Create a new SymbolDictionary instance 
-            _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+            SymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             // Collection of view models for the displayed list of symbols
             Symbols = new ObservableCollection<SymbolViewModel>();
@@ -177,23 +175,15 @@ namespace MilitaryPlanner.ViewModels
             }
             else
             {
-                foreach (var stvm2 in stvm.Children)
-                {
-                    var result = FindChildWithGuid(stvm2, guid);
-
-                    if(result != null)
-                    {
-                        return result;
-                    }
-                }
+                return stvm.Children.Select(stvm2 => FindChildWithGuid(stvm2, guid)).FirstOrDefault(result => result != null);
             }
 
             return null;
         }
 
-        private void ExpandGroupSymbol(SymbolGroupViewModel _groupSymbol)
+        private void ExpandGroupSymbol(SymbolGroupViewModel groupSymbol)
         {
-            foreach (var svm in _groupSymbol.FirstGeneration)
+            foreach (var svm in groupSymbol.FirstGeneration)
             {
                 ExpandSymbolTreeViewModelRecursive(svm);
             }
@@ -241,7 +231,7 @@ namespace MilitaryPlanner.ViewModels
             Symbols.Clear();
 
             // Perform the search applying any selected keywords and filters 
-            IEnumerable<SymbolProperties> symbols = _symbolDictionary.FindSymbols(filters);
+            IEnumerable<SymbolProperties> symbols = SymbolDictionary.FindSymbols(filters);
 
             if (!String.IsNullOrWhiteSpace(SearchString))
             {
@@ -249,7 +239,7 @@ namespace MilitaryPlanner.ViewModels
                 {
                     if (!String.IsNullOrWhiteSpace(ss))
                     {
-                        symbols = symbols.Where(s => s.Name.ToLower().Contains(ss.ToLower().Trim()) || s.Keywords.Where(kw => kw.ToLower().Contains(ss.ToLower().Trim())).Count() > 0);
+                        symbols = symbols.Where(s => s.Name.ToLower().Contains(ss.ToLower().Trim()) || s.Keywords.Count(kw => kw.ToLower().Contains(ss.ToLower().Trim())) > 0);
                     }
                 }
             }

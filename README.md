@@ -7,7 +7,7 @@ Military Planner Application
 
 This is an Esri ArcGIS for .NET application that can be used for planning military operations.  It uses ArcGIS SDK for .NET 10.2.4. Learn more about it [here](http://solutions.arcgis.com/military/templates/military-planner/).
 
-![alt text](/data/screenshots/Capture.PNG?raw=true) 
+![Image of Military Planner Application](ScreenShot.PNG?raw=true) 
 
 ## Features
 * Time enabled layers, grouped by Courses of Action and Phases of the Operation

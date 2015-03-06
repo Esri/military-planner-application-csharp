@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Media;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 
@@ -12,12 +9,12 @@ namespace MilitaryPlanner.ViewModels
     {
         public string Category
         {
-            get { return _model.Values["Category"].ToString(); }
+            get { return _model.Values["Category"]; }
         }
 
         public string SymbolID
         {
-            get { return _model.Values["SymbolID"].ToString(); }
+            get { return _model.Values["SymbolID"]; }
         }
 
         //public string StyleFile
@@ -34,7 +31,7 @@ namespace MilitaryPlanner.ViewModels
 
         private int _imageSize;
 
-        private SymbolProperties _model;
+        private readonly SymbolProperties _model;
 
         public SymbolViewModel(SymbolProperties model, int imageSize)
         {

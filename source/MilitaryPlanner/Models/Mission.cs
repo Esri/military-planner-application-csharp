@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using MilitaryPlanner.Helpers;
-using System.IO;
-using System.Xml.Serialization;
+using System.Windows;
 using System.Xml;
-using Esri.ArcGISRuntime.Symbology.Specialized;
+using System.Xml.Serialization;
 using Esri.ArcGISRuntime.Data;
+using MilitaryPlanner.Helpers;
 
 namespace MilitaryPlanner.Models
 {
@@ -99,8 +98,8 @@ namespace MilitaryPlanner.Models
                 return false;
             }
 
-            XmlSerializer x = new XmlSerializer(this.GetType());
-            XmlWriter writer = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
+            XmlSerializer x = new XmlSerializer(GetType());
+            XmlWriter writer = new XmlTextWriter(filename, Encoding.UTF8);
 
             x.Serialize(writer, this);
 
@@ -151,22 +150,22 @@ namespace MilitaryPlanner.Models
             {
                 try
                 {
-                    XmlSerializer x = new XmlSerializer(this.GetType());
+                    XmlSerializer x = new XmlSerializer(GetType());
                     TextReader tr = new StreamReader(filename);
                     var temp = x.Deserialize(tr) as Mission;
 
                     if(temp != null)
                     {
-                        this.Name = temp.Name;
-                        this.PhaseList = temp.PhaseList;
-                        this.MilitaryMessages = temp.MilitaryMessages;
+                        Name = temp.Name;
+                        PhaseList = temp.PhaseList;
+                        MilitaryMessages = temp.MilitaryMessages;
 
                         return true;
                     }
                 }
                 catch
                 {
-
+                    MessageBox.Show("Error in loading mission file.");
                 }
                 
             }
@@ -178,9 +177,7 @@ namespace MilitaryPlanner.Models
         {
             try
             {
-                var phase = new MissionPhase(name);
-
-                phase.ID = Guid.NewGuid().ToString("D");
+                var phase = new MissionPhase(name) {ID = Guid.NewGuid().ToString("D")};
 
                 if (PhaseList.Count > 0)
                 {
@@ -206,26 +203,19 @@ namespace MilitaryPlanner.Models
 
         public Mission ShallowCopy()
         {
-            return (Mission)this.MemberwiseClone();
+            return (Mission)MemberwiseClone();
         }
 
         public Mission DeepCopy()
         {
-            Mission mission = (Mission)this.MemberwiseClone();
+            Mission mission = (Mission)MemberwiseClone();
 
             mission.Name = String.Copy(Name);
 
-            var pl = new List<MissionPhase>();
-
-            foreach (var mp in PhaseList)
+            var pl = PhaseList.Select(mp => new MissionPhase
             {
-                pl.Add(new MissionPhase()
-                    {
-                        ID = String.Copy(mp.ID),
-                        Name = String.Copy(mp.Name),
-                        VisibleTimeExtent = new TimeExtent(mp.VisibleTimeExtent.Start, mp.VisibleTimeExtent.End)
-                    });
-            }
+                ID = String.Copy(mp.ID), Name = String.Copy(mp.Name), VisibleTimeExtent = new TimeExtent(mp.VisibleTimeExtent.Start, mp.VisibleTimeExtent.End)
+            }).ToList();
 
             mission.PhaseList = pl;
 

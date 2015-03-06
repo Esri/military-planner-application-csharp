@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Esri.ArcGISRuntime.Layers;
 using System.Windows;
+using Esri.ArcGISRuntime.Layers;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -15,62 +11,62 @@ namespace MilitaryPlanner.ViewModels
 
         }
 
-        private string routeTotals = String.Empty;
+        private string _routeTotals = String.Empty;
         public string RouteTotals
         {
             get
             {
-                return routeTotals;
+                return _routeTotals;
             }
 
             set
             {
-                routeTotals = value;
+                _routeTotals = value;
                 RaisePropertyChanged(() => RouteTotals);
             }
         }
 
-        private GraphicCollection graphics = null;
+        private GraphicCollection _graphics = null;
         public GraphicCollection Graphics
         {
             get
             {
-                return graphics;
+                return _graphics;
             }
 
             set
             {
-                graphics = value;
+                _graphics = value;
                 RaisePropertyChanged(() => Graphics);
             }
         }
 
-        private Visibility panelResultsVisibility = Visibility.Collapsed;
+        private Visibility _panelResultsVisibility = Visibility.Collapsed;
         public Visibility PanelResultsVisibility
         {
             get
             {
-                return panelResultsVisibility;
+                return _panelResultsVisibility;
             }
 
             set
             {
-                panelResultsVisibility = value;
+                _panelResultsVisibility = value;
                 RaisePropertyChanged(() => PanelResultsVisibility);
             }
         }
 
-        private Visibility progressVisibility = Visibility.Collapsed;
+        private Visibility _progressVisibility = Visibility.Collapsed;
         public Visibility ProgressVisibility
         {
             get
             {
-                return progressVisibility;
+                return _progressVisibility;
             }
 
             set
             {
-                progressVisibility = value;
+                _progressVisibility = value;
                 RaisePropertyChanged(() => ProgressVisibility);
             }
         }

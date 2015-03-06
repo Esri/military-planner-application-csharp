@@ -5,17 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:viewModels="clr-namespace:MilitaryPlanner.ViewModels"
-             xmlns:local="clr-namespace:MilitaryPlanner"
              xmlns:helper="clr-namespace:MilitaryPlanner.Helpers"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:b="clr-namespace:MilitaryPlanner.DragDrop.UI.Behavior"
-             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="MilitaryPlanner.Views.MapView"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="MilitaryPlanner.Views.MapView"
              xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:behavior="clr-namespace:MilitaryPlanner.Behavior"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="500">
     <UserControl.Resources>
         <viewModels:MapViewModel x:Key="MyMapViewModel" />
-        <BooleanToVisibilityConverter x:Key="boolConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolConverter" />
     </UserControl.Resources>
 	<Grid DataContext="{StaticResource MyMapViewModel}"
 		helper:EventToCommand.Event="FrameworkElement.Loaded"
@@ -47,7 +46,7 @@
 		</VisualStateManager.VisualStateGroups>
         <esri:MapView x:Name="MyMapView">
             <i:Interaction.Behaviors>
-                <b:FrameworkElementDropBehavior/>
+                <behavior:FrameworkElementDropBehavior/>
             </i:Interaction.Behaviors>
             <esri:Map x:Name="MyMap">
                 <!-- ArcGIS Online Tiled Basemap Layer -->
@@ -95,16 +94,6 @@
 			<Grid x:Name="layoutGrid" Margin="5" Background="White">
 				<StackPanel Orientation="Vertical">
 					<StackPanel x:Name="MyStackPanel" Orientation="Horizontal">
-						<!--<Button Content="Edit" Margin="5" Command="{Binding EditStartCommand}"           
-							ToolTipService.ToolTip="Start editing"/>
-						<Button Content="Undo" Margin="5" Command="{Binding EditUndoCommand}"
-							ToolTipService.ToolTip="Undo"/>
-						<Button Content="Redo" Margin="5" Command="{Binding EditRedoCommand}"
-							ToolTipService.ToolTip="Redo"/>
-						<Button Content="Stop" Margin="5" Command="{Binding EditStopCommand}"           
-							ToolTipService.ToolTip="Stop edit"/>-->
-						<!--<Button Content="Cancel" Margin="5" Command="{Binding EditCancelCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>-->
 						<Button Content="Add Phase" Margin="5" Command="{Binding PhaseAddCommand}"            
 							ToolTipService.ToolTip="Add a new phase"/>
 						<!--<Button Content="Remove Phase" Margin="5" Command="{Binding PhaseRemoveCommand}"            
@@ -135,7 +124,7 @@
 			</i:Interaction.Triggers>
 		</Rectangle>
         <Border x:Name="TimeAwareAttributeEditor"
-                Visibility="{Binding HasTimeExtent, Converter={StaticResource boolConverter}}"
+                Visibility="{Binding HasTimeExtent, Converter={StaticResource BoolConverter}}"
                 Background="White"
                 BorderBrush="Black"
                 BorderThickness="1"

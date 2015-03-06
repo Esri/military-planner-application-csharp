@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MilitaryPlanner.Helpers
+﻿namespace MilitaryPlanner.Helpers
 {
     static public class Constants
     {
@@ -14,7 +8,6 @@ namespace MilitaryPlanner.Helpers
         public const string ACTION_MSG_LAYER_ADDED = "MessageLayerAdded";
         public const string ACTION_MSG_LAYER_REMOVED = "MessageLayerRemoved";
         public const string ACTION_MISSION_LOADED = "MissionLoaded";
-        public const string ACTION_MISSION_HYDRATE = "MissionHydrate";
         public const string ACTION_SAVE_MISSION = "SaveMission";
         public const string ACTION_OPEN_MISSION = "OpenMission";
         public const string ACTION_MSG_PROCESSED = "MessageProcessed";

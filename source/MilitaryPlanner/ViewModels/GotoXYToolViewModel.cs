@@ -1,9 +1,6 @@
-﻿using MilitaryPlanner.Helpers;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MilitaryPlanner.Helpers;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -26,9 +23,9 @@ namespace MilitaryPlanner.ViewModels
         {
             var item = new GotoItem();
 
-            if (ScaleSelectedValue != null && !String.IsNullOrWhiteSpace(ScaleSelectedValue))
+            if (!String.IsNullOrWhiteSpace(ScaleSelectedValue))
             {
-                var temp = ScaleSelectedValue.Split(new string[] { "1:" }, StringSplitOptions.None);
+                var temp = ScaleSelectedValue.Split(new[] { "1:" }, StringSplitOptions.None);
                 if (temp.Count() == 2)
                 {
                     item.Scale = temp[1];

@@ -1,39 +1,32 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿using System;
+using System.Windows;
 using Esri.ArcGISRuntime.Geometry;
 using MilitaryPlanner.Helpers;
 using MilitaryPlanner.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using MilitaryPlanner.Views;
+using MapView = Esri.ArcGISRuntime.Controls.MapView;
 
 namespace MilitaryPlanner.Controllers
 {
     public class GotoXYToolController
     {
-        private MapView mapView;
-        private MapViewModel mapViewModel;
-        private Views.GotoXYToolView gotoXYToolView;
+        private readonly MapView _mapView;
+        private readonly GotoXYToolView _gotoXyToolView;
 
         public GotoXYToolController(MapView mapView, MapViewModel mapViewModel)
         {
-            this.mapView = mapView;
-            this.mapViewModel = mapViewModel;
+            _mapView = mapView;
 
-            this.gotoXYToolView = new Views.GotoXYToolView();
-            this.gotoXYToolView.PlacementTarget = mapView;
-            this.gotoXYToolView.ViewModel.mapView = mapView;
+            _gotoXyToolView = new GotoXYToolView {PlacementTarget = mapView, ViewModel = {mapView = mapView}};
 
-            var owner = System.Windows.Window.GetWindow(mapView);
+            var owner = Window.GetWindow(mapView);
 
             if (owner != null)
             {
                 owner.LocationChanged += (sender, e) =>
                     {
-                        gotoXYToolView.HorizontalOffset += 1;
-                        gotoXYToolView.HorizontalOffset -= 1;
+                        _gotoXyToolView.HorizontalOffset += 1;
+                        _gotoXyToolView.HorizontalOffset -= 1;
                     };
             }
 
@@ -42,7 +35,7 @@ namespace MilitaryPlanner.Controllers
 
         public void Toggle()
         {
-            gotoXYToolView.ViewModel.Toggle();
+            _gotoXyToolView.ViewModel.Toggle();
         }
 
         private void OnGotoXYCoordinates(object obj)
@@ -52,53 +45,57 @@ namespace MilitaryPlanner.Controllers
                 var gitem = obj as GotoItem;
 
                 var sr = SpatialReferences.Wgs84;
-                MapPoint mp;
 
-                switch (gitem.Format)
+                if (gitem != null)
                 {
-                    case "DD":
-                        mp = ConvertCoordinate.FromDecimalDegrees(gitem.Coordinate, sr);
-                        break;
-                    case "DDM":
-                        mp = ConvertCoordinate.FromDegreesDecimalMinutes(gitem.Coordinate, sr);
-                        break;
-                    case "DMS":
-                        mp = ConvertCoordinate.FromDegreesMinutesSeconds(gitem.Coordinate, sr);
-                        break;
-                    case "GARS":
-                        mp = ConvertCoordinate.FromGars(gitem.Coordinate, sr, GarsConversionMode.Center);
-                        break;
-                    case "GEOREF":
-                        mp = ConvertCoordinate.FromGeoref(gitem.Coordinate, sr);
-                        break;
-                    case "MGRS":
-                        mp = ConvertCoordinate.FromMgrs(gitem.Coordinate, sr, MgrsConversionMode.Automatic);
-                        break;
-                    case "USNG":
-                        mp = ConvertCoordinate.FromUsng(gitem.Coordinate, sr);
-                        break;
-                    case "UTM":
-                        mp = ConvertCoordinate.FromUtm(gitem.Coordinate, sr, UtmConversionMode.None);
-                        break;
-                    default:
-                        mp = ConvertCoordinate.FromDecimalDegrees(gitem.Coordinate, SpatialReferences.Wgs84);
-                        break;
-                }
+                    MapPoint mp;
 
-                if (mp != null)
-                {
-                    if (!String.IsNullOrWhiteSpace(gitem.Scale))
+                    switch (gitem.Format)
                     {
-                        mapView.SetViewAsync(mp, Convert.ToDouble(gitem.Scale));
+                        case "DD":
+                            mp = ConvertCoordinate.FromDecimalDegrees(gitem.Coordinate, sr);
+                            break;
+                        case "DDM":
+                            mp = ConvertCoordinate.FromDegreesDecimalMinutes(gitem.Coordinate, sr);
+                            break;
+                        case "DMS":
+                            mp = ConvertCoordinate.FromDegreesMinutesSeconds(gitem.Coordinate, sr);
+                            break;
+                        case "GARS":
+                            mp = ConvertCoordinate.FromGars(gitem.Coordinate, sr, GarsConversionMode.Center);
+                            break;
+                        case "GEOREF":
+                            mp = ConvertCoordinate.FromGeoref(gitem.Coordinate, sr);
+                            break;
+                        case "MGRS":
+                            mp = ConvertCoordinate.FromMgrs(gitem.Coordinate, sr, MgrsConversionMode.Automatic);
+                            break;
+                        case "USNG":
+                            mp = ConvertCoordinate.FromUsng(gitem.Coordinate, sr);
+                            break;
+                        case "UTM":
+                            mp = ConvertCoordinate.FromUtm(gitem.Coordinate, sr, UtmConversionMode.None);
+                            break;
+                        default:
+                            mp = ConvertCoordinate.FromDecimalDegrees(gitem.Coordinate, SpatialReferences.Wgs84);
+                            break;
+                    }
+
+                    if (mp != null)
+                    {
+                        if (!String.IsNullOrWhiteSpace(gitem.Scale))
+                        {
+                            _mapView.SetViewAsync(mp, Convert.ToDouble(gitem.Scale));
+                        }
+                        else
+                        {
+                            _mapView.SetViewAsync(mp);
+                        }
                     }
                     else
                     {
-                        mapView.SetViewAsync(mp);
+                        MessageBox.Show("Failed to convert coordinate.");
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Failed to convert coordinate.");
                 }
             }
             catch

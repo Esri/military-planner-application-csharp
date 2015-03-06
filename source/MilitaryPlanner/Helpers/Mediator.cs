@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MilitaryPlanner.Helpers
 {
     static public class Mediator
     {
-        static IDictionary<string, List<Action<object>>> pl_dict = new Dictionary<string, List<Action<object>>>();
+        static readonly IDictionary<string, List<Action<object>>> pl_dict = new Dictionary<string, List<Action<object>>>();
 
         static public void Register(string token, Action<object> callback)
         {

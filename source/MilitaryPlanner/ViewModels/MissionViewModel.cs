@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using MilitaryPlanner.Models;
-using System.Collections.ObjectModel;
 using System.Windows.Data;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using MilitaryPlanner.Helpers;
-using Esri.ArcGISRuntime.Data;
+using MilitaryPlanner.Models;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -39,11 +37,10 @@ namespace MilitaryPlanner.ViewModels
 
         public MissionViewModel()
         {
-            //_symbols = new ReadOnlyCollection<SymbolViewModel>(new List<SymbolViewModel>());
-
             // Create a new SymbolDictionary instance 
-            SymbolLoader._symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+            SymbolLoader.SymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
+            // use this for testing
             //CurrentMission =  Mission.Load(@".\data\missions\testMission.xml");
 
             Mediator.Register(Constants.ACTION_MISSION_CLONED, OnMissionCloned);
@@ -105,15 +102,10 @@ namespace MilitaryPlanner.ViewModels
 
             set
             {
-                //if (value != _currentPhaseIndex)
-                {
-                    _currentPhaseIndex = value;
-                    // update current time extent
-                    //CurrentTimeExtent = _mission.PhaseList[_currentPhaseIndex].VisibleTimeExtent;
-                    CurrentPhase = _mission.PhaseList[_currentPhaseIndex];
-                    RaisePropertyChanged(() => CurrentPhaseIndex);
-                    RaisePropertyChanged(() => PhaseMessage);
-                }
+                _currentPhaseIndex = value;
+                CurrentPhase = _mission.PhaseList[_currentPhaseIndex];
+                RaisePropertyChanged(() => CurrentPhaseIndex);
+                RaisePropertyChanged(() => PhaseMessage);
             }
         }
 
@@ -140,21 +132,6 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        //private TimeExtent _currentTimeExtent = null;
-        //public TimeExtent CurrentTimeExtent
-        //{
-        //    get
-        //    {
-        //        return _currentTimeExtent;
-        //    }
-
-        //    set
-        //    {
-        //        _currentTimeExtent = value;
-        //        RaisePropertyChanged(() => CurrentTimeExtent);
-        //    }
-        //}
-
         private void ProcessMission()
         {
             if (_mission == null || _mission.PhaseList.Count < 1)
@@ -167,7 +144,6 @@ namespace MilitaryPlanner.ViewModels
             // ok, we have a mission with at least 1 phase
             int currentStartPhase = 0;
             int currentEndPhase = 0;
-            //int currentPhaseLength = 1;
 
             foreach (var phase in _mission.PhaseList)
             {
@@ -189,7 +165,7 @@ namespace MilitaryPlanner.ViewModels
             // is this an update or a new symbol
             var foundSymbol = _symbols.Where(sl => sl.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName) && sl.ItemSVM.Model.Values[Message.IdPropertyName] == pm.ID);
 
-            if (foundSymbol != null && foundSymbol.Count() > 0)
+            if (foundSymbol != null && foundSymbol.Any())
             {
                 // symbol is in list, do an update
                 var ps = foundSymbol.ElementAt(0);
@@ -199,12 +175,14 @@ namespace MilitaryPlanner.ViewModels
             else
             {
                 // symbol is missing, ADD a new one
-                var psvm = new PhaseSymbolViewModel();
-                psvm.StartPhase = currentStartPhase;
-                psvm.EndPhase = currentEndPhase;
+                var psvm = new PhaseSymbolViewModel
+                {
+                    StartPhase = currentStartPhase,
+                    EndPhase = currentEndPhase,
+                    ItemSVM = SymbolLoader.Search(pm.PropertyItems.Where(pi => pi.Key == "sic").ElementAt(0).Value)
+                };
 
                 // create SVM
-                psvm.ItemSVM = SymbolLoader.Search(pm.PropertyItems.Where(pi => pi.Key == "sic").ElementAt(0).Value);
                 if (!psvm.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName))
                 {
                     psvm.ItemSVM.Model.Values.Add(Message.IdPropertyName, pm.ID);
@@ -226,7 +204,6 @@ namespace MilitaryPlanner.ViewModels
         private SymbolViewModel _itemSVM;
         private int _startPhase = 0;
         private int _endPhase = 0;
-        //private int _phaseLength = 0;
 
         public SymbolViewModel ItemSVM
         {
@@ -237,6 +214,7 @@ namespace MilitaryPlanner.ViewModels
             set
             {
                 _itemSVM = value;
+                RaisePropertyChanged(() => ItemSVM);
             }
         }
 
@@ -270,7 +248,7 @@ namespace MilitaryPlanner.ViewModels
     public class VariableWidthConverter : IMultiValueConverter
     {
 
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             int totalPhaseLength = (int)values[0];
             int phaseLength = (int)values[1];
@@ -286,7 +264,7 @@ namespace MilitaryPlanner.ViewModels
             return width;
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

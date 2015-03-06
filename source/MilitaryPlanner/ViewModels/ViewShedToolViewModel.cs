@@ -1,14 +1,11 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿using System;
+using System.Linq;
+using System.Windows;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using MilitaryPlanner.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -45,46 +42,46 @@ namespace MilitaryPlanner.ViewModels
 
         private GraphicsOverlay _inputOverlay;
         private GraphicsOverlay _viewshedOverlay;
-        private Geoprocessor _gpTask;
+        private readonly Geoprocessor _gpTask;
 
-        private bool _ViewShedEnabled = true;
+        private bool _viewShedEnabled = true;
         public bool ViewShedEnabled
         {
             get
             {
-                return _ViewShedEnabled;
+                return _viewShedEnabled;
             }
             set
             {
-                _ViewShedEnabled = value;
+                _viewShedEnabled = value;
                 RaisePropertyChanged(() => ViewShedEnabled);
             }
         }
 
-        private Visibility _ViewShedProgressVisible = Visibility.Collapsed;
+        private Visibility _viewShedProgressVisible = Visibility.Collapsed;
         public Visibility ViewShedProgressVisible
         {
             get
             {
-                return _ViewShedProgressVisible;
+                return _viewShedProgressVisible;
             }
             set
             {
-                _ViewShedProgressVisible = value;
+                _viewShedProgressVisible = value;
                 RaisePropertyChanged(() => ViewShedProgressVisible);
             }
         }
 
-        private string _ToolStatus = "";
+        private string _toolStatus = "";
         public string ToolStatus
         {
             get
             {
-                return _ToolStatus;
+                return _toolStatus;
             }
             set
             {
-                _ToolStatus = value;
+                _toolStatus = value;
                 RaisePropertyChanged(() => ToolStatus);
             }
         }
@@ -118,7 +115,7 @@ namespace MilitaryPlanner.ViewModels
                     throw new ApplicationException("No viewshed graphics returned for this start point.");
 
                 ToolStatus = "Finished processing. Retrieving results...";
-                var viewshedLayer = result.OutParameters[0] as GPFeatureRecordSetLayer;
+                var viewshedLayer = (GPFeatureRecordSetLayer) result.OutParameters[0];
                 _viewshedOverlay.Graphics.AddRange(viewshedLayer.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)

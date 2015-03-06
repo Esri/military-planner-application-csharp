@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 
-namespace MilitaryPlanner.DragDrop.UI.Behavior
+namespace MilitaryPlanner.Behavior
 {
     interface IDropable
     {
@@ -17,7 +14,7 @@ namespace MilitaryPlanner.DragDrop.UI.Behavior
         /// Drop data into the collection.
         /// </summary>
         /// <param name="data">The data to be dropped</param>
-        /// <param name="index">optional: The index location to insert the data</param>
+        /// <param name="e">drag event args</param>
         void Drop(object data, DragEventArgs e);
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace MilitaryPlanner.DragDrop.UI.Behavior
+namespace MilitaryPlanner.Behavior
 {
     interface IDragable
     {

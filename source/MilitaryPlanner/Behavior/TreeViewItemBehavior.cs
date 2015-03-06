@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Interactivity;
-using System.Windows.Input;
+﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace MilitaryPlanner.DragDrop.UI.Behavior
+namespace MilitaryPlanner.Behavior
 {
     public static class TreeViewItemBehavior
     {

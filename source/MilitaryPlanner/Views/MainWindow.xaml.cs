@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using System.Windows.Navigation;
+﻿using System.Windows;
 
 namespace MilitaryPlanner.Views
 {

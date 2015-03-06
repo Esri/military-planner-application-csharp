@@ -1,15 +1,11 @@
-﻿using MilitaryPlanner.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Esri.ArcGISRuntime.Controls;
+using MilitaryPlanner.Helpers;
 
 namespace MilitaryPlanner.ViewModels
 {
     public class BaseToolViewModel : BaseViewModel
     {
-        public Esri.ArcGISRuntime.Controls.MapView mapView { get; set; }
+        public MapView mapView { get; set; }
 
         public RelayCommand OpenToolCommand { get; set; }
         public RelayCommand CloseToolCommand { get; set; }
@@ -20,18 +16,18 @@ namespace MilitaryPlanner.ViewModels
             CloseToolCommand = new RelayCommand(OnCloseToolCommand);
         }
 
-        private bool _IsToolOpen = false;
+        private bool _isToolOpen = false;
         
         public bool IsToolOpen
         {
             get
             {
-                return _IsToolOpen;
+                return _isToolOpen;
             }
 
             set
             {
-                _IsToolOpen = value;
+                _isToolOpen = value;
                 RaisePropertyChanged(() => IsToolOpen);
             }
         }

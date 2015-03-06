@@ -1,20 +1,17 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿using System;
+using System.Windows;
+using System.Windows.Input;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using MilitaryPlanner.Helpers;
 using MilitaryPlanner.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace MilitaryPlanner.Controllers
 {
     public class CoordinateReadoutController
     {
-        private MapView mapView;
-        private MapViewModel mapViewModel;
+        private readonly MapView _mapView;
+        private readonly MapViewModel _mapViewModel;
 
         private enum CoordinateReadoutFormat
         {
@@ -27,14 +24,14 @@ namespace MilitaryPlanner.Controllers
             UTM
         };
 
-        private CoordinateReadoutFormat coordinateReadoutFormat = CoordinateReadoutFormat.DD;
+        private CoordinateReadoutFormat _coordinateReadoutFormat = CoordinateReadoutFormat.DD;
 
         public CoordinateReadoutController(MapView mapView, MapViewModel mapViewModel)
         {
-            this.mapView = mapView;
-            this.mapViewModel = mapViewModel;
+            _mapView = mapView;
+            _mapViewModel = mapViewModel;
 
-            this.mapView.MouseMove += mapView_MouseMove;
+            _mapView.MouseMove += mapView_MouseMove;
 
             Mediator.Register(Constants.ACTION_COORDINATE_READOUT_FORMAT_CHANGED, OnCoordinateReadoutFormatChanged);
         }
@@ -48,77 +45,77 @@ namespace MilitaryPlanner.Controllers
                 switch (format)
                 {
                     case "DD":
-                        coordinateReadoutFormat = CoordinateReadoutFormat.DD;
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.DD;
                         break;
                     case "DMS":
-                        coordinateReadoutFormat = CoordinateReadoutFormat.DMS;
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.DMS;
                         break;
                     case "GARS":
-                        coordinateReadoutFormat = CoordinateReadoutFormat.GARS;
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.GARS;
                         break;
                     case "GEOREF":
-                        coordinateReadoutFormat = CoordinateReadoutFormat.GEOREF;
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.GEOREF;
                         break;
                     case "MGRS":
-                        coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
                         break;
                     case "USNG":
-                        coordinateReadoutFormat = CoordinateReadoutFormat.USNG;
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.USNG;
                         break;
                     case "UTM":
-                        coordinateReadoutFormat = CoordinateReadoutFormat.UTM;
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.UTM;
                         break;
                     default:
-                        coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
+                        _coordinateReadoutFormat = CoordinateReadoutFormat.MGRS;
                         break;
                 }
             }
         }
 
-        void mapView_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        void mapView_MouseMove(object sender, MouseEventArgs e)
         {
-            UpdateCoordinateReadout(e.GetPosition(mapView));
+            UpdateCoordinateReadout(e.GetPosition(_mapView));
         }
 
         private void UpdateCoordinateReadout(Point point)
         {
-            var mp = mapView.ScreenToLocation(point);
+            var mp = _mapView.ScreenToLocation(point);
 
             if (mp == null)
                 return;
 
-            string CoordinateReadout = "";
+            string coordinateReadout;
 
             // we can do DD, DMS, GARS, GEOREF, MGRS, USNG, UTM
-            switch (coordinateReadoutFormat)
+            switch (_coordinateReadoutFormat)
             {
                 case CoordinateReadoutFormat.DD:
-                    CoordinateReadout = ConvertCoordinate.ToDecimalDegrees(mp, 3);
+                    coordinateReadout = ConvertCoordinate.ToDecimalDegrees(mp, 3);
                     break;
                 case CoordinateReadoutFormat.DMS:
-                    CoordinateReadout = ConvertCoordinate.ToDegreesMinutesSeconds(mp, 1);
+                    coordinateReadout = ConvertCoordinate.ToDegreesMinutesSeconds(mp, 1);
                     break;
                 case CoordinateReadoutFormat.GARS:
-                    CoordinateReadout = ConvertCoordinate.ToGars(mp);
+                    coordinateReadout = ConvertCoordinate.ToGars(mp);
                     break;
                 case CoordinateReadoutFormat.GEOREF:
-                    CoordinateReadout = ConvertCoordinate.ToGeoref(mp, 4, true);
+                    coordinateReadout = ConvertCoordinate.ToGeoref(mp, 4, true);
                     break;
                 case CoordinateReadoutFormat.MGRS:
-                    CoordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
+                    coordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
                     break;
                 case CoordinateReadoutFormat.USNG:
-                    CoordinateReadout = ConvertCoordinate.ToUsng(mp, 5, true, true);
+                    coordinateReadout = ConvertCoordinate.ToUsng(mp, 5, true, true);
                     break;
                 case CoordinateReadoutFormat.UTM:
-                    CoordinateReadout = ConvertCoordinate.ToUtm(mp, UtmConversionMode.None, true);
+                    coordinateReadout = ConvertCoordinate.ToUtm(mp, UtmConversionMode.None, true);
                     break;
                 default:
-                    CoordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
+                    coordinateReadout = ConvertCoordinate.ToMgrs(mp, MgrsConversionMode.Automatic, 5, true, true);
                     break;
             }
 
-            mapViewModel.CoordinateReadout = CoordinateReadout;
+            _mapViewModel.CoordinateReadout = coordinateReadout;
         }
 
     }

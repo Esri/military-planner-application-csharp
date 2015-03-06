@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace MilitaryPlanner.Helpers
@@ -73,11 +68,11 @@ namespace MilitaryPlanner.Helpers
             var ele = sender as FrameworkElement;
             if (ele != null)
             {
-                var command = (ICommand)ele.GetValue(EventToCommand.CommandProperty);
+                var command = (ICommand)ele.GetValue(CommandProperty);
                 if (command != null)
                 {
-                    var parameter = ele.GetValue(EventToCommand.CommandParameterProperty);
-                    parameter = parameter == null ? e : parameter;
+                    var parameter = ele.GetValue(CommandParameterProperty);
+                    parameter = parameter ?? e;
                     command.Execute(parameter);
                 }
             }
