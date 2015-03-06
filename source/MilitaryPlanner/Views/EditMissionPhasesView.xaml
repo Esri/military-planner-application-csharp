@@ -5,7 +5,7 @@
         xmlns:viewModels="clr-namespace:MilitaryPlanner.ViewModels"
         Title="Edit Mission Phase" Height="230" Width="300">
     <Window.Resources>
-        <viewModels:MissionViewModel x:Key="MyMissionViewModel" x:Name="myMissionVM" />
+        <viewModels:MissionViewModel x:Key="MyMissionViewModel" />
     </Window.Resources>
     <Grid Margin="15" DataContext="{StaticResource MyMissionViewModel}">
         <Grid.RowDefinitions>
@@ -38,9 +38,9 @@
         <TextBlock Grid.Row="3" Text="End" VerticalAlignment="Center" />
         <xceed:DateTimePicker Grid.Row="3" Grid.Column="1" Margin="5" Value="{Binding CurrentPhase.VisibleTimeExtent.End}" FormatString="yyyy/MM/dd HH:mm" Format="Custom" TimeFormat="Custom" TimeFormatString="HH:mm"/>
 
-        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
-            <Button Name="okButton" IsDefault="True" MinWidth="60" Margin="0,0,10,0" Click="okButton_Click">OK</Button>
-            <Button Name="cancelButton" IsCancel="True" MinWidth="60">Cancel</Button>
+        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Name="OkButton" IsDefault="True" MinWidth="60" Margin="0,0,10,0" Click="okButton_Click">OK</Button>
+            <Button Name="CancelButton" IsCancel="True" MinWidth="60">Cancel</Button>
         </StackPanel>
     </Grid>
 </Window>
