@@ -36,7 +36,7 @@ This is an Esri ArcGIS Runtime for .NET application that can be used for plannin
 * Building
 	* To Build Using Visual Studio
 		* Open and build solution file
-	** Optional: Change references to use the installed SDK instead of NuGet package
+		** Optional: Change references to use the installed SDK instead of NuGet package
 		* 1. Remove / Unintstall Esri.ArcGISRuntime NuGet-package reference from the solution.
 			* Click "Manage NuGet Packages for solution..." from Tools \ NuGet Package Manager
 			* See Installed Packages tab and remove "Esri.ArcGISRuntime" package
@@ -63,7 +63,7 @@ Find a bug or want to request a new feature?  Please let us know by submitting a
 
 ## Contributing
 
-Anyone and everyone is welcome to contribute. 
+Anyone and everyone is welcome to contribute. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
 ## Licensing
 Copyright 2015 Esri
