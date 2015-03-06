@@ -1,4 +1,18 @@
-﻿using System;
+﻿// Copyright 2015 Esri 
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -58,6 +72,7 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand PhaseNextCommand { get; set; }
 
         public RelayCommand SaveCommand { get; set; }
+        public RelayCommand LoadCommand { get; set; }
         public RelayCommand MeasureCommand { get; set; }
         public RelayCommand CoordinateReadoutFormatCommand { get; set; }
 
@@ -90,6 +105,7 @@ namespace MilitaryPlanner.ViewModels
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
 
             SaveCommand = new RelayCommand(OnSaveCommand);
+            LoadCommand = new RelayCommand(OnLoadCommand);
             MeasureCommand = new RelayCommand(OnMeasureCommand);
 
             CoordinateReadoutFormatCommand = new RelayCommand(OnCoordinateReadoutFormatCommand);
@@ -121,6 +137,21 @@ namespace MilitaryPlanner.ViewModels
             if (sfd.ShowDialog() == true)
             {
                 Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, String.Format("{0}{1}{2}",sfd.FilterIndex, Constants.SAVE_AS_DELIMITER, sfd.FileName));
+            }
+        }
+
+        private void OnLoadCommand(object obj)
+        {
+            var ofd = new OpenFileDialog
+            {
+                Filter = "xml files (*.xml)|*.xml",
+                RestoreDirectory = true,
+                Multiselect = false
+            };
+
+            if (ofd.ShowDialog() == true)
+            {
+                Mediator.NotifyColleagues(Constants.ACTION_OPEN_MISSION, ofd.FileName);
             }
         }
 
@@ -944,7 +975,7 @@ namespace MilitaryPlanner.ViewModels
                     // process symbol with geometry
                     ProcessSymbol(_selectedSymbol, geometry);
                 }
-                catch (TaskCanceledException tex)
+                catch (TaskCanceledException)
                 {
                     // clean up when drawing task is canceled
                 }

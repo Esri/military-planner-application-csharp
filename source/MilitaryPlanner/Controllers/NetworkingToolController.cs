@@ -1,4 +1,17 @@
-﻿using System;
+﻿// Copyright 2015 Esri 
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -17,7 +30,7 @@ namespace MilitaryPlanner.Controllers
 {
     public class NetworkingToolController
     {
-        private readonly MapView mapView;
+        private readonly MapView _mapView;
         private readonly NetworkingToolView _networkingToolView;
 
         private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
@@ -30,7 +43,7 @@ namespace MilitaryPlanner.Controllers
 
         public NetworkingToolController(MapView mapView, MapViewModel mapViewModel)
         {
-            this.mapView = mapView;
+            this._mapView = mapView;
 
             _networkingToolView = new NetworkingToolView {PlacementTarget = mapView, ViewModel = {mapView = mapView}};
 
@@ -125,7 +138,7 @@ namespace MilitaryPlanner.Controllers
                 _networkingToolView.ViewModel.ProgressVisibility = Visibility.Visible;
 
                 RouteParameters routeParams = await _routeTask.GetDefaultParametersAsync();
-                routeParams.OutSpatialReference = mapView.SpatialReference;
+                routeParams.OutSpatialReference = _mapView.SpatialReference;
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
                 routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
@@ -146,7 +159,7 @@ namespace MilitaryPlanner.Controllers
                 _networkingToolView.ViewModel.RouteTotals = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
 
                 if (!route.RouteFeature.Geometry.IsEmpty)
-                    await mapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.25));
+                    await _mapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.25));
             }
             catch (AggregateException ex)
             {

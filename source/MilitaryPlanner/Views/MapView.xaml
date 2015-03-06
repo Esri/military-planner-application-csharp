@@ -94,23 +94,23 @@
 			<Grid x:Name="layoutGrid" Margin="5" Background="White">
 				<StackPanel Orientation="Vertical">
 					<StackPanel x:Name="MyStackPanel" Orientation="Horizontal">
-						<Button Content="Add Phase" Margin="5" Command="{Binding PhaseAddCommand}"            
+						<Button Content="Add" Margin="3" Command="{Binding PhaseAddCommand}"            
 							ToolTipService.ToolTip="Add a new phase"/>
-						<!--<Button Content="Remove Phase" Margin="5" Command="{Binding PhaseRemoveCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>-->
-						<Button Content="Back Phase" Margin="5" Command="{Binding PhaseBackCommand}"            
+						<Button Content="Back" Margin="3" Command="{Binding PhaseBackCommand}"            
 							ToolTipService.ToolTip="Go back one phase"/>
-						<Button Content="Next Phase" Margin="5" Command="{Binding PhaseNextCommand}"            
+						<Button Content="Next" Margin="3" Command="{Binding PhaseNextCommand}"            
 							ToolTipService.ToolTip="Go forward one phase"/>
-						<Button Content="Save" Margin="5" Command="{Binding SaveCommand}"            
-							ToolTipService.ToolTip="Save mission"/>
-                        <Button Content="Measure" Margin="5" Command="{Binding MeasureCommand}"            
+                        <Button Content="Save" Margin="3" Command="{Binding SaveCommand}"            
+							ToolTipService.ToolTip="Save mission or geomessages"/>
+                        <Button Content="Load" Margin="3" Command="{Binding LoadCommand}"            
+							ToolTipService.ToolTip="Load mission"/>
+                        <Button Content="Measure" Margin="3" Command="{Binding MeasureCommand}"            
 							ToolTipService.ToolTip="Measure" />
-                        <Button Content="ViewShed" Margin="5" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="True"            
-							ToolTipService.ToolTip="ViewShed" />
-                        <Button Content="GotoXY" Margin="5" Command="{Binding ToggleGotoXYToolCommand}" CommandParameter="True"            
-							ToolTipService.ToolTip="GotoXY" />
-                        <Button Content="Routing" Margin="5" Command="{Binding ToggleNetworkingToolCommand}" CommandParameter="True"            
+                        <Button Content="ViewShed" Margin="3" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="True"            
+							ToolTipService.ToolTip="ViewShed Tool" />
+                        <Button Content="GotoXY" Margin="3" Command="{Binding ToggleGotoXYToolCommand}" CommandParameter="True"            
+							ToolTipService.ToolTip="GotoXY Tool" />
+                        <Button Content="Routing" Margin="3" Command="{Binding ToggleNetworkingToolCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="Routing Tool" />
                     </StackPanel>
 				</StackPanel>
