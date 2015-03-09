@@ -9,6 +9,7 @@
     <UserControl.Resources>
         <viewModels:MissionViewModel x:Key="MyMissionViewModel" />
         <viewModels:VariableWidthConverter x:Key="MyVariableWidthConverter" />
+        <viewModels:PadLeftVariableWidthConverter x:Key="MyPadLeftVariableWidthConverter" />
     </UserControl.Resources>
     <Grid DataContext="{StaticResource MyMissionViewModel}">
         <Grid.RowDefinitions>
@@ -28,10 +29,12 @@
                         <!--<Border CornerRadius="8,8,8,8" Margin="3,3,3,3" Grid.Column="{Binding StartPhase}" Grid.ColumnSpan="{Binding PhaseLength}" Background="DeepSkyBlue">-->
                         <Border>
                             <Border.Width>
-                                <MultiBinding Converter="{StaticResource MyVariableWidthConverter}">
+                                <MultiBinding Converter="{StaticResource MyPadLeftVariableWidthConverter}">
                                     <Binding Path="DataContext.PhaseCount" ElementName="SymbolListBox" />
                                     <Binding Path="StartPhase" />
                                     <Binding Path="ActualWidth" ElementName="SymbolListBox" />
+                                    <Binding Path="VisibleTimeExtent" />
+                                    <Binding Path="DataContext.MissionTimeExtent" ElementName="SymbolListBox" />
                                 </MultiBinding>
                             </Border.Width>
                         </Border>
@@ -41,6 +44,8 @@
                                     <Binding Path="DataContext.PhaseCount" ElementName="SymbolListBox" />
                                     <Binding Path="PhaseLength" />
                                     <Binding Path="ActualWidth" ElementName="SymbolListBox" />
+                                    <Binding Path="VisibleTimeExtent" />
+                                    <Binding Path="DataContext.MissionTimeExtent" ElementName="SymbolListBox" />
                                 </MultiBinding>
                             </Border.Width>
                             <Image Width="{Binding ItemSVM.ImageSize}" Height="{Binding ItemSVM.ImageSize}" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Source="{Binding ItemSVM.Thumbnail}"/>

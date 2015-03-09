@@ -95,6 +95,14 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        public TimeExtent MissionTimeExtent
+        {
+            get
+            {
+                return new TimeExtent(_mission.PhaseList.Min(t => t.VisibleTimeExtent.Start), _mission.PhaseList.Max(t => t.VisibleTimeExtent.End));
+            }
+        }
+
         private int _currentPhaseIndex = 0;
         public int CurrentPhaseIndex
         {
@@ -185,7 +193,7 @@ namespace MilitaryPlanner.ViewModels
             foreach (var mm in _mission.MilitaryMessages)
             {
                 currentStartPhase = 0;
-                currentEndPhase = 0;
+                currentEndPhase = -1;
 
                 foreach (var phase in _mission.PhaseList)
                 {
@@ -195,9 +203,11 @@ namespace MilitaryPlanner.ViewModels
                     }
                     else
                     {
-                        if (_mission.PhaseList.IndexOf(phase) < currentEndPhase)
+                        //if (_mission.PhaseList.IndexOf(phase) <= currentEndPhase)
+                        if (currentEndPhase < 0)
                         {
-                            currentStartPhase = _mission.PhaseList.IndexOf(phase);
+                            //currentStartPhase = _mission.PhaseList.IndexOf(phase);
+                            currentStartPhase++;
                         }
                     }
                 }
@@ -234,6 +244,7 @@ namespace MilitaryPlanner.ViewModels
                 var psvm = new PhaseSymbolViewModel();
                 psvm.StartPhase = currentStartPhase;
                 psvm.EndPhase = currentEndPhase;
+                psvm.VisibleTimeExtent = pm.VisibleTimeExtent;
 
                 // create SVM
                 psvm.ItemSVM = SymbolLoader.Search(pm.PropertyItems.Where(pi => pi.Key == "sic").ElementAt(0).Value);
@@ -297,6 +308,41 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        public TimeExtent VisibleTimeExtent { get; set; }
+
+    }
+
+    public class PadLeftVariableWidthConverter : IMultiValueConverter
+    {
+
+        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            int totalPhaseLength = (int)values[0];
+            int phaseLength = (int)values[1];
+            double listWidth = (double)values[2];
+            TimeExtent messageTimeExtent = (TimeExtent)values[3];
+            TimeExtent missionTimeExtent = (TimeExtent)values[4];
+
+            var width = ((listWidth / totalPhaseLength) * phaseLength);
+
+            TimeSpan ts = messageTimeExtent.Start.Subtract(missionTimeExtent.Start);
+            TimeSpan mts = missionTimeExtent.End.Subtract(missionTimeExtent.Start);
+
+            var widthFactor = ts.TotalSeconds / mts.TotalSeconds;
+            width = listWidth * widthFactor;
+
+            if (phaseLength - 1 > 0)
+            {
+                width -= 12;
+            }
+
+            return width;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class VariableWidthConverter : IMultiValueConverter
@@ -307,10 +353,18 @@ namespace MilitaryPlanner.ViewModels
             int totalPhaseLength = (int)values[0];
             int phaseLength = (int)values[1];
             double listWidth = (double)values[2];
-            
+            TimeExtent messageTimeExtent = (TimeExtent)values[3];
+            TimeExtent missionTimeExtent = (TimeExtent)values[4];
+
             var width = ((listWidth / totalPhaseLength) * phaseLength);
 
-            if (phaseLength-1 > 0)
+            TimeSpan ts = messageTimeExtent.End.Subtract(messageTimeExtent.Start);
+            TimeSpan mts = missionTimeExtent.End.Subtract(missionTimeExtent.Start);
+
+            var widthFactor = ts.TotalSeconds / mts.TotalSeconds;
+            width = listWidth * widthFactor;
+
+            if (phaseLength - 1 > 0)
             {
                 width -= 12;
             }
