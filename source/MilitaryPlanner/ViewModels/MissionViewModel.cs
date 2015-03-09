@@ -57,9 +57,15 @@ namespace MilitaryPlanner.ViewModels
             //CurrentMission =  Mission.Load(@".\data\missions\testMission.xml");
 
             Mediator.Register(Constants.ACTION_MISSION_CLONED, OnMissionCloned);
+            Mediator.Register(Constants.ACTION_PHASE_INDEX_CHANGED, OnPhaseIndexChanged);
 
             PhaseBackCommand = new RelayCommand(OnPhaseBack);
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
+        }
+
+        private void OnPhaseIndexChanged(object obj)
+        {
+            CurrentPhaseIndex = (int) obj;
         }
 
         private void OnPhaseNext(object obj)
