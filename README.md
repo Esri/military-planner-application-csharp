@@ -21,7 +21,7 @@ This is an Esri ArcGIS Runtime for .NET application that can be used for plannin
 
 ## Requirements
 
-* Visual Studio 2012
+* Visual Studio 2012 or later
 * ArcGIS Runtime SDK for .NET 10.2.4 (Basic License)
 	* [ArcGIS Runtime for .NET Requirements](https://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
 
