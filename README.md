@@ -2,7 +2,7 @@
 
 This is an Esri ArcGIS Runtime for .NET application that can be used for planning military operations.  It uses ArcGIS Runtime SDK for .NET 10.2.4. Learn more about it [here](https://developers.arcgis.com/net/).
 
-![Image of Military Planner Application](ScreenShot.PNG?raw=true) 
+![Image of Military Planner Application](ScreenShot.PNG) 
 
 ## Features
 * Time enabled layers, grouped by Courses of Action and Phases of the Operation
