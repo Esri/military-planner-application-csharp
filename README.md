@@ -2,7 +2,7 @@
 
 This is an Esri ArcGIS Runtime for .NET application that can be used for planning military operations.  It uses ArcGIS Runtime SDK for .NET 10.2.4. Learn more about it [here](https://developers.arcgis.com/net/).
 
-![Image of Military Planner Application](ScreenShot.PNG?raw=true) 
+![Image of Military Planner Application](ScreenShot.PNG) 
 
 ## Features
 * Time enabled layers, grouped by Courses of Action and Phases of the Operation
@@ -22,7 +22,7 @@ This is an Esri ArcGIS Runtime for .NET application that can be used for plannin
 ## Requirements
 
 * Visual Studio 2012
-* ArcGIS Runtime SDK for .NET 10.2.4
+* ArcGIS Runtime SDK for .NET 10.2.4 (Basic License)
 	* [ArcGIS Runtime for .NET Requirements](https://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
 
 ## Instructions
@@ -37,11 +37,11 @@ This is an Esri ArcGIS Runtime for .NET application that can be used for plannin
 	* To Build Using Visual Studio
 		* Open and build solution file
 		* Optional: Change references to use the installed SDK instead of NuGet package
-			* 1. Remove / Unintstall Esri.ArcGISRuntime NuGet-package reference from the solution.
+			* Remove / Unintstall Esri.ArcGISRuntime NuGet-package reference from the solution.
 				* Click "Manage NuGet Packages for solution..." from Tools \ NuGet Package Manager
 				* See Installed Packages tab and remove "Esri.ArcGISRuntime" package
-			* 2. Add references to projects
-			* 3. Prepare deployment
+			* Add references to projects
+			* Prepare deployment
 				* Windows Desktop - Delete deployment folder (arcgisruntime10.2.4) from output folder if it exists. This step makes sure that centralized developer deployment is used and no deployment is needed
 * Running
 	* Download and unzip the .zip file(s).  \\disldb\Shared\MilitaryPlanner\application or (https://esri.box.com/s/g6nes1k4xqjwtmgs1kanvr1ayx4m9yfg)
