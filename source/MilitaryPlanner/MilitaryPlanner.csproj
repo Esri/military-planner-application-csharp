@@ -134,7 +134,6 @@
     <Compile Include="Behavior\FrameworkElementDropBehavior.cs" />
     <Compile Include="Behavior\IDragable.cs" />
     <Compile Include="Behavior\IDropable.cs" />
-    <Compile Include="Behavior\MapDropBehavior.cs" />
     <Compile Include="Behavior\TreeViewDragBehavoir.cs" />
     <Compile Include="Behavior\TreeViewItemBehavior.cs" />
     <Compile Include="Controllers\CoordinateReadoutController.cs" />
@@ -206,10 +205,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\IsBiggerThanConverter.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\NotificationObject.cs" />
-    <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

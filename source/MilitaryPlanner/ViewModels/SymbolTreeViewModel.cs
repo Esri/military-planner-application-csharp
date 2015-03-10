@@ -1,30 +1,40 @@
-﻿using Esri.ArcGISRuntime.Symbology.Specialized;
-using MilitaryPlanner.DragDrop.UI.Behavior;
+﻿// Copyright 2015 Esri 
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
+using Esri.ArcGISRuntime.Symbology.Specialized;
+using MilitaryPlanner.Behavior;
 
 namespace MilitaryPlanner.ViewModels
 {
     public static class SymbolLoader
     {
-        public static SymbolDictionary _symbolDictionary;
+        public static SymbolDictionary MilitarySymbolDictionary;
 
         public static ObservableCollection<SymbolViewModel> Symbols { get; private set; }
-        private static int _imageSize = 48;
+        private const int _imageSize = 48;
 
         public static SymbolViewModelWrapper LoadSymbolWrapper()
         {
-            // Create a new SymbolDictionary instance 
-            _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+            // Create a new MilitarySymbolDictionary instance 
+            MilitarySymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             var swRoot = new SymbolViewModelWrapper();
             swRoot = swRoot.Load(@".\data\oob\oobexample.xml");
@@ -32,20 +42,20 @@ namespace MilitaryPlanner.ViewModels
             return swRoot;
         }
 
-        public static SymbolViewModel Search(string SearchString)
+        public static SymbolViewModel Search(string searchString)
         {
             Dictionary<string, string> filters = new Dictionary<string, string>();
 
             // Perform the search applying any selected keywords and filters 
-            IEnumerable<SymbolProperties> symbols = _symbolDictionary.FindSymbols(filters);
+            IEnumerable<SymbolProperties> symbols = MilitarySymbolDictionary.FindSymbols(filters);
 
-            if (!String.IsNullOrWhiteSpace(SearchString))
+            if (!String.IsNullOrWhiteSpace(searchString))
             {
-                foreach (var ss in SearchString.Split(new char[] { ';', ',' }))
+                foreach (var ss in searchString.Split(';', ','))
                 {
                     if (!String.IsNullOrWhiteSpace(ss))
                     {
-                        symbols = symbols.Where(s => s.Name.ToLower().Contains(ss.ToLower().Trim()) || s.Keywords.Where(kw => kw.ToLower().Contains(ss.ToLower().Trim())).Count() > 0);
+                        symbols = symbols.Where(s => s.Name.ToLower().Contains(ss.ToLower().Trim()) || s.Keywords.Count(kw => kw.ToLower().Contains(ss.ToLower().Trim())) > 0);
                     }
                 }
             }
@@ -53,13 +63,7 @@ namespace MilitaryPlanner.ViewModels
             var allSymbols = symbols.ToList();
 
             // Add symbols to UI collection
-            foreach (var s in from symbol in allSymbols select new SymbolViewModel(symbol, _imageSize))
-            {
-                //Symbols.Add(s);
-                return s;
-            }
-
-            return null;
+            return (from symbol in allSymbols select new SymbolViewModel(symbol, _imageSize)).FirstOrDefault();
         }
     }
 
@@ -84,7 +88,7 @@ namespace MilitaryPlanner.ViewModels
 
         internal void Save(string filename)
         {
-            XmlSerializer x = new XmlSerializer(this.GetType());
+            XmlSerializer x = new XmlSerializer(GetType());
             FileStream fs = new FileStream(filename, FileMode.Create);
             x.Serialize(fs, this);
             fs.Close();
@@ -92,7 +96,7 @@ namespace MilitaryPlanner.ViewModels
 
         internal SymbolViewModelWrapper Load(string filename)
         {
-            XmlSerializer x = new XmlSerializer(this.GetType());
+            XmlSerializer x = new XmlSerializer(GetType());
             //XmlWriter writer = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
             FileStream fs = new FileStream(filename, FileMode.Open);
             XmlReader reader = XmlReader.Create(fs);
@@ -130,9 +134,8 @@ namespace MilitaryPlanner.ViewModels
         bool _isExpanded;
         bool _isSelected;
         //bool _isDragable = true;
-        bool _hasBeenDragged = false;
-        double _opacity = 1.0;
-        string _guid;
+        bool _hasBeenDragged;
+        readonly string _guid;
 
         public SymbolTreeViewModel(SymbolViewModelWrapper symbolWrapper)
             : this(symbolWrapper, null)
@@ -141,7 +144,7 @@ namespace MilitaryPlanner.ViewModels
 
         private SymbolTreeViewModel(SymbolViewModelWrapper symbolWrapper, SymbolTreeViewModel parent)
         {
-            _guid = System.Guid.NewGuid().ToString("D");
+            _guid = Guid.NewGuid().ToString("D");
             _symbolWrapper = symbolWrapper;
             _parent = parent;
 
@@ -253,37 +256,24 @@ namespace MilitaryPlanner.ViewModels
 
         public bool IsDragable
         {
-            get 
+            get
             {
-             //   return _isDragable;
                 if (_children != null && _children.Count > 0)
                 {
                     return false;
                 }
-                else
-                {
-                    return true;
-                }
+                return true;
             }
-
-            //set
-            //{
-            //    if (value != _isDragable)
-            //    {
-            //        _isDragable = value;
-            //        RaisePropertyChanged(() => IsDragable);
-            //    }
-            //}
         }
 
         #region NameContainsText
 
         public bool NameContainsText(string text)
         {
-            if (String.IsNullOrEmpty(text) || String.IsNullOrEmpty(this.Name))
+            if (String.IsNullOrEmpty(text) || String.IsNullOrEmpty(Name))
                 return false;
 
-            return this.Name.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1;
+            return Name.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1;
         }
 
         #endregion // NameContainsText
@@ -312,7 +302,7 @@ namespace MilitaryPlanner.ViewModels
             {
                 //TODO need to use msg.ID or something to keep track of item, for delete, add, etc
                 //stvm.IsDragable = false;
-                stvm.HasBeenDragged = true;
+                if (stvm != null) stvm.HasBeenDragged = true;
             }
         }
     }

@@ -1,42 +1,51 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿// Copyright 2015 Esri 
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+using System.Windows;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Symbology;
 using MilitaryPlanner.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MilitaryPlanner.Views;
+using MapView = Esri.ArcGISRuntime.Controls.MapView;
 
 namespace MilitaryPlanner.Controllers
 {
     public class ViewShedToolController
     {
-        private Views.ViewShedToolView viewShedToolView;
+        private readonly ViewShedToolView _viewShedToolView;
 
         public ViewShedToolController(MapView mapView, MapViewModel mapViewModel)
         {
-            viewShedToolView = new Views.ViewShedToolView();
-            viewShedToolView.PlacementTarget = mapView;
-            viewShedToolView.ViewModel.mapView = mapView;
+            _viewShedToolView = new ViewShedToolView {PlacementTarget = mapView, ViewModel = {mapView = mapView}};
 
-            var owner = System.Windows.Window.GetWindow(mapView);
+            var owner = Window.GetWindow(mapView);
 
             if (owner != null)
             {
                 owner.LocationChanged += (sender, e) =>
                 {
-                    viewShedToolView.HorizontalOffset += 1;
-                    viewShedToolView.HorizontalOffset -= 1;
+                    _viewShedToolView.HorizontalOffset += 1;
+                    _viewShedToolView.HorizontalOffset -= 1;
                 };
             }
 
-            mapView.GraphicsOverlays.Add(new GraphicsOverlay() { ID = "inputOverlay", Renderer = viewShedToolView.LayoutRoot.Resources["PointRenderer"] as Renderer });
-            mapView.GraphicsOverlays.Add(new GraphicsOverlay() { ID = "ViewshedOverlay", Renderer = viewShedToolView.LayoutRoot.Resources["ViewshedRenderer"] as Renderer });
+            mapView.GraphicsOverlays.Add(new GraphicsOverlay() { ID = "inputOverlay", Renderer = _viewShedToolView.LayoutRoot.Resources["PointRenderer"] as Renderer });
+            mapView.GraphicsOverlays.Add(new GraphicsOverlay() { ID = "ViewshedOverlay", Renderer = _viewShedToolView.LayoutRoot.Resources["ViewshedRenderer"] as Renderer });
         }
 
         public void Toggle()
         {
-            viewShedToolView.ViewModel.Toggle();
+            _viewShedToolView.ViewModel.Toggle();
         }
     }
 }

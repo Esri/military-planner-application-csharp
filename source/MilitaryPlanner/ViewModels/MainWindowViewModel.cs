@@ -1,11 +1,24 @@
+// Copyright 2015 Esri 
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.Windows;
+using Esri.ArcGISRuntime;
+using Microsoft.Win32;
 using MilitaryPlanner.Helpers;
 using MilitaryPlanner.Models;
-using System.Windows.Data;
-using Microsoft.Win32;
-using System.Windows;
+using MilitaryPlanner.Views;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -13,7 +26,7 @@ namespace MilitaryPlanner.ViewModels
     {
         #region Properties
 
-        private bool IsFromMediator = false;
+        private bool _isFromMediator = false;
 
         #region MyDateTime
 
@@ -81,21 +94,13 @@ namespace MilitaryPlanner.ViewModels
             {
                 if (_sliderValue != value)
                 {
-                    if (!IsFromMediator)
+                    if (!_isFromMediator)
                     {
-                        if (value > _sliderValue)
-                        {
-                            // next
-                            Mediator.NotifyColleagues(Constants.ACTION_PHASE_NEXT, value);
-                        }
-                        else
-                        {
-                            // back
-                            Mediator.NotifyColleagues(Constants.ACTION_PHASE_BACK, value);
-                        }
+                        Mediator.NotifyColleagues(
+                            value > _sliderValue ? Constants.ACTION_PHASE_NEXT : Constants.ACTION_PHASE_BACK, value);
                     }
 
-                    IsFromMediator = false;
+                    _isFromMediator = false;
 
                     _sliderValue = value;
                     RaisePropertyChanged(() => SliderValue);
@@ -103,8 +108,8 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private MilitaryPlanner.Views.MapView _mapView;
-        public MilitaryPlanner.Views.MapView MapView
+        private MapView _mapView;
+        public MapView MapView
         {
             get { return _mapView; }
             set{
@@ -116,8 +121,8 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private MilitaryPlanner.Views.OrderOfBattleView _OOBView;
-        public MilitaryPlanner.Views.OrderOfBattleView OOBView
+        private OrderOfBattleView _OOBView;
+        public OrderOfBattleView OOBView
         {
             get { return _OOBView; }
             set
@@ -130,8 +135,8 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private MilitaryPlanner.Views.MissionTimeLineView _MTLView;
-        public MilitaryPlanner.Views.MissionTimeLineView MTLView
+        private MissionTimeLineView _MTLView;
+        public MissionTimeLineView MTLView
         {
             get { return _MTLView; }
             set
@@ -191,20 +196,15 @@ namespace MilitaryPlanner.ViewModels
 
         public MainWindowViewModel()
         {
-            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ClientId = "sloy45Jis4XaPxFd";
-
             try
             {
-                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
+                ArcGISRuntimeEnvironment.Initialize();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Unable to initialize the ArcGIS Runtime with the client id provided: " + ex.Message);
+                Console.WriteLine(@"Unable to initialize the ArcGIS Runtime with the client id provided: " + ex.Message);
             }
 
-            //Mediator.Register(Constants.ACTION_MSG_LAYER_ADDED, _mission.DoMessageLayerAdded);
-            Mediator.Register(Constants.ACTION_MSG_LAYER_ADDED, DoMessageLayerAdded);
-            //Mediator.Register(Constants.ACTION_MSG_PROCESSED, _mission.DoMessageProcessed);
             Mediator.Register(Constants.ACTION_PHASE_ADDED, DoPhaseAdded);
             Mediator.Register(Constants.ACTION_PHASE_INDEX_CHANGED, DoPhaseIndexChanged);
             Mediator.Register(Constants.ACTION_MISSION_LOADED, DoMissionLoaded);
@@ -216,9 +216,9 @@ namespace MilitaryPlanner.ViewModels
             EditMissionPhasesCommand = new RelayCommand(OnEditMissionPhases);
             SwitchViewCommand = new RelayCommand(OnSwitchViewCommand);
             
-            MapView = new Views.MapView();
-            OOBView = new Views.OrderOfBattleView();
-            MTLView = new Views.MissionTimeLineView();
+            MapView = new MapView();
+            OOBView = new OrderOfBattleView();
+            MTLView = new MissionTimeLineView();
         }
 
         private void OnSwitchViewCommand(object obj)
@@ -244,24 +244,16 @@ namespace MilitaryPlanner.ViewModels
         {
             int index = (int)obj;
 
-            IsFromMediator = true;
+            _isFromMediator = true;
 
             SliderValue = index;
         }
 
         private void DoPhaseAdded(object obj)
         {
-            IsFromMediator = true;
+            _isFromMediator = true;
             SliderMaximum++;
             SliderValue = SliderMaximum;
-        }
-
-        private void DoMessageLayerAdded(object obj)
-        {
-            //_mission.DoMessageLayerAdded(obj);
-
-            //SliderMaximum = _mission.PhaseList.Count - 1;
-            //SliderValue = SliderMaximum;
         }
 
         #endregion
@@ -281,24 +273,26 @@ namespace MilitaryPlanner.ViewModels
         private void OnSaveCommand(object obj)
         {
             // file dialog
-            var sfd = new SaveFileDialog();
-
-            sfd.Filter = "xml files (*.xml)|*.xml";
-            sfd.RestoreDirectory = true;
+            var sfd = new SaveFileDialog
+            {
+                Filter = "xml files (*.xml)|*.xml|Geomessage xml files (*.xml)|*.xml",
+                RestoreDirectory = true
+            };
 
             if (sfd.ShowDialog() == true)
             {
-                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, sfd.FileName);
+                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, String.Format("{0}{1}{2}", sfd.FilterIndex, Constants.SAVE_AS_DELIMITER, sfd.FileName));
             }
         }
 
         private void OnOpenCommand(object obj)
         {
-            var ofd = new OpenFileDialog();
-
-            ofd.Filter = "xml files (*.xml)|*.xml";
-            ofd.RestoreDirectory = true;
-            ofd.Multiselect = false;
+            var ofd = new OpenFileDialog
+            {
+                Filter = "xml files (*.xml)|*.xml",
+                RestoreDirectory = true,
+                Multiselect = false
+            };
 
             if (ofd.ShowDialog() == true)
             {
@@ -316,10 +310,10 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private void InitializeUI(Mission _mission)
+        private void InitializeUI(Mission mission)
         {
             SliderMinimum = 0;
-            SliderMaximum = _mission.PhaseList.Count - 1;
+            SliderMaximum = mission.PhaseList.Count - 1;
             SliderValue = 0;
         }
 

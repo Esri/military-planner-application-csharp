@@ -1,10 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Esri.ArcGISRuntime.Layers;
+﻿// Copyright 2015 Esri 
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+using System;
 using System.Windows;
+using Esri.ArcGISRuntime.Layers;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -15,62 +24,62 @@ namespace MilitaryPlanner.ViewModels
 
         }
 
-        private string routeTotals = String.Empty;
+        private string _routeTotals = String.Empty;
         public string RouteTotals
         {
             get
             {
-                return routeTotals;
+                return _routeTotals;
             }
 
             set
             {
-                routeTotals = value;
+                _routeTotals = value;
                 RaisePropertyChanged(() => RouteTotals);
             }
         }
 
-        private GraphicCollection graphics = null;
+        private GraphicCollection _graphics = null;
         public GraphicCollection Graphics
         {
             get
             {
-                return graphics;
+                return _graphics;
             }
 
             set
             {
-                graphics = value;
+                _graphics = value;
                 RaisePropertyChanged(() => Graphics);
             }
         }
 
-        private Visibility panelResultsVisibility = Visibility.Collapsed;
+        private Visibility _panelResultsVisibility = Visibility.Collapsed;
         public Visibility PanelResultsVisibility
         {
             get
             {
-                return panelResultsVisibility;
+                return _panelResultsVisibility;
             }
 
             set
             {
-                panelResultsVisibility = value;
+                _panelResultsVisibility = value;
                 RaisePropertyChanged(() => PanelResultsVisibility);
             }
         }
 
-        private Visibility progressVisibility = Visibility.Collapsed;
+        private Visibility _progressVisibility = Visibility.Collapsed;
         public Visibility ProgressVisibility
         {
             get
             {
-                return progressVisibility;
+                return _progressVisibility;
             }
 
             set
             {
-                progressVisibility = value;
+                _progressVisibility = value;
                 RaisePropertyChanged(() => ProgressVisibility);
             }
         }

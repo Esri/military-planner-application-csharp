@@ -1,31 +1,50 @@
-military-planner-application-csharp
-===================================
+# military-planner-application-csharp
 
-Military Planner Application
+This is an Esri ArcGIS Runtime for .NET Application Prototype Template that can be used for demonstrating military operations planning.
 
-# military-planning-application-csharp
-
-This is an Esri ArcGIS for .NET application that can be used for planning military operations.  It uses ArcGIS SDK for .NET 10.2.4. Learn more about it [here](http://solutions.arcgis.com/military/templates/military-planner/).
-
-![alt text](/data/screenshots/Capture.PNG?raw=true) 
+![Image of Military Planner Application](ScreenShot.PNG) 
 
 ## Features
+
 * Time enabled layers, grouped by Courses of Action and Phases of the Operation
 * Order of Battle Widget customizable for individual units
 * What You See Is What You Get (WYSIWYG) editing of military symbols and control measures
-* MIL-STD-2525C compliant symbology
+* Military symbol search
+* MIL-STD-2525C symbology
 
-## Instructions
+## Sections
 
-1. Download and unzip the .zip file(s).  \\disldb\Shared\MilitaryPlanner\application or (https://esri.box.com/s/g6nes1k4xqjwtmgs1kanvr1ayx4m9yfg)
-2. Unzip military planner application zip file
-3. Unzip arcgisruntime10.2.4 folder so that you end up with ./application/arcgisruntime10.2.4  (same level as MilitaryPlanner.exe file)
-  3a. Only need to do this once
-4. Run MilitaryPlanner.exe
+* [Requirements](#requirements)
+* [Instructions](#instructions)
+* [Resources](#resources)
+* [Issues](#issues)
+* [Contributing](#contributing)
+* [Licensing](#licensing)
 
 ## Requirements
 
-* [ArcGIS Runtime for .NET Requirements](https://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
+* Visual Studio 2012 or later
+* ArcGIS Runtime SDK for .NET 10.2.4 (Basic License)
+	* [ArcGIS Runtime for .NET Requirements](https://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
+
+## Instructions
+
+### General Help
+
+* [New to Github? Get started here.](http://htmlpreview.github.com/?https://github.com/Esri/esri.github.com/blob/master/help/esri-getting-to-know-github.html)
+
+### Getting Started with the Military Planner Application (.NET)
+
+* Building
+	* To Build Using Visual Studio
+		* Open and build solution file
+
+* Running
+	* Run or debug from Visual Studio
+	* To run from a stand-alone deployment
+        * A pre-built [application folder](./application) has been provided
+		* You may add the runtime deployment folder (ex. `arcgisruntime10.2.4`) to this folder to quickly create a runtime deployment (ex. `./application/arcgisruntime10.2.4`)
+        * Run MilitaryPlanner.exe from the deployment folder
 
 ## Resources
 
@@ -40,9 +59,10 @@ Find a bug or want to request a new feature?  Please let us know by submitting a
 
 ## Contributing
 
-Anyone and everyone is welcome to contribute. 
+Anyone and everyone is welcome to contribute. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
 ## Licensing
+
 Copyright 2015 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +77,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [license.txt](https://github.com/ArcGIS/military-planner-application-csharp/blob/master/license.txt) file.
+A copy of the license is available in the repository's [license.txt](license.txt) file.
 
-[](Esri Tags: Military Defense ArcGIS Runtime .NET)
-[](Esri Language: C-Sharp) 
+[](Esri Tags: Military Defense ArcGIS Runtime .NET Planning WPF ArcGISSolutions)
+[](Esri Language: C#) 

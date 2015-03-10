@@ -5,17 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:viewModels="clr-namespace:MilitaryPlanner.ViewModels"
-             xmlns:local="clr-namespace:MilitaryPlanner"
              xmlns:helper="clr-namespace:MilitaryPlanner.Helpers"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:b="clr-namespace:MilitaryPlanner.DragDrop.UI.Behavior"
-             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="MilitaryPlanner.Views.MapView"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="MilitaryPlanner.Views.MapView"
              xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:behavior="clr-namespace:MilitaryPlanner.Behavior"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="500">
     <UserControl.Resources>
         <viewModels:MapViewModel x:Key="MyMapViewModel" />
-        <BooleanToVisibilityConverter x:Key="boolConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolConverter" />
     </UserControl.Resources>
 	<Grid DataContext="{StaticResource MyMapViewModel}"
 		helper:EventToCommand.Event="FrameworkElement.Loaded"
@@ -47,7 +46,7 @@
 		</VisualStateManager.VisualStateGroups>
         <esri:MapView x:Name="MyMapView">
             <i:Interaction.Behaviors>
-                <b:FrameworkElementDropBehavior/>
+                <behavior:FrameworkElementDropBehavior/>
             </i:Interaction.Behaviors>
             <esri:Map x:Name="MyMap">
                 <!-- ArcGIS Online Tiled Basemap Layer -->
@@ -95,33 +94,23 @@
 			<Grid x:Name="layoutGrid" Margin="5" Background="White">
 				<StackPanel Orientation="Vertical">
 					<StackPanel x:Name="MyStackPanel" Orientation="Horizontal">
-						<!--<Button Content="Edit" Margin="5" Command="{Binding EditStartCommand}"           
-							ToolTipService.ToolTip="Start editing"/>
-						<Button Content="Undo" Margin="5" Command="{Binding EditUndoCommand}"
-							ToolTipService.ToolTip="Undo"/>
-						<Button Content="Redo" Margin="5" Command="{Binding EditRedoCommand}"
-							ToolTipService.ToolTip="Redo"/>
-						<Button Content="Stop" Margin="5" Command="{Binding EditStopCommand}"           
-							ToolTipService.ToolTip="Stop edit"/>-->
-						<!--<Button Content="Cancel" Margin="5" Command="{Binding EditCancelCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>-->
-						<Button Content="Add Phase" Margin="5" Command="{Binding PhaseAddCommand}"            
+						<Button Content="Add" Margin="3" Command="{Binding PhaseAddCommand}"            
 							ToolTipService.ToolTip="Add a new phase"/>
-						<!--<Button Content="Remove Phase" Margin="5" Command="{Binding PhaseRemoveCommand}"            
-							ToolTipService.ToolTip="Cancel edit"/>-->
-						<Button Content="Back Phase" Margin="5" Command="{Binding PhaseBackCommand}"            
+						<Button Content="Back" Margin="3" Command="{Binding PhaseBackCommand}"            
 							ToolTipService.ToolTip="Go back one phase"/>
-						<Button Content="Next Phase" Margin="5" Command="{Binding PhaseNextCommand}"            
+						<Button Content="Next" Margin="3" Command="{Binding PhaseNextCommand}"            
 							ToolTipService.ToolTip="Go forward one phase"/>
-						<Button Content="Save" Margin="5" Command="{Binding SaveCommand}"            
-							ToolTipService.ToolTip="Save mission"/>
-                        <Button Content="Measure" Margin="5" Command="{Binding MeasureCommand}"            
+                        <Button Content="Save" Margin="3" Command="{Binding SaveCommand}"            
+							ToolTipService.ToolTip="Save mission or geomessages"/>
+                        <Button Content="Load" Margin="3" Command="{Binding LoadCommand}"            
+							ToolTipService.ToolTip="Load mission"/>
+                        <Button Content="Measure" Margin="3" Command="{Binding MeasureCommand}"            
 							ToolTipService.ToolTip="Measure" />
-                        <Button Content="ViewShed" Margin="5" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="True"            
-							ToolTipService.ToolTip="ViewShed" />
-                        <Button Content="GotoXY" Margin="5" Command="{Binding ToggleGotoXYToolCommand}" CommandParameter="True"            
-							ToolTipService.ToolTip="GotoXY" />
-                        <Button Content="Routing" Margin="5" Command="{Binding ToggleNetworkingToolCommand}" CommandParameter="True"            
+                        <Button Content="ViewShed" Margin="3" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="True"            
+							ToolTipService.ToolTip="ViewShed Tool" />
+                        <Button Content="GotoXY" Margin="3" Command="{Binding ToggleGotoXYToolCommand}" CommandParameter="True"            
+							ToolTipService.ToolTip="GotoXY Tool" />
+                        <Button Content="Routing" Margin="3" Command="{Binding ToggleNetworkingToolCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="Routing Tool" />
                     </StackPanel>
 				</StackPanel>
@@ -135,7 +124,7 @@
 			</i:Interaction.Triggers>
 		</Rectangle>
         <Border x:Name="TimeAwareAttributeEditor"
-                Visibility="{Binding HasTimeExtent, Converter={StaticResource boolConverter}}"
+                Visibility="{Binding HasTimeExtent, Converter={StaticResource BoolConverter}}"
                 Background="White"
                 BorderBrush="Black"
                 BorderThickness="1"

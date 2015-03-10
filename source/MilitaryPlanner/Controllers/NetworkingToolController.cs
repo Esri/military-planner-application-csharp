@@ -1,51 +1,60 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿// Copyright 2015 Esri 
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using MilitaryPlanner.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
+using MilitaryPlanner.Views;
+using MapView = Esri.ArcGISRuntime.Controls.MapView;
 
 namespace MilitaryPlanner.Controllers
 {
     public class NetworkingToolController
     {
-        private MapView mapView;
-        private MapViewModel mapViewModel;
-        private Views.NetworkingToolView networkingToolView;
+        private readonly MapView _mapView;
+        private readonly NetworkingToolView _networkingToolView;
 
         private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
 
-        private OnlineRouteTask _routeTask;
-        private Symbol _directionPointSymbol;
-        private GraphicsOverlay _stopsOverlay;
-        private GraphicsOverlay _routesOverlay;
-        private GraphicsOverlay _directionsOverlay;
+        private readonly OnlineRouteTask _routeTask;
+        private readonly Symbol _directionPointSymbol;
+        private readonly GraphicsOverlay _stopsOverlay;
+        private readonly GraphicsOverlay _routesOverlay;
+        private readonly GraphicsOverlay _directionsOverlay;
 
         public NetworkingToolController(MapView mapView, MapViewModel mapViewModel)
         {
-            this.mapView = mapView;
-            this.mapViewModel = mapViewModel;
+            this._mapView = mapView;
 
-            this.networkingToolView = new Views.NetworkingToolView();
-            this.networkingToolView.PlacementTarget = mapView;
-            this.networkingToolView.ViewModel.mapView = mapView;
+            _networkingToolView = new NetworkingToolView {PlacementTarget = mapView, ViewModel = {mapView = mapView}};
 
-            var owner = System.Windows.Window.GetWindow(mapView);
+            var owner = Window.GetWindow(mapView);
 
             if (owner != null)
             {
                 owner.LocationChanged += (sender, e) =>
                 {
-                    networkingToolView.HorizontalOffset += 1;
-                    networkingToolView.HorizontalOffset -= 1;
+                    _networkingToolView.HorizontalOffset += 1;
+                    _networkingToolView.HorizontalOffset -= 1;
                 };
             }
 
@@ -54,14 +63,14 @@ namespace MilitaryPlanner.Controllers
             mapView.MapViewDoubleTapped += mapView_MapViewDoubleTapped;
 
             // hook listDirections
-            networkingToolView.listDirections.SelectionChanged += listDirections_SelectionChanged;
+            _networkingToolView.listDirections.SelectionChanged += listDirections_SelectionChanged;
 
             // hook view resources
-            _directionPointSymbol = networkingToolView.LayoutRoot.Resources["directionPointSymbol"] as Symbol;
+            _directionPointSymbol = _networkingToolView.LayoutRoot.Resources["directionPointSymbol"] as Symbol;
 
-            mapView.GraphicsOverlays.Add(new GraphicsOverlay() { ID="RoutesOverlay", Renderer=networkingToolView.LayoutRoot.Resources["routesRenderer"] as Renderer});
-            mapView.GraphicsOverlays.Add(new GraphicsOverlay() { ID="StopsOverlay" });
-            mapView.GraphicsOverlays.Add(new GraphicsOverlay() { ID = "DirectionsOverlay", Renderer=networkingToolView.LayoutRoot.Resources["directionsRenderer"] as Renderer, SelectionColor=System.Windows.Media.Colors.Red });
+            mapView.GraphicsOverlays.Add(new GraphicsOverlay { ID="RoutesOverlay", Renderer=_networkingToolView.LayoutRoot.Resources["routesRenderer"] as Renderer});
+            mapView.GraphicsOverlays.Add(new GraphicsOverlay { ID="StopsOverlay" });
+            mapView.GraphicsOverlays.Add(new GraphicsOverlay { ID = "DirectionsOverlay", Renderer=_networkingToolView.LayoutRoot.Resources["directionsRenderer"] as Renderer, SelectionColor=Colors.Red });
 
             _stopsOverlay = mapView.GraphicsOverlays["StopsOverlay"];
             _routesOverlay = mapView.GraphicsOverlays["RoutesOverlay"];
@@ -72,9 +81,9 @@ namespace MilitaryPlanner.Controllers
 
         public void Toggle()
         {
-            networkingToolView.ViewModel.Toggle();
+            _networkingToolView.ViewModel.Toggle();
 
-            if (!networkingToolView.ViewModel.IsToolOpen)
+            if (!_networkingToolView.ViewModel.IsToolOpen)
             {
                 Reset();
             }
@@ -83,7 +92,7 @@ namespace MilitaryPlanner.Controllers
         private void Reset()
         {
             // clean up
-            networkingToolView.ViewModel.PanelResultsVisibility = System.Windows.Visibility.Collapsed;
+            _networkingToolView.ViewModel.PanelResultsVisibility = Visibility.Collapsed;
 
             _stopsOverlay.Graphics.Clear();
             _routesOverlay.Graphics.Clear();
@@ -92,14 +101,14 @@ namespace MilitaryPlanner.Controllers
 
         private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            if (!networkingToolView.ViewModel.IsToolOpen)
+            if (!_networkingToolView.ViewModel.IsToolOpen)
                 return;
 
             try
             {
                 e.Handled = true;
 
-                if (_directionsOverlay.Graphics.Count() > 0)
+                if (_directionsOverlay.Graphics.Any())
                 {
                     Reset();
                 }
@@ -107,7 +116,7 @@ namespace MilitaryPlanner.Controllers
                 var graphicIdx = _stopsOverlay.Graphics.Count + 1;
                 _stopsOverlay.Graphics.Add(CreateStopGraphic(e.Location, graphicIdx));
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Sample Error");
             }
@@ -115,7 +124,7 @@ namespace MilitaryPlanner.Controllers
 
         private async void mapView_MapViewDoubleTapped(object sender, MapViewInputEventArgs e)
         {
-            if (!networkingToolView.ViewModel.IsToolOpen)
+            if (!_networkingToolView.ViewModel.IsToolOpen)
                 return;
 
             if (_stopsOverlay.Graphics.Count() < 2)
@@ -125,32 +134,32 @@ namespace MilitaryPlanner.Controllers
             {
                 e.Handled = true;
 
-                networkingToolView.ViewModel.PanelResultsVisibility = Visibility.Collapsed;
-                networkingToolView.ViewModel.ProgressVisibility = Visibility.Visible;
+                _networkingToolView.ViewModel.PanelResultsVisibility = Visibility.Collapsed;
+                _networkingToolView.ViewModel.ProgressVisibility = Visibility.Visible;
 
                 RouteParameters routeParams = await _routeTask.GetDefaultParametersAsync();
-                routeParams.OutSpatialReference = mapView.SpatialReference;
+                routeParams.OutSpatialReference = _mapView.SpatialReference;
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
                 routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
                 routeParams.SetStops(_stopsOverlay.Graphics);
 
                 var routeResult = await _routeTask.SolveAsync(routeParams);
-                if (routeResult == null || routeResult.Routes == null || routeResult.Routes.Count() == 0)
+                if (routeResult == null || routeResult.Routes == null || !routeResult.Routes.Any())
                     throw new Exception("No route could be calculated");
 
                 var route = routeResult.Routes.First();
                 _routesOverlay.Graphics.Add(new Graphic(route.RouteFeature.Geometry));
 
                 _directionsOverlay.GraphicsSource = route.RouteDirections.Select(rd => GraphicFromRouteDirection(rd));
-                networkingToolView.ViewModel.Graphics = _directionsOverlay.Graphics;
+                _networkingToolView.ViewModel.Graphics = _directionsOverlay.Graphics;
 
                 var totalTime = route.RouteDirections.Select(rd => rd.Time).Aggregate(TimeSpan.Zero, (p, v) => p.Add(v));
                 var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();
-                networkingToolView.ViewModel.RouteTotals = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
+                _networkingToolView.ViewModel.RouteTotals = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
 
                 if (!route.RouteFeature.Geometry.IsEmpty)
-                    await mapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.25));
+                    await _mapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.25));
             }
             catch (AggregateException ex)
             {
@@ -165,38 +174,38 @@ namespace MilitaryPlanner.Controllers
                 }
                 Reset();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Sample Error");
                 Reset();
             }
             finally
             {
-                networkingToolView.ViewModel.ProgressVisibility = Visibility.Collapsed;
+                _networkingToolView.ViewModel.ProgressVisibility = Visibility.Collapsed;
 
-                if (_directionsOverlay.Graphics.Count() > 0)
+                if (_directionsOverlay.Graphics.Any())
                 {
-                    networkingToolView.ViewModel.PanelResultsVisibility = Visibility.Visible;
+                    _networkingToolView.ViewModel.PanelResultsVisibility = Visibility.Visible;
                 }
             }
         }
 
-        void listDirections_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        void listDirections_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _directionsOverlay.ClearSelection();
 
             if (e.AddedItems != null && e.AddedItems.Count == 1)
             {
                 var graphic = e.AddedItems[0] as Graphic;
-                graphic.IsSelected = true;
+                if (graphic != null) graphic.IsSelected = true;
             }
         }
 
         private Graphic CreateStopGraphic(MapPoint location, int id)
         {
             var symbol = new CompositeSymbol();
-            symbol.Symbols.Add(new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Circle, Color = Colors.Blue, Size = 16 });
-            symbol.Symbols.Add(new TextSymbol()
+            symbol.Symbols.Add(new SimpleMarkerSymbol { Style = SimpleMarkerStyle.Circle, Color = Colors.Blue, Size = 16 });
+            symbol.Symbols.Add(new TextSymbol
             {
                 Text = id.ToString(),
                 Color = Colors.White,
@@ -205,7 +214,7 @@ namespace MilitaryPlanner.Controllers
                 YOffset = -1
             });
 
-            var graphic = new Graphic()
+            var graphic = new Graphic
             {
                 Geometry = location,
                 Symbol = symbol

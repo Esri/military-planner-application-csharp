@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Esri.ArcGISRuntime;
 
 namespace MilitaryPlanner
 {
@@ -18,14 +19,14 @@ namespace MilitaryPlanner
             // Initialize the ArcGIS Runtime before any components are created.
             try
             {
-                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
+                ArcGISRuntimeEnvironment.Initialize();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
 
                 // Exit application
-                this.Shutdown();
+                Shutdown();
             }
 
         }
