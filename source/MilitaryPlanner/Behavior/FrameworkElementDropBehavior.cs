@@ -75,6 +75,7 @@ namespace MilitaryPlanner.Behavior
                     //give mouse effect
                     SetDragDropEffects(e);
 
+                    // not using dots for adorner
                     //draw the dots
                     //if (this.adorner != null)
                     //    this.adorner.Update();

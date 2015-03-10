@@ -24,7 +24,7 @@ namespace MilitaryPlanner.ViewModels
 {
     public class OrderOfBattleViewModel : BaseViewModel
     {
-        public static SymbolDictionary SymbolDictionary;
+        public static SymbolDictionary MilitarySymbolDictionary;
 
         // Public members for data binding
         public ObservableCollection<SymbolViewModel> Symbols { get; private set; }
@@ -81,8 +81,8 @@ namespace MilitaryPlanner.ViewModels
             SearchCommand = new RelayCommand(OnSearch);
             SymbolChangedCommand = new RelayCommand(OnSymbolChanged);
 
-            // Create a new SymbolDictionary instance 
-            SymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+            // Create a new MilitarySymbolDictionary instance 
+            MilitarySymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             // Collection of view models for the displayed list of symbols
             Symbols = new ObservableCollection<SymbolViewModel>();
@@ -242,7 +242,7 @@ namespace MilitaryPlanner.ViewModels
             Symbols.Clear();
 
             // Perform the search applying any selected keywords and filters 
-            IEnumerable<SymbolProperties> symbols = SymbolDictionary.FindSymbols(filters);
+            IEnumerable<SymbolProperties> symbols = MilitarySymbolDictionary.FindSymbols(filters);
 
             if (!String.IsNullOrWhiteSpace(SearchString))
             {

@@ -50,16 +50,22 @@ namespace MilitaryPlanner.ViewModels
 
         public MissionViewModel()
         {
-            // Create a new SymbolDictionary instance 
-            SymbolLoader.SymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+            // Create a new MilitarySymbolDictionary instance 
+            SymbolLoader.MilitarySymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             // use this for testing
             //CurrentMission =  Mission.Load(@".\data\missions\testMission.xml");
 
             Mediator.Register(Constants.ACTION_MISSION_CLONED, OnMissionCloned);
+            Mediator.Register(Constants.ACTION_PHASE_INDEX_CHANGED, OnPhaseIndexChanged);
 
             PhaseBackCommand = new RelayCommand(OnPhaseBack);
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
+        }
+
+        private void OnPhaseIndexChanged(object obj)
+        {
+            CurrentPhaseIndex = (int) obj;
         }
 
         private void OnPhaseNext(object obj)

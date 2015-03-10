@@ -186,6 +186,7 @@ namespace MilitaryPlanner.ViewModels
 
             // update mission cloned
             Mediator.NotifyColleagues(Constants.ACTION_MISSION_CLONED, cloneMission);
+            Mediator.NotifyColleagues(Constants.ACTION_PHASE_INDEX_CHANGED, _currentPhaseIndex);
 
             editPhaseDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
