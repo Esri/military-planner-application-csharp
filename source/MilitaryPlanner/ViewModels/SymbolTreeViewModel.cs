@@ -26,15 +26,15 @@ namespace MilitaryPlanner.ViewModels
 {
     public static class SymbolLoader
     {
-        public static SymbolDictionary SymbolDictionary;
+        public static SymbolDictionary MilitarySymbolDictionary;
 
         public static ObservableCollection<SymbolViewModel> Symbols { get; private set; }
         private const int _imageSize = 48;
 
         public static SymbolViewModelWrapper LoadSymbolWrapper()
         {
-            // Create a new SymbolDictionary instance 
-            SymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+            // Create a new MilitarySymbolDictionary instance 
+            MilitarySymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             var swRoot = new SymbolViewModelWrapper();
             swRoot = swRoot.Load(@".\data\oob\oobexample.xml");
@@ -47,7 +47,7 @@ namespace MilitaryPlanner.ViewModels
             Dictionary<string, string> filters = new Dictionary<string, string>();
 
             // Perform the search applying any selected keywords and filters 
-            IEnumerable<SymbolProperties> symbols = SymbolDictionary.FindSymbols(filters);
+            IEnumerable<SymbolProperties> symbols = MilitarySymbolDictionary.FindSymbols(filters);
 
             if (!String.IsNullOrWhiteSpace(searchString))
             {
@@ -258,22 +258,12 @@ namespace MilitaryPlanner.ViewModels
         {
             get
             {
-                //   return _isDragable;
                 if (_children != null && _children.Count > 0)
                 {
                     return false;
                 }
                 return true;
             }
-
-            //set
-            //{
-            //    if (value != _isDragable)
-            //    {
-            //        _isDragable = value;
-            //        RaisePropertyChanged(() => IsDragable);
-            //    }
-            //}
         }
 
         #region NameContainsText
