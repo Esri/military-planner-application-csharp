@@ -50,8 +50,8 @@ namespace MilitaryPlanner.ViewModels
 
         public MissionViewModel()
         {
-            // Create a new SymbolDictionary instance 
-            SymbolLoader.SymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+            // Create a new MilitarySymbolDictionary instance 
+            SymbolLoader.MilitarySymbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
 
             // use this for testing
             //CurrentMission =  Mission.Load(@".\data\missions\testMission.xml");
