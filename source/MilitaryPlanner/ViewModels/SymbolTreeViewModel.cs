@@ -67,10 +67,7 @@ namespace MilitaryPlanner.ViewModels
                 }
             }
 
-            //var allSymbols = symbols.ToList();
-
             // Add symbols to UI collection
-            //return (from symbol in allSymbols select new SymbolViewModel(symbol, _imageSize)).FirstOrDefault();
             return (from symbol in symbols select new SymbolViewModel(symbol, _imageSize)).FirstOrDefault();
         }
     }
