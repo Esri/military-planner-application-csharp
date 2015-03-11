@@ -225,6 +225,7 @@ namespace MilitaryPlanner.ViewModels
         {
             if (MapViewVisibility == Visibility.Visible)
             {
+                Mediator.NotifyColleagues(Constants.ACTION_CLONE_MISSION, null);
                 TimeLineViewVisibility = Visibility.Visible;
                 MapViewVisibility = Visibility.Collapsed;
             }

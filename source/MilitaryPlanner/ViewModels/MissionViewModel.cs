@@ -131,7 +131,10 @@ namespace MilitaryPlanner.ViewModels
             set
             {
                 _currentPhaseIndex = value;
-                CurrentPhase = _mission.PhaseList[_currentPhaseIndex];
+                if (value < _mission.PhaseList.Count)
+                {
+                    CurrentPhase = _mission.PhaseList[_currentPhaseIndex];
+                }
                 RaisePropertyChanged(() => CurrentPhaseIndex);
                 RaisePropertyChanged(() => PhaseMessage);
             }
@@ -173,19 +176,6 @@ namespace MilitaryPlanner.ViewModels
             int currentStartPhase = 0;
             int currentEndPhase = 0;
 
-            //foreach (var phase in _mission.PhaseList)
-            //{
-            //    // for each message in the phase
-            //    //TODO revisit
-            //    //foreach (var pm in phase.PersistentMessages)
-            //    //{
-            //    //    // for each message, create/update a phase symbol in the symbol list
-            //    //    CreateUpdateSymbolWithPM(pm, currentStartPhase, currentEndPhase);
-            //    //}
-            //    currentStartPhase++;
-            //    currentEndPhase++;
-            //}
-
             foreach (var mm in _mission.MilitaryMessages)
             {
                 currentStartPhase = 0;
@@ -209,7 +199,9 @@ namespace MilitaryPlanner.ViewModels
                 }
 
                 var pm = new PersistentMessage() { ID = mm.Id, VisibleTimeExtent = mm.VisibleTimeExtent};
+
                 var piList = new List<PropertyItem>();
+
                 foreach (var item in mm)
                 {
                     piList.Add(new PropertyItem() { Key = item.Key, Value = item.Value });
@@ -225,40 +217,40 @@ namespace MilitaryPlanner.ViewModels
         private void CreateUpdateSymbolWithPM(PersistentMessage pm, int currentStartPhase, int currentEndPhase)
         {
             // is this an update or a new symbol
-            var foundSymbol = _symbols.Where(sl => sl.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName) && sl.ItemSVM.Model.Values[Message.IdPropertyName] == pm.ID);
+            var foundSymbol = _symbols.FirstOrDefault(sl => sl.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName) && sl.ItemSVM.Model.Values[Message.IdPropertyName] == pm.ID);
 
-            if (foundSymbol != null && foundSymbol.Any())
+            //if (foundSymbol != null && foundSymbol.Any())
+            if(foundSymbol != null)
             {
                 // symbol is in list, do an update
-                var ps = foundSymbol.ElementAt(0);
+                var ps = foundSymbol;//.ElementAt(0);
 
                 ps.EndPhase = currentEndPhase;
             }
             else
             {
                 // symbol is missing, ADD a new one
-//<<<<<<< HEAD
-//                var psvm = new PhaseSymbolViewModel();
-//                psvm.StartPhase = currentStartPhase;
-//                psvm.EndPhase = currentEndPhase;
-//                psvm.VisibleTimeExtent = pm.VisibleTimeExtent;
-//=======
-                var psvm = new PhaseSymbolViewModel
-                {
-                    StartPhase = currentStartPhase,
-                    EndPhase = currentEndPhase,
-                    ItemSVM = SymbolLoader.Search(pm.PropertyItems.Where(pi => pi.Key == "sic").ElementAt(0).Value),
-                    VisibleTimeExtent = pm.VisibleTimeExtent
-                };
-//>>>>>>> 303fe69e491c71a3ddb74417868c7e2836ae017b
+                PropertyItem first = pm.PropertyItems.FirstOrDefault(pi => pi.Key == "sic");
 
-                // create SVM
-                if (!psvm.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName))
+                if (first != null)
                 {
-                    psvm.ItemSVM.Model.Values.Add(Message.IdPropertyName, pm.ID);
+                    var psvm = new PhaseSymbolViewModel
+                    {
+                        StartPhase = currentStartPhase,
+                        EndPhase = currentEndPhase,
+                        //ItemSVM = SymbolLoader.Search(pm.PropertyItems.Where(pi => pi.Key == "sic").ElementAt(0).Value),
+                        ItemSVM = SymbolLoader.Search(first.Value),
+                        VisibleTimeExtent = pm.VisibleTimeExtent
+                    };
+
+                    // create SVM
+                    if (!psvm.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName))
+                    {
+                        psvm.ItemSVM.Model.Values.Add(Message.IdPropertyName, pm.ID);
+                    }
+
+                    _symbols.Add(psvm);
                 }
-
-                _symbols.Add(psvm);
             }
         }
 

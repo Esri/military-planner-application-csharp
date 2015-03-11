@@ -42,12 +42,19 @@ namespace MilitaryPlanner.ViewModels
             return swRoot;
         }
 
+        private static IList<SymbolProperties> defaultSPlist = null;
+
         public static SymbolViewModel Search(string searchString)
         {
-            Dictionary<string, string> filters = new Dictionary<string, string>();
+            if (defaultSPlist == null)
+            {
+                var filters = new Dictionary<string, string>();
+
+                defaultSPlist = MilitarySymbolDictionary.FindSymbols(filters);
+            }
 
             // Perform the search applying any selected keywords and filters 
-            IEnumerable<SymbolProperties> symbols = MilitarySymbolDictionary.FindSymbols(filters);
+            var symbols = defaultSPlist.AsEnumerable();
 
             if (!String.IsNullOrWhiteSpace(searchString))
             {
@@ -55,15 +62,16 @@ namespace MilitaryPlanner.ViewModels
                 {
                     if (!String.IsNullOrWhiteSpace(ss))
                     {
-                        symbols = symbols.Where(s => s.Name.ToLower().Contains(ss.ToLower().Trim()) || s.Keywords.Count(kw => kw.ToLower().Contains(ss.ToLower().Trim())) > 0);
+                        symbols = symbols.Where(s => s.Name.ToLower().Contains(ss.ToLower().Trim()) || s.Keywords.Any(kw => kw.ToLower().Contains(ss.ToLower().Trim())));
                     }
                 }
             }
 
-            var allSymbols = symbols.ToList();
+            //var allSymbols = symbols.ToList();
 
             // Add symbols to UI collection
-            return (from symbol in allSymbols select new SymbolViewModel(symbol, _imageSize)).FirstOrDefault();
+            //return (from symbol in allSymbols select new SymbolViewModel(symbol, _imageSize)).FirstOrDefault();
+            return (from symbol in symbols select new SymbolViewModel(symbol, _imageSize)).FirstOrDefault();
         }
     }
 
