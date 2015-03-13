@@ -245,7 +245,6 @@ namespace MilitaryPlanner.ViewModels
                     {
                         StartPhase = currentStartPhase,
                         EndPhase = currentEndPhase,
-                        //ItemSVM = SymbolLoader.Search(pm.PropertyItems.Where(pi => pi.Key == "sic").ElementAt(0).Value),
                         ItemSVM = SymbolLoader.Search(first.Value),
                         VisibleTimeExtent = pm.VisibleTimeExtent
                     };
@@ -257,8 +256,6 @@ namespace MilitaryPlanner.ViewModels
                     }
 
                     _phaseSymbols.Add(psvm);
-                    //RaisePropertyChanged(() => PhaseSymbols);
-                    
                 }
             }
         }
