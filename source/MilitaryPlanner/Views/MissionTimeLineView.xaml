@@ -79,19 +79,15 @@
                         <Border>
                             <Border.Width>
                                 <MultiBinding Converter="{StaticResource MyPadLeftVariableWidthConverter}">
-                                    <Binding Path="DataContext.PhaseCount" ElementName="SymbolListBox" />
-                                    <Binding Path="StartPhase" />
                                     <Binding Path="ActualWidth" ElementName="SymbolListBox" />
                                     <Binding Path="VisibleTimeExtent" />
                                     <Binding Path="DataContext.MissionTimeExtent" ElementName="SymbolListBox" />
                                 </MultiBinding>
                             </Border.Width>
                         </Border>
-                        <Border CornerRadius="8,8,8,8" Margin="3,3,3,3" Background="{Binding ItemSVM.SymbolID, Converter={StaticResource BackgrounBrushConverter}}">
+                        <Border CornerRadius="8,8,8,8" Margin="0,3,0,3" Background="{Binding ItemSVM.SymbolID, Converter={StaticResource BackgrounBrushConverter}}">
                             <Border.Width>
                                 <MultiBinding Converter="{StaticResource MyVariableWidthConverter}">
-                                    <Binding Path="DataContext.PhaseCount" ElementName="SymbolListBox" />
-                                    <Binding Path="PhaseLength" />
                                     <Binding Path="ActualWidth" ElementName="SymbolListBox" />
                                     <Binding Path="VisibleTimeExtent" />
                                     <Binding Path="DataContext.MissionTimeExtent" ElementName="SymbolListBox" />

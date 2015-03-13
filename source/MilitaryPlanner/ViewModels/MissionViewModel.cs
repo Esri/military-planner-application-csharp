@@ -11,21 +11,18 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Net.Mail;
-using System.Runtime.Remoting.Channels;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows.Threading;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using MilitaryPlanner.Helpers;
 using MilitaryPlanner.Models;
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Symbology;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -337,31 +334,22 @@ namespace MilitaryPlanner.ViewModels
     public class PadLeftVariableWidthConverter : IMultiValueConverter
     {
 
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            int totalPhaseLength = (int)values[0];
-            int phaseLength = (int)values[1];
-            double listWidth = (double)values[2];
-            TimeExtent messageTimeExtent = (TimeExtent)values[3];
-            TimeExtent missionTimeExtent = (TimeExtent)values[4];
-
-            var width = ((listWidth / totalPhaseLength) * phaseLength);
+            double listWidth = (double)values[0];
+            TimeExtent messageTimeExtent = (TimeExtent)values[1];
+            TimeExtent missionTimeExtent = (TimeExtent)values[2];
 
             TimeSpan ts = messageTimeExtent.Start.Subtract(missionTimeExtent.Start);
             TimeSpan mts = missionTimeExtent.End.Subtract(missionTimeExtent.Start);
 
             var widthFactor = ts.TotalSeconds / mts.TotalSeconds;
-            width = listWidth * widthFactor;
-
-            //if (phaseLength - 1 > 0)
-            //{
-            //    width -= 12;
-            //}
+            var width = listWidth * widthFactor;
 
             return Math.Max(width,0.0);
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -372,24 +360,15 @@ namespace MilitaryPlanner.ViewModels
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            int totalPhaseLength = (int)values[0];
-            int phaseLength = (int)values[1];
-            double listWidth = (double)values[2];
-            TimeExtent messageTimeExtent = (TimeExtent)values[3];
-            TimeExtent missionTimeExtent = (TimeExtent)values[4];
-
-            var width = ((listWidth / totalPhaseLength) * phaseLength);
+            double listWidth = (double)values[0];
+            TimeExtent messageTimeExtent = (TimeExtent)values[1];
+            TimeExtent missionTimeExtent = (TimeExtent)values[2];
 
             TimeSpan ts = messageTimeExtent.End.Subtract(messageTimeExtent.Start);
             TimeSpan mts = missionTimeExtent.End.Subtract(missionTimeExtent.Start);
 
             var widthFactor = ts.TotalSeconds / mts.TotalSeconds;
-            width = listWidth * widthFactor;
-
-            //if (phaseLength - 1 > 0)
-            //{
-            //    width -= 12;
-            //}
+            var width = listWidth * widthFactor;
 
             return Math.Max(0.0, width - 12);
         }
