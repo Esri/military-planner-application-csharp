@@ -264,6 +264,7 @@ namespace MilitaryPlanner.ViewModels
                 if (_mission.Load(fileName))
                 {
                     InitializeMapWithMission();
+                    RaisePropertyChanged(() => PhaseDescription);
                 }
             }
         }

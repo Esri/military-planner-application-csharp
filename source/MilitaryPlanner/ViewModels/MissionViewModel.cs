@@ -13,19 +13,26 @@
 // limitations under the License.
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
+using System.Runtime.Remoting.Channels;
 using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Threading;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using MilitaryPlanner.Helpers;
 using MilitaryPlanner.Models;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Symbology;
 
 namespace MilitaryPlanner.ViewModels
 {
     public class MissionViewModel : BaseViewModel
     {
-        readonly List<PhaseSymbolViewModel> _symbols = new List<PhaseSymbolViewModel>();
+        //List<PhaseSymbolViewModel> _phaseSymbols = new List<PhaseSymbolViewModel>();
+        readonly ObservableCollection<PhaseSymbolViewModel> _phaseSymbols = new ObservableCollection<PhaseSymbolViewModel>(); 
 
         private Mission _mission = new Mission();
 
@@ -39,10 +46,13 @@ namespace MilitaryPlanner.ViewModels
             set
             {
                 _mission = value;
+                _phaseSymbols.Clear();
                 ProcessMission();
                 RaisePropertyChanged(() => CurrentMission);
                 RaisePropertyChanged(() => PhaseCount);
                 RaisePropertyChanged(() => CurrentPhase);
+                RaisePropertyChanged(() => MissionTimeExtent);
+                RaisePropertyChanged(() => PhaseSymbols);
             }
         }
 
@@ -96,11 +106,11 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        public IReadOnlyCollection<PhaseSymbolViewModel> Symbols
+        public ObservableCollection<PhaseSymbolViewModel> PhaseSymbols
         {
             get
             {
-                return _symbols;
+                return _phaseSymbols;
             }
         }
 
@@ -217,7 +227,7 @@ namespace MilitaryPlanner.ViewModels
         private void CreateUpdateSymbolWithPM(PersistentMessage pm, int currentStartPhase, int currentEndPhase)
         {
             // is this an update or a new symbol
-            var foundSymbol = _symbols.FirstOrDefault(sl => sl.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName) && sl.ItemSVM.Model.Values[Message.IdPropertyName] == pm.ID);
+            var foundSymbol = _phaseSymbols.FirstOrDefault(sl => sl.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName) && sl.ItemSVM.Model.Values[Message.IdPropertyName] == pm.ID);
 
             //if (foundSymbol != null && foundSymbol.Any())
             if(foundSymbol != null)
@@ -249,7 +259,9 @@ namespace MilitaryPlanner.ViewModels
                         psvm.ItemSVM.Model.Values.Add(Message.IdPropertyName, pm.ID);
                     }
 
-                    _symbols.Add(psvm);
+                    _phaseSymbols.Add(psvm);
+                    //RaisePropertyChanged(() => PhaseSymbols);
+                    
                 }
             }
         }
@@ -305,7 +317,20 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        public TimeExtent VisibleTimeExtent { get; set; }
+        private TimeExtent _visibleTimeExtent = new TimeExtent();
+
+        public TimeExtent VisibleTimeExtent
+        {
+            get
+            {
+                return _visibleTimeExtent;
+            }
+            set
+            {
+                _visibleTimeExtent = value;
+                RaisePropertyChanged(() => VisibleTimeExtent);
+            }
+        }
 
     }
 
@@ -328,12 +353,12 @@ namespace MilitaryPlanner.ViewModels
             var widthFactor = ts.TotalSeconds / mts.TotalSeconds;
             width = listWidth * widthFactor;
 
-            if (phaseLength - 1 > 0)
-            {
-                width -= 12;
-            }
+            //if (phaseLength - 1 > 0)
+            //{
+            //    width -= 12;
+            //}
 
-            return width;
+            return Math.Max(width,0.0);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -361,15 +386,86 @@ namespace MilitaryPlanner.ViewModels
             var widthFactor = ts.TotalSeconds / mts.TotalSeconds;
             width = listWidth * widthFactor;
 
-            if (phaseLength - 1 > 0)
-            {
-                width -= 12;
-            }
+            //if (phaseLength - 1 > 0)
+            //{
+            //    width -= 12;
+            //}
 
-            return width;
+            return Math.Max(0.0, width - 12);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PhaseWidthConverter : IMultiValueConverter
+    {
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            int totalPhaseCount = (int)values[0];
+            double listWidth = (double)values[1];
+
+            var width = (listWidth - (listWidth % totalPhaseCount)) / totalPhaseCount;
+
+            var offset = 0;
+
+            while (totalPhaseCount*(width - offset) > listWidth - 3)
+            {
+                offset++;
+            }
+
+            return Math.Max(0.0,width - offset);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class PhaseHeightConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (double)value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SIC2BrushConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var sic = (string) value;
+
+            Brush brush;
+
+            switch (sic[1].ToString().ToLower())
+            {
+                case "f":
+                    brush = Brushes.DeepSkyBlue;
+                    break;
+                case "n":
+                    brush = Brushes.LightGreen;
+                    break;
+                case "h":
+                    brush = Brushes.Salmon;
+                    break;
+                default:
+                    brush = Brushes.Yellow;
+                    break;
+            }
+
+            return brush;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
