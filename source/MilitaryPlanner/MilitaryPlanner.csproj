@@ -144,6 +144,7 @@
     <Compile Include="Helpers\EventToCommand.cs" />
     <Compile Include="Helpers\GotoItem.cs" />
     <Compile Include="Helpers\Mediator.cs" />
+    <Compile Include="Helpers\SettingBindingExtension.cs" />
     <Compile Include="Helpers\TimeAwareMessageLayer.cs" />
     <Compile Include="Models\Mission.cs" />
     <Compile Include="ViewModels\BaseToolViewModel.cs" />
