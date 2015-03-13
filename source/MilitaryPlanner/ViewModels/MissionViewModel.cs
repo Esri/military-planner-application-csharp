@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using MilitaryPlanner.Helpers;
@@ -47,6 +48,7 @@ namespace MilitaryPlanner.ViewModels
 
         public RelayCommand PhaseBackCommand { get; set; }
         public RelayCommand PhaseNextCommand { get; set; }
+        public RelayCommand DeletePhaseCommand { get; set; }
 
         public MissionViewModel()
         {
@@ -61,6 +63,30 @@ namespace MilitaryPlanner.ViewModels
 
             PhaseBackCommand = new RelayCommand(OnPhaseBack);
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
+            DeletePhaseCommand = new RelayCommand(OnDeletePhase);
+        }
+
+        private void OnDeletePhase(object obj)
+        {
+            var question = String.Format("Are you sure you want to delete phase?\n\rName : {0}",CurrentPhase.Name);
+            var result = MessageBox.Show(question, "Delete Phase?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                if (CurrentPhaseIndex < PhaseCount)
+                {
+                    // remove phase
+                    _mission.PhaseList.RemoveAt(CurrentPhaseIndex);
+                    if (CurrentPhaseIndex >= PhaseCount && CurrentPhaseIndex != 0)
+                    {
+                        CurrentPhaseIndex--;
+                    }
+                    else
+                    {
+                        CurrentPhaseIndex = CurrentPhaseIndex;
+                    }
+                }
+            }
         }
 
         private void OnPhaseIndexChanged(object obj)
@@ -121,10 +147,13 @@ namespace MilitaryPlanner.ViewModels
 
             set
             {
-                _currentPhaseIndex = value;
-                CurrentPhase = _mission.PhaseList[_currentPhaseIndex];
-                RaisePropertyChanged(() => CurrentPhaseIndex);
-                RaisePropertyChanged(() => PhaseMessage);
+                if (value < _mission.PhaseList.Count)
+                {
+                    _currentPhaseIndex = value;
+                    CurrentPhase = _mission.PhaseList[_currentPhaseIndex];
+                    RaisePropertyChanged(() => CurrentPhaseIndex);
+                    RaisePropertyChanged(() => PhaseMessage);
+                }
             }
         }
 

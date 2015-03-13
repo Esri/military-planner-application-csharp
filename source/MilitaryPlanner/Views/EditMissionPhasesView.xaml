@@ -24,6 +24,7 @@
         <DockPanel Grid.Row="0" Grid.Column="1" >
             <TextBlock Text="{Binding PhaseMessage}" Margin="10,0,0,0" VerticalAlignment="Center" />
             <DockPanel HorizontalAlignment="Right">
+                <Button Margin="5,2,10,2" Command="{Binding DeletePhaseCommand}">Delete</Button>
                 <Button Margin="5,2,5,2" Command="{Binding PhaseBackCommand}">Prev</Button>
                 <Button Margin="5,2,5,2" Command="{Binding PhaseNextCommand}">Next</Button>
             </DockPanel>
