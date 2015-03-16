@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,7 +48,7 @@ namespace MilitaryPlanner.Controllers
 
             // Load portal basemaps
             var result = await portal.ArcGISPortalInfo.SearchBasemapGalleryAsync();
-            _basemapGalleryView.ViewModel.Basemaps = result.Results;
+            _basemapGalleryView.ViewModel.Basemaps = new ObservableCollection<ArcGISPortalItem>(result.Results);
         }
     }
 }

@@ -5,16 +5,35 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MilitaryPlanner.Helpers;
 
 namespace MilitaryPlanner.ViewModels
 {
     public class BasemapGalleryViewModel : BaseToolViewModel
     {
+        public RelayCommand ChangeBasemapCommand { get; set; }
+
         public BasemapGalleryViewModel()
         {
-
+            ChangeBasemapCommand = new RelayCommand(OnChangeBasemapCommand);
         }
 
-        public IEnumerable<ArcGISPortalItem> Basemaps { get; set; }
+        private ObservableCollection<ArcGISPortalItem> _basemaps;
+
+        public ObservableCollection<ArcGISPortalItem> Basemaps
+        {
+            get { return _basemaps;}
+
+            set
+            {
+                _basemaps = value;
+                RaisePropertyChanged(() => Basemaps);
+            }
+        }
+
+        private void OnChangeBasemapCommand(object obj)
+        {
+            
+        }
     }
 }
