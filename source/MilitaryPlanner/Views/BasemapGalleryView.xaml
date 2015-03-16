@@ -1,0 +1,31 @@
+﻿<Popup x:Class="MilitaryPlanner.Views.BasemapGalleryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       IsOpen="{Binding IsToolOpen}"
+       PopupAnimation="Fade"
+       Placement="Top"
+       VerticalOffset="120"
+       HorizontalOffset="10"
+        Height="300" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer MaxWidth="200" HorizontalAlignment="Left" Margin="5">
+            <ItemsControl ItemsSource="{Binding Basemaps}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Margin="5">
+                            <StackPanel>
+                                <Image Source="{Binding ThumbnailUri}" Margin="3" Width="200" Height="133" />
+                                <TextBlock Text="{Binding Title}" />
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Popup>

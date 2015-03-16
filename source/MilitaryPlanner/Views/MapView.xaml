@@ -112,6 +112,8 @@
 							ToolTipService.ToolTip="GotoXY Tool" />
                         <Button Content="Routing" Margin="3" Command="{Binding ToggleNetworkingToolCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="Routing Tool" />
+                        <Button Content="Basemap" Margin="3" Command="{Binding ToggleBasemapGalleryCommand}" CommandParameter="True"            
+							ToolTipService.ToolTip="Basemap Gallery" />
                     </StackPanel>
 				</StackPanel>
 			</Grid>
