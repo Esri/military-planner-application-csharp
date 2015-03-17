@@ -47,6 +47,7 @@ namespace MilitaryPlanner.ViewModels
             DragDrop,
             Move,
             Tool,
+            Edit,
             None
         };
 
@@ -57,7 +58,7 @@ namespace MilitaryPlanner.ViewModels
         private Message _currentMessage;
         private EditState _editState = EditState.None;
         private MessageLayer _militaryMessageLayer;
-        private TimeExtent _currentTimeExtent = null; //new TimeExtent(DateTime.Now, DateTime.Now.AddSeconds(3599));
+        private TimeExtent _currentTimeExtent = null; 
         private readonly Mission _mission = new Mission("Default Mission");
         private int _currentPhaseIndex = 0;
 
@@ -98,6 +99,7 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_SAVE_MISSION, DoSaveMission);
             Mediator.Register(Constants.ACTION_OPEN_MISSION, DoOpenMission);
             Mediator.Register(Constants.ACTION_EDIT_MISSION_PHASES, DoEditMissionPhases);
+            Mediator.Register(Constants.ACTION_EDIT_GEOMETRY, DoEditGeometry);
 
             SetMapCommand = new RelayCommand(OnSetMap);
             PhaseAddCommand = new RelayCommand(OnPhaseAdd);
@@ -113,6 +115,49 @@ namespace MilitaryPlanner.ViewModels
             ToggleViewShedToolCommand = new RelayCommand(OnToggleViewShedToolCommand);
             ToggleGotoXYToolCommand = new RelayCommand(OnToggleGotoXYToolCommand);
             ToggleNetworkingToolCommand = new RelayCommand(OnToggleNetworkingToolCommand);
+        }
+
+        /// <summary>
+        /// On this command the currently selected geometry gets edited if it is a polyline
+        /// Creates a temp graphic for editing and when done, updates the military message with the new geometry
+        /// </summary>
+        /// <param name="obj"></param>
+        private async void DoEditGeometry(object obj)
+        {
+            if (_mapView.Editor.IsActive)
+            {
+                if (_mapView.Editor.Complete.CanExecute(null))
+                {
+                    _mapView.Editor.Complete.Execute(null);
+                    _editState = EditState.None;
+                    return;
+                }
+            }
+
+            if (_currentMessage != null)
+            {
+                var tam = _mission.MilitaryMessages.FirstOrDefault(msg => msg.Id == _currentMessage.Id);
+
+                if (tam != null)
+                {
+                    _editState = EditState.Edit;
+
+                    try
+                    {
+                        var resultGeometry = await _mapView.Editor.EditGeometryAsync(tam.SymbolGeometry, null, null);
+
+                        if (resultGeometry != null)
+                        {
+                            tam.SymbolGeometry = resultGeometry;
+                            UpdateCurrentMessage(tam, resultGeometry as Polyline);
+                        }
+                    }
+                    catch (OperationCanceledException ex)
+                    {
+
+                    }
+                }
+            }
         }
 
         private void OnToggleNetworkingToolCommand(object obj)
@@ -654,7 +699,7 @@ namespace MilitaryPlanner.ViewModels
 
         void mapView_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_map == null || _editState == EditState.Tool)
+            if (_map == null || _editState == EditState.Tool || _editState == EditState.Edit)
             {
                 return;
             }
@@ -685,7 +730,7 @@ namespace MilitaryPlanner.ViewModels
 
         async void mapView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (_editState == EditState.Create || _editState == EditState.Tool)
+            if (_editState == EditState.Create || _editState == EditState.Tool || _editState == EditState.Edit)
             {
                 return;
             }
@@ -820,6 +865,33 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        private void UpdateCurrentMessage(TimeAwareMilitaryMessage tam, Polyline geometry)
+        {
+            var cpts = string.Empty;
+
+            // TODO find a way to determine if polyline map points need adjustment based on symbol being drawn
+
+            List<MapPoint> mpList;
+
+            if (tam[MilitaryMessage.SicCodePropertyName].Contains("POLA") || tam[MilitaryMessage.SicCodePropertyName].Contains("PPA"))
+            {
+                mpList = AdjustMapPoints(geometry, DrawShape.Arrow);
+            }
+            else
+            {
+                mpList = AdjustMapPoints(geometry, DrawShape.Polyline);
+            }
+
+            var msg = new MilitaryMessage(tam.Id, MilitaryMessageType.PositionReport, MilitaryMessageAction.Update, mpList);
+
+            tam[MilitaryMessage.ControlPointsPropertyName] = msg[MilitaryMessage.ControlPointsPropertyName];
+
+            if (_militaryMessageLayer.ProcessMessage(msg))
+            {
+                UpdateMilitaryMessageControlPoints(msg);
+            }
+        }
+
         private void UpdateMilitaryMessageControlPoints(MilitaryMessage msg)
         {
             var tam = _mission.MilitaryMessages.First(m => m.Id == msg.Id);
@@ -908,7 +980,7 @@ namespace MilitaryPlanner.ViewModels
         private void DoActionDelete(object obj)
         {
             // remove any selected messages
-            if (_currentMessage != null)
+            if (_currentMessage != null && _editState != EditState.Edit)
             {
                 // remove message
                 RemoveMessage(_currentMessage);
@@ -925,7 +997,7 @@ namespace MilitaryPlanner.ViewModels
                 }
             }
 
-            if (_editState == EditState.Create)
+            if (_editState == EditState.Create || _editState == EditState.Edit)
             {
                 _editState = EditState.None;
             }
@@ -995,7 +1067,8 @@ namespace MilitaryPlanner.ViewModels
             {
                 VisibleTimeExtent = new TimeExtent(_mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.Start,
                     _mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent.End),
-                Id = Guid.NewGuid().ToString("D")
+                Id = Guid.NewGuid().ToString("D"),
+                SymbolGeometry = geometry
             };
 
             // set default time extent
@@ -1156,6 +1229,7 @@ namespace MilitaryPlanner.ViewModels
 
             // Construct the Control Points based on the geometry type of the drawn geometry.
             var point = _mapView.ScreenToLocation(p);
+            tam.SymbolGeometry = point;
             tam.Add(MilitaryMessage.ControlPointsPropertyName, point.X.ToString() + "," + point.Y.ToString());
 
             //Process the message

@@ -17,6 +17,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 
 namespace MilitaryPlanner.Helpers
@@ -38,6 +39,8 @@ namespace MilitaryPlanner.Helpers
             get;
             set;
         }
+
+        public Geometry SymbolGeometry { get; set; }
 
         public Dictionary<string, string> PhaseControlPointsDictionary = new Dictionary<string, string>();
 
