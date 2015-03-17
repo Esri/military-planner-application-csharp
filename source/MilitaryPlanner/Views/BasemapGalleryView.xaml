@@ -7,11 +7,13 @@
        VerticalOffset="70"
        HorizontalOffset="10">
     <Grid>
+        <StackPanel Orientation="Vertical">
+            <Button Content="Close" Command="{Binding CloseToolCommand}" />
         <ScrollViewer MaxWidth="200" MaxHeight="640" HorizontalAlignment="Left" Margin="5">
             <ItemsControl x:Name="myItemsControl" ItemsSource="{Binding Basemaps}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Margin="5" Command="{Binding ElementName=myItemsControl, Path=DataContext.ChangeBasemapCommand}">
+                        <Button Margin="5" Command="{Binding ElementName=myItemsControl, Path=DataContext.ChangeBasemapCommand}" CommandParameter="{Binding }">
                             <StackPanel>
                                 <Image Source="{Binding ThumbnailUri}" Margin="3" Width="200" Height="133" />
                                 <TextBlock Text="{Binding Title}" />
@@ -21,5 +23,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+        </StackPanel>
     </Grid>
 </Popup>

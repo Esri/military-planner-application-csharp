@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Esri.ArcGISRuntime.WebMap;
 using MilitaryPlanner.Helpers;
 
 namespace MilitaryPlanner.ViewModels
@@ -33,7 +34,7 @@ namespace MilitaryPlanner.ViewModels
 
         private void OnChangeBasemapCommand(object obj)
         {
-            
+            Mediator.NotifyColleagues(Constants.ACTION_UPDATE_BASEMAP, obj);
         }
     }
 }

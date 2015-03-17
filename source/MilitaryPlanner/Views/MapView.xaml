@@ -50,8 +50,10 @@
             </i:Interaction.Behaviors>
             <esri:Map x:Name="MyMap">
                 <!-- ArcGIS Online Tiled Basemap Layer -->
-                <esri:ArcGISTiledMapServiceLayer ID="World Topo Map" ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
-                <esri:ArcGISTiledMapServiceLayer ID="TestMapServiceLayer" ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer" />
+                <esri:ArcGISTiledMapServiceLayer ID="basemap" 
+                        ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+                <esri:ArcGISTiledMapServiceLayer ID="MensurationMapServiceLayer" 
+                        ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer" />
             </esri:Map>
             <esri:MapView.GraphicsOverlays>
                 <esri:GraphicsOverlay ID="graphicsOverlay" />
