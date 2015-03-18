@@ -145,8 +145,8 @@ namespace MilitaryPlanner.ViewModels
         }
 
         /// <summary>
-        /// On this command the currently selected geometry gets edited if it is a polyline
-        /// Creates a temp graphic for editing and when done, updates the military message with the new geometry
+        /// On this command the currently selected geometry gets edited if it is a polyline or polygon
+        /// Updates the military message with the new geometry during and after editing
         /// </summary>
         /// <param name="obj"></param>
         private async void DoEditGeometry(object obj)
@@ -186,9 +186,9 @@ namespace MilitaryPlanner.ViewModels
                             UpdateCurrentMessage(tam, resultGeometry);
                         }
                     }
-                    catch (OperationCanceledException ex)
+                    catch
                     {
-
+                        // ignored
                     }
                 }
             }
