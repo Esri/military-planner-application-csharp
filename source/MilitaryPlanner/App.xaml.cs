@@ -30,7 +30,10 @@ namespace MilitaryPlanner
             }
 
         }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            MilitaryPlanner.Properties.Settings.Default.Save();
+        }
     }
-
-
 }
