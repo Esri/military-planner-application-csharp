@@ -297,7 +297,7 @@ namespace MilitaryPlanner.ViewModels
             // file dialog
             var sfd = new SaveFileDialog
             {
-                Filter = "xml files (*.xml)|*.xml|Geomessage xml files (*.xml)|*.xml",
+                Filter = "Mission xml files (*.xml)|*.xml|Geomessage xml files (*.xml)|*.xml",
                 RestoreDirectory = true
             };
 
