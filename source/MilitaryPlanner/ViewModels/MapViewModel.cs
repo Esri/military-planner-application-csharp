@@ -81,12 +81,14 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand ToggleViewShedToolCommand { get; set; }
         public RelayCommand ToggleGotoXYToolCommand { get; set; }
         public RelayCommand ToggleNetworkingToolCommand { get; set; }
+        public RelayCommand ToggleBasemapGalleryCommand { get; set; }
 
         // controllers
         private GotoXYToolController _gotoXYToolController;
         private NetworkingToolController _networkingToolController;
         private ViewShedToolController _viewShedToolController;
         private CoordinateReadoutController _coordinateReadoutController;
+        private BasemapGalleryController _basemapGalleryController;
 
         public MapViewModel()
         {
@@ -118,6 +120,12 @@ namespace MilitaryPlanner.ViewModels
             ToggleViewShedToolCommand = new RelayCommand(OnToggleViewShedToolCommand);
             ToggleGotoXYToolCommand = new RelayCommand(OnToggleGotoXYToolCommand);
             ToggleNetworkingToolCommand = new RelayCommand(OnToggleNetworkingToolCommand);
+            ToggleBasemapGalleryCommand = new RelayCommand(OnToggleBasemapGalleryCommand);
+        }
+
+        private void OnToggleBasemapGalleryCommand(object obj)
+        {
+            _basemapGalleryController.Toggle();
         }
 
         private void DoEditUndo(object obj)
@@ -718,6 +726,7 @@ namespace MilitaryPlanner.ViewModels
             _networkingToolController = new NetworkingToolController(mapView, this);
             _viewShedToolController = new ViewShedToolController(mapView, this);
             _coordinateReadoutController = new CoordinateReadoutController(mapView, this);
+            _basemapGalleryController = new BasemapGalleryController(mapView);
 
             // add default message layer
             AddNewMilitaryMessagelayer();

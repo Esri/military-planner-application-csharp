@@ -2,8 +2,13 @@
      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:MilitaryPlanner.ViewModels"
+        xmlns:helper="clr-namespace:MilitaryPlanner.Helpers"
         Title="Military Planner"
-        WindowState="Maximized"
+        Height="{helper:SettingBinding Height}"
+        Width="{helper:SettingBinding Width}"
+        Left="{helper:SettingBinding Left}"
+        Top="{helper:SettingBinding Top}"
+        WindowState="{helper:SettingBinding WindowState}"
         DataContext="{DynamicResource ViewModelMain}">
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="ViewModelMain"/>

@@ -136,6 +136,7 @@
     <Compile Include="Behavior\IDropable.cs" />
     <Compile Include="Behavior\TreeViewDragBehavoir.cs" />
     <Compile Include="Behavior\TreeViewItemBehavior.cs" />
+    <Compile Include="Controllers\BasemapGalleryController.cs" />
     <Compile Include="Controllers\CoordinateReadoutController.cs" />
     <Compile Include="Controllers\GotoXYToolController.cs" />
     <Compile Include="Controllers\NetworkingToolController.cs" />
@@ -144,8 +145,10 @@
     <Compile Include="Helpers\EventToCommand.cs" />
     <Compile Include="Helpers\GotoItem.cs" />
     <Compile Include="Helpers\Mediator.cs" />
+    <Compile Include="Helpers\SettingBindingExtension.cs" />
     <Compile Include="Helpers\TimeAwareMessageLayer.cs" />
     <Compile Include="Models\Mission.cs" />
+    <Compile Include="ViewModels\BasemapGalleryViewModel.cs" />
     <Compile Include="ViewModels\BaseToolViewModel.cs" />
     <Compile Include="ViewModels\GotoXYToolViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
@@ -156,6 +159,9 @@
     <Compile Include="ViewModels\SymbolTreeViewModel.cs" />
     <Compile Include="ViewModels\SymbolViewModel.cs" />
     <Compile Include="ViewModels\ViewShedToolViewModel.cs" />
+    <Compile Include="Views\BasemapGalleryView.xaml.cs">
+      <DependentUpon>BasemapGalleryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditMissionPhasesView.xaml.cs">
       <DependentUpon>EditMissionPhasesView.xaml</DependentUpon>
     </Compile>
@@ -186,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\StylesResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BasemapGalleryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
