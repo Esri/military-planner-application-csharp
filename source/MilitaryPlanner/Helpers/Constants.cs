@@ -46,6 +46,10 @@ namespace MilitaryPlanner.Helpers
 
         public const string ACTION_COORDINATE_READOUT_FORMAT_CHANGED = "ActionCoordinateReadoutFormatChanged";
 
+        public const string ACTION_EDIT_GEOMETRY = "ActionEditGeometry";
+        public const string ACTION_EDIT_UNDO = "ActionEditUndo";
+        public const string ACTION_EDIT_REDO = "ActionEditRedo";
+
         public const string ACTION_UPDATE_BASEMAP = "ActionUpdateBasemap";
 
         public const int SAVE_AS_MISSION = 1;

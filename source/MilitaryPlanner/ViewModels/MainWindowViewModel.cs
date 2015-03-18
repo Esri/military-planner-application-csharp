@@ -188,6 +188,9 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand OpenCommand { get; set; }
         public RelayCommand EditMissionPhasesCommand { get; set; }
+        public RelayCommand EditGeometryCommand { get; set; }
+        public RelayCommand EditGeometryUndoCommand { get; set; }
+        public RelayCommand EditGeometryRedoCommand { get; set; }
         public RelayCommand SwitchViewCommand { get; set; }
 
         #endregion
@@ -214,6 +217,9 @@ namespace MilitaryPlanner.ViewModels
             SaveCommand = new RelayCommand(OnSaveCommand);
             OpenCommand = new RelayCommand(OnOpenCommand);
             EditMissionPhasesCommand = new RelayCommand(OnEditMissionPhases);
+            EditGeometryCommand = new RelayCommand(OnEditGeometryCommand);
+            EditGeometryRedoCommand = new RelayCommand(OnEditGeometryRedoCommand);
+            EditGeometryUndoCommand = new RelayCommand(OnEditGeometryUndoCommand);
             SwitchViewCommand = new RelayCommand(OnSwitchViewCommand);
             
             MapView = new MapView();
@@ -234,6 +240,21 @@ namespace MilitaryPlanner.ViewModels
                 TimeLineViewVisibility = Visibility.Collapsed;
                 MapViewVisibility = Visibility.Visible;
             }
+        }
+
+        private void OnEditGeometryUndoCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_EDIT_UNDO, null);
+        }
+
+        private void OnEditGeometryRedoCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_EDIT_REDO, null);
+        }
+
+        private void OnEditGeometryCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_EDIT_GEOMETRY, null);
         }
 
         private void OnEditMissionPhases(object obj)
