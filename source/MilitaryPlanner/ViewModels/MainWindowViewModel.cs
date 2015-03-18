@@ -11,7 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 using System;
+using System.Windows;
 using Esri.ArcGISRuntime;
 using Microsoft.Win32;
 using MilitaryPlanner.Helpers;
@@ -133,8 +135,52 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        #endregion
+        private MissionTimeLineView _MTLView;
+        public MissionTimeLineView MTLView
+        {
+            get { return _MTLView; }
+            set
+            {
+                if (_MTLView != value)
+                {
+                    _MTLView = value;
+                    RaisePropertyChanged(() => MTLView);
+                }
+            }
+        }
 
+        private Visibility _mapViewVisibility = Visibility.Visible;
+        public Visibility MapViewVisibility
+        {
+            get
+            {
+                return _mapViewVisibility;
+            }
+
+            set
+            {
+                _mapViewVisibility = value;
+                RaisePropertyChanged(() => MapViewVisibility);
+            }
+        }
+
+        private Visibility _timeLineViewVisibility = Visibility.Collapsed;
+        public Visibility TimeLineViewVisibility
+        {
+            get
+            {
+                return _timeLineViewVisibility;
+            }
+
+            set
+            {
+                _timeLineViewVisibility = value;
+                RaisePropertyChanged(() => TimeLineViewVisibility);
+            }
+        }
+
+        #endregion
+        
         #region Commands
 
         public RelayCommand CancelCommand { get; set; }
@@ -145,6 +191,7 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand EditGeometryCommand { get; set; }
         public RelayCommand EditGeometryUndoCommand { get; set; }
         public RelayCommand EditGeometryRedoCommand { get; set; }
+        public RelayCommand SwitchViewCommand { get; set; }
 
         #endregion
 
@@ -173,9 +220,26 @@ namespace MilitaryPlanner.ViewModels
             EditGeometryCommand = new RelayCommand(OnEditGeometryCommand);
             EditGeometryRedoCommand = new RelayCommand(OnEditGeometryRedoCommand);
             EditGeometryUndoCommand = new RelayCommand(OnEditGeometryUndoCommand);
+            SwitchViewCommand = new RelayCommand(OnSwitchViewCommand);
             
             MapView = new MapView();
             OOBView = new OrderOfBattleView();
+            MTLView = new MissionTimeLineView();
+        }
+
+        private void OnSwitchViewCommand(object obj)
+        {
+            if (MapViewVisibility == Visibility.Visible)
+            {
+                Mediator.NotifyColleagues(Constants.ACTION_CLONE_MISSION, null);
+                TimeLineViewVisibility = Visibility.Visible;
+                MapViewVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                TimeLineViewVisibility = Visibility.Collapsed;
+                MapViewVisibility = Visibility.Visible;
+            }
         }
 
         private void OnEditGeometryUndoCommand(object obj)
@@ -231,11 +295,15 @@ namespace MilitaryPlanner.ViewModels
         private void OnSaveCommand(object obj)
         {
             // file dialog
-            var sfd = new SaveFileDialog {Filter = "xml files (*.xml)|*.xml", RestoreDirectory = true};
+            var sfd = new SaveFileDialog
+            {
+                Filter = "xml files (*.xml)|*.xml|Geomessage xml files (*.xml)|*.xml",
+                RestoreDirectory = true
+            };
 
             if (sfd.ShowDialog() == true)
             {
-                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, sfd.FileName);
+                Mediator.NotifyColleagues(Constants.ACTION_SAVE_MISSION, String.Format("{0}{1}{2}", sfd.FilterIndex, Constants.SAVE_AS_DELIMITER, sfd.FileName));
             }
         }
 

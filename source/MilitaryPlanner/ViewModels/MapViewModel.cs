@@ -102,6 +102,7 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_EDIT_GEOMETRY, DoEditGeometry);
             Mediator.Register(Constants.ACTION_EDIT_REDO, DoEditRedo);
             Mediator.Register(Constants.ACTION_EDIT_UNDO, DoEditUndo);
+            Mediator.Register(Constants.ACTION_CLONE_MISSION, DoCloneMission);
 
             SetMapCommand = new RelayCommand(OnSetMap);
             PhaseAddCommand = new RelayCommand(OnPhaseAdd);
@@ -183,6 +184,14 @@ namespace MilitaryPlanner.ViewModels
                     }
                 }
             }
+        }
+
+        private void DoCloneMission(object obj)
+        {
+            Mission cloneMission = _mission.DeepCopy();
+
+            // update mission cloned
+            Mediator.NotifyColleagues(Constants.ACTION_MISSION_CLONED, cloneMission);
         }
 
         private void OnToggleNetworkingToolCommand(object obj)
@@ -325,6 +334,7 @@ namespace MilitaryPlanner.ViewModels
                 if (_mission.Load(fileName))
                 {
                     InitializeMapWithMission();
+                    RaisePropertyChanged(() => PhaseDescription);
                 }
             }
         }
@@ -946,7 +956,6 @@ namespace MilitaryPlanner.ViewModels
 
             if (tam != null)
             {
-                //tam[MilitaryMessage.ControlPointsPropertyName] = msg[MilitaryMessage.ControlPointsPropertyName];
                 tam.StoreControlPoints(_mission.PhaseList[CurrentPhaseIndex].ID, msg);
             }
         }
@@ -1001,12 +1010,6 @@ namespace MilitaryPlanner.ViewModels
             if (messageLayer != null && msg != null)
             {
                 var result = messageLayer.ProcessMessage(msg);
-
-                // add id to messageIDList
-                //if (!_messageDictionary.ContainsKey(msg.Id) && result)
-                //{
-                //    _messageDictionary.Add(msg.Id, messageLayer.ID);
-                //}
 
                 if (!_phaseMessageDictionary.ContainsKey(messageLayer.ID))
                 {
