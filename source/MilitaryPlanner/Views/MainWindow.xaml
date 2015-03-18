@@ -13,6 +13,8 @@
         <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
         <KeyBinding Modifiers="Control" Key="S" Command="{Binding SaveCommand}" />
         <KeyBinding Modifiers="Control" Key="L" Command="{Binding OpenCommand}" />
+        <KeyBinding Modifiers="Control" Key="Z" Command="{Binding EditGeometryUndoCommand}" />
+        <KeyBinding Modifiers="Control" Key="Y" Command="{Binding EditGeometryRedoCommand}" />
         <KeyBinding Key="F2" Command="{Binding EditGeometryCommand}" />
     </Window.InputBindings>
     <Grid>

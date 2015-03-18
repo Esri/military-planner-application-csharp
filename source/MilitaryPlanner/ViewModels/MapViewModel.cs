@@ -100,6 +100,8 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_OPEN_MISSION, DoOpenMission);
             Mediator.Register(Constants.ACTION_EDIT_MISSION_PHASES, DoEditMissionPhases);
             Mediator.Register(Constants.ACTION_EDIT_GEOMETRY, DoEditGeometry);
+            Mediator.Register(Constants.ACTION_EDIT_REDO, DoEditRedo);
+            Mediator.Register(Constants.ACTION_EDIT_UNDO, DoEditUndo);
 
             SetMapCommand = new RelayCommand(OnSetMap);
             PhaseAddCommand = new RelayCommand(OnPhaseAdd);
@@ -115,6 +117,22 @@ namespace MilitaryPlanner.ViewModels
             ToggleViewShedToolCommand = new RelayCommand(OnToggleViewShedToolCommand);
             ToggleGotoXYToolCommand = new RelayCommand(OnToggleGotoXYToolCommand);
             ToggleNetworkingToolCommand = new RelayCommand(OnToggleNetworkingToolCommand);
+        }
+
+        private void DoEditUndo(object obj)
+        {
+            if (_mapView.Editor.IsActive && _mapView.Editor.Undo.CanExecute(null))
+            {
+                _mapView.Editor.Undo.Execute(null);
+            }
+        }
+
+        private void DoEditRedo(object obj)
+        {
+            if (_mapView.Editor.IsActive && _mapView.Editor.Redo.CanExecute(null))
+            {
+                _mapView.Editor.Redo.Execute(null);
+            }
         }
 
         /// <summary>
@@ -144,12 +162,19 @@ namespace MilitaryPlanner.ViewModels
 
                     try
                     {
-                        var resultGeometry = await _mapView.Editor.EditGeometryAsync(tam.SymbolGeometry, null, null);
+                        var progress = new Progress<GeometryEditStatus>();
+
+                        progress.ProgressChanged += (a, ges) =>
+                        {
+                            UpdateCurrentMessage(tam, ges.NewGeometry);
+                        };
+
+                        var resultGeometry = await _mapView.Editor.EditGeometryAsync(tam.SymbolGeometry, null, progress);
 
                         if (resultGeometry != null)
                         {
                             tam.SymbolGeometry = resultGeometry;
-                            UpdateCurrentMessage(tam, resultGeometry as Polyline);
+                            UpdateCurrentMessage(tam, resultGeometry);
                         }
                     }
                     catch (OperationCanceledException ex)
@@ -865,30 +890,53 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private void UpdateCurrentMessage(TimeAwareMilitaryMessage tam, Polyline geometry)
+        private void UpdateCurrentMessage(TimeAwareMilitaryMessage tam, Geometry geometry)
         {
             var cpts = string.Empty;
 
             // TODO find a way to determine if polyline map points need adjustment based on symbol being drawn
 
-            List<MapPoint> mpList;
+            List<MapPoint> mpList = null;
 
-            if (tam[MilitaryMessage.SicCodePropertyName].Contains("POLA") || tam[MilitaryMessage.SicCodePropertyName].Contains("PPA"))
+            var polyline = geometry as Polyline;
+
+            if (polyline != null)
             {
-                mpList = AdjustMapPoints(geometry, DrawShape.Arrow);
+                if (tam[MilitaryMessage.SicCodePropertyName].Contains("POLA") ||
+                    tam[MilitaryMessage.SicCodePropertyName].Contains("PPA"))
+                {
+                    mpList = AdjustMapPoints(polyline, DrawShape.Arrow);
+                }
+                else
+                {
+                    mpList = AdjustMapPoints(polyline, DrawShape.Polyline);
+                }
             }
             else
             {
-                mpList = AdjustMapPoints(geometry, DrawShape.Polyline);
+                var polygon = geometry as Polygon;
+
+                if (polygon != null)
+                {
+                    mpList = new List<MapPoint>();
+                    foreach (var part in polygon.Parts)
+                    {
+                        mpList.AddRange(part.GetPoints());
+                    }
+                }
             }
 
-            var msg = new MilitaryMessage(tam.Id, MilitaryMessageType.PositionReport, MilitaryMessageAction.Update, mpList);
-
-            tam[MilitaryMessage.ControlPointsPropertyName] = msg[MilitaryMessage.ControlPointsPropertyName];
-
-            if (_militaryMessageLayer.ProcessMessage(msg))
+            if (mpList != null)
             {
-                UpdateMilitaryMessageControlPoints(msg);
+                var msg = new MilitaryMessage(tam.Id, MilitaryMessageType.PositionReport, MilitaryMessageAction.Update,
+                    mpList);
+
+                tam[MilitaryMessage.ControlPointsPropertyName] = msg[MilitaryMessage.ControlPointsPropertyName];
+
+                if (_militaryMessageLayer.ProcessMessage(msg))
+                {
+                    UpdateMilitaryMessageControlPoints(msg);
+                }
             }
         }
 
