@@ -552,7 +552,7 @@ namespace MilitaryPlanner.ViewModels
 
                 // World Topo Map doesn't support mensuration
                 //var temp = _mapView.Map.Layers["World Topo Map"];
-                var temp = _mapView.Map.Layers["TestMapServiceLayer"];
+                var temp = _mapView.Map.Layers["MensurationMapServiceLayer"];
 
                 _mensurationTask = new MensurationTask(new Uri((temp as ArcGISTiledMapServiceLayer).ServiceUri));
 
@@ -587,6 +587,10 @@ namespace MilitaryPlanner.ViewModels
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Mensuration Error");
+                }
+                finally
+                {
+                    _graphicsOverlay.Graphics.Clear();
                 }
             }
         }
