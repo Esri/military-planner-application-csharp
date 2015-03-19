@@ -11,7 +11,7 @@
        HorizontalOffset="10"
              d:DesignHeight="320" d:DesignWidth="300">
     <Grid >
-        <Border Name="gotoXYToolPanel" Background="White" BorderBrush="Black" BorderThickness="1"
+        <Border Background="White" BorderBrush="Black" BorderThickness="1"
                     Margin="3" Padding="7"
                     Width="430">
             <Border.Effect>

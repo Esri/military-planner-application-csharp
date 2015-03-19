@@ -11,11 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using MilitaryPlanner.Helpers;
 using MilitaryPlanner.Models;
@@ -24,7 +29,8 @@ namespace MilitaryPlanner.ViewModels
 {
     public class MissionViewModel : BaseViewModel
     {
-        readonly List<PhaseSymbolViewModel> _symbols = new List<PhaseSymbolViewModel>();
+        //List<PhaseSymbolViewModel> _phaseSymbols = new List<PhaseSymbolViewModel>();
+        readonly ObservableCollection<PhaseSymbolViewModel> _phaseSymbols = new ObservableCollection<PhaseSymbolViewModel>(); 
 
         private Mission _mission = new Mission();
 
@@ -38,15 +44,19 @@ namespace MilitaryPlanner.ViewModels
             set
             {
                 _mission = value;
+                _phaseSymbols.Clear();
                 ProcessMission();
                 RaisePropertyChanged(() => CurrentMission);
                 RaisePropertyChanged(() => PhaseCount);
                 RaisePropertyChanged(() => CurrentPhase);
+                RaisePropertyChanged(() => MissionTimeExtent);
+                RaisePropertyChanged(() => PhaseSymbols);
             }
         }
 
         public RelayCommand PhaseBackCommand { get; set; }
         public RelayCommand PhaseNextCommand { get; set; }
+        public RelayCommand DeletePhaseCommand { get; set; }
 
         public MissionViewModel()
         {
@@ -61,6 +71,30 @@ namespace MilitaryPlanner.ViewModels
 
             PhaseBackCommand = new RelayCommand(OnPhaseBack);
             PhaseNextCommand = new RelayCommand(OnPhaseNext);
+            DeletePhaseCommand = new RelayCommand(OnDeletePhase);
+        }
+
+        private void OnDeletePhase(object obj)
+        {
+            var question = String.Format("Are you sure you want to delete phase?\n\rName : {0}",CurrentPhase.Name);
+            var result = MessageBox.Show(question, "Delete Phase?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                if (CurrentPhaseIndex < PhaseCount)
+                {
+                    // remove phase
+                    _mission.PhaseList.RemoveAt(CurrentPhaseIndex);
+                    if (CurrentPhaseIndex >= PhaseCount && CurrentPhaseIndex != 0)
+                    {
+                        CurrentPhaseIndex--;
+                    }
+                    else
+                    {
+                        CurrentPhaseIndex = CurrentPhaseIndex;
+                    }
+                }
+            }
         }
 
         private void OnPhaseIndexChanged(object obj)
@@ -95,11 +129,11 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        public IReadOnlyCollection<PhaseSymbolViewModel> Symbols
+        public ObservableCollection<PhaseSymbolViewModel> PhaseSymbols
         {
             get
             {
-                return _symbols;
+                return _phaseSymbols;
             }
         }
 
@@ -108,6 +142,14 @@ namespace MilitaryPlanner.ViewModels
             get
             {
                 return _mission.PhaseList.Count;
+            }
+        }
+
+        public TimeExtent MissionTimeExtent
+        {
+            get
+            {
+                return new TimeExtent(_mission.PhaseList.Min(t => t.VisibleTimeExtent.Start), _mission.PhaseList.Max(t => t.VisibleTimeExtent.End));
             }
         }
 
@@ -121,10 +163,13 @@ namespace MilitaryPlanner.ViewModels
 
             set
             {
-                _currentPhaseIndex = value;
-                CurrentPhase = _mission.PhaseList[_currentPhaseIndex];
-                RaisePropertyChanged(() => CurrentPhaseIndex);
-                RaisePropertyChanged(() => PhaseMessage);
+                if (value < _mission.PhaseList.Count)
+                {
+                    _currentPhaseIndex = value;
+                    CurrentPhase = _mission.PhaseList[_currentPhaseIndex];
+                    RaisePropertyChanged(() => CurrentPhaseIndex);
+                    RaisePropertyChanged(() => PhaseMessage);
+                }
             }
         }
 
@@ -164,50 +209,80 @@ namespace MilitaryPlanner.ViewModels
             int currentStartPhase = 0;
             int currentEndPhase = 0;
 
-            foreach (var phase in _mission.PhaseList)
+            foreach (var mm in _mission.MilitaryMessages)
             {
-                // for each message in the phase
-                //TODO revisit
-                //foreach (var pm in phase.PersistentMessages)
-                //{
-                //    // for each message, create/update a phase symbol in the symbol list
-                //    CreateUpdateSymbolWithPM(pm, currentStartPhase, currentEndPhase);
-                //}
+                currentStartPhase = 0;
+                currentEndPhase = -1;
 
-                currentStartPhase++;
-                currentEndPhase++;
+                foreach (var phase in _mission.PhaseList)
+                {
+                    if (mm.VisibleTimeExtent.Intersects(phase.VisibleTimeExtent))
+                    {
+                        currentEndPhase = _mission.PhaseList.IndexOf(phase);
+                    }
+                    else
+                    {
+                        //if (_mission.PhaseList.IndexOf(phase) <= currentEndPhase)
+                        if (currentEndPhase < 0)
+                        {
+                            //currentStartPhase = _mission.PhaseList.IndexOf(phase);
+                            currentStartPhase++;
+                        }
+                    }
+                }
+
+                var pm = new PersistentMessage() { ID = mm.Id, VisibleTimeExtent = mm.VisibleTimeExtent};
+
+                var piList = new List<PropertyItem>();
+
+                foreach (var item in mm)
+                {
+                    piList.Add(new PropertyItem() { Key = item.Key, Value = item.Value });
+                }
+
+                pm.PropertyItems = piList;
+
+                CreateUpdateSymbolWithPM(pm, currentStartPhase, currentEndPhase);
             }
+
         }
 
         private void CreateUpdateSymbolWithPM(PersistentMessage pm, int currentStartPhase, int currentEndPhase)
         {
             // is this an update or a new symbol
-            var foundSymbol = _symbols.Where(sl => sl.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName) && sl.ItemSVM.Model.Values[Message.IdPropertyName] == pm.ID);
+            var foundSymbol = _phaseSymbols.FirstOrDefault(sl => sl.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName) && sl.ItemSVM.Model.Values[Message.IdPropertyName] == pm.ID);
 
-            if (foundSymbol != null && foundSymbol.Any())
+            //if (foundSymbol != null && foundSymbol.Any())
+            if(foundSymbol != null)
             {
                 // symbol is in list, do an update
-                var ps = foundSymbol.ElementAt(0);
+                var ps = foundSymbol;//.ElementAt(0);
 
                 ps.EndPhase = currentEndPhase;
             }
             else
             {
                 // symbol is missing, ADD a new one
-                var psvm = new PhaseSymbolViewModel
-                {
-                    StartPhase = currentStartPhase,
-                    EndPhase = currentEndPhase,
-                    ItemSVM = SymbolLoader.Search(pm.PropertyItems.Where(pi => pi.Key == "sic").ElementAt(0).Value)
-                };
+                PropertyItem first = pm.PropertyItems.FirstOrDefault(pi => pi.Key == "sic");
 
-                // create SVM
-                if (!psvm.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName))
+                if (first != null)
                 {
-                    psvm.ItemSVM.Model.Values.Add(Message.IdPropertyName, pm.ID);
+                    var psvm = new PhaseSymbolViewModel
+                    {
+                        StartPhase = currentStartPhase,
+                        EndPhase = currentEndPhase,
+                        ItemSVM = SymbolLoader.Search(first.Value),
+                        VisibleTimeExtent = pm.VisibleTimeExtent
+                    };
+
+                    // create SVM
+                    if (!psvm.ItemSVM.Model.Values.ContainsKey(Message.IdPropertyName))
+                    {
+                        psvm.ItemSVM.Model.Values.Add(Message.IdPropertyName, pm.ID);
+                    }
+
+                    _phaseSymbols.Add(psvm);
                 }
-
-                _symbols.Add(psvm);
             }
         }
 
@@ -262,6 +337,45 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        private TimeExtent _visibleTimeExtent = new TimeExtent();
+
+        public TimeExtent VisibleTimeExtent
+        {
+            get
+            {
+                return _visibleTimeExtent;
+            }
+            set
+            {
+                _visibleTimeExtent = value;
+                RaisePropertyChanged(() => VisibleTimeExtent);
+            }
+        }
+
+    }
+
+    public class PadLeftVariableWidthConverter : IMultiValueConverter
+    {
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            double listWidth = (double)values[0];
+            TimeExtent messageTimeExtent = (TimeExtent)values[1];
+            TimeExtent missionTimeExtent = (TimeExtent)values[2];
+
+            TimeSpan ts = messageTimeExtent.Start.Subtract(missionTimeExtent.Start);
+            TimeSpan mts = missionTimeExtent.End.Subtract(missionTimeExtent.Start);
+
+            var widthFactor = ts.TotalSeconds / mts.TotalSeconds;
+            var width = listWidth * widthFactor;
+
+            return Math.Max(width,0.0);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class VariableWidthConverter : IMultiValueConverter
@@ -269,21 +383,91 @@ namespace MilitaryPlanner.ViewModels
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            int totalPhaseLength = (int)values[0];
-            int phaseLength = (int)values[1];
-            double listWidth = (double)values[2];
-            
-            var width = ((listWidth / totalPhaseLength) * phaseLength);
+            double listWidth = (double)values[0];
+            TimeExtent messageTimeExtent = (TimeExtent)values[1];
+            TimeExtent missionTimeExtent = (TimeExtent)values[2];
 
-            if (phaseLength-1 > 0)
-            {
-                width -= 12;
-            }
+            TimeSpan ts = messageTimeExtent.End.Subtract(messageTimeExtent.Start);
+            TimeSpan mts = missionTimeExtent.End.Subtract(missionTimeExtent.Start);
 
-            return width;
+            var widthFactor = ts.TotalSeconds / mts.TotalSeconds;
+            var width = listWidth * widthFactor;
+
+            return Math.Max(0.0, width - 12);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PhaseWidthConverter : IMultiValueConverter
+    {
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            int totalPhaseCount = (int)values[0];
+            double listWidth = (double)values[1];
+
+            var width = (listWidth - (listWidth % totalPhaseCount)) / totalPhaseCount;
+
+            var offset = 0;
+
+            while (totalPhaseCount*(width - offset) > listWidth - 3)
+            {
+                offset++;
+            }
+
+            return Math.Max(0.0,width - offset);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class PhaseHeightConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (double)value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SIC2BrushConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var sic = (string) value;
+
+            Brush brush;
+
+            switch (sic[1].ToString().ToLower())
+            {
+                case "f":
+                    brush = Brushes.DeepSkyBlue;
+                    break;
+                case "n":
+                    brush = Brushes.LightGreen;
+                    break;
+                case "h":
+                    brush = Brushes.Salmon;
+                    break;
+                default:
+                    brush = Brushes.Yellow;
+                    break;
+            }
+
+            return brush;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

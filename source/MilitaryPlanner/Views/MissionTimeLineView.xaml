@@ -9,44 +9,92 @@
     <UserControl.Resources>
         <viewModels:MissionViewModel x:Key="MyMissionViewModel" />
         <viewModels:VariableWidthConverter x:Key="MyVariableWidthConverter" />
+        <viewModels:PadLeftVariableWidthConverter x:Key="MyPadLeftVariableWidthConverter" />
+        <viewModels:PhaseWidthConverter x:Key="MyPhaseWidthConverter" />
+        <viewModels:PhaseHeightConverter x:Key="MyPhaseHeightConverter"/>
+        <viewModels:SIC2BrushConverter x:Key="BackgrounBrushConverter"/>
+        <ItemsPanelTemplate x:Key="PhaseItemsPanel">
+            <VirtualizingStackPanel IsItemsHost="True">
+                <VirtualizingStackPanel.LayoutTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90" />
+                        <ScaleTransform ScaleX="-1" ScaleY="1" />
+                    </TransformGroup>
+                </VirtualizingStackPanel.LayoutTransform>
+            </VirtualizingStackPanel>
+        </ItemsPanelTemplate>
+        <Style TargetType="ListBoxItem">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Orchid" Opacity="0.5"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightBlue"/>
+            </Style.Resources>
+        </Style>
     </UserControl.Resources>
     <Grid DataContext="{StaticResource MyMissionViewModel}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="SymbolListBox" Grid.Column="1" Margin="0,0,0,0" ItemsSource="{Binding Symbols}" BorderThickness="0">
+        <ItemsControl x:Name="PhaseListBox" Grid.Column="1" ItemsSource="{Binding CurrentMission.PhaseList}" ItemsPanel="{DynamicResource PhaseItemsPanel}">
+            <ItemsControl.Background>
+                <SolidColorBrush Opacity="0.0"/>
+            </ItemsControl.Background>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center">
+                            <TextBlock.LayoutTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="90" />
+                                    <ScaleTransform ScaleX="-1" ScaleY="1" />
+                                </TransformGroup>
+                            </TextBlock.LayoutTransform>
+                        </TextBlock>
+                        <Border BorderThickness="1" BorderBrush="BlueViolet" Opacity="0.5">
+                            <Border.Height>
+                                <MultiBinding Converter="{StaticResource MyPhaseWidthConverter}">
+                                    <Binding Path="DataContext.PhaseCount" ElementName="PhaseListBox" />
+                                    <Binding Path="ActualWidth" ElementName="PhaseListBox" />
+                                </MultiBinding>
+                            </Border.Height>
+                            <Border.Width>
+                                <Binding Path="ActualHeight" ElementName="PhaseListBox" Converter="{StaticResource MyPhaseHeightConverter}" />
+                            </Border.Width>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ListBox x:Name="SymbolListBox" Grid.Column="1" Margin="0,25,0,0" ItemsSource="{Binding PhaseSymbols, Mode=OneWay}" BorderThickness="0">
+            <ListBox.Background>
+                <SolidColorBrush Color="AliceBlue" Opacity="0.0"/>
+            </ListBox.Background>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <!--<TextBlock HorizontalAlignment="Left" Text="{Binding Name}"/>-->
-                        <!--<TextBlock HorizontalAlignment="Left" FontSize="10" Foreground="Gray" Text="{Binding Keywords}"/>-->
-                        <!--<Border CornerRadius="8,8,8,8" Margin="3,3,3,3" Grid.Column="{Binding StartPhase}" Grid.ColumnSpan="{Binding PhaseLength}" Background="DeepSkyBlue">-->
                         <Border>
                             <Border.Width>
-                                <MultiBinding Converter="{StaticResource MyVariableWidthConverter}">
-                                    <Binding Path="DataContext.PhaseCount" ElementName="SymbolListBox" />
-                                    <Binding Path="StartPhase" />
+                                <MultiBinding Converter="{StaticResource MyPadLeftVariableWidthConverter}">
                                     <Binding Path="ActualWidth" ElementName="SymbolListBox" />
+                                    <Binding Path="VisibleTimeExtent" />
+                                    <Binding Path="DataContext.MissionTimeExtent" ElementName="SymbolListBox" />
                                 </MultiBinding>
                             </Border.Width>
                         </Border>
-                        <Border CornerRadius="8,8,8,8" Margin="3,3,3,3" Background="DeepSkyBlue">
+                        <Border CornerRadius="8,8,8,8" Margin="0,3,0,3" Background="{Binding ItemSVM.SymbolID, Converter={StaticResource BackgrounBrushConverter}}">
                             <Border.Width>
                                 <MultiBinding Converter="{StaticResource MyVariableWidthConverter}">
-                                    <Binding Path="DataContext.PhaseCount" ElementName="SymbolListBox" />
-                                    <Binding Path="PhaseLength" />
                                     <Binding Path="ActualWidth" ElementName="SymbolListBox" />
+                                    <Binding Path="VisibleTimeExtent" />
+                                    <Binding Path="DataContext.MissionTimeExtent" ElementName="SymbolListBox" />
                                 </MultiBinding>
                             </Border.Width>
                             <Image Width="{Binding ItemSVM.ImageSize}" Height="{Binding ItemSVM.ImageSize}" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Source="{Binding ItemSVM.Thumbnail}"/>
                         </Border>
-                        <!--<Border Width="100" Background="Red"/>-->
-                        <!--<Image Grid.Column="{Binding StartPhase}" Width="{Binding ItemSVM.ImageSize}" Height="{Binding ItemSVM.ImageSize}" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Source="{Binding ItemSVM.Thumbnail}"/>-->
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

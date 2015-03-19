@@ -486,14 +486,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MilitaryPlanner.exe" size="130560">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MilitaryPlanner.exe" size="149504">
       <assemblyIdentity name="MilitaryPlanner" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>a5SKu54QOu2khusYWxVDmu0G8BieM5iulCWWsH8Cup0=</dsig:DigestValue>
+        <dsig:DigestValue>RFmclQc6UiyJNvUGBVCnzozRHyEDN7u+/7LWwd8hIxg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -839,13 +839,13 @@
       <dsig:DigestValue>7p8UwQtRbihveyTowoZ6eDC/QsqKyRt14M9oWkwQocU=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MilitaryPlanner.exe.config" size="541">
+  <file name="MilitaryPlanner.exe.config" size="1627">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>JgF8u+SmlekVyttocpovsnMnjGwSmU+c9zec8rkLsgE=</dsig:DigestValue>
+      <dsig:DigestValue>rbyHaVCrS1SIk4LeaaXZ4OQJXQWS499dkBdRJJMprms=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
