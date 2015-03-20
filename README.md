@@ -24,7 +24,7 @@ This is an Esri ArcGIS Runtime for .NET Application Prototype Template that can 
 ## Requirements
 
 * Visual Studio 2012 or later
-* ArcGIS Runtime SDK for .NET 10.2.4 (Basic License)
+* ArcGIS Runtime SDK for .NET 10.2.5 (Basic License)
 	* [ArcGIS Runtime for .NET Requirements](https://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
 
 ## Instructions
@@ -43,7 +43,7 @@ This is an Esri ArcGIS Runtime for .NET Application Prototype Template that can 
 	* Run or debug from Visual Studio
 	* To run from a stand-alone deployment
         * A pre-built [application folder](./application) has been provided
-		* You may add the runtime deployment folder (ex. `arcgisruntime10.2.4`) to this folder to quickly create a runtime deployment (ex. `./application/arcgisruntime10.2.4`)
+		* You may add the runtime deployment folder (ex. `arcgisruntime10.2.5`) to this folder to quickly create a runtime deployment (ex. `./application/arcgisruntime10.2.5`)
         * Run MilitaryPlanner.exe from the deployment folder
 
 ## Resources
