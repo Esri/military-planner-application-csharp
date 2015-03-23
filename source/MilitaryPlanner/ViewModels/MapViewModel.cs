@@ -354,6 +354,11 @@ namespace MilitaryPlanner.ViewModels
             Mediator.NotifyColleagues(Constants.ACTION_MISSION_LOADED, _mission);
 
             OnCurrentPhaseIndexChanged();
+
+            foreach (var mm in _mission.MilitaryMessages)
+            {
+                Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_ADDED, mm.Id);
+            }
         }
 
         private void DoSaveMission(object obj)

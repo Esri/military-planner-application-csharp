@@ -91,6 +91,9 @@ namespace MilitaryPlanner.ViewModels
         [XmlElement]
         public string SIC { get { return _sic; } set { _sic = value; } }
 
+        [XmlElement]
+        public string Id { get; set; }
+
         internal void Save(string filename)
         {
             XmlSerializer x = new XmlSerializer(GetType());
@@ -149,7 +152,14 @@ namespace MilitaryPlanner.ViewModels
 
         private SymbolTreeViewModel(SymbolViewModelWrapper symbolWrapper, SymbolTreeViewModel parent)
         {
-            _guid = Guid.NewGuid().ToString("D");
+            if (String.IsNullOrWhiteSpace(symbolWrapper.Id))
+            {
+                _guid = Guid.NewGuid().ToString("D");
+            }
+            else
+            {
+                _guid = symbolWrapper.Id;
+            }
             _symbolWrapper = symbolWrapper;
             _parent = parent;
 
