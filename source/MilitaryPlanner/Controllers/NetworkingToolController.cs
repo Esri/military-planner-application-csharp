@@ -22,9 +22,14 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
+using MilitaryPlanner.Helpers;
 using MilitaryPlanner.ViewModels;
 using MilitaryPlanner.Views;
 using MapView = Esri.ArcGISRuntime.Controls.MapView;
+using Esri.ArcGISRuntime.Tasks.Geocoding;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MilitaryPlanner.Controllers
 {
@@ -40,6 +45,11 @@ namespace MilitaryPlanner.Controllers
         private readonly GraphicsOverlay _stopsOverlay;
         private readonly GraphicsOverlay _routesOverlay;
         private readonly GraphicsOverlay _directionsOverlay;
+
+        private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+        private LocatorServiceInfo _locatorServiceInfo;
+        private OnlineLocatorTask _locatorTask;
 
         public NetworkingToolController(MapView mapView, MapViewModel mapViewModel)
         {
@@ -77,6 +87,11 @@ namespace MilitaryPlanner.Controllers
             _directionsOverlay = mapView.GraphicsOverlays["DirectionsOverlay"];
 
             _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
+
+            Mediator.Register(Constants.ACTION_ROUTING_GET_DIRECTIONS, DoGetDirections);
+
+            _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
+            _locatorTask.AutoNormalize = true;
         }
 
         public void Toggle()
@@ -101,7 +116,7 @@ namespace MilitaryPlanner.Controllers
 
         private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            if (!_networkingToolView.ViewModel.IsToolOpen)
+            if (!_networkingToolView.ViewModel.IsToolOpen || _networkingToolView.addressExpander.IsExpanded == true)
                 return;
 
             try
@@ -124,16 +139,21 @@ namespace MilitaryPlanner.Controllers
 
         private async void mapView_MapViewDoubleTapped(object sender, MapViewInputEventArgs e)
         {
-            if (!_networkingToolView.ViewModel.IsToolOpen)
+            if (!_networkingToolView.ViewModel.IsToolOpen || _networkingToolView.addressExpander.IsExpanded == true)
                 return;
 
             if (_stopsOverlay.Graphics.Count() < 2)
                 return;
 
+            e.Handled = true;
+
+            await RunRouting();
+        }
+
+        private async Task<int> RunRouting()
+        {
             try
             {
-                e.Handled = true;
-
                 _networkingToolView.ViewModel.PanelResultsVisibility = Visibility.Collapsed;
                 _networkingToolView.ViewModel.ProgressVisibility = Visibility.Visible;
 
@@ -188,6 +208,8 @@ namespace MilitaryPlanner.Controllers
                     _networkingToolView.ViewModel.PanelResultsVisibility = Visibility.Visible;
                 }
             }
+
+            return 0;
         }
 
         void listDirections_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -235,5 +257,52 @@ namespace MilitaryPlanner.Controllers
             return graphic;
         }
 
+        private async void DoGetDirections(object obj)
+        {
+            if (String.IsNullOrWhiteSpace(_networkingToolView.fromAddress.Text) ||
+                String.IsNullOrWhiteSpace(_networkingToolView.toAddress.Text))
+            {
+                return;
+            }
+
+            // geocode from and to address
+            if (_locatorServiceInfo == null)
+                _locatorServiceInfo = await _locatorTask.GetInfoAsync();
+
+            Reset();
+
+            // geocode from address
+            var candidateFromResults = await _locatorTask.GeocodeAsync(
+                GetInputAddressFromUI(_networkingToolView.fromAddress.Text), new List<string> { "Addr_type", "Score", "X", "Y" }, _mapView.SpatialReference, CancellationToken.None);
+
+            // geocode to address
+            var candidateToResults = await _locatorTask.GeocodeAsync(
+                GetInputAddressFromUI(_networkingToolView.toAddress.Text), new List<string> { "Addr_type", "Score", "X", "Y" }, _mapView.SpatialReference, CancellationToken.None);
+
+            if (candidateFromResults.Any() && candidateToResults.Any())
+            {
+                var fromResult = candidateFromResults.First();
+                var toResult = candidateToResults.First();
+
+                var fromMapPoint = fromResult.Extent.GetCenter();
+                var toMapPoint = toResult.Extent.GetCenter();
+
+                _stopsOverlay.Graphics.Add(CreateStopGraphic(new MapPoint(fromMapPoint.X, fromMapPoint.Y, _mapView.SpatialReference), 1));
+                _stopsOverlay.Graphics.Add(CreateStopGraphic(new MapPoint(toMapPoint.X, toMapPoint.Y, _mapView.SpatialReference), 2));
+
+                await RunRouting();
+            }
+
+        }
+
+        private System.Collections.Generic.IDictionary<string, string> GetInputAddressFromUI(string singleLineAddress)
+        {
+            Dictionary<string, string> address = new Dictionary<string, string>();
+
+            address[_locatorServiceInfo.SingleLineAddressField.FieldName] = singleLineAddress;
+
+            return address;
+
+        }
     }
 }
