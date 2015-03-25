@@ -116,7 +116,7 @@ namespace MilitaryPlanner.Controllers
 
         private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            if (!_networkingToolView.ViewModel.IsToolOpen || _networkingToolView.addressExpander.IsExpanded == true)
+            if (!_networkingToolView.ViewModel.IsToolOpen || _networkingToolView.ViewModel.AddressIsExpanded == true)
                 return;
 
             try
@@ -139,7 +139,7 @@ namespace MilitaryPlanner.Controllers
 
         private async void mapView_MapViewDoubleTapped(object sender, MapViewInputEventArgs e)
         {
-            if (!_networkingToolView.ViewModel.IsToolOpen || _networkingToolView.addressExpander.IsExpanded == true)
+            if (!_networkingToolView.ViewModel.IsToolOpen || _networkingToolView.ViewModel.AddressIsExpanded == true)
                 return;
 
             if (_stopsOverlay.Graphics.Count() < 2)
@@ -259,8 +259,8 @@ namespace MilitaryPlanner.Controllers
 
         private async void DoGetDirections(object obj)
         {
-            if (String.IsNullOrWhiteSpace(_networkingToolView.fromAddress.Text) ||
-                String.IsNullOrWhiteSpace(_networkingToolView.toAddress.Text))
+            if (String.IsNullOrWhiteSpace(_networkingToolView.ViewModel.FromAddress) ||
+                String.IsNullOrWhiteSpace(_networkingToolView.ViewModel.ToAddress))
             {
                 return;
             }
@@ -273,11 +273,11 @@ namespace MilitaryPlanner.Controllers
 
             // geocode from address
             var candidateFromResults = await _locatorTask.GeocodeAsync(
-                GetInputAddressFromUI(_networkingToolView.fromAddress.Text), new List<string> { "Addr_type", "Score", "X", "Y" }, _mapView.SpatialReference, CancellationToken.None);
+                GetInputAddressFromUI(_networkingToolView.ViewModel.FromAddress), new List<string> { "Addr_type", "Score", "X", "Y" }, _mapView.SpatialReference, CancellationToken.None);
 
             // geocode to address
             var candidateToResults = await _locatorTask.GeocodeAsync(
-                GetInputAddressFromUI(_networkingToolView.toAddress.Text), new List<string> { "Addr_type", "Score", "X", "Y" }, _mapView.SpatialReference, CancellationToken.None);
+                GetInputAddressFromUI(_networkingToolView.ViewModel.ToAddress), new List<string> { "Addr_type", "Score", "X", "Y" }, _mapView.SpatialReference, CancellationToken.None);
 
             if (candidateFromResults.Any() && candidateToResults.Any())
             {

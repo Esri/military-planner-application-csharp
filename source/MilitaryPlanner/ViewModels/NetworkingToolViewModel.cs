@@ -29,6 +29,9 @@ namespace MilitaryPlanner.ViewModels
 
         private bool _addressIsExpanded = false;
 
+        public string FromAddress { get; set; }
+        public string ToAddress { get; set; }
+
         public bool AddressIsExpanded
         {
             get { return _addressIsExpanded;}

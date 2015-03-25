@@ -33,7 +33,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical">
-                    <Expander Name="addressExpander" Header="Address format" IsExpanded="{Binding AddressIsExpanded}">
+                    <Expander Header="Address input" IsExpanded="{Binding AddressIsExpanded}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -45,13 +45,13 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="From:"/>
-                            <TextBox Grid.Column="1" Name="fromAddress" Margin="3,3,3,3">
+                            <TextBox Grid.Column="1" Margin="3,3,3,3" Text="{Binding FromAddress, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding GetDirectionsCommand}" />
                                 </TextBox.InputBindings>
                             </TextBox>
                             <TextBlock Grid.Row="1" Text="To:"/>
-                            <TextBox Grid.Row="1" Grid.Column="1" Name="toAddress" Margin="3,3,3,3">
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="3,3,3,3" Text="{Binding ToAddress, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding GetDirectionsCommand}" />
                                 </TextBox.InputBindings>
