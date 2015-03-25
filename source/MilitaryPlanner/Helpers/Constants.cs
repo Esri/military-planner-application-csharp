@@ -52,6 +52,8 @@ namespace MilitaryPlanner.Helpers
 
         public const string ACTION_UPDATE_BASEMAP = "ActionUpdateBasemap";
 
+        public const string ACTION_ROUTING_GET_DIRECTIONS = "ActionRoutingGetDirections";
+
         public const int SAVE_AS_MISSION = 1;
         public const int SAVE_AS_GEOMESSAGES = 2;
         public const string SAVE_AS_DELIMITER = "::";
