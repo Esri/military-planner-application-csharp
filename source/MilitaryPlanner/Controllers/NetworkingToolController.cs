@@ -90,8 +90,7 @@ namespace MilitaryPlanner.Controllers
 
             Mediator.Register(Constants.ACTION_ROUTING_GET_DIRECTIONS, DoGetDirections);
 
-            _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
-            _locatorTask.AutoNormalize = true;
+            _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl)) {AutoNormalize = true};
         }
 
         public void Toggle()
@@ -292,7 +291,6 @@ namespace MilitaryPlanner.Controllers
 
                 await RunRouting();
             }
-
         }
 
         private System.Collections.Generic.IDictionary<string, string> GetInputAddressFromUI(string singleLineAddress)
@@ -302,7 +300,6 @@ namespace MilitaryPlanner.Controllers
             address[_locatorServiceInfo.SingleLineAddressField.FieldName] = singleLineAddress;
 
             return address;
-
         }
     }
 }

@@ -42,314 +42,314 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Esri.ArcGISRuntime.dll" size="2015232">
-      <assemblyIdentity name="Esri.ArcGISRuntime" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Esri.ArcGISRuntime.dll" size="2025984">
+      <assemblyIdentity name="Esri.ArcGISRuntime" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>N8eTWoxPh0yKdcHztoMaWeUtjB8qDJHXH5ElGa8dGug=</dsig:DigestValue>
+        <dsig:DigestValue>9aOsaznbOEeCS/NH239atC/A7zEqge+dVG0dBoJlXto=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ar\Esri.ArcGISRuntime.resources.dll" size="41984">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="ar" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ar\Esri.ArcGISRuntime.resources.dll" size="100352">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="ar" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>byiz3jNcRTAUFE1T2ezKQri6VT0X8MnT1y2D4PQgyUY=</dsig:DigestValue>
+        <dsig:DigestValue>Bbz1Gd0RWQaddxa7uxSDwWwZNTZrYKKjsIEgDmhKCL0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="cs\Esri.ArcGISRuntime.resources.dll" size="37376">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="cs" processorArchitecture="msil" />
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="cs" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>zadGN3W3dabBgb39zatFGcLwp6cdcNgfuBSmJu4qWwU=</dsig:DigestValue>
+        <dsig:DigestValue>QGoSA5Be5YponTzPsVCsiow44KuLMkw9DGJ8wxrBzI0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="da\Esri.ArcGISRuntime.resources.dll" size="36864">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="da" processorArchitecture="msil" />
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="da" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>j5BLHGyVzVFhaLMcFLObF1swA9bURKHx9OeNPby4VhM=</dsig:DigestValue>
+        <dsig:DigestValue>GZruhG364cLNT+Ldf8fus39Gf3D1Loz/Dx7H3/U0u/s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="de\Esri.ArcGISRuntime.resources.dll" size="38912">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="de" processorArchitecture="msil" />
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="de" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ouGsHlox5rm3BEf8JnzltDLOk9+JjjyVO302wLSqOZs=</dsig:DigestValue>
+        <dsig:DigestValue>msKm5S0KrBSQE5lWWf+dK7bVd4N5fG0oKm7h/mnT+qA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="es\Esri.ArcGISRuntime.resources.dll" size="38912">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="es" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="es\Esri.ArcGISRuntime.resources.dll" size="86016">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="es" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>GQa2JUzNyvK2hkvQ5LiC3YZ3Cyy8Sbcdh8ukuXv6dJ8=</dsig:DigestValue>
+        <dsig:DigestValue>tQ/+LZAzdNG2k7cGzReJb410EH8kApPvvHjE2Bf8deU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="et\Esri.ArcGISRuntime.resources.dll" size="36352">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="et" processorArchitecture="msil" />
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="et" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rDe7gms9fAqhWod0HgVl1g9T5e3ZKMxwlI/GlSTT/1Y=</dsig:DigestValue>
+        <dsig:DigestValue>UBWy/wL1RWM4JzT78cYOdXVW7gRKncGrPQR/yPaPCro=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="fi\Esri.ArcGISRuntime.resources.dll" size="37888">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="fi" processorArchitecture="msil" />
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="fi" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BY41I+MPM4/Uz14CAm1GMMEXF7GCvIrmw22tfCvR+4o=</dsig:DigestValue>
+        <dsig:DigestValue>sp2VVN0A5oJEKiyTG3usOS1EGrrt85p7RQmDZn3wQjo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="fr\Esri.ArcGISRuntime.resources.dll" size="39424">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="fr" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="fr\Esri.ArcGISRuntime.resources.dll" size="85504">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="fr" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IUEXqsoyk3309Ai88Zds/8RVxuyAY0aeZXB/poI5cgA=</dsig:DigestValue>
+        <dsig:DigestValue>O1ctEAb5LEkN3p10b36aa22jip4RdmDC8/G5WQRnwyU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="he\Esri.ArcGISRuntime.resources.dll" size="40448">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="he" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="he\Esri.ArcGISRuntime.resources.dll" size="89088">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="he" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>sazGryWm7KudhjUYg2y0EzqAfpk9qwfRMMqDykFelSw=</dsig:DigestValue>
+        <dsig:DigestValue>ZZGouDY5CR3JvM6+I6OcjiAFZCLmfMlvDZLMja6H28Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="it\Esri.ArcGISRuntime.resources.dll" size="38400">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="it" processorArchitecture="msil" />
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="it" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ATmLuqmBGnTE5b09SLtorADgEBomXSz6HYCQEo6EUtw=</dsig:DigestValue>
+        <dsig:DigestValue>+gACl1dns/BIj/8jrXEVPH/K3rNfU05gG+Nbohu2cOY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ja\Esri.ArcGISRuntime.resources.dll" size="42496">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="ja" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ja\Esri.ArcGISRuntime.resources.dll" size="88576">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="ja" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>h212qOl7S7iIxeru/+R+HbWbtrX6ASWgsKerXB70wmw=</dsig:DigestValue>
+        <dsig:DigestValue>gwtnCEpZsd/P5h6eY9J1sVQ93aeQxodrNuO1i8a7y48=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ko\Esri.ArcGISRuntime.resources.dll" size="40448">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="ko" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ko\Esri.ArcGISRuntime.resources.dll" size="90624">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="ko" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Ywz2iNwJkQXt9PAZ6vgVBQCyzn/BAiH91aO4prpwxCY=</dsig:DigestValue>
+        <dsig:DigestValue>lJJpSZJqUQWuXgY0qBnitVN7Hy1UKFSESL2LnGu/Ddw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="lt\Esri.ArcGISRuntime.resources.dll" size="36864">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="lt" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="lt\Esri.ArcGISRuntime.resources.dll" size="83968">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="lt" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>gqmcRjOdIYwXcEXx5B7gWuBTg2lCaVekaMsntfMJ6mw=</dsig:DigestValue>
+        <dsig:DigestValue>z9Gp6H+ZzUxeGKoTQJK4c/TnnRd52gTBh7wZJKTG4r8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="lv\Esri.ArcGISRuntime.resources.dll" size="36864">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="lv" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="lv\Esri.ArcGISRuntime.resources.dll" size="37376">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="lv" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>8Hx1wKRhTmrV3JRFfjJ7MY2uduEhQ81dovI7nB9/d7g=</dsig:DigestValue>
+        <dsig:DigestValue>ex631H2n1h5OzkXr9yEwC/vckSDZitSP0BVFidQ3Vps=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nb-NO\Esri.ArcGISRuntime.resources.dll" size="36352">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="nb-NO" processorArchitecture="msil" />
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="nb-NO" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>GFwDPWzdxIVwAW0+7ku2oR/5LZk8fh237bWgsVPBUL4=</dsig:DigestValue>
+        <dsig:DigestValue>NJW5E2vNko5T7dd4gwRW9YhEYIlgiBelsp+zhRbsrKI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nl\Esri.ArcGISRuntime.resources.dll" size="37376">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="nl" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nl\Esri.ArcGISRuntime.resources.dll" size="82944">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="nl" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>yeczrENBSG5PEHWGWz9em2Eg29IXR6ZY93KH+39s9mM=</dsig:DigestValue>
+        <dsig:DigestValue>11Ggpt+TGXCN7jPCEYp63zQNAcxBiBzTcauKLsAFrZY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="no\Esri.ArcGISRuntime.resources.dll" size="36352">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="no" processorArchitecture="msil" />
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="no" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>nfNZQGah+L7wrq1B/d1U3qAiZ8UnbFxC/D04ivmtJQc=</dsig:DigestValue>
+        <dsig:DigestValue>Mnc6H6AFyRnCFUgYQOF8Ue+p1O1EDmfG7sxI5DCgTUI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pl\Esri.ArcGISRuntime.resources.dll" size="39424">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="pl" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pl\Esri.ArcGISRuntime.resources.dll" size="85504">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="pl" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>vHR0gZL22lQmlYOyJpLxLGqSJ5nAkX5eNwI2buVIhho=</dsig:DigestValue>
+        <dsig:DigestValue>gKuCGabrmTnlTZJ4EmySeytA2v/TXwN1aKtJm5rV1E0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pt-BR\Esri.ArcGISRuntime.resources.dll" size="38400">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="pt-BR" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pt-BR\Esri.ArcGISRuntime.resources.dll" size="84992">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="pt-BR" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ycdWtoFU+xR5uriD7280xnMKFfZo2myCJcXTOoLuPdg=</dsig:DigestValue>
+        <dsig:DigestValue>/O2i/LEhOsoC7leeBumauMdU15fqagdMgKAnc7Dvfss=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pt-PT\Esri.ArcGISRuntime.resources.dll" size="38400">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="pt-PT" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pt-PT\Esri.ArcGISRuntime.resources.dll" size="86528">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="pt-PT" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UXA4CaqIyDOxT5TDXMG1Ac2LgOrrW1pLXXRKWT6SRPQ=</dsig:DigestValue>
+        <dsig:DigestValue>goAhpejTxJ0NEXUNIkE1v80OjHZGOCR+AHVr2zAurcA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ro\Esri.ArcGISRuntime.resources.dll" size="38912">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="ro" processorArchitecture="msil" />
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="ro" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Zd9gDsiScVKkMstLu38xJjd+hRhsSeSuuWeMbCJq2Tc=</dsig:DigestValue>
+        <dsig:DigestValue>Mc4yq//gIfJesvrkEhEeV/50guP9FOPI6GhRL5O1Cgk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ru\Esri.ArcGISRuntime.resources.dll" size="46592">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="ru" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ru\Esri.ArcGISRuntime.resources.dll" size="104960">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="ru" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>S4zdAS9QnXy3ay8jK5PFWw+64fsHVphPfIBAIGGEuHE=</dsig:DigestValue>
+        <dsig:DigestValue>hEKu0fj5xzGANIDMgwq2Eanhs/iBKIS51jhzDaqJ/s0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="sv\Esri.ArcGISRuntime.resources.dll" size="37376">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="sv" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="sv\Esri.ArcGISRuntime.resources.dll" size="82432">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="sv" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rlPkfQEr1kIAeLGMo7PxoX4H7cGFYC8a+82b+jjeNuc=</dsig:DigestValue>
+        <dsig:DigestValue>LN97i0XkVCuyg624WbTRvhqtcOjTFgTukKiXJIZrdwg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="zh-CN\Esri.ArcGISRuntime.resources.dll" size="34816">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="zh-CN" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="zh-CN\Esri.ArcGISRuntime.resources.dll" size="78848">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="zh-CN" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Tcaxv2U8V8FOt3O4Ut9FgSm7IobuIJiyii9oewA/4pk=</dsig:DigestValue>
+        <dsig:DigestValue>5yiuLoOuubdFB8wTeF9Et7iPfrEpbgtPQPdfUrQj9nE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="zh-Hans\Esri.ArcGISRuntime.resources.dll" size="34816">
-      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.4.0" publicKeyToken="8FC3CC631E44AD86" language="zh-Hans" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="zh-Hans\Esri.ArcGISRuntime.resources.dll" size="78848">
+      <assemblyIdentity name="Esri.ArcGISRuntime.resources" version="10.2.5.0" publicKeyToken="8FC3CC631E44AD86" language="zh-Hans" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>h/Qb5G4FxKQceQSXLgGjLwwNBJF2v8+khZ3qNyRcrq4=</dsig:DigestValue>
+        <dsig:DigestValue>kqCmMnrpei3MYlIBoih+Ds/j2hfWhB74qa1U+vdCh8Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -486,14 +486,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MilitaryPlanner.exe" size="149504">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MilitaryPlanner.exe" size="155136">
       <assemblyIdentity name="MilitaryPlanner" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>RFmclQc6UiyJNvUGBVCnzozRHyEDN7u+/7LWwd8hIxg=</dsig:DigestValue>
+        <dsig:DigestValue>2q8HmbWSQUss5kVq0Kb98V99AFdB6yaOIrP1CVIIwJA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -830,13 +830,13 @@
       <dsig:DigestValue>+QljPAXikL+it4HwsPO6NjC+nifjBnWvt5NlBKKp++U=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="data\oob\oobexample.xml" size="794" writeableType="applicationData">
+  <file name="data\oob\oobexample.xml" size="1289" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>7p8UwQtRbihveyTowoZ6eDC/QsqKyRt14M9oWkwQocU=</dsig:DigestValue>
+      <dsig:DigestValue>iJK0tMi2FSnaTE6kpciSIV04f6/FsiSMmoaEtn0fi9c=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MilitaryPlanner.exe.config" size="1627">

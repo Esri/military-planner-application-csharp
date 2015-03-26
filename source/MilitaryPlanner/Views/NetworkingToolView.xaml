@@ -62,9 +62,9 @@
                     <TextBlock Text="Tap one or more stop locations on the map then double tap the final stop to calculate a simple route with directions." 
                            TextWrapping="Wrap" Visibility="{Binding PanelInstructionsVisibility}"/>
                 </StackPanel>
-                <ProgressBar x:Name="progress" Grid.Row="1" IsIndeterminate="True" Visibility="{Binding ProgressVisibility}" Margin="0,12,0,0" />
+                <ProgressBar Grid.Row="1" IsIndeterminate="True" Visibility="{Binding ProgressVisibility}" Margin="0,12,0,0" />
 
-                <Grid x:Name="panelResults" Grid.Row="2" Margin="0,12,0,0" Visibility="{Binding PanelResultsVisibility}">
+                <Grid Grid.Row="2" Margin="0,12,0,0" Visibility="{Binding PanelResultsVisibility}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
