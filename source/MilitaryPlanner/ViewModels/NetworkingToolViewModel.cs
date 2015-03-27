@@ -14,6 +14,7 @@
 using System;
 using System.Windows;
 using Esri.ArcGISRuntime.Layers;
+using MilitaryPlanner.Helpers;
 
 namespace MilitaryPlanner.ViewModels
 {
@@ -21,7 +22,42 @@ namespace MilitaryPlanner.ViewModels
     {
         public NetworkingToolViewModel()
         {
+            GetDirectionsCommand = new RelayCommand(OnGetDirectionsCommand);
+        }
 
+        public RelayCommand GetDirectionsCommand { get; set; }
+
+        private bool _addressIsExpanded = false;
+
+        public string FromAddress { get; set; }
+        public string ToAddress { get; set; }
+
+        public bool AddressIsExpanded
+        {
+            get { return _addressIsExpanded;}
+            set
+            {
+                _addressIsExpanded = value;
+                RaisePropertyChanged(() => AddressIsExpanded);
+                RaisePropertyChanged(() => PanelInstructionsVisibility);
+            }
+        }
+
+        public Visibility _panelInstructionsVisibility = Visibility.Visible;
+
+        public Visibility PanelInstructionsVisibility
+        {
+            get
+            {
+                if (AddressIsExpanded)
+                {
+                    return Visibility.Collapsed;
+                }
+                else
+                {
+                    return Visibility.Visible;
+                }
+            }
         }
 
         private string _routeTotals = String.Empty;
@@ -83,5 +119,11 @@ namespace MilitaryPlanner.ViewModels
                 RaisePropertyChanged(() => ProgressVisibility);
             }
         }
+
+        private void OnGetDirectionsCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_ROUTING_GET_DIRECTIONS, null);
+        }
+
     }
 }

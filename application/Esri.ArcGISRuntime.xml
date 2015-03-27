@@ -100,6 +100,13 @@
             </summary>
             <param name="installPath"></param>
         </member>
+        <member name="M:Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.SetInteropInstrumentationCallback(System.Action{System.Boolean,System.String})">
+            <summary>
+            Call using reflection to register an instrumentation callback.
+            Action parameters: bool entered, string function, string file, int line.
+            </summary>
+            <exclude/>
+        </member>
         <member name="M:Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize">
             <summary>
             Initializes the ArcGIS Runtime environment.
@@ -186,7 +193,7 @@
             <summary>
             *FOR INTERNAL USE ONLY*
             If False (the default) a D3DImage for hosting DirectX content is used, this gives the best performance.
-            If set to True a WriteableBitmap is used to display a map. this is also used with Direct11 Warp rendering on machines without graphcis cards.
+            If set to True a WriteableBitmap is used to display a map. this is also used with Direct11 Warp rendering on machines without graphics cards.
             </summary>
             <exclude/>
         </member>
@@ -325,6 +332,21 @@
             </summary>
             <param name="buffer"></param>
             <returns></returns>
+        </member>
+        <member name="M:RuntimeCoreNet.Interop.ToIntPtrArray(System.Collections.Generic.IEnumerable{RuntimeCoreNet.ICoreSymbol},System.Nullable{System.Int32})">
+            <summary>
+            Convert Core wrappers to an array of IntPtrs (the core object handles). Null values are mapped to IntPtr.Zero.
+            </summary>
+            <param name="e"></param>
+            <param name="coreLayerId">If specified, symbols tied to the core layer are returned.</param>
+            <returns></returns>		
+        </member>
+        <member name="M:RuntimeCoreNet.Interop.ToIntPtrArray(System.Collections.Generic.IEnumerable{RuntimeCoreNet.IHandleWrapper})">
+            <summary>
+            Convert Core wrappers to an array of IntPtrs (the core object handles). Null values are mapped to IntPtr.Zero.
+            </summary>
+            <param name="e"></param>
+            <returns></returns>		
         </member>
         <member name="M:Esri.ArcGISRuntime.Internal.Win32NativeMethods.GetShortPath(System.String)">
             <summary>Returns a short path equivalent for the supplied path string</summary>
@@ -1608,7 +1630,7 @@
         <member name="F:RuntimeCoreNet.CoreGraphicChangeType.Removed">
             <summary>Removed is not used in the interop, but is there for managed code to track what change occurred to a graphic</summary>
         </member>
-        <member name="M:RuntimeCoreNet.CoreFeatureSet.AddGraphics(System.IntPtr[],System.IntPtr[],System.IntPtr[],System.IntPtr[])">
+        <member name="M:RuntimeCoreNet.CoreFeatureSet.AddGraphics(RuntimeCoreNet.ICoreGeometry[],RuntimeCoreNet.CoreSpatialReference[],RuntimeCoreNet.CoreAttributes[],RuntimeCoreNet.ICoreSymbol[])">
             <summary>Pass in arrays where coorespongn index represents a graphic, the arrays can be optional too. 
             		   e.g. if you don't want to write individual sr, you can leave out sr array altogether  </summary>summary>
         </member>
@@ -1643,16 +1665,6 @@
         <member name="M:RuntimeCoreNet.CoreImage.Finalize">
             <summary>
             Clean up unmanged memory to prevent leak.
-            </summary>
-        </member>
-        <member name="F:RuntimeCoreNet.CoreSymbolUsage.Unused">
-            <summary>
-            the core symbol has not been used in a graphic in a layer or in a renderer
-            </summary>
-        </member>
-        <member name="F:RuntimeCoreNet.CoreSymbolUsage.DontCare">
-            <summary>
-             signal that it doesnt matter whether a core symbol is in use eg for generating JSON.
             </summary>
         </member>
         <member name="M:RuntimeCoreNet.CoreSpatialReference.Create(RuntimeCoreNet.CoreSpatialReferenceDefinition)">
@@ -2373,7 +2385,7 @@
             Centers the view on the provided point at the specified scale.
             </summary>
             <param name="center">Point to center the view on.</param>
-            <param name="scale">Map scale to fit the view to.</param>
+            <param name="scale">The scale to zoom to, ie '50000' to zoom to 1:50,000 scale.</param>
             <remarks>
             <para>
             Scale means the ratio or relationship between a distance or area on a map and the corresponding distance or area on the ground, commonly expressed as a fraction or ratio. 
@@ -2525,7 +2537,7 @@
             Centers the view on the provided point and zooms to the given scale in the default duration .
             </summary>
             <param name="center">Point to center the view on.</param>
-            <param name="scale">Geometry to fit the view to.</param>
+            <param name="scale">The scale to zoom to, ie '50000' to zoom to 1:50,000 scale.</param>
             <returns><c>True</c> if the set view animation completed, <c>false</c> if it was interrupted by another view navigation.</returns>
         </member>
         <member name="M:Esri.ArcGISRuntime.Controls.MapView.SetViewAsync(Esri.ArcGISRuntime.Geometry.MapPoint,System.Double,System.TimeSpan)">
@@ -2533,7 +2545,7 @@
             Centers the view on the provided point and zooms to the given scale in the provided duration.
             </summary>
             <param name="center">Point to center the view on.</param>
-            <param name="scale">Geometry to fit the view to.</param>
+            <param name="scale">The scale to zoom to, ie '50000' to zoom to 1:50,000 scale.</param>
             <param name="duration">The animation time to navigate to the view, or <see cref="F:System.TimeSpan.Zero"/> to skip animation.</param>
             <returns><c>True</c> if the set view animation completed, <c>false</c> if it was interrupted by another view navigation.</returns>
         </member>
@@ -2543,7 +2555,7 @@
             around the view.
             </summary>
             <param name="center">Point to center the view on.</param>
-            <param name="scale">Geometry to fit the view to.</param>
+            <param name="scale">The scale to zoom to, ie '50000' to zoom to 1:50,000 scale.</param>
             <param name="margin">A margin to leave around the bounding geometry in device independent pixels.</param>
             <returns><c>True</c> if the set view animation completed, <c>false</c> if it was interrupted by another view navigation.</returns>
         </member>
@@ -2553,7 +2565,7 @@
             around the view.
             </summary>
             <param name="center">Point to center the view on.</param>
-            <param name="scale">Geometry to fit the view to.</param>
+            <param name="scale">The scale to zoom to, ie '50000' to zoom to 1:50,000 scale.</param>
             <param name="duration">The animation time to navigate to the view, or <see cref="F:System.TimeSpan.Zero"/> to skip animation.</param>
             <param name="margin">A margin to leave around the bounding geometry in device independent pixels.</param>
             <returns><c>True</c> if the set view animation completed, <c>false</c> if it was interrupted by another view navigation.</returns>
@@ -7930,6 +7942,24 @@
             	<c>true</c> if an attachment can be deleted; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="M:Esri.ArcGISRuntime.Data.ArcGISFeatureTable.GetAddedFeatureIDs">
+            <summary>
+            Retrieves the IDs of new features that were added locally but have not been submitted to server.
+            </summary>
+            <returns>A collection of uncommitted feature IDs</returns>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Data.ArcGISFeatureTable.GetUpdatedFeatureIDs">
+            <summary>
+            Retrieves the IDs of existing features that were updated locally but have not been submitted to server.
+            </summary>
+            <returns>A collection of uncommitted feature IDs</returns>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Data.ArcGISFeatureTable.GetDeletedFeatureIDs">
+            <summary>
+            Retrieves the IDs of existing features that were deleted locally but have not been submitted to server.
+            </summary>
+            <returns>A collection of uncommitted feature IDs</returns>
+        </member>
         <member name="M:Esri.ArcGISRuntime.Data.ArcGISFeatureTable.AddAsync(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}},Esri.ArcGISRuntime.Geometry.Geometry)">
             <summary>
             Adds a new row to the table.
@@ -8411,6 +8441,13 @@
         <member name="T:Esri.ArcGISRuntime.Data.GeodatabaseFeatureTable">
             <summary>
             Represents a Local ArcGIS Geodatabase table
+            </summary>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Data.GeodatabaseFeatureTable.GetTableExtent">
+            <summary>
+            Unlike other types of FeatureTable, the GeodatabaseFeatureTable Overrides 
+            GetTableExtent in an atttemp to get its extent from the replica table first.
+            If the replica extent is empty, the extent of the actual data source is returned.
             </summary>
         </member>
         <member name="P:Esri.ArcGISRuntime.Data.GeodatabaseFeatureTable.UseAdvancedSymbology">
@@ -14783,7 +14820,7 @@
         <member name="T:Esri.ArcGISRuntime.Internal.GraphicUtils">
             <summary>Some utility methods to help with graphics interop</summary>
         </member>
-        <member name="M:Esri.ArcGISRuntime.Internal.GraphicUtils.GraphicsToArrays(Esri.ArcGISRuntime.Internal.GraphicArraysOptions,System.Collections.Generic.IEnumerable{Esri.ArcGISRuntime.Layers.Graphic},System.Collections.Generic.List{RuntimeCoreNet.CoreGraphicChangeType},System.Collections.Generic.List{System.Int32})">
+        <member name="M:Esri.ArcGISRuntime.Internal.GraphicUtils.GraphicsToArrays(Esri.ArcGISRuntime.Internal.GraphicArraysOptions,System.Collections.Generic.IEnumerable{Esri.ArcGISRuntime.Layers.Graphic},System.Collections.Generic.List{RuntimeCoreNet.CoreGraphicChangeType},System.Boolean,Esri.ArcGISRuntime.Geometry.SpatialReference)">
             <summary>
             Generates arrays of Graphic core properties (ICoreGeometry etc) where each index corresponds to a graphic.
             The required arrays can be specified with options.
@@ -14792,7 +14829,8 @@
             <param name="options">Which arrays to generate</param>
             <param name="graphics">Input graphics</param>
             <param name="changes">optional extra flag per graphic specifying the properties required.</param>
-            <param name="graphicIds">ids of graphics.</param>
+            <param name="toNormalize">optional parameter that determines whether geometry will be normalized.</param>
+            <param name="viewSpatialReference">optional parameter fallback spatial reference when geometry does not provide one.</param>
             <returns></returns>
         </member>
         <member name="M:Esri.ArcGISRuntime.Internal.ArcGISJsonWriter.ColorToJsonColor(System.Windows.Media.Color)">
@@ -14863,6 +14901,93 @@
             and returning its children instead
             </summary>
             <returns>All layers in the layer tree, excluding the GroupLayer nodes.</returns>
+        </member>
+        <member name="T:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1">
+            <summary>
+            Track changes to an observable collection and fire an event containing removed and added items whenever 
+            the collection is modified (if items were just moved around in the collection, no event is raised).
+            
+            NB: if the collection may contain duplicates, this type probably wont work - it compares items to determine 
+            which ones were removed/added, so items need to be unique.
+            </summary>
+            <typeparam name="T">The parameter type of the targeted collection.</typeparam>
+        </member>
+        <member name="F:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.m_currentItems">
+            <summary>
+            Copy of m_target contents. Used to handle Reset changes and re-targets, when no change information is provided.
+            </summary>
+        </member>
+        <member name="F:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.m_target">
+            <summary>
+            The tracked collection
+            </summary>
+        </member>
+        <member name="F:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.Empty">
+            <summary>
+            Used to pass empty list in ItemsChanged.
+            </summary>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.SetTarget(System.Collections.ObjectModel.ObservableCollection{`0})">
+            <summary>
+            Point the tracker at a [new] collection.
+            The ItemsChanged event is fired with 'removed' containing items that were in the old collection but aren't in 
+            the new collection, and 'added' containing items in the new collection that weren't in the old collection.
+            </summary>
+            <param name="value">New collection to track.</param>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.HandleCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Handle m_target.CollectionChanged, maintain m_currentItems, and raise ItemsChanged event if necessary.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.HandleReplace(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            A range of 1+ items have been overwritten, starting at e.OldStartingIndex==e.NewStartingIndex.
+            The new items are in e.NewItems. 
+            The overwritten items are in e.OldItems.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.HandleReset">
+            <summary>
+            A complex change to the collection has occurred, with no information describing it.
+            NB: this is also called after SetTarget is called to track a different collection, so m_target may be null.
+            </summary>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.HandleRemove(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            A range of 1+ items has been removed, at index e.OldStartingIndex. 
+            Removed items are in e.OldItems.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.HandleMove(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            A range of 1+ items has been moved from e.OldStartingIndex to e.NewStartingIndex.
+            Items are in e.NewItems
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.HandleAdd(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            A range of 1+ items (e.NewItems) have been added/inserted at e.NewStartingIndex
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.RaiseItemsChanged(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Raise the ItemsChanged event.
+            Added and removed must not be null (means less checking in client code).
+            </summary>
+            <param name="removed">The items that were, but are no longer in the collection.</param>
+            <param name="added">Items that are newly added to the collection.</param>
+        </member>
+        <member name="E:Esri.ArcGISRuntime.Internal.ObservableCollectionTracker`1.ItemsChanged">
+            <summary>
+            Fired when contents of m_target change.
+            </summary>
         </member>
         <member name="T:Esri.ArcGISRuntime.Internal.SimpleCache`2">
             <summary>
@@ -18046,6 +18171,9 @@
             <summary>
             A map layer containing a set of interactable vector graphics
             </summary>
+        </member>
+        <member name="F:Esri.ArcGISRuntime.Layers.GraphicsLayer.m_graphicsTracker">
+            <summary>Used to track Graphic removals and additions.</summary>
         </member>
         <member name="F:Esri.ArcGISRuntime.Layers.GraphicsLayer._graphicsSourceWeakEventListener">
             <summary>WeakEventListener used to handle INotifyCollectionChanged events on GraphicsSource.</summary>
@@ -25029,7 +25157,7 @@
         <member name="P:RuntimeCoreNet.CoreLayerWrapper.IsViewValid">
             <summary>Returns true if View is not null and has a valid SR</summary>
         </member>
-        <member name="M:RuntimeCoreNet.CoreGraphicsLayerWrapper.ReprojectGeoms(System.IntPtr[],System.IntPtr[],RuntimeCoreNet.CoreSpatialReference,System.Collections.Generic.List{System.Int32})">
+        <member name="M:RuntimeCoreNet.CoreGraphicsLayerWrapper.ReprojectGeoms(RuntimeCoreNet.ICoreGeometry[],RuntimeCoreNet.CoreSpatialReference[],RuntimeCoreNet.CoreSpatialReference,System.Collections.Generic.List{System.Int32})">
             <summary>Re-projects geometries at reprojectionIndicies, updates geomArray with the new geometry</summary>
         </member>
         <member name="M:RuntimeCoreNet.CoreGraphicsLayerWrapper.GraphicChangedEventHandler(Esri.ArcGISRuntime.Layers.Graphic,RuntimeCoreNet.CoreGraphicChangeType)">
@@ -25037,6 +25165,18 @@
         </member>
         <member name="M:RuntimeCoreNet.CoreGraphicsLayerWrapper.AnalyzePendingGraphics(Esri.ArcGISRuntime.Geometry.SpatialReference,RuntimeCoreNet.CoreGraphicsLayerWrapper.RemovalInfo@,RuntimeCoreNet.CoreGraphicsLayerWrapper.AdditionInfo@,RuntimeCoreNet.CoreGraphicsLayerWrapper.ChangeInfo@)">
             <summary>Checks the pending graphics and splits into additions, changes and removals. Checks if a reproject is required.</summary>
+        </member>
+        <member name="M:RuntimeCoreNet.CoreGraphicsLayerWrapper.InWrapAroundMode(Esri.ArcGISRuntime.Geometry.SpatialReference)">
+            <summary>
+            Determines whether the features will be in wrap-around mode based on MapView.WrapAround (if requested)
+            and on View.IsWrapAroundActive (if all layers are already initialized) or on SpatialReference (if it 
+            supports wrap around) when layers are not ready. View.IsWrapAroundActive is only set to correct status 
+            once all layers are initialized because addition of a layer that does not support wrap-around will turn 
+            wrap-around off. Instead of waiting for all layers or triggering another re-draw, we check whether the
+            SpatialReference the features will be drawn in supports wrap-around.
+            </summary>
+            <param name="mapSpatialReference">SpatialReference where features will be projected to.</param>
+            <returns></returns>
         </member>
         <member name="M:RuntimeCoreNet.CoreGraphicsLayerWrapper.AddGraphicsInternal(RuntimeCoreNet.CoreGraphicsLayerWrapper.AdditionInfo,Esri.ArcGISRuntime.Geometry.SpatialReference)">
             <summary>
@@ -26939,12 +27079,16 @@
             <summary>
             Sets the image source.
             </summary>
-            <param name="uri">The uri to the image data.</param>
-            <returns></returns>
+            <param name="uri">The uri to the image.</param>   
             <remarks>
             <para>
             An extensive listing of Esri provided images that can be used by this Method can be found in the Fundamentals document: 
             <a href="5d809f1b-68de-4582-a4fe-166ed752941c.htm">Static Images</a>.
+            </para>
+            <para>
+            The following Uri.Scheme ("file", "pack") indicates that symbol will only be accessible to your application. 
+            If symbol need to be shared across systems, please consider using a scheme accessible outside your application ("http")
+            or use this method instead <seealso cref="M:Esri.ArcGISRuntime.Symbology.PictureFillSymbol.SetSourceAsync(System.IO.Stream)"/> to set image source.
             </para>
             </remarks>
         </member>
@@ -27094,6 +27238,11 @@
             <para>
             An extensive listing of Esri provided images that can be used by this Method can be found in the Fundamentals document: 
             <a href="5d809f1b-68de-4582-a4fe-166ed752941c.htm">Static Images</a>.
+            </para>
+            <para>
+            The following Uri.Scheme ("file", "pack") indicates that symbol will only be accessible to your application. 
+            If symbol need to be shared across systems, please consider using a scheme accessible outside your application ("http")
+            or use one of these methods instead <see cref="M:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol.SetSource(System.Byte[])"/> or <seealso cref="M:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol.SetSourceAsync(System.IO.Stream)"/> to set image source.
             </para>
             </remarks>
         </member>
@@ -27400,17 +27549,6 @@
             Initializes a new instance of the <see cref="T:Esri.ArcGISRuntime.Symbology.SymbolCollection"/> class.
             </summary>
             <param name="symbols">The collection of symbols.</param>
-        </member>
-        <member name="M:Esri.ArcGISRuntime.Symbology.SymbolCollection.ClearItems">
-            <summary>
-            Clears the items.
-            </summary>
-        </member>
-        <member name="M:Esri.ArcGISRuntime.Symbology.SymbolCollection.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
-            <summary>
-            Raises the <see cref="E:CollectionChanged"/> event.
-            </summary>
-            <param name="e">The <see cref="T:System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
         </member>
         <member name="T:Esri.ArcGISRuntime.Symbology.SymbolFont">
             <summary>
@@ -36473,6 +36611,14 @@
             <summary>
             Gets or sets a value indicating whether to show legend.
             </summary>
+        </member>
+        <member name="P:Esri.ArcGISRuntime.WebMap.WebMapSubLayer.RefreshInterval">
+            <summary>
+            Gets or sets the sublayer refresh interval.
+            </summary>
+            <value>
+            The refresh interval.
+            </value>
         </member>
         <member name="T:Esri.ArcGISRuntime.WebMap.WebMapViewModel">
             <summary>

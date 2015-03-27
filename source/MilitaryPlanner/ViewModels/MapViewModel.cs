@@ -61,6 +61,7 @@ namespace MilitaryPlanner.ViewModels
         private TimeExtent _currentTimeExtent = null; 
         private readonly Mission _mission = new Mission("Default Mission");
         private int _currentPhaseIndex = 0;
+        private Geometry _beforeEditGeometry = null;
 
         /// <summary>
         /// Dictionary containing a message layer ID as the KEY and a list of military message ID's as the value
@@ -177,6 +178,8 @@ namespace MilitaryPlanner.ViewModels
                         {
                             UpdateCurrentMessage(tam, ges.NewGeometry);
                         };
+
+                        _beforeEditGeometry = tam.SymbolGeometry;
 
                         var resultGeometry = await _mapView.Editor.EditGeometryAsync(tam.SymbolGeometry, null, progress);
 
@@ -354,6 +357,11 @@ namespace MilitaryPlanner.ViewModels
             Mediator.NotifyColleagues(Constants.ACTION_MISSION_LOADED, _mission);
 
             OnCurrentPhaseIndexChanged();
+
+            foreach (var mm in _mission.MilitaryMessages)
+            {
+                Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_ADDED, mm.Id);
+            }
         }
 
         private void DoSaveMission(object obj)
@@ -1058,12 +1066,28 @@ namespace MilitaryPlanner.ViewModels
                 if (_mapView.Editor.Cancel.CanExecute(null))
                 {
                     _mapView.Editor.Cancel.Execute(null);
+
+                    RestoreGeometry();
                 }
             }
 
             if (_editState == EditState.Create || _editState == EditState.Edit)
             {
                 _editState = EditState.None;
+            }
+        }
+
+        private void RestoreGeometry()
+        {
+            if (_currentMessage != null && _beforeEditGeometry != null )
+            {
+                var tam = _mission.MilitaryMessages.FirstOrDefault(msg => msg.Id == _currentMessage.Id);
+
+                if (tam != null)
+                {
+                    UpdateCurrentMessage(tam, _beforeEditGeometry);
+                    _beforeEditGeometry = null;
+                }
             }
         }
 
