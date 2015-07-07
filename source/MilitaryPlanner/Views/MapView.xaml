@@ -15,6 +15,16 @@
     <UserControl.Resources>
         <viewModels:MapViewModel x:Key="MyMapViewModel" />
         <BooleanToVisibilityConverter x:Key="BoolConverter" />
+        <Image x:Key="AddImage" Source="/MilitaryPlanner;component/icons/GenericBlueAdd_C_16.png"/>
+        <Image x:Key="BackImage" Source="/MilitaryPlanner;component/icons/GenericBlueArrowStepLeftBackward32.png"/>
+        <Image x:Key="ForwardImage" Source="/MilitaryPlanner;component/icons/GenericBlueArrowStepRightForward32.png"/>
+        <Image x:Key="SaveImage" Source="/MilitaryPlanner;component/icons/GenericSave_B_32.png"/>
+        <Image x:Key="LoadImage" Source="/MilitaryPlanner;component/icons/CadastralJobLoad32.png"/>
+        <Image x:Key="MeasureImage" Source="/MilitaryPlanner;component/icons/MeasureTool32.png"/>
+        <Image x:Key="ViewShedImage" Source="/MilitaryPlanner;component/icons/View32.png"/>
+        <Image x:Key="GotoXYImage" Source="/MilitaryPlanner;component/icons/GoToXY32.png"/>
+        <Image x:Key="RoutingImage" Source="/MilitaryPlanner;component/icons/Route32.png"/>
+        <Image x:Key="BasemapImage" Source="/MilitaryPlanner;component/icons/Basemap32.png"/>
     </UserControl.Resources>
 	<Grid DataContext="{StaticResource MyMapViewModel}"
 		helper:EventToCommand.Event="FrameworkElement.Loaded"
@@ -28,7 +38,7 @@
 				<VisualState x:Name="ShowPanel">
 					<Storyboard>
 						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="stackPanel">
-							<EasingDoubleKeyFrame KeyTime="0" Value="60"/>
+							<EasingDoubleKeyFrame KeyTime="0" Value="72"/>
 						</DoubleAnimationUsingKeyFrames>
 					</Storyboard>
 				</VisualState>
@@ -81,7 +91,7 @@
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 		</Rectangle>
-		<StackPanel x:Name="stackPanel" Background="White" Margin="0,-60,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center" >
+		<StackPanel x:Name="stackPanel" Background="White" Margin="0,-72,0,0" Height="52" VerticalAlignment="Top" HorizontalAlignment="Center" >
 			<StackPanel.RenderTransform>
 				<TransformGroup>
 					<ScaleTransform/>
@@ -96,25 +106,25 @@
 			<Grid x:Name="layoutGrid" Margin="5" Background="White">
 				<StackPanel Orientation="Vertical">
 					<StackPanel x:Name="MyStackPanel" Orientation="Horizontal">
-						<Button Content="Add" Margin="3" Command="{Binding PhaseAddCommand}"            
+                        <Button Content="{StaticResource AddImage}" Margin="3" Command="{Binding PhaseAddCommand}"            
 							ToolTipService.ToolTip="Add a new phase"/>
-						<Button Content="Back" Margin="3" Command="{Binding PhaseBackCommand}"            
+                        <Button Content="{StaticResource BackImage}" Margin="3" Command="{Binding PhaseBackCommand}"            
 							ToolTipService.ToolTip="Go back one phase"/>
-						<Button Content="Next" Margin="3" Command="{Binding PhaseNextCommand}"            
+                        <Button Content="{StaticResource ForwardImage}" Margin="3" Command="{Binding PhaseNextCommand}"            
 							ToolTipService.ToolTip="Go forward one phase"/>
-                        <Button Content="Save" Margin="3" Command="{Binding SaveCommand}"            
+                        <Button Content="{StaticResource SaveImage}" Margin="3" Command="{Binding SaveCommand}"            
 							ToolTipService.ToolTip="Save mission or geomessages"/>
-                        <Button Content="Load" Margin="3" Command="{Binding LoadCommand}"            
+                        <Button Content="{StaticResource LoadImage}" Margin="3" Command="{Binding LoadCommand}"            
 							ToolTipService.ToolTip="Load mission"/>
-                        <Button Content="Measure" Margin="3" Command="{Binding MeasureCommand}"            
+                        <Button Content="{StaticResource MeasureImage}" Margin="3" Command="{Binding MeasureCommand}"            
 							ToolTipService.ToolTip="Measure" />
-                        <Button Content="ViewShed" Margin="3" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="True"            
+                        <Button Content="{StaticResource ViewShedImage}" Margin="3" Command="{Binding ToggleViewShedToolCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="ViewShed Tool" />
-                        <Button Content="GotoXY" Margin="3" Command="{Binding ToggleGotoXYToolCommand}" CommandParameter="True"            
+                        <Button Content="{StaticResource GotoXYImage}" Margin="3" Command="{Binding ToggleGotoXYToolCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="GotoXY Tool" />
-                        <Button Content="Routing" Margin="3" Command="{Binding ToggleNetworkingToolCommand}" CommandParameter="True"            
+                        <Button Content="{StaticResource RoutingImage}" Margin="3" Command="{Binding ToggleNetworkingToolCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="Routing Tool" />
-                        <Button Content="Basemap" Margin="3" Command="{Binding ToggleBasemapGalleryCommand}" CommandParameter="True"            
+                        <Button Content="{StaticResource BasemapImage}" Margin="3" Command="{Binding ToggleBasemapGalleryCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="Basemap Gallery" />
                     </StackPanel>
 				</StackPanel>
