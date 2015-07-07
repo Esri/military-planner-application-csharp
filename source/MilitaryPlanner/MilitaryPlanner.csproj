@@ -279,6 +279,16 @@
     <Content Include="data\oob\oobexample.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="icons\Basemap32.png" />
+    <Resource Include="icons\CadastralJobLoad32.png" />
+    <Resource Include="icons\GenericBlueAdd_C_16.png" />
+    <Resource Include="icons\GenericBlueArrowStepLeftBackward32.png" />
+    <Resource Include="icons\GenericBlueArrowStepRightForward32.png" />
+    <Resource Include="icons\GenericSave_B_32.png" />
+    <Resource Include="icons\GoToXY32.png" />
+    <Resource Include="icons\MeasureTool32.png" />
+    <Resource Include="icons\Route32.png" />
+    <Resource Include="icons\View32.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
