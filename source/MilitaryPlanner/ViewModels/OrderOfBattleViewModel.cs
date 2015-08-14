@@ -28,7 +28,7 @@ namespace MilitaryPlanner.ViewModels
 
         // Public members for data binding
         public ObservableCollection<SymbolViewModel> Symbols { get; private set; }
-        public string SearchString { get; private set; }
+        public string SearchString { get; set; }
 
         // commands
         public RelayCommand SearchCommand { get; set; }

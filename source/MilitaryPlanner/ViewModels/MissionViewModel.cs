@@ -76,23 +76,32 @@ namespace MilitaryPlanner.ViewModels
 
         private void OnDeletePhase(object obj)
         {
-            var question = String.Format("Are you sure you want to delete phase?\n\rName : {0}",CurrentPhase.Name);
-            var result = MessageBox.Show(question, "Delete Phase?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.Yes)
+            if (obj == null)
             {
-                if (CurrentPhaseIndex < PhaseCount)
+                var question = String.Format("Are you sure you want to delete phase?\n\rName : {0}", CurrentPhase.Name);
+                var result = MessageBox.Show(question, "Delete Phase?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    // remove phase
-                    _mission.PhaseList.RemoveAt(CurrentPhaseIndex);
-                    if (CurrentPhaseIndex >= PhaseCount && CurrentPhaseIndex != 0)
-                    {
-                        CurrentPhaseIndex--;
-                    }
-                    else
-                    {
-                        CurrentPhaseIndex = CurrentPhaseIndex;
-                    }
+                    DeleteCurrentPhase();
+                }
+            }
+            else { DeleteCurrentPhase(); }
+        }
+
+        private void DeleteCurrentPhase()
+        {
+            if (CurrentPhaseIndex < PhaseCount)
+            {
+                // remove phase
+                _mission.PhaseList.RemoveAt(CurrentPhaseIndex);
+                if (CurrentPhaseIndex >= PhaseCount && CurrentPhaseIndex != 0)
+                {
+                    CurrentPhaseIndex--;
+                }
+                else
+                {
+                    CurrentPhaseIndex = CurrentPhaseIndex;
                 }
             }
         }
