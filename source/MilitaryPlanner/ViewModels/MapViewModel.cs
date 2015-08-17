@@ -283,6 +283,10 @@ namespace MilitaryPlanner.ViewModels
             if (editPhaseDialog.ShowDialog() == true)
             {
                 _mission.PhaseList = cloneMission.PhaseList;
+                while(_currentPhaseIndex >= _mission.PhaseList.Count)
+                {
+                    _currentPhaseIndex--;
+                }
                 OnCurrentPhaseIndexChanged();
                 RaisePropertyChanged(() => PhaseDescription);
             }
