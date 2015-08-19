@@ -40,7 +40,7 @@ This is an Esri ArcGIS Runtime for .NET Application Prototype Template that can 
 		* Open and build solution file
 	* To use MSBuild to build the solution
 		* Open a Visual Studio Command Prompt: Start Menu | Visual Studio 2013 | Visual Studio Tools | Developer Command Prompt for VS2013
-		* ch military-planner-application-csharp\source
+		* cd military-planner-application-csharp\source
 		* msbuild MilitaryPlanner.sln /property:Configuration=Release
 
 * Running

@@ -1,13 +1,14 @@
 # arcgis-pro-import-feature-templates
 
-This is an Esri ArcGIS Pro 1.1 SDK Add-in Prototype that can be used for importing order of battle xml file from the military planner application.
+This is an Esri ArcGIS Pro 1.1 SDK Add-in Prototype that can be used for importing order of battle xml files from the military planner application.
 
 ## Features
 
 * Add-in for ArcGIS Pro 1.1
-* Loads as a context menu for feature layers or groups with feature layers
+* Loads as a context menu option for group/feature layers
 * Imports order of battle xml file from military planner application
 * Converts MIL-STD-2525C point features to MIL-STD-2525D
+	* requires [joint-military-symbology-xml](https://github.com/Esri/joint-military-symbology-xml)
 
 ## Sections
 
@@ -23,6 +24,7 @@ This is an Esri ArcGIS Pro 1.1 SDK Add-in Prototype that can be used for importi
 * Visual Studio 2013
 * ArcGIS Pro 1.1 SDK
 	* [ArcGIS Pro 1.1 SDK Requirements](https://pro.arcgis.com/en/pro-app/sdk/)
+* [joint-military-symbology-xml](https://github.com/Esri/joint-military-symbology-xml)
 
 ## Instructions
 
@@ -42,7 +44,7 @@ This is an Esri ArcGIS Pro 1.1 SDK Add-in Prototype that can be used for importi
 		* Build solution
 	* To use MSBuild to build the solution
 		* Open a Visual Studio Command Prompt: Start Menu | Visual Studio 2013 | Visual Studio Tools | Developer Command Prompt for VS2013
-		* cd military-planner-application-csharp/tree/UnitTesting/source/arcgis-pro-import-feature-templates
+		* cd military-planner-application-csharp/source/arcgis-pro-import-feature-templates
 		* msbuild arcgis-pro-import-feature-templates.sln /property:Configuration=Release
 
 * Running
@@ -85,5 +87,5 @@ limitations under the License.
 
 A copy of the license is available in the repository's [license.txt](license.txt) file.
 
-[](Esri Tags: Military Defense ArcGIS Runtime .NET Planning WPF ArcGISSolutions)
+[](Esri Tags: Military Defense ArcGIS Runtime .NET Planning WPF ArcGISSolutions Pro Import Feature Templates)
 [](Esri Language: C#) 
