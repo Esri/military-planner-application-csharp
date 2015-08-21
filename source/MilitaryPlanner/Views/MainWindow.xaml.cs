@@ -11,5 +11,15 @@ namespace MilitaryPlanner.Views
         {
             //InitializeComponent();
         }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            // if window is minimized, restore to avoid opening minimized on next run
+            if(WindowState == System.Windows.WindowState.Minimized)
+            {
+                WindowState = System.Windows.WindowState.Normal;
+            }
+        }
     }
 }
