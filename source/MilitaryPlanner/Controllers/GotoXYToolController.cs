@@ -30,17 +30,13 @@ namespace MilitaryPlanner.Controllers
         {
             _mapView = mapView;
 
-            _gotoXyToolView = new GotoXYToolView {PlacementTarget = mapView, ViewModel = {mapView = mapView}};
+            _gotoXyToolView = new GotoXYToolView { ViewModel = { mapView = mapView } };
 
             var owner = Window.GetWindow(mapView);
 
             if (owner != null)
             {
-                owner.LocationChanged += (sender, e) =>
-                    {
-                        _gotoXyToolView.HorizontalOffset += 1;
-                        _gotoXyToolView.HorizontalOffset -= 1;
-                    };
+                _gotoXyToolView.Owner = owner;
             }
 
             Mediator.Register(Constants.ACTION_GOTO_XY_COORDINATES, OnGotoXYCoordinates);

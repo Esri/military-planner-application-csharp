@@ -35,17 +35,13 @@ namespace MilitaryPlanner.Controllers
         {
             _mapView = mapView;
 
-            _basemapGalleryView = new BasemapGalleryView { PlacementTarget = mapView, ViewModel = { mapView = mapView } };
+            _basemapGalleryView = new BasemapGalleryView { ViewModel = { mapView = mapView } };
 
             var owner = Window.GetWindow(mapView);
 
             if (owner != null)
             {
-                owner.LocationChanged += (sender, e) =>
-                {
-                    _basemapGalleryView.HorizontalOffset += 1;
-                    _basemapGalleryView.HorizontalOffset -= 1;
-                };
+                _basemapGalleryView.Owner = owner;
             }
 
             InitializeArcGISPortal();
@@ -88,11 +84,11 @@ namespace MilitaryPlanner.Controllers
                         {
                             case WebMapLayerType.ArcGISTiledMapServiceLayer:
                             case WebMapLayerType.Unknown:
-                                _mapView.Map.Layers.Insert(0,new ArcGISTiledMapServiceLayer(new Uri(s.Url)){ID="basemap"});
+                                _mapView.Map.Layers.Insert(0, new ArcGISTiledMapServiceLayer(new Uri(s.Url)) { ID = "basemap" });
                                 break;
                             case WebMapLayerType.OpenStreetMap:
-                                var layer = new OpenStreetMapLayer(){ID="basemap"};
-                                _mapView.Map.Layers.Insert(0,layer);
+                                var layer = new OpenStreetMapLayer() { ID = "basemap" };
+                                _mapView.Map.Layers.Insert(0, layer);
                                 break;
                             default:
                                 break;
@@ -102,7 +98,7 @@ namespace MilitaryPlanner.Controllers
             }
             catch (Exception)
             {
-                
+
             }
         }
     }
