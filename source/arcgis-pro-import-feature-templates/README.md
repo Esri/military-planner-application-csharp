@@ -51,7 +51,7 @@ This is an Esri ArcGIS Pro 1.1 SDK Add-in Prototype that can be used for importi
 	* Run or debug from Visual Studio
 		* NOTE : Add-in uses a progressor and this can only be seen in Release mode
 	* To run from a stand-alone deployment
-        * copy esriAddInX file to here C:\Users\\<USER>\Documents\ArcGIS\AddIns\ArcGISPro
+        * copy esriAddInX file to here C:/Users/<USER>/Documents/ArcGIS/AddIns/ArcGISPro
 		* Run ArcGIS Pro
 
 ## Resources
