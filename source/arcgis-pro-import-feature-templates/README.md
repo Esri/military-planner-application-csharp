@@ -26,6 +26,7 @@ This is an Esri ArcGIS Pro 1.1 SDK Add-in Prototype that can be used for importi
 * ArcGIS Pro 1.1 SDK
 	* [ArcGIS Pro 1.1 SDK Requirements](https://pro.arcgis.com/en/pro-app/sdk/)
 * [joint-military-symbology-xml](https://github.com/Esri/joint-military-symbology-xml)
+* [military-features-data](https://github.com/Esri/military-features-data/tree/master/data/mil2525d/core_data/gdbs/MilitaryOverlay.gdb.zip)
 
 ## Instructions
 
