@@ -9,6 +9,7 @@ This is an Esri ArcGIS Pro 1.1 SDK Add-in Prototype that can be used for importi
 * Imports order of battle xml file from military planner application
 * Converts MIL-STD-2525C point features to MIL-STD-2525D
 	* requires [joint-military-symbology-xml](https://github.com/Esri/joint-military-symbology-xml)
+* Feature layers from [military-features-data](https://github.com/Esri/military-features-data/tree/master/data/mil2525d/core_data/gdbs/MilitaryOverlay.gdb.zip)
 
 ## Sections
 
@@ -53,6 +54,11 @@ This is an Esri ArcGIS Pro 1.1 SDK Add-in Prototype that can be used for importi
 	* To run from a stand-alone deployment
         * copy esriAddInX file to here C:/Users/<b>USER</b>/Documents/ArcGIS/AddIns/ArcGISPro
 		* Run ArcGIS Pro
+	* To activate add-in
+		* To a group layer add all layers from MilitaryOverlay/MilitaryFeatures located in the expanded military-features-data GDB zip file.
+		* Right click the group layer to access the layer context menu
+		* Select the "Import Template" option
+		* In the open file dialog, select the military planner application "data/oob/oobexample.xml" file and open
 
 ## Resources
 
