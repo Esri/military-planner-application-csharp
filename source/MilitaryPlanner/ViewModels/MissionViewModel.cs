@@ -133,8 +133,8 @@ namespace MilitaryPlanner.ViewModels
 
             if (mission != null)
             {
-                CurrentMission = mission;
                 CurrentPhaseIndex = 0;
+                CurrentMission = mission;
             }
         }
 
