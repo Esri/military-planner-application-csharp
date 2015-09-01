@@ -55,17 +55,13 @@ namespace MilitaryPlanner.Controllers
         {
             this._mapView = mapView;
 
-            _networkingToolView = new NetworkingToolView {PlacementTarget = mapView, ViewModel = {mapView = mapView}};
+            _networkingToolView = new NetworkingToolView { ViewModel = { mapView = mapView } };
 
             var owner = Window.GetWindow(mapView);
 
             if (owner != null)
             {
-                owner.LocationChanged += (sender, e) =>
-                {
-                    _networkingToolView.HorizontalOffset += 1;
-                    _networkingToolView.HorizontalOffset -= 1;
-                };
+                _networkingToolView.Owner = owner;
             }
 
             // hook mapview events
@@ -78,9 +74,9 @@ namespace MilitaryPlanner.Controllers
             // hook view resources
             _directionPointSymbol = _networkingToolView.LayoutRoot.Resources["directionPointSymbol"] as Symbol;
 
-            mapView.GraphicsOverlays.Add(new GraphicsOverlay { ID="RoutesOverlay", Renderer=_networkingToolView.LayoutRoot.Resources["routesRenderer"] as Renderer});
-            mapView.GraphicsOverlays.Add(new GraphicsOverlay { ID="StopsOverlay" });
-            mapView.GraphicsOverlays.Add(new GraphicsOverlay { ID = "DirectionsOverlay", Renderer=_networkingToolView.LayoutRoot.Resources["directionsRenderer"] as Renderer, SelectionColor=Colors.Red });
+            mapView.GraphicsOverlays.Add(new GraphicsOverlay { ID = "RoutesOverlay", Renderer = _networkingToolView.LayoutRoot.Resources["routesRenderer"] as Renderer });
+            mapView.GraphicsOverlays.Add(new GraphicsOverlay { ID = "StopsOverlay" });
+            mapView.GraphicsOverlays.Add(new GraphicsOverlay { ID = "DirectionsOverlay", Renderer = _networkingToolView.LayoutRoot.Resources["directionsRenderer"] as Renderer, SelectionColor = Colors.Red });
 
             _stopsOverlay = mapView.GraphicsOverlays["StopsOverlay"];
             _routesOverlay = mapView.GraphicsOverlays["RoutesOverlay"];
@@ -90,7 +86,7 @@ namespace MilitaryPlanner.Controllers
 
             Mediator.Register(Constants.ACTION_ROUTING_GET_DIRECTIONS, DoGetDirections);
 
-            _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl)) {AutoNormalize = true};
+            _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl)) { AutoNormalize = true };
         }
 
         public void Toggle()

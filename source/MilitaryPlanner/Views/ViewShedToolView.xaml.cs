@@ -1,4 +1,4 @@
-﻿using System.Windows.Controls.Primitives;
+﻿using System.Windows;
 using MilitaryPlanner.ViewModels;
 
 namespace MilitaryPlanner.Views
@@ -6,7 +6,7 @@ namespace MilitaryPlanner.Views
     /// <summary>
     /// Interaction logic for ViewShedToolView.xaml
     /// </summary>
-    public partial class ViewShedToolView : Popup
+    public partial class ViewShedToolView : Window
     {
         public ViewShedToolView()
         {
@@ -16,5 +16,11 @@ namespace MilitaryPlanner.Views
         }
 
         public ViewShedToolViewModel ViewModel { get; set; }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            ViewModel.CloseToolCommand.Execute(null);
+        }
     }
 }

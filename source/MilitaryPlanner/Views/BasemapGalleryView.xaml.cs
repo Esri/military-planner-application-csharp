@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using MilitaryPlanner.ViewModels;
-using System.Windows.Controls.Primitives;
 
 namespace MilitaryPlanner.Views
 {
     /// <summary>
     /// Interaction logic for BasemapGalleryView.xaml
     /// </summary>
-    public partial class BasemapGalleryView : Popup
+    public partial class BasemapGalleryView : Window
     {
         public BasemapGalleryView()
         {
@@ -17,5 +16,11 @@ namespace MilitaryPlanner.Views
         }
 
         public BasemapGalleryViewModel ViewModel { get; set; }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            ViewModel.CloseToolCommand.Execute(null);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Windows.Controls.Primitives;
+﻿using System.Windows;
 using MilitaryPlanner.ViewModels;
 
 namespace MilitaryPlanner.Views
@@ -6,7 +6,7 @@ namespace MilitaryPlanner.Views
     /// <summary>
     /// Interaction logic for GotoXYToolView.xaml
     /// </summary>
-    public partial class GotoXYToolView : Popup
+    public partial class GotoXYToolView : Window
     {
         public GotoXYToolView()
         {
@@ -16,5 +16,11 @@ namespace MilitaryPlanner.Views
         }
 
         public GotoXYToolViewModel ViewModel { get; set; }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            ViewModel.CloseToolCommand.Execute(null);
+        }
     }
 }

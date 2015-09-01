@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArcGIS defaultAssembly="arcgis-pro-import-feature-templates.dll" defaultNamespace="arcgis_pro_import_feature_templates" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{1325de67-9a1c-4cef-8bae-bc7c914fc3eb}" version="1.0" desktopVersion="1.1.3308">
+    <Name>arcgis_pro_import_feature_templates</Name>
+    <Description>arcgis_pro_import_feature_templates description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>Esri</Author>
+    <Company>Esri</Company>
+    <Date>8/11/2015 10:27:21 AM, 2015</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="arcgis_pro_import_feature_templates_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <!--<tab id="arcgis_pro_import_feature_templates_Tab1" caption="New Tab">
+          <group refID="arcgis_pro_import_feature_templates_Group1"/>
+        </tab>-->
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <!--<group id="arcgis_pro_import_feature_templates_Group1" caption="Group 1" appearsOnAddInTab="true">
+          <button refID="arcgis_pro_import_feature_templates_ImportFeaturesTemplateButton" size="large" />
+        </group>-->
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="InsertIntoContextMenu_LayerImportFeatureTemplateButton" caption="Import Template" className="ImportFeaturesTemplateButton" loadOnClick="true" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png" condition="esri_mapping_singleLayerSelectedCondition">
+          <tooltip heading="Import Feature Template">
+            <disabledText />
+          </tooltip>
+        </button>
+        <button id="InsertIntoContextMenu_LayerImportFeatureTemplateButton2" caption="Import Template" className="ImportFeaturesTemplateButton" loadOnClick="true" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png" condition="esri_mapping_singleGroupLayerSelectedCondition">
+          <tooltip heading="Import Feature Template">
+            <disabledText />
+          </tooltip>
+        </button>
+        <button id="arcgis_pro_import_feature_templates_ImportFeaturesTemplateButton" caption="ImportFeaturesTemplateButton " className="ImportFeaturesTemplateButton" loadOnClick="true" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png" condition="esri_mapping_mapPane">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+      </controls>
+    </insertModule>
+    <!-- Update the mapping module. Insert our custom button into the layers existing context menu. -->
+    <updateModule refID="esri_mapping">
+      <menus>
+        <updateMenu refID="esri_mapping_layerContextMenu">
+          <insertButton refID="InsertIntoContextMenu_LayerImportFeatureTemplateButton" separator="true" insert="before" placeWith="esri_mapping_selectedLayerPropertiesButton" />
+        </updateMenu>
+        <updateMenu refID="esri_mapping_groupLayerContextMenu">
+          <insertButton refID="InsertIntoContextMenu_LayerImportFeatureTemplateButton2" separator="true" insert="before" placeWith="esri_mapping_selectedLayerPropertiesButton" />
+        </updateMenu>
+      </menus>
+    </updateModule>
+  </modules>
+</ArcGIS>

@@ -1,4 +1,4 @@
-﻿using System.Windows.Controls.Primitives;
+﻿using System.Windows;
 using MilitaryPlanner.ViewModels;
 
 namespace MilitaryPlanner.Views
@@ -6,7 +6,7 @@ namespace MilitaryPlanner.Views
     /// <summary>
     /// Interaction logic for NetworkingToolView.xaml
     /// </summary>
-    public partial class NetworkingToolView : Popup
+    public partial class NetworkingToolView : Window
     {
         public NetworkingToolView()
         {
@@ -16,5 +16,11 @@ namespace MilitaryPlanner.Views
         }
 
         public NetworkingToolViewModel ViewModel { get; set; }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            ViewModel.CloseToolCommand.Execute(null);
+        }
     }
 }

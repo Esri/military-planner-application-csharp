@@ -41,7 +41,27 @@ namespace MilitaryPlanner.ViewModels
             set
             {
                 _isToolOpen = value;
+                if(value == true)
+                {
+                    ToolVisibility = System.Windows.Visibility.Visible;
+                }
+                else 
+                {
+                    ToolVisibility = System.Windows.Visibility.Hidden;
+                }
                 RaisePropertyChanged(() => IsToolOpen);
+            }
+        }
+
+        private System.Windows.Visibility _ToolVisibility = System.Windows.Visibility.Hidden;
+        public System.Windows.Visibility ToolVisibility
+        {
+            get { return _ToolVisibility; }
+
+            set
+            {
+                _ToolVisibility = value;
+                RaisePropertyChanged(() => ToolVisibility);
             }
         }
 

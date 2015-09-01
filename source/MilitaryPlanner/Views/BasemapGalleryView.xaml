@@ -1,15 +1,14 @@
-﻿<Popup x:Class="MilitaryPlanner.Views.BasemapGalleryView"
+﻿<Window x:Class="MilitaryPlanner.Views.BasemapGalleryView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       IsOpen="{Binding IsToolOpen}"
-       PopupAnimation="Fade"
-       Placement="Relative"
-       VerticalOffset="70"
-       HorizontalOffset="10">
+        Visibility="{Binding ToolVisibility, FallbackValue=Hidden}"
+        WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight">
     <Grid>
         <StackPanel Orientation="Vertical">
             <Button Content="Close" Command="{Binding CloseToolCommand}" />
-        <ScrollViewer MaxWidth="200" MaxHeight="640" HorizontalAlignment="Left" Margin="5">
+        <ScrollViewer MaxWidth="200" MaxHeight="500" HorizontalAlignment="Left" Margin="5">
             <ItemsControl x:Name="myItemsControl" ItemsSource="{Binding Basemaps}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -25,4 +24,4 @@
         </ScrollViewer>
         </StackPanel>
     </Grid>
-</Popup>
+</Window>

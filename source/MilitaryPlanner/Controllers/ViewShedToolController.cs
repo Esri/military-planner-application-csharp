@@ -26,17 +26,13 @@ namespace MilitaryPlanner.Controllers
 
         public ViewShedToolController(MapView mapView, MapViewModel mapViewModel)
         {
-            _viewShedToolView = new ViewShedToolView {PlacementTarget = mapView, ViewModel = {mapView = mapView}};
+            _viewShedToolView = new ViewShedToolView { ViewModel = { mapView = mapView } };
 
             var owner = Window.GetWindow(mapView);
 
             if (owner != null)
             {
-                owner.LocationChanged += (sender, e) =>
-                {
-                    _viewShedToolView.HorizontalOffset += 1;
-                    _viewShedToolView.HorizontalOffset -= 1;
-                };
+                _viewShedToolView.Owner = owner;
             }
 
             mapView.GraphicsOverlays.Add(new GraphicsOverlay() { ID = "inputOverlay", Renderer = _viewShedToolView.LayoutRoot.Resources["PointRenderer"] as Renderer });
