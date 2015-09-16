@@ -135,6 +135,20 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
+        private PaletteSearchView _paletteSearchView;
+        public PaletteSearchView SearchView
+        {
+            get { return _paletteSearchView; }
+            set
+            {
+                if(_paletteSearchView != value)
+                {
+                    _paletteSearchView = value;
+                    RaisePropertyChanged(() => SearchView);
+                }
+            }
+        }
+
         private MissionTimeLineView _MTLView;
         public MissionTimeLineView MTLView
         {
@@ -164,7 +178,7 @@ namespace MilitaryPlanner.ViewModels
             }
         }
 
-        private Visibility _timeLineViewVisibility = Visibility.Collapsed;
+        private Visibility _timeLineViewVisibility = Visibility.Visible;
         public Visibility TimeLineViewVisibility
         {
             get
@@ -192,6 +206,9 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand EditGeometryUndoCommand { get; set; }
         public RelayCommand EditGeometryRedoCommand { get; set; }
         public RelayCommand SwitchViewCommand { get; set; }
+
+        // testing
+        public RelayCommand TestingCloneCommand { get; set; }
 
         #endregion
 
@@ -221,10 +238,20 @@ namespace MilitaryPlanner.ViewModels
             EditGeometryRedoCommand = new RelayCommand(OnEditGeometryRedoCommand);
             EditGeometryUndoCommand = new RelayCommand(OnEditGeometryUndoCommand);
             SwitchViewCommand = new RelayCommand(OnSwitchViewCommand);
+
+            //testing
+            TestingCloneCommand = new RelayCommand(OnTestingCloneCommand);
             
-            MapView = new MapView();
+            SearchView = new PaletteSearchView();
             OOBView = new OrderOfBattleView();
+            MapView = new MapView();
             MTLView = new MissionTimeLineView();
+        }
+
+        private void OnTestingCloneCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_CLONE_MISSION, null);
+            TimeLineViewVisibility = Visibility.Visible;
         }
 
         private void OnSwitchViewCommand(object obj)

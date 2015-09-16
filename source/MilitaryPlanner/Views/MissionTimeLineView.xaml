@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <viewModels:MissionViewModel x:Key="MyMissionViewModel" />
+        <viewModels:MissionViewModel x:Key="TLMissionViewModel" />
         <viewModels:VariableWidthConverter x:Key="MyVariableWidthConverter" />
         <viewModels:PadLeftVariableWidthConverter x:Key="MyPadLeftVariableWidthConverter" />
         <viewModels:PhaseWidthConverter x:Key="MyPhaseWidthConverter" />
@@ -30,7 +30,7 @@
             </Style.Resources>
         </Style>
     </UserControl.Resources>
-    <Grid DataContext="{StaticResource MyMissionViewModel}">
+    <Grid DataContext="{StaticResource TLMissionViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>

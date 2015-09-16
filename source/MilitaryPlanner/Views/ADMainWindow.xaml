@@ -1,0 +1,75 @@
+﻿<Window x:Class="MilitaryPlanner.Views.ADMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:vm="clr-namespace:MilitaryPlanner.ViewModels"
+        Title="Military Planner" Height="434" Width="684"
+        DataContext="{DynamicResource ViewModelMain}">
+    <Window.Resources>
+        <vm:MainWindowViewModel x:Key="ViewModelMain"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="Testing">
+                <MenuItem Header="Clone Mission" Command="{Binding TestingCloneCommand}"/>
+            </MenuItem>
+            <!--<MenuItem Header="File">
+                <MenuItem Header="New" Command="{Binding NewCommand}"/>
+                <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
+                <Separator/>
+                <MenuItem Header="Save" Command="{Binding ActiveDocument.SaveCommand}"/>
+                <MenuItem Header="Save As..." Command="{Binding ActiveDocument.SaveAsCommand}"/>
+                <Separator/>
+                <MenuItem Header="Close" Command="{Binding ActiveDocument.CloseCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Properties" IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+                <MenuItem Header="Map View" IsChecked="{Binding MapView.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+            </MenuItem>
+            <MenuItem Header="Layout">
+                <MenuItem Header="Load" Command="{Binding LoadLayoutCommand, ElementName=mainWindow}"/>
+                <MenuItem Header="Save" Command="{Binding SaveLayoutCommand, ElementName=mainWindow}"/>
+            </MenuItem>-->
+        </Menu>
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1">
+            <avalonDock:LayoutRoot>
+                <avalonDock:LayoutPanel Orientation="Horizontal" >
+                    <avalonDock:LayoutAnchorablePaneGroup DockMinWidth="175" DockWidth="1*" Orientation="Vertical">
+                        <avalonDock:LayoutAnchorablePane>
+                            <avalonDock:LayoutAnchorable Title="Search" ContentId="SearchTool"  CanAutoHide="False" CanClose="False" CanHide="False">
+                                <UserControl Content="{Binding SearchView}" />
+                            </avalonDock:LayoutAnchorable>
+                            <avalonDock:LayoutAnchorable Title="OOB" ContentId="OOBTool" CanAutoHide="False" CanClose="False" CanHide="False">
+                                <UserControl Content="{Binding OOBView}" />
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutAnchorablePaneGroup>
+                    <avalonDock:LayoutPanel Orientation="Vertical">
+                        <avalonDock:LayoutAnchorablePaneGroup Orientation="Vertical">
+                            <avalonDock:LayoutAnchorablePane>
+                                <avalonDock:LayoutAnchorable ContentId="MapView" Title="Map View" CanAutoHide="False" CanClose="False" CanHide="False">
+                                    <UserControl Content="{Binding MapView}" />
+                                </avalonDock:LayoutAnchorable>
+                                <avalonDock:LayoutAnchorable ContentId="TimeLineView"  Title="Time Line View" CanAutoHide="False" CanClose="False" CanHide="False">
+                                    <UserControl Content="{Binding MTLView}" Visibility="{Binding TimeLineViewVisibility}" />
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutAnchorablePaneGroup>
+
+                        <avalonDock:LayoutAnchorablePaneGroup DockMinHeight="60" DockHeight="60" Orientation="Vertical">
+                            <avalonDock:LayoutAnchorablePane>
+                                <avalonDock:LayoutAnchorable ContentId="PhaseSlider"  Title="Phase Slider" CanAutoHide="False" CanClose="False" CanHide="False" CanFloat="False">
+                                    <Slider Minimum="{Binding SliderMinimum}" Maximum="{Binding SliderMaximum}" Value="{Binding SliderValue}" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="10,0" SmallChange="1" Cursor="Cross" />
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutAnchorablePaneGroup>
+                    </avalonDock:LayoutPanel>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutRoot>
+        </avalonDock:DockingManager>
+    </Grid>
+</Window>

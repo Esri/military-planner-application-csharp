@@ -1047,6 +1047,8 @@ namespace MilitaryPlanner.ViewModels
                     _phaseMessageDictionary[messageLayer.ID].Add(msg.Id);
                 }
 
+                DoCloneMission(null);
+
                 return result;
             }
 
