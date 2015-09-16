@@ -1218,6 +1218,8 @@ namespace MilitaryPlanner.ViewModels
             tam.PhaseControlPointsDictionary.Add(_mission.PhaseList[CurrentPhaseIndex].ID, tam[MilitaryMessage.ControlPointsPropertyName]);
 
             AddMilitaryMessageToMessageList(tam);
+
+            DoCloneMission(null);
         }
 
         private void AddMilitaryMessageToMessageList(TimeAwareMilitaryMessage tam)
