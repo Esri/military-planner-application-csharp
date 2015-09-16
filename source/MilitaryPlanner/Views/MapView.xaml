@@ -38,7 +38,7 @@
 				<VisualState x:Name="ShowPanel">
 					<Storyboard>
 						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="stackPanel">
-							<EasingDoubleKeyFrame KeyTime="0" Value="72"/>
+							<EasingDoubleKeyFrame KeyTime="0" Value="47"/>
 						</DoubleAnimationUsingKeyFrames>
 					</Storyboard>
 				</VisualState>
@@ -91,7 +91,7 @@
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 		</Rectangle>
-		<StackPanel x:Name="stackPanel" Background="White" Margin="0,-72,0,0" Height="52" VerticalAlignment="Top" HorizontalAlignment="Center" >
+		<StackPanel x:Name="stackPanel" Background="Transparent" Margin="0,-72,0,0" Height="52" VerticalAlignment="Top" HorizontalAlignment="Center" >
 			<StackPanel.RenderTransform>
 				<TransformGroup>
 					<ScaleTransform/>
@@ -103,7 +103,7 @@
 			<StackPanel.Effect>
 				<DropShadowEffect/>
 			</StackPanel.Effect>
-			<Grid x:Name="layoutGrid" Margin="5" Background="White">
+			<Grid x:Name="layoutGrid" Margin="5" Background="Transparent">
 				<StackPanel Orientation="Vertical">
 					<StackPanel x:Name="MyStackPanel" Orientation="Horizontal">
                         <Button Content="{StaticResource AddImage}" Margin="3" Command="{Binding PhaseAddCommand}"            
