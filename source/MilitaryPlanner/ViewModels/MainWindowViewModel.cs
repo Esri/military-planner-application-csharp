@@ -201,11 +201,12 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand OpenCommand { get; set; }
+        public RelayCommand CloseCommand { get; set; }
         public RelayCommand EditMissionPhasesCommand { get; set; }
         public RelayCommand EditGeometryCommand { get; set; }
         public RelayCommand EditGeometryUndoCommand { get; set; }
         public RelayCommand EditGeometryRedoCommand { get; set; }
-        public RelayCommand SwitchViewCommand { get; set; }
+        //public RelayCommand SwitchViewCommand { get; set; }
 
         // testing
         public RelayCommand TestingCloneCommand { get; set; }
@@ -233,11 +234,12 @@ namespace MilitaryPlanner.ViewModels
             DeleteCommand = new RelayCommand(OnDeleteCommand);
             SaveCommand = new RelayCommand(OnSaveCommand);
             OpenCommand = new RelayCommand(OnOpenCommand);
+            CloseCommand = new RelayCommand(OnCloseCommand);
             EditMissionPhasesCommand = new RelayCommand(OnEditMissionPhases);
             EditGeometryCommand = new RelayCommand(OnEditGeometryCommand);
             EditGeometryRedoCommand = new RelayCommand(OnEditGeometryRedoCommand);
             EditGeometryUndoCommand = new RelayCommand(OnEditGeometryUndoCommand);
-            SwitchViewCommand = new RelayCommand(OnSwitchViewCommand);
+            //SwitchViewCommand = new RelayCommand(OnSwitchViewCommand);
 
             //testing
             TestingCloneCommand = new RelayCommand(OnTestingCloneCommand);
@@ -246,42 +248,6 @@ namespace MilitaryPlanner.ViewModels
             OOBView = new OrderOfBattleView();
             MapView = new MapView();
             MTLView = new MissionTimeLineView();
-        }
-
-        private void OnTestingCloneCommand(object obj)
-        {
-            Mediator.NotifyColleagues(Constants.ACTION_CLONE_MISSION, null);
-            TimeLineViewVisibility = Visibility.Visible;
-        }
-
-        private void OnSwitchViewCommand(object obj)
-        {
-            if (MapViewVisibility == Visibility.Visible)
-            {
-                Mediator.NotifyColleagues(Constants.ACTION_CLONE_MISSION, null);
-                TimeLineViewVisibility = Visibility.Visible;
-                MapViewVisibility = Visibility.Collapsed;
-            }
-            else
-            {
-                TimeLineViewVisibility = Visibility.Collapsed;
-                MapViewVisibility = Visibility.Visible;
-            }
-        }
-
-        private void OnEditGeometryUndoCommand(object obj)
-        {
-            Mediator.NotifyColleagues(Constants.ACTION_EDIT_UNDO, null);
-        }
-
-        private void OnEditGeometryRedoCommand(object obj)
-        {
-            Mediator.NotifyColleagues(Constants.ACTION_EDIT_REDO, null);
-        }
-
-        private void OnEditGeometryCommand(object obj)
-        {
-            Mediator.NotifyColleagues(Constants.ACTION_EDIT_GEOMETRY, null);
         }
 
         private void OnEditMissionPhases(object obj)
@@ -308,6 +274,52 @@ namespace MilitaryPlanner.ViewModels
         #endregion
 
         #region Command Handlers
+
+        private void OnNewCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_NEW_MISSION, null);
+        }
+
+        private void OnCloseCommand(object obj)
+        {
+            Application.Current.MainWindow.Close();
+        }
+
+        private void OnTestingCloneCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_CLONE_MISSION, null);
+            TimeLineViewVisibility = Visibility.Visible;
+        }
+
+        //private void OnSwitchViewCommand(object obj)
+        //{
+        //    if (MapViewVisibility == Visibility.Visible)
+        //    {
+        //        Mediator.NotifyColleagues(Constants.ACTION_CLONE_MISSION, null);
+        //        TimeLineViewVisibility = Visibility.Visible;
+        //        MapViewVisibility = Visibility.Collapsed;
+        //    }
+        //    else
+        //    {
+        //        TimeLineViewVisibility = Visibility.Collapsed;
+        //        MapViewVisibility = Visibility.Visible;
+        //    }
+        //}
+
+        private void OnEditGeometryUndoCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_EDIT_UNDO, null);
+        }
+
+        private void OnEditGeometryRedoCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_EDIT_REDO, null);
+        }
+
+        private void OnEditGeometryCommand(object obj)
+        {
+            Mediator.NotifyColleagues(Constants.ACTION_EDIT_GEOMETRY, null);
+        }
 
         private void OnCancelCommand(object obj)
         {

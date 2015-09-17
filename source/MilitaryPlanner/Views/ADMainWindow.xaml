@@ -8,32 +8,39 @@
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="ViewModelMain"/>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CancelCommand, Mode=TwoWay}" />
+        <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
+        <KeyBinding Modifiers="Control" Key="S" Command="{Binding SaveCommand}" />
+        <KeyBinding Modifiers="Control" Key="L" Command="{Binding OpenCommand}" />
+        <KeyBinding Modifiers="Control" Key="Z" Command="{Binding EditGeometryUndoCommand}" />
+        <KeyBinding Modifiers="Control" Key="Y" Command="{Binding EditGeometryRedoCommand}" />
+        <KeyBinding Key="F2" Command="{Binding EditGeometryCommand}" />
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Testing">
+            <!--<MenuItem Header="Testing">
                 <MenuItem Header="Clone Mission" Command="{Binding TestingCloneCommand}"/>
-            </MenuItem>
-            <!--<MenuItem Header="File">
-                <MenuItem Header="New" Command="{Binding NewCommand}"/>
-                <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
-                <Separator/>
-                <MenuItem Header="Save" Command="{Binding ActiveDocument.SaveCommand}"/>
-                <MenuItem Header="Save As..." Command="{Binding ActiveDocument.SaveAsCommand}"/>
-                <Separator/>
-                <MenuItem Header="Close" Command="{Binding ActiveDocument.CloseCommand}"/>
-            </MenuItem>
-            <MenuItem Header="Tools">
-                <MenuItem Header="Properties" IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-                <MenuItem Header="Map View" IsChecked="{Binding MapView.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-            </MenuItem>
-            <MenuItem Header="Layout">
-                <MenuItem Header="Load" Command="{Binding LoadLayoutCommand, ElementName=mainWindow}"/>
-                <MenuItem Header="Save" Command="{Binding SaveLayoutCommand, ElementName=mainWindow}"/>
             </MenuItem>-->
+            <MenuItem Header="File">
+                <MenuItem Header="New" Command="{Binding NewCommand}"/>
+                <MenuItem Header="Open (Ctrl+L)" Command="{Binding OpenCommand}"/>
+                <Separator/>
+                <MenuItem Header="Save (Ctrl+S)" Command="{Binding SaveCommand}"/>
+                <Separator/>
+                <MenuItem Header="Close" Command="{Binding CloseCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Phases" Command="{Binding EditMissionPhasesCommand}" />
+                <Separator/>
+                <MenuItem Header="Edit Geometry (F2)" Command="{Binding EditGeometryCommand}" />
+                <MenuItem Header="Redo (Ctrl+Y)" Command="{Binding EditGeometryRedoCommand}"/>
+                <MenuItem Header="Undo (Ctrl+Z)" Command="{Binding EditGeometryUndoCommand}"/>
+            </MenuItem>
         </Menu>
         <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1">
             <avalonDock:LayoutRoot>
@@ -49,9 +56,9 @@
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutAnchorablePaneGroup>
                     <avalonDock:LayoutPanel Orientation="Vertical">
-                        <avalonDock:LayoutAnchorablePaneGroup Orientation="Vertical">
+                        <avalonDock:LayoutAnchorablePaneGroup Orientation="Vertical" >
                             <avalonDock:LayoutAnchorablePane>
-                                <avalonDock:LayoutAnchorable ContentId="MapView" Title="Map View" CanAutoHide="False" CanClose="False" CanHide="False">
+                                <avalonDock:LayoutAnchorable ContentId="MapView" Title="Map View" CanAutoHide="False" CanClose="False" CanHide="False" >
                                     <UserControl Content="{Binding MapView}" />
                                 </avalonDock:LayoutAnchorable>
                                 <avalonDock:LayoutAnchorable ContentId="TimeLineView"  Title="Time Line View" CanAutoHide="False" CanClose="False" CanHide="False">

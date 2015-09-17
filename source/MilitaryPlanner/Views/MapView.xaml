@@ -26,10 +26,7 @@
         <Image x:Key="RoutingImage" Source="/MilitaryPlanner;component/icons/Route32.png"/>
         <Image x:Key="BasemapImage" Source="/MilitaryPlanner;component/icons/Basemap32.png"/>
     </UserControl.Resources>
-	<Grid DataContext="{StaticResource MyMapViewModel}"
-		helper:EventToCommand.Event="FrameworkElement.Loaded"
-		helper:EventToCommand.CommandParameter="{Binding ElementName=MyMapView}"
-		helper:EventToCommand.Command="{Binding SetMapCommand}">
+	<Grid DataContext="{StaticResource MyMapViewModel}">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup x:Name="ShowHideTopPanel">
 				<VisualStateGroup.Transitions>
@@ -54,7 +51,10 @@
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
-        <esri:MapView x:Name="MyMapView">
+        <esri:MapView x:Name="MyMapView"
+            helper:EventToCommand.Event="Loaded"
+		    helper:EventToCommand.CommandParameter="{Binding ElementName=MyMapView}"
+		    helper:EventToCommand.Command="{Binding SetMapCommand}">
             <i:Interaction.Behaviors>
                 <behavior:FrameworkElementDropBehavior/>
             </i:Interaction.Behaviors>

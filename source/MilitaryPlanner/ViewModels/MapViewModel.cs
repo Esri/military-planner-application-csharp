@@ -59,7 +59,7 @@ namespace MilitaryPlanner.ViewModels
         private EditState _editState = EditState.None;
         private MessageLayer _militaryMessageLayer;
         private TimeExtent _currentTimeExtent = null; 
-        private readonly Mission _mission = new Mission("Default Mission");
+        private Mission _mission = new Mission("Default Mission");
         private int _currentPhaseIndex = 0;
         private Geometry _beforeEditGeometry = null;
 
@@ -106,6 +106,7 @@ namespace MilitaryPlanner.ViewModels
             Mediator.Register(Constants.ACTION_EDIT_REDO, DoEditRedo);
             Mediator.Register(Constants.ACTION_EDIT_UNDO, DoEditUndo);
             Mediator.Register(Constants.ACTION_CLONE_MISSION, DoCloneMission);
+            Mediator.Register(Constants.ACTION_NEW_MISSION, DoNewMission);
 
             SetMapCommand = new RelayCommand(OnSetMap);
             PhaseAddCommand = new RelayCommand(OnPhaseAdd);
@@ -122,6 +123,11 @@ namespace MilitaryPlanner.ViewModels
             ToggleGotoXYToolCommand = new RelayCommand(OnToggleGotoXYToolCommand);
             ToggleNetworkingToolCommand = new RelayCommand(OnToggleNetworkingToolCommand);
             ToggleBasemapGalleryCommand = new RelayCommand(OnToggleBasemapGalleryCommand);
+        }
+
+        private void DoNewMission(object obj)
+        {
+            _mission = new Mission("Default Mission");
         }
 
         private void OnToggleBasemapGalleryCommand(object obj)
@@ -438,15 +444,18 @@ namespace MilitaryPlanner.ViewModels
             if (_militaryMessageLayer != null && _mapView != null)
             {
                 _mapView.Map.Layers.Remove(_militaryMessageLayer.ID);
-
+                _militaryMessageLayer = null;
                 AddNewMilitaryMessagelayer();
             }
         }
 
         private void AddNewMilitaryMessagelayer()
         {
-            _militaryMessageLayer = new MessageLayer(SymbolDictionaryType.Mil2525c) {ID = Guid.NewGuid().ToString("D")};
-            _mapView.Map.Layers.Add(_militaryMessageLayer);
+            if (_militaryMessageLayer == null)
+            {
+                _militaryMessageLayer = new MessageLayer(SymbolDictionaryType.Mil2525c) { ID = Guid.NewGuid().ToString("D") };
+                _mapView.Map.Layers.Add(_militaryMessageLayer);
+            }
         }
 
         private void ProccessMilitaryMessages(TimeExtent timeExtent)
@@ -480,6 +489,8 @@ namespace MilitaryPlanner.ViewModels
                     Mediator.NotifyColleagues(Constants.ACTION_ITEM_WITH_GUID_ADDED, mm.Id);
                 }
             }
+
+            DoCloneMission(null);
         }
 
         private void DoDragDropStarted(object obj)
@@ -730,6 +741,12 @@ namespace MilitaryPlanner.ViewModels
             {
                 return;
             }
+
+            if(_mapView != null)
+            {
+                return;
+            }
+
             _mapView = mapView;
             _map = mapView.Map;
 
@@ -921,6 +938,8 @@ namespace MilitaryPlanner.ViewModels
                 if (_militaryMessageLayer.ProcessMessage(msg))
                 {
                     UpdateMilitaryMessageControlPoints(msg);
+
+                    DoCloneMission(null);
                 }
             }
         }
@@ -971,6 +990,8 @@ namespace MilitaryPlanner.ViewModels
                 if (_militaryMessageLayer.ProcessMessage(msg))
                 {
                     UpdateMilitaryMessageControlPoints(msg);
+
+                    DoCloneMission(null);
                 }
             }
         }
@@ -993,6 +1014,8 @@ namespace MilitaryPlanner.ViewModels
             _militaryMessageLayer.ProcessMessage(msg);
 
             RemoveMessageFromPhase(CurrentPhaseIndex, _mission.MilitaryMessages.First(m => m.Id == message.Id));
+
+            DoCloneMission(null);
         }
 
         private void RemoveMessageFromPhase(int phaseIndex, TimeAwareMilitaryMessage tam)
@@ -1205,12 +1228,13 @@ namespace MilitaryPlanner.ViewModels
             if (ProcessMessage(_militaryMessageLayer, msg))
             {
                 RecordMessageBeingAdded(msg);
+
+                DoCloneMission(null);
             }
             else
             {
                 MessageBox.Show("Failed to process message.");
             }
-
         }
 
         private void RecordMessageBeingAdded(TimeAwareMilitaryMessage tam)
@@ -1218,8 +1242,6 @@ namespace MilitaryPlanner.ViewModels
             tam.PhaseControlPointsDictionary.Add(_mission.PhaseList[CurrentPhaseIndex].ID, tam[MilitaryMessage.ControlPointsPropertyName]);
 
             AddMilitaryMessageToMessageList(tam);
-
-            DoCloneMission(null);
         }
 
         private void AddMilitaryMessageToMessageList(TimeAwareMilitaryMessage tam)
@@ -1332,6 +1354,8 @@ namespace MilitaryPlanner.ViewModels
             if (ProcessMessage(_militaryMessageLayer, tam))
             {
                 RecordMessageBeingAdded(tam);
+
+                DoCloneMission(null);
             }
             else
             {
