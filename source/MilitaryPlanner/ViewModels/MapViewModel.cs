@@ -128,6 +128,17 @@ namespace MilitaryPlanner.ViewModels
         private void DoNewMission(object obj)
         {
             _mission = new Mission("Default Mission");
+            _militaryMessageLayer.ChildLayers.Clear();
+            _phaseMessageDictionary.Clear();
+            InitializeMapWithMission();
+            if (_mission.PhaseList.Count < 1)
+            {
+                if (_mission.AddPhase("Phase 1"))
+                {
+                    Mediator.NotifyColleagues(Constants.ACTION_PHASE_ADDED, null);
+                    RaisePropertyChanged(() => PhaseDescription);
+                }
+            }
         }
 
         private void OnToggleBasemapGalleryCommand(object obj)
@@ -436,7 +447,10 @@ namespace MilitaryPlanner.ViewModels
             ClearMilitaryMessageLayer();
 
             // process military messages for current phase
-            ProccessMilitaryMessages(_mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent);
+            if (_mission.PhaseList.Any())
+            {
+                ProccessMilitaryMessages(_mission.PhaseList[CurrentPhaseIndex].VisibleTimeExtent);
+            }
         }
 
         private void ClearMilitaryMessageLayer()
@@ -1085,6 +1099,8 @@ namespace MilitaryPlanner.ViewModels
             {
                 // remove message
                 RemoveMessage(_currentMessage);
+
+                CurrentTimeExtent = null;
             }
         }
 

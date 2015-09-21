@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:vm="clr-namespace:MilitaryPlanner.ViewModels"
-        Title="Military Planner" Height="434" Width="684"
+        Title="Military Planner" Height="600" Width="800"
         DataContext="{DynamicResource ViewModelMain}">
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="ViewModelMain"/>

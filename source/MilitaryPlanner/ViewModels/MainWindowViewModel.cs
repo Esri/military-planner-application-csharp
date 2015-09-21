@@ -202,6 +202,7 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand OpenCommand { get; set; }
         public RelayCommand CloseCommand { get; set; }
+        public RelayCommand NewCommand { get; set; }
         public RelayCommand EditMissionPhasesCommand { get; set; }
         public RelayCommand EditGeometryCommand { get; set; }
         public RelayCommand EditGeometryUndoCommand { get; set; }
@@ -235,6 +236,7 @@ namespace MilitaryPlanner.ViewModels
             SaveCommand = new RelayCommand(OnSaveCommand);
             OpenCommand = new RelayCommand(OnOpenCommand);
             CloseCommand = new RelayCommand(OnCloseCommand);
+            NewCommand = new RelayCommand(OnNewCommand);
             EditMissionPhasesCommand = new RelayCommand(OnEditMissionPhases);
             EditGeometryCommand = new RelayCommand(OnEditGeometryCommand);
             EditGeometryRedoCommand = new RelayCommand(OnEditGeometryRedoCommand);
