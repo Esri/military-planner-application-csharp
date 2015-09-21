@@ -3,7 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:vm="clr-namespace:MilitaryPlanner.ViewModels"
-        Title="Military Planner" Height="600" Width="800"
+        xmlns:helper="clr-namespace:MilitaryPlanner.Helpers"
+        Title="Military Planner"
+        Height="{helper:SettingBinding Height}"
+        Width="{helper:SettingBinding Width}"
+        Left="{helper:SettingBinding Left}"
+        Top="{helper:SettingBinding Top}"
+        WindowState="{helper:SettingBinding WindowState}"
         DataContext="{DynamicResource ViewModelMain}">
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="ViewModelMain"/>
@@ -23,9 +29,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu>
-            <!--<MenuItem Header="Testing">
-                <MenuItem Header="Clone Mission" Command="{Binding TestingCloneCommand}"/>
-            </MenuItem>-->
             <MenuItem Header="File">
                 <MenuItem Header="New" Command="{Binding NewCommand}"/>
                 <MenuItem Header="Open (Ctrl+L)" Command="{Binding OpenCommand}"/>

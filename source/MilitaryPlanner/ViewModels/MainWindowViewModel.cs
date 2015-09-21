@@ -207,10 +207,6 @@ namespace MilitaryPlanner.ViewModels
         public RelayCommand EditGeometryCommand { get; set; }
         public RelayCommand EditGeometryUndoCommand { get; set; }
         public RelayCommand EditGeometryRedoCommand { get; set; }
-        //public RelayCommand SwitchViewCommand { get; set; }
-
-        // testing
-        public RelayCommand TestingCloneCommand { get; set; }
 
         #endregion
 
@@ -241,11 +237,7 @@ namespace MilitaryPlanner.ViewModels
             EditGeometryCommand = new RelayCommand(OnEditGeometryCommand);
             EditGeometryRedoCommand = new RelayCommand(OnEditGeometryRedoCommand);
             EditGeometryUndoCommand = new RelayCommand(OnEditGeometryUndoCommand);
-            //SwitchViewCommand = new RelayCommand(OnSwitchViewCommand);
 
-            //testing
-            TestingCloneCommand = new RelayCommand(OnTestingCloneCommand);
-            
             SearchView = new PaletteSearchView();
             OOBView = new OrderOfBattleView();
             MapView = new MapView();
@@ -292,21 +284,6 @@ namespace MilitaryPlanner.ViewModels
             Mediator.NotifyColleagues(Constants.ACTION_CLONE_MISSION, null);
             TimeLineViewVisibility = Visibility.Visible;
         }
-
-        //private void OnSwitchViewCommand(object obj)
-        //{
-        //    if (MapViewVisibility == Visibility.Visible)
-        //    {
-        //        Mediator.NotifyColleagues(Constants.ACTION_CLONE_MISSION, null);
-        //        TimeLineViewVisibility = Visibility.Visible;
-        //        MapViewVisibility = Visibility.Collapsed;
-        //    }
-        //    else
-        //    {
-        //        TimeLineViewVisibility = Visibility.Collapsed;
-        //        MapViewVisibility = Visibility.Visible;
-        //    }
-        //}
 
         private void OnEditGeometryUndoCommand(object obj)
         {
