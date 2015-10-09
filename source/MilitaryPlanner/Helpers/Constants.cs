@@ -24,6 +24,7 @@ namespace MilitaryPlanner.Helpers
         public const string ACTION_MISSION_LOADED = "MissionLoaded";
         public const string ACTION_SAVE_MISSION = "SaveMission";
         public const string ACTION_OPEN_MISSION = "OpenMission";
+        public const string ACTION_NEW_MISSION = "NewMission";
         public const string ACTION_MSG_PROCESSED = "MessageProcessed";
         public const string ACTION_PHASE_ADDED = "PhaseAdded";
         public const string ACTION_PHASE_NEXT = "PhaseNext";

@@ -26,10 +26,7 @@
         <Image x:Key="RoutingImage" Source="/MilitaryPlanner;component/icons/Route32.png"/>
         <Image x:Key="BasemapImage" Source="/MilitaryPlanner;component/icons/Basemap32.png"/>
     </UserControl.Resources>
-	<Grid DataContext="{StaticResource MyMapViewModel}"
-		helper:EventToCommand.Event="FrameworkElement.Loaded"
-		helper:EventToCommand.CommandParameter="{Binding ElementName=MyMapView}"
-		helper:EventToCommand.Command="{Binding SetMapCommand}">
+	<Grid DataContext="{StaticResource MyMapViewModel}">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup x:Name="ShowHideTopPanel">
 				<VisualStateGroup.Transitions>
@@ -38,7 +35,7 @@
 				<VisualState x:Name="ShowPanel">
 					<Storyboard>
 						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="stackPanel">
-							<EasingDoubleKeyFrame KeyTime="0" Value="72"/>
+							<EasingDoubleKeyFrame KeyTime="0" Value="47"/>
 						</DoubleAnimationUsingKeyFrames>
 					</Storyboard>
 				</VisualState>
@@ -54,7 +51,10 @@
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
-        <esri:MapView x:Name="MyMapView">
+        <esri:MapView x:Name="MyMapView"
+            helper:EventToCommand.Event="Loaded"
+		    helper:EventToCommand.CommandParameter="{Binding ElementName=MyMapView}"
+		    helper:EventToCommand.Command="{Binding SetMapCommand}">
             <i:Interaction.Behaviors>
                 <behavior:FrameworkElementDropBehavior/>
             </i:Interaction.Behaviors>
@@ -91,7 +91,14 @@
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 		</Rectangle>
-		<StackPanel x:Name="stackPanel" Background="White" Margin="0,-72,0,0" Height="52" VerticalAlignment="Top" HorizontalAlignment="Center" >
+        <Rectangle x:Name="ShowObject" Fill="#00F4F4F5" HorizontalAlignment="Left" Height="13.6" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0" Width="2000">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseEnter">
+                    <ei:GoToStateAction StateName="ShowPanel"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Rectangle>
+        <StackPanel x:Name="stackPanel" Background="Transparent" Margin="0,-72,0,0" Height="52" VerticalAlignment="Top" HorizontalAlignment="Center" >
 			<StackPanel.RenderTransform>
 				<TransformGroup>
 					<ScaleTransform/>
@@ -100,12 +107,8 @@
 					<TranslateTransform/>
 				</TransformGroup>
 			</StackPanel.RenderTransform>
-			<StackPanel.Effect>
-				<DropShadowEffect/>
-			</StackPanel.Effect>
-			<Grid x:Name="layoutGrid" Margin="5" Background="White">
-				<StackPanel Orientation="Vertical">
-					<StackPanel x:Name="MyStackPanel" Orientation="Horizontal">
+			<Grid x:Name="layoutGrid" Margin="5" Background="Transparent">
+                    <StackPanel x:Name="MyStackPanel" Orientation="Horizontal">
                         <Button Content="{StaticResource AddImage}" Margin="3" Command="{Binding PhaseAddCommand}"            
 							ToolTipService.ToolTip="Add a new phase"/>
                         <Button Content="{StaticResource BackImage}" Margin="3" Command="{Binding PhaseBackCommand}"            
@@ -114,7 +117,7 @@
 							ToolTipService.ToolTip="Go forward one phase"/>
                         <Button Content="{StaticResource SaveImage}" Margin="3" Command="{Binding SaveCommand}"            
 							ToolTipService.ToolTip="Save mission or geomessages"/>
-                        <Button Content="{StaticResource LoadImage}" Margin="3" Command="{Binding LoadCommand}"            
+                        <Button Content="{StaticResource LoadImage}" Margin="3" Command="{Binding LoadCommand}"          
 							ToolTipService.ToolTip="Load mission"/>
                         <Button Content="{StaticResource MeasureImage}" Margin="3" Command="{Binding MeasureCommand}"            
 							ToolTipService.ToolTip="Measure" />
@@ -127,16 +130,8 @@
                         <Button Content="{StaticResource BasemapImage}" Margin="3" Command="{Binding ToggleBasemapGalleryCommand}" CommandParameter="True"            
 							ToolTipService.ToolTip="Basemap Gallery" />
                     </StackPanel>
-				</StackPanel>
 			</Grid>
 		</StackPanel>
-		<Rectangle x:Name="ShowObject" Fill="#00F4F4F5" HorizontalAlignment="Left" Height="13.6" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0" Width="2000">
-			<i:Interaction.Triggers>
-				<i:EventTrigger EventName="MouseEnter">
-					<ei:GoToStateAction StateName="ShowPanel"/>
-				</i:EventTrigger>
-			</i:Interaction.Triggers>
-		</Rectangle>
         <Border x:Name="TimeAwareAttributeEditor"
                 Visibility="{Binding HasTimeExtent, Converter={StaticResource BoolConverter}}"
                 Background="White"
