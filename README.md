@@ -55,7 +55,7 @@ This is an Esri ArcGIS Runtime for .NET Application Prototype Template that can 
 * [ArcGIS Runtime for .NET Resource Center](https://developers.arcgis.com/net/)
 * [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
 * ![Twitter](https://g.twimg.com/twitter-bird-16x16.png)[@EsriDefense](http://twitter.com/EsriDefense)
-* [ArcGIS Solutions Website](http://solutions.arcgis.com/military/)
+* [ArcGIS Solutions Website](http://solutions.arcgis.com/defense/)
 
 ## Issues
 
