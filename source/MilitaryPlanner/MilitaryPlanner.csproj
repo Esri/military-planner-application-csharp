@@ -59,7 +59,7 @@
     <ManifestCertificateThumbprint>1B7864614FF08E156B18C1B965C0B18AC9567A61</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>MilitaryPlanner_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>MilitaryPlanner_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
