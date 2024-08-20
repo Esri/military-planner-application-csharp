@@ -1,5 +1,7 @@
 # military-planner-application-csharp
 
+## *This repo is no longer maintained* 
+
 This is an Esri ArcGIS Runtime for .NET Application Prototype Template that can be used for demonstrating military operations planning.
 
 ![Image of Military Planner Application](ScreenShot.PNG) 
